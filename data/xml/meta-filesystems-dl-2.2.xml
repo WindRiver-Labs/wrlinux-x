@@ -1,0 +1,1 @@
+    <project name="external/yocto/github.com.libfuse.sshfs" remote="base" path="layers/meta-openembedded-dl/meta-filesystems-dl-2.2/git/github.com.libfuse.sshfs" bare="True"/>

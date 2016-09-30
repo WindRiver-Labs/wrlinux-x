@@ -1,0 +1,1 @@
+    <project name="external/yocto/git.fedorahosted.org.git.microcode_ctl" remote="base" path="layers/wr-base-dl/git/external/yocto/git.fedorahosted.org.git.microcode_ctl" bare="True"/>

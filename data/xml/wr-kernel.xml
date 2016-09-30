@@ -1,0 +1,3 @@
+    <project name="kernel-4.8.x" remote="base" path="layers/wr-kernel/git/kernel-4.8.x.git" bare="True"/>
+    <project name="kernel-cache" remote="base" path="layers/wr-kernel/git/kernel-cache.git" bare="True"/>
+    <project name="windriver-kernel-tools" remote="base" path="layers/wr-kernel/git/windriver-kernel-tools.git" bare="True"/>

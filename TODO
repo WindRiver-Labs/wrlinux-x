@@ -1,0 +1,13 @@
+[ ]	check for 'repo in a repo'
+
+[ ]	review 'sample' files
+
+[ ]	Add 'repo' to project 'bin' dir
+
+[ ]	Add ability to specify a local layer to setup.sh
+
+[ ]	Add ability to specify a remote url to setup.sh
+
+[ ]	build - sample config   -- resync tool
+
+[ ]	"." git-repo setup referencing external url

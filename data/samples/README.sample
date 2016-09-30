@@ -1,0 +1,74 @@
+This is a Wind River Linux build project.  It was constructed by the setup
+program using the following arguments:
+
+####CONFIGURE_ARGS####
+
+
+Buildtools
+----------
+Wind River provides special host build-tools in order to supplement the
+build systems tools.  While this is not required, it can solve many
+problems with missing or incompatible host tools.  These tools are installed
+into bin/buildtools.
+
+We recomend you always source this into your environment each time you
+open a new shell session, and before issueing any build system commands.
+To do this:
+
+$ . ./environment-setup-<host>-wrlinuxsdk-linux
+
+
+Quickstart Instructions
+-----------------------
+Once you have sourced the environment file, as noted above...
+
+You must first create a build directory:
+
+$ . ./oe-init-build-env <build>
+
+The <build> is the directory to create, if not specified the system will
+default to the directory 'build'.
+
+Once the build directory has been created, the system will change your
+working directory to be inside of the build directory.  Each time you
+open a new shell session you will need to source the oe-init-build-env
+script as indicated above.
+
+Once in the build directory edit the 'conf/local.conf' file.  Please
+refer to the comments in the file for specific configuration instructions.
+
+After configuring your build directory, you may now run bitbake commands.
+Bitbake commands are of the format: bitbake <recipe>
+
+For example:
+
+$ bitbake core-image-minimal
+
+Once your have built an image, you can boot this using QEMU (for compatible
+MACHINE settings) using the 'runqemu' command, such as:
+
+$ runqemu ####DEFAULTMACHINE####
+
+
+To update your project
+----------------------
+To update your project either re-run the setup program or use the command:
+
+$ repo sync
+
+The sync command will simply update your project, on the current branch, to
+the latest version.
+
+If you use the setup program you can change the branch, and/or project
+configuration.  Note, the build directory is not updated -- you will have
+to update this to the new configuration manually, or start a new build
+directory.
+
+
+Local layer
+-----------
+A special 'local' layer has been added to your project automatically.
+This layer is located at the path 'layers/local' in your project.
+
+The purpose of the local layer is a staging location for your project
+work, including any new recipes, classes or scripts.
