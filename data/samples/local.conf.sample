@@ -28,7 +28,7 @@
 # The following variables control the template inclusion mechanism.
 #
 # Specify templates you wish to use in a space separated list.
-#WRTEMPLATE = "feautre/item1 feature/item2 ..."
+WRTEMPLATE ?= "####DEFAULTWRTEMPLATE####"
 
 # If you want to disable one or more templates
 # Note: this matches the 'end' of any templates that were found.. so you can do
@@ -61,8 +61,8 @@
 MACHINE ??= "####DEFAULTMACHINE####"
 
 # Setup the default the kernel type
-KTYPE_ENABLED = "####DEFAULTKTYPE####"
-LINUX_KERNEL_TYPE = "####DEFAULTKTYPE####"
+KTYPE_ENABLED ?= "####DEFAULTKTYPE####"
+LINUX_KERNEL_TYPE ?= "####DEFAULTKTYPE####"
 
 #
 # Where to place downloads

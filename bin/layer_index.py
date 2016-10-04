@@ -202,10 +202,10 @@ class Layer_Index():
         if branches:
             filter = "?filter=layerbranch__branch__name:%s" \
                      % "OR".join(branches)
-        if 'WRtemplates' in lindex['apilinks']:
-            lindex['WRtemplates'] = _get_json_response(lindex['apilinks']['WRtemplates'] + filter)
+        if 'wrtemplates' in lindex['apilinks']:
+            lindex['wrtemplates'] = _get_json_response(lindex['apilinks']['wrtemplates'] + filter)
         else:
-            lindex['WRtemplates'] = []
+            lindex['wrtemplates'] = []
 
         logging.info('done.')
         print('done.')
@@ -224,7 +224,7 @@ class Layer_Index():
         lindex['recipes'] = []
         lindex['machines'] = []
         lindex['distributions'] = []
-        lindex['WRtemplates'] = []
+        lindex['wrtemplates'] = []
 
         assert path is not None
 
@@ -300,7 +300,7 @@ class Layer_Index():
         lindex['recipes'] = []
         lindex['machines'] = []
         lindex['distributions'] = []
-        lindex['WRtemplates'] = []
+        lindex['wrtemplates'] = []
 
         assert path is not None
 
@@ -358,8 +358,8 @@ class Layer_Index():
                             name = 'machines'
                         elif 'distribution' == model[11:]:
                             name = 'distributions'
-                        elif 'WRtemplate' == model[11:]:
-                            name = 'WRtemplates'
+                        elif 'wrtemplate' == model[11:]:
+                            name = 'wrtemplates'
                         else:
                             name = model[11:]
 
@@ -503,8 +503,8 @@ class Layer_Index():
                     model = 'layerindex.machine'
                 elif 'distributions' == entry:
                     model = 'layerindex.distribution'
-                elif 'WRtemplates' == entry:
-                    model = 'layerindex.WRtemplate'
+                elif 'wrtemplates' == entry:
+                    model = 'layerindex.wrtemplate'
                 else:
                     model = 'layerindex.' + entry
 
@@ -583,7 +583,7 @@ class Layer_Index():
             json.dump(dbindex, open(fpath + '.json', 'wt'), indent=4)
 
 
-    def find_layer(self, lindex, id=None, name=None, layerBranch=None, layerBranchId=None, distribution=None, machine=None, recipe=None, WRtemplate=None):
+    def find_layer(self, lindex, id=None, name=None, layerBranch=None, layerBranchId=None, distribution=None, machine=None, recipe=None, wrtemplate=None):
         result = []
 
         if layerBranch:
@@ -623,9 +623,9 @@ class Layer_Index():
                 if rec['pn'] == recipe:
                     layerBranchIds.append(rec['layerbranch'])
 
-        if WRtemplate:
-            for tmpl in lindex['WRtemplates']:
-                if tmpl['name'] == WRtemplate:
+        if wrtemplate:
+            for tmpl in lindex['wrtemplates']:
+                if tmpl['name'] == wrtemplate:
                     layerBranchIds.append(tmpl['layerbranch'])
 
         if layerBranchIds:
@@ -679,8 +679,8 @@ class Layer_Index():
     def list_machines(self, core_branch):
         self.list_obj(core_branch, 'machines', 'machine')
 
-    def list_WRtemplates(self, core_branch):
-        self.list_obj(core_branch, 'WRtemplates', 'templates')
+    def list_wrtemplates(self, core_branch):
+        self.list_obj(core_branch, 'wrtemplates', 'templates')
 
     def list_recipes(self, core_branch):
         for lindex in self.index:
@@ -707,7 +707,7 @@ class Layer_Index():
                 return branch['id']
         return None
 
-    def getLayerBranch(self, lindex, branchid, layerBranchId=None, name=None, distribution=None, machine=None, recipe=None, WRtemplate=None, layerItem=None):
+    def getLayerBranch(self, lindex, branchid, layerBranchId=None, name=None, distribution=None, machine=None, recipe=None, wrtemplate=None, layerItem=None):
         result = []
         if layerBranchId:
             for lb in lindex['layerBranches']:
@@ -740,8 +740,8 @@ class Layer_Index():
             if layerItem:
                 layerItems = layerItems + layerItem
 
-        if WRtemplate:
-            layerItem = self.find_layer(lindex, WRtemplate=WRtemplate)
+        if wrtemplate:
+            layerItem = self.find_layer(lindex, wrtemplate=wrtemplate)
             if layerItem:
                 layerItems = layerItems + layerItem
 

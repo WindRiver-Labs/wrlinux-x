@@ -36,7 +36,7 @@ class Argparse_Configure:
 
         if parsed_args.list_templates:
             if self.setup:
-                self.setup.list_WRtemplates = True
+                self.setup.list_wrtemplates = True
 
         if (parsed_args.list_distributions or parsed_args.list_machines or parsed_args.list_layers or parsed_args.list_recipes or parsed_args.list_templates):
             return
@@ -72,10 +72,10 @@ class Argparse_Configure:
 
         if parsed_args.templates:
             if self.setup:
-                self.setup.WRtemplates = []
+                self.setup.wrtemplates = []
                 for t in parsed_args.templates:
-                    for WRtemplate in t.split(','):
-                        self.setup.WRtemplates.append(WRtemplate)
+                    for wrtemplate in t.split(','):
+                        self.setup.wrtemplates.append(wrtemplate)
 
         if parsed_args.all_layers:
             if self.setup:

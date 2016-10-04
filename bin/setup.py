@@ -57,7 +57,7 @@ class Setup():
         self.machines = [ settings.DEFAULT_MACHINE ]
         self.layers = []
         self.recipes = []
-        self.WRtemplates = []
+        self.wrtemplates = []
         self.kernel = settings.DEFAULT_KTYPE
 
         self.all_layers = False
@@ -105,7 +105,7 @@ class Setup():
         self.list_machines = False
         self.list_layers = False
         self.list_recipes = False
-        self.list_WRtemplates = False
+        self.list_wrtemplates = False
 
     def exit(self, ret=0):
         logging.debug("setup.py finished (ret=%s)" % (ret))
@@ -174,10 +174,10 @@ class Setup():
         if self.list_recipes:
             self.index.list_recipes(self.base_branch)
 
-        if self.list_WRtemplates:
-            self.index.list_WRtemplates(self.base_branch)
+        if self.list_wrtemplates:
+            self.index.list_wrtemplates(self.base_branch)
 
-        if self.list_distributions or self.list_machines or self.list_layers or self.list_recipes or self.list_WRtemplates:
+        if self.list_distributions or self.list_machines or self.list_layers or self.list_recipes or self.list_wrtemplates:
             sys.exit(0)
 
         self.start_logging()
@@ -196,7 +196,7 @@ class Setup():
         logging.info('Setting machine to "%s"' % (self.machines))
         logging.info('Setting layers to "%s"' % (self.layers))
         logging.info('Setting recipes to "%s"' % (self.recipes))
-        logging.info('Setting templates to "%s"' % (self.WRtemplates))
+        logging.info('Setting templates to "%s"' % (self.wrtemplates))
 
         self.process_layers()
 
@@ -239,14 +239,14 @@ class Setup():
 
         # process the configuration arguments (find the layers we need for the project)
         # if an item is 'layer:item', then the 'foo' part must match a layer name.
-        def procConfig(layer=None, distribution=None, machine=None, recipe=None, WRtemplate=None):
+        def procConfig(layer=None, distribution=None, machine=None, recipe=None, wrtemplate=None):
             item = ['', layer][layer != None] + ['', distribution][distribution != None]
             item = item + ['', machine][machine != None] + ['', recipe][recipe != None]
-            item = item + ['', WRtemplate][WRtemplate != None]
+            item = item + ['', wrtemplate][wrtemplate != None]
 
             type = ['', 'layer'][layer != None] + ['', 'distribution'][distribution != None]
             type = type + ['', 'machine'][machine != None] + ['', 'recipe'][recipe != None]
-            type = type + ['', 'template'][WRtemplate != None]
+            type = type + ['', 'template'][wrtemplate != None]
 
             if (':' in item):
                 # User told us which layer, so ignore the other bits -- they can be used later...
@@ -254,7 +254,7 @@ class Setup():
                 distribution = None
                 machine = None
                 recipe = None
-                WRtemplate = None
+                wrtemplate = None
 
             # TODO: We do not actually verify the item we asked for (if a layer was specified) is available
             found = False
@@ -262,7 +262,7 @@ class Setup():
                 branchid = self.index.getBranchId(lindex, self.base_branch)
                 if not branchid:
                     continue
-                for layerBranch in self.index.getLayerBranch(lindex, branchid, name=layer, distribution=distribution, machine=machine, recipe=recipe, WRtemplate=WRtemplate) or []:
+                for layerBranch in self.index.getLayerBranch(lindex, branchid, name=layer, distribution=distribution, machine=machine, recipe=recipe, wrtemplate=wrtemplate) or []:
                     requiredQueue.append( (lindex, layerBranch) )
                     found = True
                 if found:
@@ -290,8 +290,8 @@ class Setup():
             if not procConfig(recipe=l):
                 allfound = False
 
-        for l in self.WRtemplates:
-            if not procConfig(WRtemplate=l):
+        for l in self.wrtemplates:
+            if not procConfig(wrtemplate=l):
                 allfound = False
 
         # Add all layers -- if necessary
@@ -457,7 +457,8 @@ class Setup():
             tmplconf.close()
 
         layers = []
-        configure_args = " ".join(self.configure_args)
+        # We need to strip '=True', that is what a few args do by being set!
+        configure_args = " ".join(self.configure_args).replace('=True', '')
         machines = {}
         defaultmachine = self.machines[0]
         distributions = {}
@@ -530,6 +531,9 @@ class Setup():
                     if ':' in name:
                         name = ':'.join(name.split(':')[1:])
                     dst.write(line.replace('####DEFAULTDISTRO####', name))
+                    continue
+                if '####DEFAULTWRTEMPLATE####' in line:
+                    dst.write(line.replace('####DEFAULTWRTEMPLATE####', ' '.join(self.wrtemplates)))
                     continue
                 if '####DEFAULTKTYPE####' in line:
                     dst.write(line.replace('####DEFAULTKTYPE####', defaultktype))
