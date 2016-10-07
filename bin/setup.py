@@ -53,7 +53,7 @@ class Setup():
         self.mirror = False
 
         # Default configuration
-        self.distributions = [ settings.DEFAULT_DISTRO ]
+        self.distros = [ settings.DEFAULT_DISTRO ]
         self.machines = [ settings.DEFAULT_MACHINE ]
         self.layers = []
         self.recipes = []
@@ -101,7 +101,7 @@ class Setup():
         self.tools = {i : self.get_path(i) for i in self.tool_list}
 
         # Config flags
-        self.list_distributions = False
+        self.list_distros = False
         self.list_machines = False
         self.list_layers = False
         self.list_recipes = False
@@ -162,8 +162,8 @@ class Setup():
                   ]
         self.index = Layer_Index(indexcfg=settings.INDEXES, base_branch=self.base_branch, replace=replace)
 
-        if self.list_distributions:
-            self.index.list_distributions(self.base_branch)
+        if self.list_distros:
+            self.index.list_distros(self.base_branch)
 
         if self.list_machines:
             self.index.list_machines(self.base_branch)
@@ -177,7 +177,7 @@ class Setup():
         if self.list_wrtemplates:
             self.index.list_wrtemplates(self.base_branch)
 
-        if self.list_distributions or self.list_machines or self.list_layers or self.list_recipes or self.list_wrtemplates:
+        if self.list_distros or self.list_machines or self.list_layers or self.list_recipes or self.list_wrtemplates:
             sys.exit(0)
 
         self.start_logging()
@@ -192,7 +192,7 @@ class Setup():
         for key in self.tools:
             logging.debug("%s -> %s", key, self.tools[key])
 
-        logging.info('Setting distro to "%s"' % (self.distributions))
+        logging.info('Setting distro to "%s"' % (self.distros))
         logging.info('Setting machine to "%s"' % (self.machines))
         logging.info('Setting layers to "%s"' % (self.layers))
         logging.info('Setting recipes to "%s"' % (self.recipes))
@@ -239,19 +239,19 @@ class Setup():
 
         # process the configuration arguments (find the layers we need for the project)
         # if an item is 'layer:item', then the 'foo' part must match a layer name.
-        def procConfig(layer=None, distribution=None, machine=None, recipe=None, wrtemplate=None):
-            item = ['', layer][layer != None] + ['', distribution][distribution != None]
+        def procConfig(layer=None, distro=None, machine=None, recipe=None, wrtemplate=None):
+            item = ['', layer][layer != None] + ['', distro][distro != None]
             item = item + ['', machine][machine != None] + ['', recipe][recipe != None]
             item = item + ['', wrtemplate][wrtemplate != None]
 
-            type = ['', 'layer'][layer != None] + ['', 'distribution'][distribution != None]
+            type = ['', 'layer'][layer != None] + ['', 'distro'][distro != None]
             type = type + ['', 'machine'][machine != None] + ['', 'recipe'][recipe != None]
             type = type + ['', 'template'][wrtemplate != None]
 
             if (':' in item):
                 # User told us which layer, so ignore the other bits -- they can be used later...
                 layer = item.split(':')[0]
-                distribution = None
+                distro = None
                 machine = None
                 recipe = None
                 wrtemplate = None
@@ -262,7 +262,7 @@ class Setup():
                 branchid = self.index.getBranchId(lindex, self.base_branch)
                 if not branchid:
                     continue
-                for layerBranch in self.index.getLayerBranch(lindex, branchid, name=layer, distribution=distribution, machine=machine, recipe=recipe, wrtemplate=wrtemplate) or []:
+                for layerBranch in self.index.getLayerBranch(lindex, branchid, name=layer, distro=distro, machine=machine, recipe=recipe, wrtemplate=wrtemplate) or []:
                     requiredQueue.append( (lindex, layerBranch) )
                     found = True
                 if found:
@@ -278,8 +278,8 @@ class Setup():
             if not procConfig(layer=l):
                 allfound = False
 
-        for l in self.distributions:
-            if not procConfig(distribution=l):
+        for l in self.distros:
+            if not procConfig(distro=l):
                 allfound = False
 
         for l in self.machines:
@@ -461,8 +461,8 @@ class Setup():
         configure_args = " ".join(self.configure_args).replace('=True', '')
         machines = {}
         defaultmachine = self.machines[0]
-        distributions = {}
-        defaultdistribution = self.distributions[0]
+        distros = {}
+        defaultdistro = self.distros[0]
         defaultktype = self.kernel
 
         def addLayer(lindex, layerBranch):
@@ -491,12 +491,12 @@ class Setup():
                     desc = machine['description'] or machine['name']
                     machines[machine['name']] = desc
 
-        # Add distribution to 'DISTROS'
+        # Add distro to 'DISTROS'
         for (lindex, layerBranch) in self.requiredlayers + self.recommendedlayers:
-            for distribution in lindex['distributions']:
-                if distribution['layerbranch'] == layerBranch['id']:
-                    desc = distribution['description'] or distribution['name']
-                    distributions[distribution['name']] = desc
+            for distro in lindex['distros']:
+                if distro['layerbranch'] == layerBranch['id']:
+                    desc = distro['description'] or distro['name']
+                    distros[distro['name']] = desc
 
         def copySample(src, dst):
             src = open(src, 'r')
@@ -522,12 +522,12 @@ class Setup():
                     dst.write(line.replace('####DEFAULTMACHINE####', name))
                     continue
                 if '####DISTROS####' in line:
-                    for (name, desc) in sorted(distributions.items(), key=lambda t: t[0]):
+                    for (name, desc) in sorted(distros.items(), key=lambda t: t[0]):
                         dst.write('# %s\n' % desc.strip())
                         dst.write(line.replace('####DISTROS####', name))
                     continue
                 if '####DEFAULTDISTRO####' in line:
-                    name = defaultdistribution
+                    name = defaultdistro
                     if ':' in name:
                         name = ':'.join(name.split(':')[1:])
                     dst.write(line.replace('####DEFAULTDISTRO####', name))

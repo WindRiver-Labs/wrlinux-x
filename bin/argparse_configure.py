@@ -18,9 +18,9 @@ class Argparse_Configure:
 
     def handle_configure_args(self, parsed_args):
         # Look for list options
-        if parsed_args.list_distributions:
+        if parsed_args.list_distros:
             if self.setup:
-                self.setup.list_distributions = True
+                self.setup.list_distros = True
 
         if parsed_args.list_machines:
             if self.setup:
@@ -38,13 +38,13 @@ class Argparse_Configure:
             if self.setup:
                 self.setup.list_wrtemplates = True
 
-        if (parsed_args.list_distributions or parsed_args.list_machines or parsed_args.list_layers or parsed_args.list_recipes or parsed_args.list_templates):
+        if (parsed_args.list_distros or parsed_args.list_machines or parsed_args.list_layers or parsed_args.list_recipes or parsed_args.list_templates):
             return
 
         # Parse actual configuration options
-        if parsed_args.distributions:
+        if parsed_args.distros:
             if self.setup:
-                self.setup.distributions = [ parsed_args.distributions ]
+                self.setup.distros = [ parsed_args.distros ]
 
         #if not parsed_args.machines:
         #    raise StandardError('You must specify at least one machine')
@@ -109,19 +109,19 @@ class Argparse_Configure:
 
     def add_configure_options(self):
         # List options
-        self.parser.add_argument('--list-distributions',   action='store_true', help='List all available distribution values.')
+        self.parser.add_argument('--list-distros',   action='store_true', help='List all available distro values.')
         self.parser.add_argument('--list-machines',  action='store_true', help='List all available machine values.')
         self.parser.add_argument('--list-layers',    action='store_true', help='List all available layers.')
         self.parser.add_argument('--list-recipes',   action='store_true', help='List all available recipes.')
         self.parser.add_argument('--list-templates', action='store_true', help='List all available templates.')
 
         # Layer selection and local.conf setup
-        setup_distribution = ""
-        setup_distribution_str = ""
+        setup_distro = ""
+        setup_distro_str = ""
         if self.setup:
-            setup_distribution = self.setup.distributions[0]
-            setup_distribution_str = '(default %s)' % setup_distribution
-        self.parser.add_argument('--distributions', metavar='DISTRIBUTION', help='Select layer(s) based on required distribution and set the default DISTRO= value %s' % setup_distribution_str, default=setup_distribution)
+            setup_distro = self.setup.distros[0]
+            setup_distro_str = '(default %s)' % setup_distro
+        self.parser.add_argument('--distros', metavar='distro', help='Select layer(s) based on required distribution and set the default DISTRO= value %s' % setup_distro_str, default=setup_distro)
 
         setup_machine = ""
         setup_machine_str = ""

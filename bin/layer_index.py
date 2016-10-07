@@ -65,12 +65,12 @@ class Layer_Index():
                     os.makedirs(dir, exist_ok=True)
                 self.serialize_index(lindex, indexcache, split=False)
 
-            if lindex and 'distributions' in lindex:
+            if lindex and 'distros' in lindex:
                 # Default setup is actually implemented as 'nodistro'
-                for (idx, dist) in enumerate(lindex['distributions']):
+                for (idx, dist) in enumerate(lindex['distros']):
                     if dist['name'] == "defaultsetup":
                         dist['name'] = 'nodistro'
-                        lindex['distributions'][idx] = dist
+                        lindex['distros'][idx] = dist
 
             for entry in lindex['layerItems']:
                 for obj in entry:
@@ -91,7 +91,7 @@ class Layer_Index():
         """
             Fetches layer information from a remote layer index.
             The return value is a dictionary containing API, branch,
-            layer, branch, dependency, recipe, machine, distribution,
+            layer, branch, dependency, recipe, machine, distro,
             and template information.
 
             url is the url to the rest api of the layer index, such as:
@@ -193,10 +193,10 @@ class Layer_Index():
         if branches:
             filter = "?filter=layerbranch__branch__name:%s" \
                      % "OR".join(branches)
-        if 'distributions' in lindex['apilinks']:
-            lindex['distributions'] = _get_json_response(lindex['apilinks']['distributions'] + filter)
+        if 'distros' in lindex['apilinks']:
+            lindex['distros'] = _get_json_response(lindex['apilinks']['distros'] + filter)
         else:
-            lindex['distributions'] = [{"layerbranch": 1, "id": 1, "description": "default", "updated": "2016-01-01T00:00:00+0000", "name": "nodistro"}]
+            lindex['distros'] = [{"layerbranch": 1, "id": 1, "description": "default", "updated": "2016-01-01T00:00:00+0000", "name": "nodistro"}]
 
         filter = ""
         if branches:
@@ -223,7 +223,7 @@ class Layer_Index():
         lindex['layerDependencies'] = []
         lindex['recipes'] = []
         lindex['machines'] = []
-        lindex['distributions'] = []
+        lindex['distros'] = []
         lindex['wrtemplates'] = []
 
         assert path is not None
@@ -299,7 +299,7 @@ class Layer_Index():
         lindex['layerDependencies'] = []
         lindex['recipes'] = []
         lindex['machines'] = []
-        lindex['distributions'] = []
+        lindex['distros'] = []
         lindex['wrtemplates'] = []
 
         assert path is not None
@@ -356,8 +356,8 @@ class Layer_Index():
                             name = 'recipes'
                         elif 'machine' == model[11:]:
                             name = 'machines'
-                        elif 'distribution' == model[11:]:
-                            name = 'distributions'
+                        elif 'distro' == model[11:]:
+                            name = 'distros'
                         elif 'wrtemplate' == model[11:]:
                             name = 'wrtemplates'
                         else:
@@ -501,8 +501,8 @@ class Layer_Index():
                     model = 'layerindex.recipe'
                 elif 'machines' == entry:
                     model = 'layerindex.machine'
-                elif 'distributions' == entry:
-                    model = 'layerindex.distribution'
+                elif 'distros' == entry:
+                    model = 'layerindex.distro'
                 elif 'wrtemplates' == entry:
                     model = 'layerindex.wrtemplate'
                 else:
@@ -583,7 +583,7 @@ class Layer_Index():
             json.dump(dbindex, open(fpath + '.json', 'wt'), indent=4)
 
 
-    def find_layer(self, lindex, id=None, name=None, layerBranch=None, layerBranchId=None, distribution=None, machine=None, recipe=None, wrtemplate=None):
+    def find_layer(self, lindex, id=None, name=None, layerBranch=None, layerBranchId=None, distro=None, machine=None, recipe=None, wrtemplate=None):
         result = []
 
         if layerBranch:
@@ -608,9 +608,9 @@ class Layer_Index():
         if layerBranchId:
             layerBranchIds.append(layerBranchId)
 
-        if distribution:
-            for dist in lindex['distributions']:
-                if dist['name'] == distribution:
+        if distro:
+            for dist in lindex['distros']:
+                if dist['name'] == distro:
                     layerBranchIds.append(dist['layerbranch'])
 
         if machine:
@@ -673,8 +673,8 @@ class Layer_Index():
                                 print('%s %s %s' % ('{:24}'.format(name), '{:34}'.format(description[:34]), lname))
             print ('')
 
-    def list_distributions(self, core_branch):
-        self.list_obj(core_branch, 'distributions', 'distribution')
+    def list_distros(self, core_branch):
+        self.list_obj(core_branch, 'distros', 'distro')
 
     def list_machines(self, core_branch):
         self.list_obj(core_branch, 'machines', 'machine')
@@ -707,7 +707,7 @@ class Layer_Index():
                 return branch['id']
         return None
 
-    def getLayerBranch(self, lindex, branchid, layerBranchId=None, name=None, distribution=None, machine=None, recipe=None, wrtemplate=None, layerItem=None):
+    def getLayerBranch(self, lindex, branchid, layerBranchId=None, name=None, distro=None, machine=None, recipe=None, wrtemplate=None, layerItem=None):
         result = []
         if layerBranchId:
             for lb in lindex['layerBranches']:
@@ -725,8 +725,8 @@ class Layer_Index():
             if layerItem:
                 layerItems = layerItems + layerItem
 
-        if distribution:
-            layerItem = self.find_layer(lindex, distribution=distribution)
+        if distro:
+            layerItem = self.find_layer(lindex, distro=distro)
             if layerItem:
                 layerItems = layerItems + layerItem
 
