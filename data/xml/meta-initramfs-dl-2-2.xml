@@ -1,1 +1,1 @@
-    <project name="external/yocto/git.kernel.org.pub.scm.boot.dracut.dracut.git" remote="base" path="layers/meta-openembedded-dl/meta-initramfs-dl-2.2/git/git.kernel.org.pub.scm.boot.dracut.dracut.git" bare="True"/>
+    <project name="external/yocto/git.kernel.org.pub.scm.boot.dracut.dracut.git" remote="base" path="layers/meta-initramfs-dl-2.2/git/git.kernel.org.pub.scm.boot.dracut.dracut.git" bare="True"/>
