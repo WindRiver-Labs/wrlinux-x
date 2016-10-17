@@ -48,6 +48,7 @@ class Setup():
         # Pull in the defaults from the environment (set by setup.sh)
         self.base_url = os.getenv('WR_BASEURL')
         self.base_branch = os.getenv('WR_COREBRANCH')
+        self.buildtools_remote = os.getenv('WR_BUILDTOOLS_REMOTE')
 
         # Real project or a mirror?
         self.mirror = False
@@ -601,7 +602,7 @@ class Setup():
                 write_xml('wrlinux-x', 'wrlinux-x', 'base', 'wrlinux-x', self.base_branch)
 
             write_xml('git-repo', 'tools/git-repo', 'base', 'tools/git-repo', 'master') # hard coded for now...
-            write_xml('buildtools', 'layers/buildtools/buildtools-standalone-20160929', 'base', 'layers/buildtools/buildtools-standalone-20160929', 'master')
+            write_xml('buildtools', self.buildtools_remote, 'base', self.buildtools_remote, 'master')
 
         def process_xml_layers(allLayers):
             def process_xml_layer(lindex, layerBranch):

@@ -4,7 +4,7 @@ GIT_USERNAME="customer"
 GIT_USEREMAIL="customer@company.com"
 
 # Buildtools location can change -- this is the path on top of the BASEURL
-BUILDTOOLS_REMOTE="/layers/buildtools/buildtools-standalone-20160929"
+BUILDTOOLS_REMOTE="layers/buildtools/buildtools-standalone-20160929"
 
 # Where to install the build tools
 BUILDTOOLS="bin/buildtools"
@@ -124,23 +124,23 @@ if [ $help -ne 1 ]; then
 	else
 		# Did the buildtools URL change?
 		BUILDTOOLSURL=$(git config -f ${BUILDTOOLS_GIT}/.git/config local.last.url)
-		if [ "${BUILDTOOLSURL}" != "${BASEURL}${BUILDTOOLS_REMOTE}" ]; then
+		if [ "${BUILDTOOLSURL}" != "${BASEURL}/${BUILDTOOLS_REMOTE}" ]; then
 			FETCH_BUILDTOOLS=1
 		fi
 	fi
 
 	if [ ${FETCH_BUILDTOOLS} -eq 1 ]; then
 		echo "Fetching buildtools.."
-		(cd ${BUILDTOOLS_GIT} && git fetch -f -n -u "${BASEURL}${BUILDTOOLS_REMOTE}" ${BUILDTOOLSBRANCH}:${BUILDTOOLS_REF})
+		(cd ${BUILDTOOLS_GIT} && git fetch -f -n -u "${BASEURL}/${BUILDTOOLS_REMOTE}" ${BUILDTOOLSBRANCH}:${BUILDTOOLS_REF})
 		if [ $? -ne 0 ]; then
-			echo "Error fetching buildtools repository ${BASEURL}${BUILDTOOLS_REMOTE}" >&2
+			echo "Error fetching buildtools repository ${BASEURL}/${BUILDTOOLS_REMOTE}" >&2
 			exit 1
 		fi
 		# Set a flag so we know where the fetch was from...
 		(
 			cd ${BUILDTOOLS_GIT}
-			git config "local.${BUILDTOOLS_REF}.url" "${BASEURL}${BUILDTOOLS_REMOTE}"
-			git config local.last.url "${BASEURL}${BUILDTOOLS_REMOTE}"
+			git config "local.${BUILDTOOLS_REF}.url" "${BASEURL}/${BUILDTOOLS_REMOTE}"
+			git config local.last.url "${BASEURL}/${BUILDTOOLS_REMOTE}"
 			git checkout "${BUILDTOOLS_REF}"
 		)
 		if [ $? -ne 0 ]; then
@@ -207,4 +207,4 @@ fi
 
 # Python 3 required utf-8 support to work properly, adjust the LANG to en_US.UTF-8.
 # Pass the computed url and branch to ${cmd}
-LANG='en_US.UTF-8' REPO_URL=${BASEURL}/tools/git-repo WR_BASEURL=${BASEURL} WR_COREBRANCH=${BASEBRANCH} ${CMD} "$@"
+LANG='en_US.UTF-8' REPO_URL=${BASEURL}/tools/git-repo WR_BASEURL=${BASEURL} WR_COREBRANCH=${BASEBRANCH} WR_BUILDTOOLS_REMOTE=${BUILDTOOLS_REMOTE} ${CMD} "$@"
