@@ -4,7 +4,7 @@ GIT_USERNAME="customer"
 GIT_USEREMAIL="customer@company.com"
 
 # Buildtools location can change -- this is the path on top of the BASEURL
-BUILDTOOLS_REMOTE="layers/buildtools/buildtools-standalone-20160929"
+BUILDTOOLS_REMOTE="layers/buildtools/buildtools-standalone-20161013"
 
 # Where to install the build tools
 BUILDTOOLS="bin/buildtools"
