@@ -239,7 +239,7 @@ class Setup():
 
         # It all startes with BASE_LAYERS, so always include this. (only from index 0)
         lindex = self.index.index[0]
-        branchid = self.index.getBranchId(lindex, self.base_branch)
+        branchid = self.index.getBranchId(lindex, self.get_branch(lindex=lindex))
         if branchid:
             for lname in settings.BASE_LAYERS.split():
                 base_layerBranch = self.index.getLayerBranch(lindex, branchid, name=lname)
@@ -272,7 +272,7 @@ class Setup():
             # TODO: We do not actually verify the item we asked for (if a layer was specified) is available
             found = False
             for lindex in self.index.index:
-                branchid = self.index.getBranchId(lindex, self.base_branch)
+                branchid = self.index.getBranchId(lindex, self.get_branch(lindex=lindex))
                 if not branchid:
                     continue
                 for layerBranch in self.index.getLayerBranch(lindex, branchid, name=layer, distro=distro, machine=machine, recipe=recipe, wrtemplate=wrtemplate) or []:
@@ -310,7 +310,7 @@ class Setup():
         # Add all layers -- if necessary
         if self.all_layers == True:
             for lindex in self.index.index:
-                branchid = self.index.getBranchId(lindex, self.base_branch)
+                branchid = self.index.getBranchId(lindex, self.get_branch(lindex=lindex))
                 if not branchid:
                     continue
                 for l in lindex['layerItems']:
@@ -408,7 +408,7 @@ class Setup():
             process_remote(lindex, layerBranch)
 
         def display_layer(lindex, layerBranch):
-            branchid = self.index.getBranchId(lindex, self.base_branch)
+            branchid = self.index.getBranchId(lindex, self.get_branch(lindex=lindex))
 
             for layer in self.index.find_layer(lindex, id=layerBranch['layer']):
                 vcs_url = layer['vcs_url']
@@ -479,7 +479,7 @@ class Setup():
         defaultktype = self.kernel
 
         def addLayer(lindex, layerBranch):
-            branchid = self.index.getBranchId(lindex, self.base_branch)
+            branchid = self.index.getBranchId(lindex, self.get_branch(lindex=lindex))
 
             paths = []
             for layer in self.index.find_layer(lindex, id=layerBranch['layer']):
@@ -618,7 +618,7 @@ class Setup():
 
         def process_xml_layers(allLayers):
             def process_xml_layer(lindex, layerBranch):
-                branchid = self.index.getBranchId(lindex, self.base_branch)
+                branchid = self.index.getBranchId(lindex, self.get_branch(lindex=lindex))
 
                 for layer in self.index.find_layer(lindex, id=layerBranch['layer']):
                     revision = layerBranch['actual_branch'] or self.index.getBranch(lindex, branchid)['name']
@@ -644,6 +644,18 @@ class Setup():
                     if url not in cache:
                         cache[url] = []
 
+                    if entry['name'] == 'openembedded-core':
+                        bitbakeBranch = self.index.getBranch(lindex, layerBranch['branch'])['bitbake_branch']
+                        bitbake_entry = {
+                                'name' : 'bitbake',
+                                'remote' : remote,
+                                'path' : path + '/bitbake',
+                                'revision' : bitbakeBranch,
+                            }
+                        if settings.BITBAKE not in cache:
+                            cache[settings.BITBAKE] = []
+                        cache[settings.BITBAKE].append(bitbake_entry)
+
                     cache[url].append(entry)
 
             # We need to construct a list of layers with same urls...
@@ -659,11 +671,6 @@ class Setup():
                 remote = cache[url][0]['remote']
                 path = cache[url][0]['path']
                 revision = cache[url][0]['revision']
-
-                # OpenEmbedded-core is unique, we need to add bitbake
-                if name == 'openembedded-core':
-                    bitbakeBranch = self.index.getBranch(lindex, layerBranch['branch'])['bitbake_branch']
-                    write_xml('bitbake', settings.BITBAKE, remote, path + '/bitbake', bitbakeBranch)
 
                 open_xml_tag(name, url, remote, path, revision)
 
@@ -864,6 +871,11 @@ class Setup():
             log_it = 0
         self.run_cmd(cmd, log=log_it)
         logging.debug('Done')
+
+    def get_branch(self, lindex=None):
+        if lindex:
+            return self.index.getIndexBranch(default=self.base_branch, lindex=lindex)
+        return self.base_branch
 
     def get_path(self, tool):
         cmd = self.which(tool)

@@ -74,6 +74,9 @@ class Layer_Index():
                     print('Unknown index type  %s' % indextype)
                     raise SyntaxError
 
+            if lindex and 'BRANCH' in cfg:
+                lindex['BRANCH'] = cfg['BRANCH']
+
             if lindex and indexcache and not os.path.exists(indexcache + '.json'):
                 dir = os.path.dirname(indexcache)
                 if dir:
@@ -99,8 +102,6 @@ class Layer_Index():
             if lindex:
                 self.index.append(lindex)
 
-                #os.makedirs('config/export/', exist_ok=True)
-                #self.serialize_django_export(lindex, 'config/export/' + lindex["name"], split=False)
 
     def load_API_Index(self, url, name=None, branches=None):
         """
@@ -660,7 +661,7 @@ class Layer_Index():
             print ('Index: %s' % (lindex['name'] or lindex['url']))
             print ('%s %s' % (('{:25}'.format('layer'), 'summary')))
             print ('{:-^80}'.format(""))
-            branchid = self.getBranchId(lindex, core_branch)
+            branchid = self.getBranchId(lindex, self.getIndexBranch(default=core_branch, lindex=lindex))
             if branchid:
                 for lb in lindex['layerBranches']:
                     if lb['branch'] == branchid:
@@ -675,7 +676,7 @@ class Layer_Index():
             print ('Index: %s' % (lindex['name'] or lindex['url']))
             print ('%s %s %s' % (('{:24}'.format(display), '{:34}'.format('description'), '{:19}'.format('layer'))))
             print ('{:-^80}'.format(""))
-            branchid = self.getBranchId(lindex, core_branch)
+            branchid = self.getBranchId(lindex, self.getIndexBranch(default=core_branch, lindex=lindex))
             if branchid:
                 # there are more layerBranches then objects (usually)...
                 for lb in lindex['layerBranches']:
@@ -702,7 +703,7 @@ class Layer_Index():
             print ('Index: %s' % (lindex['name'] or lindex['url']))
             print ('%s %s %s' % (('{:15}'.format('recipe'), '{:9}'.format('version'), 'summary')))
             print ('{:-^80}'.format(""))
-            branchid = self.getBranchId(lindex, core_branch)
+            branchid = self.getBranchId(lindex, self.getIndexBranch(default=core_branch, lindex=lindex))
             if branchid:
                 # there are more layerBranches then objects (usually)...
                 for lb in lindex['layerBranches']:
@@ -798,3 +799,8 @@ class Layer_Index():
         if branch:
             return branch['bitbake_branch'] or branch['name']
         return None
+
+    def getIndexBranch(self, default=None, lindex=None):
+        if lindex and 'BRANCH' in lindex:
+            return lindex['BRANCH']
+        return default
