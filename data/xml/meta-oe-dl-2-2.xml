@@ -4,6 +4,7 @@
     <project name="external/yocto/github.com.berke.wipe.git" remote="base" path="layers/meta-oe-dl-2.2/git/github.com.berke.wipe.git" bare="True"/>
     <project name="external/yocto/github.com.DrHyde.rsnapshot" remote="base" path="layers/meta-oe-dl-2.2/git/github.com.DrHyde.rsnapshot" bare="True"/>
     <project name="external/yocto/github.com.esnet.iperf.git" remote="base" path="layers/meta-oe-dl-2.2/git/github.com.esnet.iperf.git" bare="True"/>
+    <project name="external/yocto/github.com.fontforge.fontforge.git" remote="base" path="layers/meta-oe-dl-2.2/git/github.com.fontforge.fontforge.git" bare="True"/>
     <project name="external/yocto/github.com.grondo.edac-utils" remote="base" path="layers/meta-oe-dl-2.2/git/github.com.grondo.edac-utils" bare="True"/>
     <project name="external/yocto/github.com.jthornber.thin-provisioning-tools" remote="base" path="layers/meta-oe-dl-2.2/git/github.com.jthornber.thin-provisioning-tools" bare="True"/>
     <project name="external/yocto/github.com.libgd.libgd.git" remote="base" path="layers/meta-oe-dl-2.2/git/github.com.libgd.libgd.git" bare="True"/>

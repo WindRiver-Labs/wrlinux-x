@@ -1,0 +1,10 @@
+    <project name="external/yocto/github.com.autocracy.python-ipy.git" remote="base" path="layers/wr-installer-dl/git/github.com.autocracy.python-ipy.git" bare="True"/>
+    <project name="external/yocto/github.com.engla.keybinder.git" remote="base" path="layers/wr-installer-dl/git/github.com.engla.keybinder.git" bare="True"/>
+    <project name="external/yocto/github.com.mike-fabian.langtable.git" remote="base" path="layers/wr-installer-dl/git/github.com.mike-fabian.langtable.git" bare="True"/>
+    <project name="external/yocto/github.com.rhinstaller.blivet" remote="base" path="layers/wr-installer-dl/git/github.com.rhinstaller.blivet" bare="True"/>
+    <project name="external/yocto/github.com.rhinstaller.pykickstart.git" remote="base" path="layers/wr-installer-dl/git/github.com.rhinstaller.pykickstart.git" bare="True"/>
+    <project name="external/yocto/github.com.rhinstaller.anaconda" remote="base" path="layers/wr-installer-dl/git/github.com.rhinstaller.anaconda" bare="True"/>
+    <project name="external/yocto/github.com.rhinstaller.isomd5sum.git" remote="base" path="layers/wr-installer-dl/git/github.com.rhinstaller.isomd5sum.git" bare="True"/>
+    <project name="external/yocto/github.com.rhinstaller.python-meh.git" remote="base" path="layers/wr-installer-dl/git/github.com.rhinstaller.python-meh.git" bare="True"/>
+    <project name="external/yocto/github.com.seveas.python-prctl" remote="base" path="layers/wr-installer-dl/git/github.com.seveas.python-prctl" bare="True"/>
+    <project name="external/yocto/github.com.TigerVNC.tigervnc.git" remote="base" path="layers/wr-installer-dl/git/github.com.TigerVNC.tigervnc.git" bare="True"/>
