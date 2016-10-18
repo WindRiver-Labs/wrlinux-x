@@ -699,13 +699,18 @@ class Setup():
             'config/conf-notes.txt',
             'config/local.conf.sample',
             'config/site.conf.sample',
+            'README',
             'default.xml',
             ]
 
-        # git add manifest.
+        # git add manifest. (Since these files are new, always try to add them)
         cmd = [self.tools['git'], 'add', '--']
         for file in filelist:
             cmd.append(file)
+        self.run_cmd(cmd, cwd=self.project_dir)
+
+        # Now add anything known, updated, but not already added
+        cmd = [self.tools['git'], 'add', '-u', '.']
         self.run_cmd(cmd, cwd=self.project_dir)
 
         cmd = [self.tools['git'], 'diff-index', '--quiet', 'HEAD', '--']
@@ -762,7 +767,15 @@ class Setup():
             cmd.append(self.quiet)
         self.run_cmd(cmd, cwd=self.conf_dir)
 
-        open(os.path.join(self.project_dir, '.gitignore'), 'a').close()
+        gitignore = open(os.path.join(self.project_dir, '.gitignore'), 'w')
+
+        gitignore.write('.repo*\n')
+        gitignore.write('*.pyc\n')
+        gitignore.write('/bin/buildtools*\n')
+        gitignore.write('/layers/*\n')
+        gitignore.write('!layers/local\n')
+
+        gitignore.close()
 
         # git add file.
         cmd = [self.tools['git'], 'add', '.']
