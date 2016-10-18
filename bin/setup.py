@@ -451,14 +451,22 @@ class Setup():
             if self.mirror != True:
                 self.setup_local_layer()
 
-            if self.mirror != True:
-                for (dirpath, dirnames, filenames) in os.walk(os.path.join(self.project_dir, 'bin/buildtools')):
-                    for filename in filenames:
-                        if filename.startswith('environment-setup-'):
-                            os.symlink(os.path.join(dirpath, filename), os.path.join(self.project_dir, filename))
-
             # Run this last as it does the initial project commit
             self.setup_git_project_dir()
+
+        if self.mirror != True:
+            # We need to make sure the environment-setup link is always current
+            for (dirpath, dirnames, filenames) in os.walk(os.path.join(self.project_dir, 'bin/buildtools')):
+                for filename in filenames:
+                    if filename.startswith('environment-setup-'):
+                        if os.path.exists(os.path.join(self.project_dir, filename)):
+                            if os.path.islink(os.path.join(self.project_dir, filename)):
+                                dest = os.readlink(os.path.join(self.project_dir, filename))
+                                if dest == os.path.join(dirpath, filename):
+                                    continue
+                            os.unlink(os.path.join(self.project_dir, filename))
+                        os.symlink(os.path.join(dirpath, filename), os.path.join(self.project_dir, filename))
+
         logging.debug('Done')
 
     def update_project(self):
@@ -772,6 +780,7 @@ class Setup():
         gitignore.write('.repo*\n')
         gitignore.write('*.pyc\n')
         gitignore.write('/bin/buildtools*\n')
+        gitignore.write('/environment-setup-*\n')
         gitignore.write('/layers/*\n')
         gitignore.write('!layers/local\n')
 
