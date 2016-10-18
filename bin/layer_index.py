@@ -212,7 +212,13 @@ class Layer_Index():
         if 'distros' in lindex['apilinks']:
             lindex['distros'] = _get_json_response(lindex['apilinks']['distros'] + filter)
         else:
-            lindex['distros'] = [{"layerbranch": 1, "id": 1, "description": "default", "updated": "2016-01-01T00:00:00+0000", "name": "nodistro"}]
+            # Not all layer indexes have a distribution API.  If not we need to emulate nodistro.
+            lindex['distros'] = []
+            idx = 1
+            for branch in lindex['branches']:
+                for lb in self.getLayerBranch(lindex, branch['id'], name='openembedded-core'):
+                    lindex['distros'].append({"layerbranch": lb['id'], "id": idx, "description": "default", "updated": "2016-01-01T00:00:00+0000", "name": "nodistro"})
+                    idx = idx + 1
 
         filter = ""
         if branches:
