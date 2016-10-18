@@ -6,7 +6,7 @@ import os
 REPO_URL = os.environ.get('REPO_URL', None)
 if not REPO_URL:
   REPO_URL = 'git://git.wrs.com/tools/git-repo'
-REPO_REV = 'wr-9.0-20160916'
+REPO_REV = 'wr-9.0-20161018'
 
 # Copyright (C) 2008 Google Inc.
 #
