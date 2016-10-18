@@ -52,7 +52,7 @@ for arg in "$@" ; do
 		--base-url=*)
 			BASEURL="${arg#*=}"
 			;;
-		--core-branch=*)
+		--base-branch=*)
 			BASEBRANCH="${arg#*=}"
 			;;
 		--buildtools-branch=*)
@@ -222,4 +222,4 @@ fi
 
 # Python 3 required utf-8 support to work properly, adjust the LANG to en_US.UTF-8.
 # Pass the computed url and branch to ${cmd}
-LANG='en_US.UTF-8' REPO_URL=${BASEURL}/tools/git-repo WR_BASEURL=${BASEURL} WR_COREBRANCH=${BASEBRANCH} WR_BUILDTOOLS_REMOTE=${BUILDTOOLS_REMOTE} ${CMD} "$@"
+LANG='en_US.UTF-8' REPO_URL=${BASEURL}/tools/git-repo WR_BASEURL=${BASEURL} WR_BASEBRANCH=${BASEBRANCH} WR_BUILDTOOLS_REMOTE=${BUILDTOOLS_REMOTE} ${CMD} "$@"

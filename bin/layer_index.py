@@ -661,13 +661,13 @@ class Layer_Index():
 
         return None
 
-    def list_layers(self, core_branch):
+    def list_layers(self, base_branch):
         import unicodedata
         for lindex in self.index:
             print ('Index: %s' % (lindex['name'] or lindex['url']))
             print ('%s %s' % (('{:25}'.format('layer'), 'summary')))
             print ('{:-^80}'.format(""))
-            branchid = self.getBranchId(lindex, self.getIndexBranch(default=core_branch, lindex=lindex))
+            branchid = self.getBranchId(lindex, self.getIndexBranch(default=base_branch, lindex=lindex))
             if branchid:
                 for lb in lindex['layerBranches']:
                     if lb['branch'] == branchid:
@@ -677,12 +677,12 @@ class Layer_Index():
                             print('%s %s' % ('{:25}'.format(name), summary[:52]))
             print ('')
 
-    def list_obj(self, core_branch, object, display):
+    def list_obj(self, base_branch, object, display):
         for lindex in self.index:
             print ('Index: %s' % (lindex['name'] or lindex['url']))
             print ('%s %s %s' % (('{:24}'.format(display), '{:34}'.format('description'), '{:19}'.format('layer'))))
             print ('{:-^80}'.format(""))
-            branchid = self.getBranchId(lindex, self.getIndexBranch(default=core_branch, lindex=lindex))
+            branchid = self.getBranchId(lindex, self.getIndexBranch(default=base_branch, lindex=lindex))
             if branchid:
                 # there are more layerBranches then objects (usually)...
                 for lb in lindex['layerBranches']:
@@ -695,21 +695,21 @@ class Layer_Index():
                                 print('%s %s %s' % ('{:24}'.format(name), '{:34}'.format(description[:34]), lname))
             print ('')
 
-    def list_distros(self, core_branch):
-        self.list_obj(core_branch, 'distros', 'distro')
+    def list_distros(self, base_branch):
+        self.list_obj(base_branch, 'distros', 'distro')
 
-    def list_machines(self, core_branch):
-        self.list_obj(core_branch, 'machines', 'machine')
+    def list_machines(self, base_branch):
+        self.list_obj(base_branch, 'machines', 'machine')
 
-    def list_wrtemplates(self, core_branch):
-        self.list_obj(core_branch, 'wrtemplates', 'templates')
+    def list_wrtemplates(self, base_branch):
+        self.list_obj(base_branch, 'wrtemplates', 'templates')
 
-    def list_recipes(self, core_branch):
+    def list_recipes(self, base_branch):
         for lindex in self.index:
             print ('Index: %s' % (lindex['name'] or lindex['url']))
             print ('%s %s %s' % (('{:15}'.format('recipe'), '{:9}'.format('version'), 'summary')))
             print ('{:-^80}'.format(""))
-            branchid = self.getBranchId(lindex, self.getIndexBranch(default=core_branch, lindex=lindex))
+            branchid = self.getBranchId(lindex, self.getIndexBranch(default=base_branch, lindex=lindex))
             if branchid:
                 # there are more layerBranches then objects (usually)...
                 for lb in lindex['layerBranches']:

@@ -52,10 +52,10 @@ class Argparse_Setup:
                 self.setup.set_base_url(parsed_args.base_url)
             del parsed_args.base_url
 
-        if (parsed_args.core_branch):
+        if (parsed_args.base_branch):
             if self.setup:
-                self.setup.set_base_branch(parsed_args.core_branch)
-            del parsed_args.core_branch
+                self.setup.set_base_branch(parsed_args.base_branch)
+            del parsed_args.base_branch
 
         if (parsed_args.buildtools_branch):
             # ignore (handled by setup.sh)
@@ -82,7 +82,7 @@ class Argparse_Setup:
         setup_base_branch = ""
         if self.setup:
             setup_base_branch = '(default %s)' % (self.setup.base_branch)
-        self.parser.add_argument('--core-branch', metavar="BRANCH", help='Core branch identifier %s' % (setup_base_branch))
+        self.parser.add_argument('--base-branch', metavar="BRANCH", help='Base branch identifier %s' % (setup_base_branch))
         self.parser.add_argument('--buildtools-branch', metavar="BRANCH", help='Buildtools branch %s' % (setup_base_branch))
 
         self.parser.add_argument('--mirror', help='Do not construct a project, instead construct a mirror for other projects', action='store_true')

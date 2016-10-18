@@ -59,7 +59,7 @@ class Setup():
 
         # Pull in the defaults from the environment (set by setup.sh)
         self.base_url = os.getenv('WR_BASEURL')
-        self.base_branch = os.getenv('WR_COREBRANCH')
+        self.base_branch = os.getenv('WR_BASEBRANCH')
         self.buildtools_remote = os.getenv('WR_BUILDTOOLS_REMOTE')
 
         # Real project or a mirror?
@@ -160,7 +160,7 @@ class Setup():
             logging.error('Unable to determine base url, you may need to specify --base-url=')
 
         if not self.base_branch:
-            logging.error('Unable to determine base branch, you may need to specify --core-branch=')
+            logging.error('Unable to determine base branch, you may need to specify --base-branch=')
 
         if not self.base_url or not self.base_branch:
             self.exit(1)
@@ -944,7 +944,7 @@ class Setup():
         self.base_url = url
 
     def set_base_branch(self, branch):
-        logging.debug('Setting core-branch to %s' % branch)
+        logging.debug('Setting base-branch to %s' % branch)
         self.base_branch = branch
 
     def set_debug_env(self):
