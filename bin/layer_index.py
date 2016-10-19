@@ -60,28 +60,31 @@ class Layer_Index():
             for (find, rep) in replace:
                 indexurl = indexurl.replace(find, rep)
 
-            if indexcache and os.path.exists(indexcache + '.json'):
-                lindex = self.load_serialized_index(indexcache, name=indexname, branches=[branch])
+            if indextype == 'restapi-web':
+                lindex = self.load_API_Index(indexurl, indexname, branches=[branch])
+            elif indextype == 'restapi-files':
+                lindex = self.load_serialized_index(indexurl, name=indexname)
+            elif indextype == 'export':
+                lindex = self.load_django_export(indexurl, name=indexname)
             else:
-                if indextype == 'restapi-web':
-                    lindex = self.load_API_Index(indexurl, indexname, branches=[branch])
-                elif indextype == 'restapi-files':
-                    lindex = self.load_serialized_index(indexurl, name=indexname)
-                elif indextype == 'export':
-                    lindex = self.load_django_export(indexurl, name=indexname)
-                else:
-                    # Unknown index type...
-                    print('Unknown index type  %s' % indextype)
-                    raise SyntaxError
+                # Unknown index type...
+                print('Unknown index type  %s' % indextype)
+                raise SyntaxError
 
-            if lindex and 'BRANCH' in cfg:
-                lindex['BRANCH'] = cfg['BRANCH']
-
-            if lindex and indexcache and not os.path.exists(indexcache + '.json'):
+            # Cache the data we loaded... if we loaded data.
+            if lindex and indexcache:
                 dir = os.path.dirname(indexcache)
                 if dir:
                     os.makedirs(dir, exist_ok=True)
                 self.serialize_index(lindex, indexcache, split=False)
+
+            # If we couldn't pull from the regular location, pull from the cache!
+            if lindex is None and indexcache and os.path.exists(indexcache + '.json'):
+                lindex = self.load_serialized_index(indexcache, name=indexname, branches=[branch])
+
+            # Start data transforms...
+            if lindex and 'BRANCH' in cfg:
+                lindex['BRANCH'] = cfg['BRANCH']
 
             if lindex and 'distros' in lindex:
                 # Default setup is actually implemented as 'nodistro'
@@ -158,9 +161,9 @@ class Layer_Index():
             import traceback
             if proxy_settings is not None:
                 logging.error("Using proxy %s" % proxy_settings)
-            print("could not connect to %s, skipping update:"
-                      "%s\n%s" % (url, e, traceback.format_exc()))
-            return lindex
+            logging.error("Index %s: could not connect to %s:"
+                      "%s\n%s" % (name, url, e, traceback.format_exc()))
+            return None
 
         filter = ""
         if branches:
@@ -298,15 +301,15 @@ class Layer_Index():
                     loadCache(fpath)
             logging.info('done.')
             print('done.')
+        elif os.path.exists(path):
+            logging.info('Loading %s from path %s...' % (name, path))
+            print('Loading %s from path %s...' % (name, path))
+            loadCache(path)
+            logging.info('done.')
+            print('done.')
         else:
-            if not path.endswith('.json'):
-                path = path + '.json'
-            if os.path.exists(path):
-                logging.info('Loading %s from path %s...' % (name, path))
-                print('Loading %s from path %s...' % (name, path))
-                loadCache(path)
-                logging.info('done.')
-                print('done.')
+            logging.error("Index %s: could not find path %s" % (name, path))
+            return None
 
         # Everything works off layerBranches, so make sure to keep it sorted!
         lindex['layerBranches'].sort(key=lambda obj: obj['id'])
@@ -407,15 +410,15 @@ class Layer_Index():
                     loadDB(fpath)
             logging.info('done.')
             print('done.')
+        elif os.path.exists(path):
+            logging.info('Loading %s from path %s...' % (name, path))
+            print('Loading %s from path %s...' % (name, path))
+            loadDB(path)
+            logging.info('done.')
+            print('done.')
         else:
-            if not path.endswith('.json'):
-                path = path + '.json'
-            if os.path.exists(path):
-                logging.info('Loading %s from path %s...' % (name, path))
-                print('Loading %s from path %s...' % (name, path))
-                loadDB(path)
-                logging.info('done.')
-                print('done.')
+            logging.error("Index %s: could not find path %s" % (name, path))
+            return None
 
         # Everything works off layerBranches, so make sure to keep it sorted!
         lindex['layerBranches'].sort(key=lambda obj: obj['id'])

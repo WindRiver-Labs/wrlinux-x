@@ -21,7 +21,7 @@ INDEXES = [
         'DESCRIPTION' : 'Wind River Developer Layer Index',
         'TYPE' : 'restapi-web',
         'URL' : 'http://layers.wrs.com/layerindex/api/',
-#        'CACHE' : 'config/index-cache/layers_wrs_com',
+        'CACHE' : 'config/index-cache/layers_wrs_com',
     },
 #    {
 #        'DESCRIPTION' : 'Wind River Linux Index',
