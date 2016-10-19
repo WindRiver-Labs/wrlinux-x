@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 
-# Drop when we move to the future (the future is python 3.)
-from __future__ import print_function
-
 # Please keep these sorted.
 import logging
 import os
