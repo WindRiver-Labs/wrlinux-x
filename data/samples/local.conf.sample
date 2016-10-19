@@ -244,6 +244,12 @@ BB_DISKMON_DIRS = "\
 #file://.* http://someserver.tld/share/sstate/PATH;downloadfilename=PATH \n \
 #file://.* file:///some/local/dir/sstate/PATH"
 
+# use systemd as the default init manager
+# comment the following lines to use 'sysvinit' as the init manager
+VIRTUAL-RUNTIME_init_manager = "systemd"
+DISTRO_FEATURES_append = " systemd"
+DISTRO_FEATURES_BACKFILL_CONSIDERED += "sysvinit"
+KERNEL_FEATURES_append = " cfg/systemd.scc"
 
 #
 # Qemu configuration
