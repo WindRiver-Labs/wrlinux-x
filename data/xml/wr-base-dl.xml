@@ -1,1 +1,2 @@
-    <project name="external/yocto/git.fedorahosted.org.git.microcode_ctl" remote="base" path="layers/wr-base-dl/git/external/yocto/git.fedorahosted.org.git.microcode_ctl" bare="True"/>
+    <project name="external/yocto/git.fedorahosted.org.git.microcode_ctl" remote="base" path="layers/wr-base-dl/git/git.fedorahosted.org.git.microcode_ctl" bare="True"/>
+    <project name="external/yocto/git.opensvc.com.multipath-tools..git" remote="base" path="layers/wr-base-dl/git/git.opensvc.com.multipath-tools..git" bare="True"/>
