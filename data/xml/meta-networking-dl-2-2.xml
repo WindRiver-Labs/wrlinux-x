@@ -1,0 +1,17 @@
+    <project name="external/yocto/git.fedorahosted.org.netcf.git" remote="base" path="layers/meta-networking-dl-2.2/git/git.fedorahosted.org.netcf.git" bare="True"/>
+
+    <project name="external/yocto/accel-ppp.git.sourceforge.net.gitroot.accel-ppp.accel-ppp" remote="base" path="layers/meta-networking-dl-2.2/git/accel-ppp.git.sourceforge.net.gitroot.accel-ppp.accel-ppp" bare="True"/>
+    <project name="external/yocto/anonscm.debian.org.collab-maint.ifenslave.git" remote="base" path="layers/meta-networking-dl-2.2/git/anonscm.debian.org.collab-maint.ifenslave.git" bare="True"/>
+    <project name="external/yocto/git.code.sf.net.p.atftp.code" remote="base" path="layers/meta-networking-dl-2.2/git/git.code.sf.net.p.atftp.code" bare="True"/>
+    <project name="external/yocto/git.code.sf.net.p.linux-zigbee.linux-zigbee" remote="base" path="layers/meta-networking-dl-2.2/git/git.code.sf.net.p.linux-zigbee.linux-zigbee" bare="True"/>
+    <project name="external/yocto/github.com.bsdphk.Ntimed" remote="base" path="layers/meta-networking-dl-2.2/git/github.com.bsdphk.Ntimed" bare="True"/>
+    <project name="external/yocto/github.com.jimloco.Csocket.git" remote="base" path="layers/meta-networking-dl-2.2/git/github.com.jimloco.Csocket.git" bare="True"/>
+    <project name="external/yocto/github.com.maxmind.geoip-api-c.git" remote="base" path="layers/meta-networking-dl-2.2/git/github.com.maxmind.geoip-api-c.git" bare="True"/>
+    <project name="external/yocto/github.com.troglobit.smcroute.git" remote="base" path="layers/meta-networking-dl-2.2/git/github.com.troglobit.smcroute.git" bare="True"/>
+    <project name="external/yocto/github.com.xelerance.dnssec-conf.git" remote="base" path="layers/meta-networking-dl-2.2/git/github.com.xelerance.dnssec-conf.git" bare="True"/>
+    <project name="external/yocto/github.com.xelerance.xl2tpd.git" remote="base" path="layers/meta-networking-dl-2.2/git/github.com.xelerance.xl2tpd.git" bare="True"/>
+    <project name="external/yocto/github.com.znc.znc.git" remote="base" path="layers/meta-networking-dl-2.2/git/github.com.znc.znc.git" bare="True"/>
+    <project name="external/yocto/git.infradead.org.users.dwmw2.openconnect.git" remote="base" path="layers/meta-networking-dl-2.2/git/git.infradead.org.users.dwmw2.openconnect.git" bare="True"/>
+    <project name="external/yocto/gitosis.stanford.edu.openflow.git" remote="base" path="layers/meta-networking-dl-2.2/git/gitosis.stanford.edu.openflow.git" bare="True"/>
+    <project name="external/yocto/git.samba.org.cifs-utils.git" remote="base" path="layers/meta-networking-dl-2.2/git/git.samba.org.cifs-utils.git" bare="True"/>
+    <project name="external/yocto/nbd.name.relayd.git" remote="base" path="layers/meta-networking-dl-2.2/git/nbd.name.relayd.git" bare="True"/>

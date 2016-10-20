@@ -1,0 +1,6 @@
+    <project name="external/yocto/github.com.jlelli.schedtool-dl.git" remote="base" path="layers/wr-kernel-dl/git/github.com.jlelli.schedtool-dl.git" bare="True"/>
+    <project name="external/yocto/github.com.openvswitch.ovs.git" remote="base" path="layers/wr-kernel-dl/git/github.com.openvswitch.ovs.git" bare="True"/>
+    <project name="external/yocto/git.kernel.org.pub.scm.linux.kernel.git.gong.chen.aer-inject.git" remote="base" path="layers/wr-kernel-dl/git/git.kernel.org.pub.scm.linux.kernel.git.gong.chen.aer-inject.git" bare="True"/>
+    <project name="external/yocto/git.kernel.org.pub.scm.linux.kernel.git.gong.chen.mce-test.git" remote="base" path="layers/wr-kernel-dl/git/git.kernel.org.pub.scm.linux.kernel.git.gong.chen.mce-test.git" bare="True"/>
+    <project name="external/yocto/git.kernel.org.pub.scm.utils.cpu.mce.mce-inject.git" remote="base" path="layers/wr-kernel-dl/git/git.kernel.org.pub.scm.utils.cpu.mce.mce-inject.git" bare="True"/>
+    <project name="external/yocto/www.aleph1.co.uk.yaffs2" remote="base" path="layers/wr-kernel-dl/git/www.aleph1.co.uk.yaffs2" bare="True"/>
