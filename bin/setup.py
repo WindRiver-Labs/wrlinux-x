@@ -729,7 +729,8 @@ class Setup():
         if (ret.returncode != 0):
             logging.warning('Updated project configuration')
             # Command failed -- so self.default_xml changed...
-            cmd = [self.tools['git'], 'commit', '-m', 'Configuration change - %s' % (" ".join(self.configure_args)), '--']
+            configure_args = " ".join(self.configure_args).replace('=True', '')
+            cmd = [self.tools['git'], 'commit', '-m', 'Configuration change - %s' % (configure_args), '--']
             for file in filelist:
                 cmd.append(file)
             self.run_cmd(cmd, cwd=self.project_dir)
