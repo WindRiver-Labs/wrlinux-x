@@ -281,7 +281,7 @@ class Layer_Index():
             pindex = json.load(open(path, 'rt', encoding='utf-8'))
 
             for entry in pindex:
-                if 'name' == entry or 'url' == entry or 'apilinks' == entry:
+                if 'name' == entry or 'url' == entry or 'BRANCH' == entry or 'apilinks' == entry:
                     lindex[entry] = pindex[entry]
                     continue
                 if entry not in lindex:
@@ -465,7 +465,7 @@ class Layer_Index():
                 return filtered
 
             for entry in lindex:
-                if 'name' == entry or 'url' == entry or 'apilinks' == entry or 'branches' == entry or 'layerBranches' == entry or 'layerItems' == entry:
+                if 'name' == entry or 'url' == entry or 'BRANCH' == entry or 'apilinks' == entry or 'branches' == entry or 'layerBranches' == entry or 'layerItems' == entry:
                     continue
                 pindex[entry] = filter_item(lb, entry)
 
@@ -512,7 +512,7 @@ class Layer_Index():
 
             # Convert the restindex to a dbindex
             for entry in restindex:
-                if 'name' == entry or 'url' == entry or 'apilinks' == entry:
+                if 'name' == entry or 'url' == entry or 'BRANCH' == entry or 'apilinks' == entry:
                     continue
                 elif 'branches' == entry:
                     model = 'layerindex.branch'
@@ -578,7 +578,7 @@ class Layer_Index():
                 return filtered
 
             for entry in lindex:
-                if 'name' == entry or 'url' == entry or 'apilinks' == entry or 'branches' == entry or 'layerBranches' == entry or 'layerItems' == entry:
+                if 'name' == entry or 'url' == entry or 'BRANCH' == entry or 'apilinks' == entry or 'branches' == entry or 'layerBranches' == entry or 'layerItems' == entry:
                     continue
                 pindex[entry] = filter_item(lb, entry)
 
