@@ -252,13 +252,17 @@ class Setup():
         # process the configuration arguments (find the layers we need for the project)
         # if an item is 'layer:item', then the 'foo' part must match a layer name.
         def procConfig(layer=None, distro=None, machine=None, recipe=None, wrtemplate=None):
-            item = ['', layer][layer != None] + ['', distro][distro != None]
-            item = item + ['', machine][machine != None] + ['', recipe][recipe != None]
-            item = item + ['', wrtemplate][wrtemplate != None]
+            item = ["", layer][layer != None]
+            item = item + ["", distro][distro != None]
+            item = item + ["", machine][machine != None]
+            item = item + ["", recipe][recipe != None]
+            item = item + ["", wrtemplate][wrtemplate != None]
 
-            type = ['', 'layer'][layer != None] + ['', 'distro'][distro != None]
-            type = type + ['', 'machine'][machine != None] + ['', 'recipe'][recipe != None]
-            type = type + ['', 'template'][wrtemplate != None]
+            type = ["", 'layer'][layer != None]
+            type = type + ["", 'distro'][distro != None]
+            type = type + ["", 'machine'][machine != None]
+            type = type + ["", 'recipe'][recipe != None]
+            type = type + ["", 'template'][wrtemplate != None]
 
             if (':' in item):
                 # User told us which layer, so ignore the other bits -- they can be used later...
