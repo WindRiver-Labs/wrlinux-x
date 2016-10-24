@@ -61,7 +61,10 @@ class Layer_Index():
                 indexurl = indexurl.replace(find, rep)
 
             if indextype == 'restapi-web':
-                lindex = self.load_API_Index(indexurl, indexname, branches=[branch])
+                if branch:
+                    lindex = self.load_API_Index(indexurl, indexname, branches=[branch])
+                else:
+                    lindex = self.load_API_Index(indexurl, indexname, branches=None)
             elif indextype == 'restapi-files':
                 lindex = self.load_serialized_index(indexurl, name=indexname)
             elif indextype == 'export':
@@ -82,6 +85,10 @@ class Layer_Index():
             if lindex is None and indexcache and os.path.exists(indexcache + '.json'):
                 lindex = self.load_serialized_index(indexcache, name=indexname, branches=[branch])
 
+            if not lindex or 'branches' not in lindex or 'layerItems' not in lindex or 'layerBranches' not in lindex:
+                # It's empty, skip it...
+                continue
+
             # Start data transforms...
             lindex['CFG'] = cfg
 
@@ -100,6 +107,9 @@ class Layer_Index():
                         for (find, rep) in replace:
                             vcs_url = vcs_url.replace(find, rep)
                         entry[obj] = vcs_url
+
+            # Everything works off layerBranches, so make sure to keep it sorted!
+            lindex['layerBranches'] = self.sortEntry(lindex['layerBranches'])
 
             if lindex:
                 self.index.append(lindex)
@@ -231,9 +241,6 @@ class Layer_Index():
         logging.info('done.')
         print('done.')
 
-        # Everything works off layerBranches, so make sure to keep it sorted!
-        lindex['layerBranches'].sort(key=lambda obj: obj['id'])
-
         return lindex
 
     def load_serialized_index(self, path, name=None, branches=None):
@@ -303,9 +310,6 @@ class Layer_Index():
         else:
             logging.error("Index %s: could not find path %s" % (name, path))
             return None
-
-        # Everything works off layerBranches, so make sure to keep it sorted!
-        lindex['layerBranches'].sort(key=lambda obj: obj['id'])
 
         return lindex
 
@@ -410,9 +414,30 @@ class Layer_Index():
             logging.error("Index %s: could not find path %s" % (name, path))
             return None
 
-        # Everything works off layerBranches, so make sure to keep it sorted!
-        lindex['layerBranches'].sort(key=lambda obj: obj['id'])
+        return lindex
 
+    # Provide a function to sort layer index content (restapi format)
+    # When serializing the data this is import to limit
+    # changes to the files...
+    def sortEntry(self, item):
+        newitem = item
+        try:
+            if type(newitem) == type(dict()):
+                newitem = OrderedDict(sorted(newitem.items(), key=lambda t: t[0]))
+            elif type(newitem) == type(list()):
+                newitem.sort(key=lambda obj: obj['id'])
+                for index, entry in enumerate(newitem):
+                    newitem[index] = self.sortEntry(newitem[index])
+        except:
+            pass
+
+        return newitem
+
+    # Sort and return a new restapi style index
+    def sortRestApi(self, index):
+        lindex = self.sortEntry(index)
+        for entry in lindex:
+            lindex[entry] = self.sortEntry(lindex[entry])
         return lindex
 
     def serialize_index(self, lindex, path, split=False):
@@ -423,15 +448,14 @@ class Layer_Index():
             fname = base.translate(str.maketrans('/ ', '__'))
             fpath = os.path.join(dir, fname)
 
-            local = OrderedDict(sorted(lindex.items(), key=lambda t: t[0]))
+            # Need to filter out local information
+            pindex = {}
+            for entry in lindex:
+                if 'CFG' == entry or 'apilinks' == entry:
+                    continue
+                pindex[entry] = lindex[entry]
 
-            for entry in local:
-                try:
-                    local[entry].sort(key=lambda obj: obj['id'])
-                except:
-                    pass
-
-            json.dump(local, open(fpath + '.json', 'wt'), indent=4)
+            json.dump(self.sortRestApi(pindex), open(fpath + '.json', 'wt'), indent=4)
             return
 
         # We serialize based on the layerBranches, this allows us to subset
@@ -472,15 +496,7 @@ class Layer_Index():
             fname = fname.translate(str.maketrans('/ ', '__'))
             fpath = os.path.join(dir, fname)
 
-            local = OrderedDict(sorted(pindex.items(), key=lambda t: t[0]))
-
-            for entry in local:
-                try:
-                    local[entry].sort(key=lambda obj: obj['id'])
-                except:
-                    pass
-
-            json.dump(local, open(fpath + '.json', 'wt'), indent=4)
+            json.dump(self.sortRestApi(pindex), open(fpath + '.json', 'wt'), indent=4)
 
     def serialize_django_export(self, lindex, path, split=False):
         def convertToDjango(restindex):
@@ -530,21 +546,19 @@ class Layer_Index():
 
         # Just write out a single master file..
         if not split:
-            local = OrderedDict(sorted(lindex.items(), key=lambda t: t[0]))
-
-            for entry in local:
-                try:
-                    local[entry].sort(key=lambda obj: obj['id'])
-                except:
-                    pass
-
-            dbindex = convertToDjango(local)
             dir = os.path.dirname(path)
             base = os.path.basename(path)
             fname = base.translate(str.maketrans('/ ', '__'))
             fpath = os.path.join(dir, fname)
 
-            json.dump(dbindex, open(fpath + '.json', 'wt'), indent=4)
+            # Need to filter out local information
+            pindex = {}
+            for entry in lindex:
+                if 'CFG' == entry or 'apilinks' == entry:
+                    continue
+                pindex[entry] = lindex[entry]
+
+            json.dump(convertToDjango(self.sortRestApi(pindex)), open(fpath + '.json', 'wt'), indent=4)
             return
 
         # We serialize based on the layerBranches, this allows us to subset
@@ -585,17 +599,7 @@ class Layer_Index():
             fname = fname.translate(str.maketrans('/ ', '__'))
             fpath = os.path.join(dir, fname)
 
-            local = OrderedDict(sorted(pindex.items(), key=lambda t: t[0]))
-
-            for entry in local:
-                try:
-                    local[entry].sort(key=lambda obj: obj['id'])
-                except:
-                    pass
-
-            dbindex = convertToDjango(local)
-
-            json.dump(dbindex, open(fpath + '.json', 'wt'), indent=4)
+            json.dump(convertToDjango(self.sortRestApi(pindex)), open(fpath + '.json', 'wt'), indent=4)
 
 
     def find_layer(self, lindex, id=None, name=None, layerBranch=None, layerBranchId=None, distro=None, machine=None, recipe=None, wrtemplate=None):
