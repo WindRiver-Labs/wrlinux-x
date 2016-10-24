@@ -571,7 +571,8 @@ class Setup():
         copySample(self.install_dir + '/data/samples/bblayers.conf.sample', self.project_dir + '/config/bblayers.conf.sample')
         copySample(self.install_dir + '/data/samples/conf-notes.sample', self.project_dir + '/config/conf-notes.txt')
         copySample(self.install_dir + '/data/samples/local.conf.sample', self.project_dir + '/config/local.conf.sample')
-        copySample(self.install_dir + '/data/samples/site.conf.sample', self.project_dir + '/config/site.conf.sample')
+        if os.path.exists(self.install_dir + '/data/samples/site.conf.sample'):
+            copySample(self.install_dir + '/data/samples/site.conf.sample', self.project_dir + '/config/site.conf.sample')
 
     def update_manifest(self):
         logging.debug('Starting')
@@ -709,10 +710,12 @@ class Setup():
             'config/bblayers.conf.sample',
             'config/conf-notes.txt',
             'config/local.conf.sample',
-            'config/site.conf.sample',
             'README',
             'default.xml',
             ]
+
+        if os.path.exists('config/site.conf.sample'):
+            filelist.append('config/site.conf.sample')
 
         # git add manifest. (Since these files are new, always try to add them)
         cmd = [self.tools['git'], 'add', '--']
