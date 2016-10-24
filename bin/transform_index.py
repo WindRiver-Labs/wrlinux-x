@@ -135,12 +135,12 @@ from layer_index import Layer_Index
 index = Layer_Index(INDEXES, base_branch=None, replace=REPLACE)
 
 for lindex in index.index:
-    print('Dump %s as %s (split=%s)...' % (lindex['name'], OUTPUT_FMT, SPLIT))
+    print('Dump %s as %s (split=%s)...' % (lindex['CFG']['DESCRIPTION'], OUTPUT_FMT, SPLIT))
     os.makedirs(OUTPUT, exist_ok=True)
     if OUTPUT_FMT == 'django':
-        index.serialize_django_export(lindex, OUTPUT + '/' + lindex['name'], split=SPLIT)
+        index.serialize_django_export(lindex, OUTPUT + '/' + lindex['CFG']['DESCRIPTION'], split=SPLIT)
     elif OUTPUT_FMT == 'restapi':
-        index.serialize_index(lindex, OUTPUT + '/' + lindex['name'], split=SPLIT)
+        index.serialize_index(lindex, OUTPUT + '/' + lindex['CFG']['DESCRIPTION'], split=SPLIT)
     else:
         print('Unknown output format!')
 

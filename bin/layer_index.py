@@ -83,8 +83,7 @@ class Layer_Index():
                 lindex = self.load_serialized_index(indexcache, name=indexname, branches=[branch])
 
             # Start data transforms...
-            if lindex and 'BRANCH' in cfg:
-                lindex['BRANCH'] = cfg['BRANCH']
+            lindex['CFG'] = cfg
 
             if lindex and 'distros' in lindex:
                 # Default setup is actually implemented as 'nodistro'
@@ -121,9 +120,6 @@ class Layer_Index():
         lindex = {}
 
         assert url is not None
-
-        lindex['url'] = url
-        lindex['name'] = name
 
         logging.info('Loading %s from url %s...' % (name, url))
         print('Loading %s from url %s...' % (name, url))
@@ -253,9 +249,6 @@ class Layer_Index():
 
         assert path is not None
 
-        lindex['url'] = path
-        lindex['name'] = name
-
         def add_cmp_lists(listone, listtwo):
             # Copy the items from listone, into listtwo -- if it isn't already
             # there..  if it is there, verify it's the same or raise an error...
@@ -281,7 +274,7 @@ class Layer_Index():
             pindex = json.load(open(path, 'rt', encoding='utf-8'))
 
             for entry in pindex:
-                if 'name' == entry or 'url' == entry or 'BRANCH' == entry or 'apilinks' == entry:
+                if 'CFG' == entry or 'apilinks' == entry:
                     lindex[entry] = pindex[entry]
                     continue
                 if entry not in lindex:
@@ -328,9 +321,6 @@ class Layer_Index():
         lindex['wrtemplates'] = []
 
         assert path is not None
-
-        lindex['url'] = path
-        lindex['name'] = name
 
         def add_cmp_lists(listone, listtwo):
             # Copy the items from listone, into listtwo -- if it isn't already
@@ -465,7 +455,7 @@ class Layer_Index():
                 return filtered
 
             for entry in lindex:
-                if 'name' == entry or 'url' == entry or 'BRANCH' == entry or 'apilinks' == entry or 'branches' == entry or 'layerBranches' == entry or 'layerItems' == entry:
+                if 'CFG' == entry or 'apilinks' == entry or 'branches' == entry or 'layerBranches' == entry or 'layerItems' == entry:
                     continue
                 pindex[entry] = filter_item(lb, entry)
 
@@ -512,7 +502,7 @@ class Layer_Index():
 
             # Convert the restindex to a dbindex
             for entry in restindex:
-                if 'name' == entry or 'url' == entry or 'BRANCH' == entry or 'apilinks' == entry:
+                if 'CFG' == entry or 'apilinks' == entry:
                     continue
                 elif 'branches' == entry:
                     model = 'layerindex.branch'
@@ -578,7 +568,7 @@ class Layer_Index():
                 return filtered
 
             for entry in lindex:
-                if 'name' == entry or 'url' == entry or 'BRANCH' == entry or 'apilinks' == entry or 'branches' == entry or 'layerBranches' == entry or 'layerItems' == entry:
+                if 'CFG' == entry or 'apilinks' == entry or 'branches' == entry or 'layerBranches' == entry or 'layerItems' == entry:
                     continue
                 pindex[entry] = filter_item(lb, entry)
 
@@ -667,7 +657,7 @@ class Layer_Index():
     def list_layers(self, base_branch):
         import unicodedata
         for lindex in self.index:
-            print ('Index: %s' % (lindex['name'] or lindex['url']))
+            print ('Index: %s' % (lindex['CFG']['DESCRIPTION'] or lindex['CFG']['URL']))
             print ('%s %s' % (('{:25}'.format('layer'), 'summary')))
             print ('{:-^80}'.format(""))
             branchid = self.getBranchId(lindex, self.getIndexBranch(default=base_branch, lindex=lindex))
@@ -682,7 +672,7 @@ class Layer_Index():
 
     def list_obj(self, base_branch, object, display):
         for lindex in self.index:
-            print ('Index: %s' % (lindex['name'] or lindex['url']))
+            print ('Index: %s' % (lindex['CFG']['DESCRIPTION'] or lindex['CFG']['URL']))
             print ('%s %s %s' % (('{:24}'.format(display), '{:34}'.format('description'), '{:19}'.format('layer'))))
             print ('{:-^80}'.format(""))
             branchid = self.getBranchId(lindex, self.getIndexBranch(default=base_branch, lindex=lindex))
@@ -709,7 +699,7 @@ class Layer_Index():
 
     def list_recipes(self, base_branch):
         for lindex in self.index:
-            print ('Index: %s' % (lindex['name'] or lindex['url']))
+            print ('Index: %s' % (lindex['CFG']['DESCRIPTION'] or lindex['CFG']['URL']))
             print ('%s %s %s' % (('{:15}'.format('recipe'), '{:9}'.format('version'), 'summary')))
             print ('{:-^80}'.format(""))
             branchid = self.getBranchId(lindex, self.getIndexBranch(default=base_branch, lindex=lindex))
@@ -810,6 +800,6 @@ class Layer_Index():
         return None
 
     def getIndexBranch(self, default=None, lindex=None):
-        if lindex and 'BRANCH' in lindex:
-            return lindex['BRANCH']
+        if lindex and 'CFG' in lindex and 'BRANCH' in lindex['CFG']:
+            return lindex['CFG']['BRANCH']
         return default
