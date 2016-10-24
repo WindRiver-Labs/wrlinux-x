@@ -1,13 +1,23 @@
-wrlinux setup program
-=====================
+wrlinux-9 setup
+===============
 
-With this tool you can either create a new project, or create a mirror that
-other projects can be based on.
+With this tool you can either create a new distribution builder project, or
+create a mirror that other projects can be based on.
 
-The setup program relies on a special version of the 'git-repo' project.  It
-is similar to the 'git-repo' used by Android, but has the added abililty to
-work with 'bare' clones.
+The tool uses a layer index (such as layers.openembedded.org), as specified in
+the bin/settings.py file, to determine what layers are required to construct
+a distribution builder project.
 
+The tool relies on 'repo' from the Android 'git-repo' project.  It produces
+a repo style 'default.xml' file, and then calls repo to download all of
+the layer components necessary.
+
+The tool also configures various sample files that are used by 
+oe-init-build-env to construct your build directory.
+
+
+Workflows
+---------
 
 Basic setup/usage workflow:
 
@@ -16,27 +26,28 @@ directory, such as:
 
 $ mkdir my-project
 $ cd my-project
-$ git clone --depth 1 --branch WRLINUX_9_BASE git://git.wrs.com/wrlinux-x
+$ git clone --branch <branch> <url> wrlinux-9
 
-Once cloned, simply run the setup.sh (./wrlinux-x/setup.sh) to get a list
-of options.  The setup program will construct a project in the current 
-working directory.
+Once cloned, simply run the setup.sh (./wrlinux-9/setup.sh) to get a list
+of options.  The setup program will construct a new git repository in the
+current working directory.  This repository is used to manage the output of
+the setup program.
 
 You may re-run the setup program at any time to update/change the project
 settings.  However, your build directory will not be touched.  You will have
-to resync that with the updated project.  (Specifically bblayers.conf and
-local.conf.)
+to resync it with the updated project.  (Specifically bblayers.conf and
+local.conf to the config/*.sample versions.)
 
 To update your project, you may run 'repo sync' or re-run the setup program
 with the same arguments.
 
 
-Advanced Mirror workflow:
+Mirror workflow:
 
 $ mkdir my-mirror
 $ cd my-mirror
-$ git clone --depth 1 --branch WRLINUX_9_BASE git://git.wrs.com/wrlinux-x
-$ ./wrlinux/setup.sh --all-layers --dl-layers --mirror
+$ git clone --branch <branch> <url> wrlinux-9
+$ ./wrlinux-9/setup.sh --all-layers --mirror
 
 The above command will mirror all layers, including download layers into the
 current location.
@@ -49,9 +60,12 @@ A user can reference this mirror by doing:
 
 $ mkdir my-project
 $ cd my-project
-$ git clone --depth 1 --branch WRLINUX_9_BASE <path_to_mirror>/wrlinux-x
+$ git clone --branch master <path_to_mirror>/wrlinux-9
 
-and then run the wrlinux-x/setup.sh program as described above.
+and then run the wrlinux-9/setup.sh program as described above.
+
+Note: the bin/settings.py file contains url REPLACE operations that may be
+required to reference the local mirror items.
 
 
 License
