@@ -154,7 +154,7 @@ class Setup():
         if not orig_args or not orig_args[1:]:
             orig_args.append('--help')
         parser.evaluate_args(orig_args[1:])
-        self.configure_args = parser.argparse_conf.configure_arguments
+        self.configure_args = orig_args[1:]
 
         if not self.base_url:
             logging.error('Unable to determine base url, you may need to specify --base-url=')
@@ -478,8 +478,7 @@ class Setup():
             tmplconf.close()
 
         layers = []
-        # We need to strip '=True', that is what a few args do by being set!
-        configure_args = " ".join(self.configure_args).replace('=True', '')
+        configure_args = " ".join(self.configure_args)
         machines = {}
         defaultmachine = self.machines[0]
         distros = {}
@@ -729,7 +728,7 @@ class Setup():
         if (ret.returncode != 0):
             logging.warning('Updated project configuration')
             # Command failed -- so self.default_xml changed...
-            configure_args = " ".join(self.configure_args).replace('=True', '')
+            configure_args = " ".join(self.configure_args)
             cmd = [self.tools['git'], 'commit', '-m', 'Configuration change - %s' % (configure_args), '--']
             for file in filelist:
                 cmd.append(file)
