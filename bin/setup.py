@@ -57,9 +57,9 @@ class Setup():
         self.jobs = str(settings.REPO_JOBS)
 
         # Pull in the defaults from the environment (set by setup.sh)
-        self.base_url = os.getenv('WR_BASEURL')
-        self.base_branch = os.getenv('WR_BASEBRANCH')
-        self.buildtools_remote = os.getenv('WR_BUILDTOOLS_REMOTE')
+        self.base_url = os.getenv('OE_BASEURL')
+        self.base_branch = os.getenv('OE_BASEBRANCH')
+        self.buildtools_remote = os.getenv('OE_BUILDTOOLS_REMOTE')
 
         # Real project or a mirror?
         self.mirror = False
