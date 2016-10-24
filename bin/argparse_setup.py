@@ -49,10 +49,6 @@ class Argparse_Setup:
                 self.setup.set_base_branch(parsed_args.base_branch)
             del parsed_args.base_branch
 
-        if (parsed_args.buildtools_branch):
-            # ignore (handled by setup.sh)
-            del parsed_args.buildtools_branch
-
         if (parsed_args.mirror):
             if self.setup:
                 self.setup.mirror = parsed_args.mirror
@@ -80,11 +76,7 @@ class Argparse_Setup:
             if self.setup:
                 self.setup.list_recipes = True
 
-        if parsed_args.list_templates:
-            if self.setup:
-                self.setup.list_wrtemplates = True
-
-        if (parsed_args.list_distros or parsed_args.list_machines or parsed_args.list_layers or parsed_args.list_recipes or parsed_args.list_templates):
+        if (parsed_args.list_distros or parsed_args.list_machines or parsed_args.list_layers or parsed_args.list_recipes):
             return
 
         # Parse layer selection options
@@ -116,17 +108,6 @@ class Argparse_Setup:
                     for recipe in r.split(','):
                         self.setup.recipes.append(recipe)
 
-        if parsed_args.templates:
-            if self.setup:
-                self.setup.wrtemplates = []
-                for t in parsed_args.templates:
-                    for wrtemplate in t.split(','):
-                        self.setup.wrtemplates.append(wrtemplate)
-
-        if parsed_args.dl_layers:
-            if self.setup:
-                self.setup.dl_layers = parsed_args.dl_layers
-
         if parsed_args.all_layers:
             if self.setup:
                 self.setup.all_layers = parsed_args.all_layers
@@ -149,11 +130,6 @@ class Argparse_Setup:
             setup_base_branch = '(default %s)' % (self.setup.base_branch)
         self.parser.add_argument('--base-branch', metavar="BRANCH", help='Base branch identifier %s' % (setup_base_branch))
 
-        setup_buildtools_branch = ""
-        if self.setup and self.setup.base_branch:
-            setup_buildtools_branch = '(default %s)' % (self.setup.base_branch)
-        self.parser.add_argument('--buildtools-branch', metavar="BRANCH", help='Buildtools branch %s' % (setup_buildtools_branch))
-
         self.parser.add_argument('--mirror', help='Do not construct a project, instead construct a mirror for other projects', action='store_true')
 
     def add_repo_options(self):
@@ -169,7 +145,6 @@ class Argparse_Setup:
         self.parser.add_argument('--list-machines',  action='store_true', help='List all available machine values.')
         self.parser.add_argument('--list-layers',    action='store_true', help='List all available layers.')
         self.parser.add_argument('--list-recipes',   action='store_true', help='List all available recipes.')
-        self.parser.add_argument('--list-templates', action='store_true', help='List all available templates.')
 
     def add_layer_options(self):
         # Layer selection and local.conf setup
@@ -189,18 +164,11 @@ class Argparse_Setup:
 
         self.parser.add_argument('--layers', metavar='LAYER', help='Select layer(s) to include in the project and add to the default bblayers.conf', nargs='+')
         self.parser.add_argument('--recipes', metavar='RECIPE', help='Select layers(s) based on recipe(s)', nargs='+')
-        self.parser.add_argument('--templates', metavar='TEMPLATE', help='Select layers(s) based on template(s) and add them by default to the builds', nargs='+')
-        self.parser.add_argument('--dl-layers', help='Enable download layers, these layers include predownloaded items', action='store_true')
         self.parser.add_argument('--all-layers', help='Select all available layers', action='store_true')
         self.parser.add_argument('--no-recommend', help='Disable recommended layers during layer resolution', action='store_true')
 
     def add_other_options(self):
-        setup_kernel = ""
-        setup_kernel_def = ""
-        if self.setup:
-            setup_kernel = self.setup.kernel
-            setup_kernel_def = "(default %s)" % setup_kernel
-        self.parser.add_argument('--kernel', metavar='KTYPE', help='Specify the target kernel configuration type %s' % (setup_kernel_def), default=setup_kernel)
+        pass
 
     def add_options(self):
         self.add_setup_options()

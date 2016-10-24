@@ -24,7 +24,7 @@ import sys
 import time
 
 # Setup-specific modules
-from argparse_setup import Argparse_Setup
+from argparse_wrl import Argparse_Wrl
 
 from layer_index import Layer_Index
 
@@ -149,7 +149,7 @@ class Setup():
         logging.info("Logging to %s" % log_file);
 
     def main(self, orig_args):
-        parser = Argparse_Setup(self)
+        parser = Argparse_Wrl(self)
         # We want to default to help mode lacking any args.
         if not orig_args or not orig_args[1:]:
             orig_args.append('--help')

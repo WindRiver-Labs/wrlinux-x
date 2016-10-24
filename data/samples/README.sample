@@ -54,7 +54,18 @@ To update your project
 ----------------------
 To update your project either re-run the setup program or use the command:
 
-$ repo sync
+The preferred way of updating your project project is to re-run the setup
+program.
+
+First update wrlinux-9, for example:
+
+$ cd wrlinux-9
+$ git pull
+$ cd ..
+
+Then re-run the setup program with the original arguments.
+
+$ wrlinux-9/setup.sh ####SETUP_ARGS####
 
 The sync command will simply update your project, on the current branch, to
 the latest version.
@@ -72,4 +83,3 @@ This layer is located at the path 'layers/local' in your project.
 
 The purpose of the local layer is a staging location for your project
 work, including any new recipes, classes or scripts.
-

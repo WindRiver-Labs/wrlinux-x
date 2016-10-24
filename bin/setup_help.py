@@ -18,7 +18,7 @@
 # Everything mentioned must be python2 compatible
 # for __init__ and any methods invoked here.
 
-from argparse_setup import Argparse_Setup
+from argparse_wrl import Argparse_Wrl
 
 import settings
 
@@ -37,7 +37,7 @@ class Setup():
         self.buildtools_branch = os.getenv('OE_BUILDTOOLS_BRANCH')
         self.buildtools_remote = os.getenv('OE_BUILDTOOLS_REMOTE')
 
-parser = Argparse_Setup(Setup())
+parser = Argparse_Wrl(Setup())
 parser.evaluate_args(['--help'])
 
 
