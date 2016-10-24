@@ -18,14 +18,18 @@
 GIT_USERNAME="customer"
 GIT_USEREMAIL="customer@company.com"
 
-# Buildtools location can change -- this is the path on top of the BASEURL
-BUILDTOOLS_REMOTE="layers/buildtools/buildtools-standalone-20161013"
+# Requires python3
+CMD="bin/setup.py"
 
-# Where to install the build tools
-BUILDTOOLS="bin/buildtools"
+# Only requires python2
+CMD_HELP="bin/setup_help.py"
 
-# Arch of the SDK to load
-SDKARCH=$(uname -p)
+# Load custom setup additions
+if [ -d "data/environment.d" ]; then
+	for envfile in data/environment.d/*.sh ; do
+		. $envfile
+	done
+fi
 
 # Takes value_name default_value
 # value_name is set to the first value found in the list:
@@ -44,6 +48,8 @@ if [ "$#" -eq 0 ]; then
 	help=1
 fi
 
+# We only parse things this shell script cares about, actual argparse
+# and looking for bad args is done by the python script this calls.
 for arg in "$@" ; do
 	case $arg in
 		--help|-h)
@@ -55,10 +61,18 @@ for arg in "$@" ; do
 		--base-branch=*)
 			BASEBRANCH="${arg#*=}"
 			;;
-		--buildtools-branch=*)
-			BUILDTOOLSBRANCH="${arg#*=}"
-			;;
 	esac
+
+	# If there are additional parameters defined, deal with them here...
+	for parse in $ARGPARSE; do
+		comp=${parse%:*}
+		val=${parse#*:}
+		case "$arg" in
+			${comp})
+				eval ${val}="${arg#*=}"
+				;;
+		esac
+	done
 done
 
 # setup git url
@@ -95,131 +109,60 @@ if [ $help -ne 1 ]; then
 
 	if [ -z "$BASEBRANCH" ]; then
 		echo "May be on a detached HEAD, HEAD must be on a branch. ($BASEDIR)" >&2
+		echo "You can avoid this by passing the branch using --base-branch=" >&2
 		exit 1
 	fi
-	if [ -z "${BUILDTOOLSBRANCH}" ]; then
-		BUILDTOOLSBRANCH="${BASEBRANCH}"
+
+	if [ -n "$ADDFUNCS" ]; then
+		$ADDFUNCS
 	fi
 
-	# By default we fetch the buildtools from the wrlinux-X directory
-	# Otherwise we will fetch it into this project directory
-	if [ -d buildtools.git ]; then
-		BUILDTOOLS_GIT="${BUILDTOOLS_GIT:-buildtools.git}"
-	else
-		BUILDTOOLS_GIT="${BUILDTOOLS_GIT:-${BASEDIR}/buildtools.git}"
+	# The following checks are from oe-buildenv-internal
+	# Make sure we're not using python v3.x as 'python', we don't support it.
+	py_v2_check=$(/usr/bin/env python --version 2>&1 | grep "Python 3")
+	if [ -n "$py_v2_check" ]; then
+		echo >&2 "OpenEmbedded requires 'python' to be python v2 (>= 2.7.3), not python v3."
+		echo >&2 "Please set up python v2 as your default 'python' interpreter."
+		return 1
 	fi
-	FETCH_BUILDTOOLS=0
+	unset py_v2_check
 
-	# Install them into the project directory
-	EXTRACT_BUILDTOOLS=0
+	py_v27_check=$(python -c 'import sys; print sys.version_info >= (2,7,3)')
+	if [ "$py_v27_check" != "True" ]; then
+		echo >&2 "OpenEmbedded requires 'python' to be python v2 (>= 2.7.3), not python v3."
+		echo >&2 "Please upgrade your python v2."
+	fi
+	unset py_v27_check
 
-	BUILDTOOLS_REF=$(echo ${BUILDTOOLS_REMOTE} | sed -e 's,.*/buildtools-standalone-,,')
+	# We potentially have code that doesn't parse correctly with older versions 
+	# of Python, and rather than fixing that and being eternally vigilant for 
+	# any other new feature use, just check the version here.
+	py_v34_check=$(python3 -c 'import sys; print(sys.version_info >= (3,4,0))')
+	if [ "$py_v34_check" != "True" ]; then
+		echo >&2 "BitBake requires Python 3.4.0 or later as 'python3'"
+		return 1
+	fi
+	unset py_v34_check
 
-	# FIXME, needs to be per-user - somehow.
+	# Configure the current directory so repo works seemlessly
 	add_gitconfig "user.name" "${GIT_USERNAME}"
 	add_gitconfig "user.email" "${GIT_USEREMAIL}"
 	add_gitconfig "color.ui" "false"
 	add_gitconfig "color.diff" "false"
 	add_gitconfig "color.status" "false"
-
-	if [ ! -d "${BUILDTOOLS_GIT}" ]; then
-		FETCH_BUILDTOOLS=1
-
-		# Create empty buildtools.git cache and determine the right location
-		(mkdir -p "${BUILDTOOLS_GIT}" 2>/dev/null && cd "${BUILDTOOLS_GIT}" && git init)
-		if [ $? -ne 0 ]; then
-			echo "Unable to create ${BUILDTOOLS_GIT} directory.  Falling back to project directory." >&2
-			BUILDTOOLS_GIT="buildtools.git"
-			(mkdir -p ${BUILDTOOLS_GIT} 2>/dev/null && cd ${BUILDTOOLS_GIT} && git init)
-			if [ $? -ne 0 ]; then
-				echo "Still unable to create ${BUILDTOOLS_GIT} directory.  Please check permissions." >&2
-				exit 1
-			fi
-		fi
-	else
-		# Did the buildtools URL change?
-		BUILDTOOLSURL=$(git config -f ${BUILDTOOLS_GIT}/.git/config local.last.url)
-		if [ "${BUILDTOOLSURL}" != "${BASEURL}/${BUILDTOOLS_REMOTE}" ]; then
-			FETCH_BUILDTOOLS=1
-		fi
-	fi
-
-	if [ ${FETCH_BUILDTOOLS} -eq 1 ]; then
-		echo "Fetching buildtools.."
-		(cd ${BUILDTOOLS_GIT} && git fetch -f -n -u "${BASEURL}/${BUILDTOOLS_REMOTE}" ${BUILDTOOLSBRANCH}:${BUILDTOOLS_REF})
-		if [ $? -ne 0 ]; then
-			echo "Error fetching buildtools repository ${BASEURL}/${BUILDTOOLS_REMOTE}" >&2
-			exit 1
-		fi
-		# Set a flag so we know where the fetch was from...
-		(
-			cd ${BUILDTOOLS_GIT}
-			git config "local.${BUILDTOOLS_REF}.url" "${BASEURL}/${BUILDTOOLS_REMOTE}"
-			git config local.last.url "${BASEURL}/${BUILDTOOLS_REMOTE}"
-			git checkout "${BUILDTOOLS_REF}"
-		)
-		if [ $? -ne 0 ]; then
-			echo "Unable to checkout branch ${BUILDTOOLS_REF}." >&2
-			exit 1
-		fi
-		echo "Done"
-
-		EXTRACT_BUILDTOOLS=1
-	fi
-
-	if [ ! -d "${BUILDTOOLS}.${BUILDTOOLS_REF}" ]; then
-		EXTRACT_BUILDTOOLS=1
-	fi
-
-	if [ ${EXTRACT_BUILDTOOLS} -eq 1 ]; then
-		# Needs python.
-		buildtoolssdk=$(find "${BUILDTOOLS_GIT}" -name "${SDKARCH}-buildtools-nativesdk-standalone-*.sh" 2>/dev/null | sort | head -n1)
-		if [ -z "${buildtoolssdk}" ]; then
-			echo "Unable to find ${SDKARCH} buildtools-nativesdk-standalone archive in ${PWD}/buildtools/" >&2
-			exit 1
-		fi
-		echo "Installing buildtools.."
-		if [ -d "${BUILDTOOLS}.${BUILDTOOLS_REF}" ]; then
-			rm -rf "${BUILDTOOLS}.${BUILDTOOLS_REF}"
-		fi
-		${buildtoolssdk} -d "${BUILDTOOLS}.${BUILDTOOLS_REF}" -y
-		if [ $? -ne 0 ]; then
-			echo "Error installing the buildtools-nativesdk-standalone archive: ${buildtoolssdk}" >&2
-			exit 1
-		fi
-		rm -f ${BUILDTOOLS}
-		ln -s $(basename ${BUILDTOOLS}).${BUILDTOOLS_REF} ${BUILDTOOLS}
-		echo "Done"
-	fi
-	unset FETCH_BUILDTOOLS EXTRACT_BUILDTOOLS
-
-	ENVIRON=$(find -L ${BUILDTOOLS} -name "environment-setup-${SDKARCH}-*-linux" | head -n1)
-	if [ -z "${ENVIRON}" ]; then
-		echo "Error unable to load buildtools environment-setup file." >&2
-		exit 1
-	fi
-	. "${ENVIRON}"
-	if [ $? -ne 0 ]; then
-		echo "Unable to load the buildtools environment setup file." >&2
-		exit 1
+else
+	# If we don't have python3, fall back to the help only version
+	if which python3 &> /dev/null; then
+		CMD="${CMD_HELP}"
 	fi
 fi # if help -ne 1
 
-# Requires python3
-CMD="${BASEDIR}/bin/setup.py"
-
-if [ $help -eq 1 ] && ! which python3 &> /dev/null; then
-	ENVIRON=$(find -L ${BUILDTOOLS} -name "environment-setup-${SDKARCH}-*-linux" | head -n1)
-	if [ -n "${ENVIRON}" ]; then
-		. "${ENVIRON}"
-	fi
-
-	if ! which python3 &> /dev/null; then
-		# We don't have python3, give them help anyway
-		CMD="${BASEDIR}/bin/setup_help.py"
-	fi
-fi
-
 # Python 3 required utf-8 support to work properly, adjust the LANG to en_US.UTF-8.
+export LANG='en_US.UTF-8'
+
 # Pass the computed url and branch to ${cmd}
-LANG='en_US.UTF-8' REPO_URL=${BASEURL}/tools/git-repo OE_BASEURL=${BASEURL} OE_BASEBRANCH=${BASEBRANCH} OE_BUILDTOOLS_REMOTE=${BUILDTOOLS_REMOTE} OE_BUILDTOOLS_BRANCH=${BUILDTOOLSBRANCH} ${CMD} "$@"
+export OE_BASEURL=${BASEURL}
+export OE_BASEBRANCH=${BASEBRANCH}
+
+# Switch to the python script
+exec ${BASEDIR}/${CMD} "$@"
