@@ -20,10 +20,24 @@
 
 from argparse_setup import Argparse_Setup
 
-# We need Setup because it provides defaults for several
-# options.
-#
-parser = Argparse_Setup(None)
+import settings
+
+import os
+
+class Setup():
+    jobs = settings.REPO_JOBS
+    distros = [ settings.DEFAULT_DISTRO ]
+    machines = [ settings.DEFAULT_MACHINE ]
+    kernel = settings.DEFAULT_KTYPE
+
+    def __init__(self):
+       # Pull in the defaults from the environment (set by setup.sh)
+        self.base_url = os.getenv('OE_BASEURL')
+        self.base_branch = os.getenv('OE_BASEBRANCH')
+        self.buildtools_branch = os.getenv('OE_BUILDTOOLS_BRANCH')
+        self.buildtools_remote = os.getenv('OE_BUILDTOOLS_REMOTE')
+
+parser = Argparse_Setup(Setup())
 parser.evaluate_args(['--help'])
 
 
