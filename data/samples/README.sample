@@ -1,7 +1,7 @@
 This is a Wind River Linux build project.  It was constructed by the setup
 program using the following arguments:
 
-####CONFIGURE_ARGS####
+####SETUP_ARGS####
 
 
 Buildtools
@@ -72,3 +72,4 @@ This layer is located at the path 'layers/local' in your project.
 
 The purpose of the local layer is a staging location for your project
 work, including any new recipes, classes or scripts.
+

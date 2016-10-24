@@ -1,5 +1,5 @@
 This project was configured with the following options:
-    ####CONFIGURE_ARGS####
+    ####SETUP_ARGS####
 
 Common targets are:
     core-image-minimal

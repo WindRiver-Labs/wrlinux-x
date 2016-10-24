@@ -153,7 +153,7 @@ class Setup():
         if not orig_args or not orig_args[1:]:
             orig_args.append('--help')
         parser.evaluate_args(orig_args[1:])
-        self.configure_args = orig_args[1:]
+        self.setup_args = " ".join(orig_args[1:])
 
         if not self.base_url:
             logging.error('Unable to determine base url, you may need to specify --base-url=')
@@ -195,7 +195,6 @@ class Setup():
         self.start_logging()
         logging.debug('setup.py started')
         logging.debug('Calling setup main with arguments %s', str(orig_args))
-        logging.debug("configure args are: %s" % " ".join(self.configure_args))
 
         # Log debug which may have been missed due to log level.
         logging.debug("PATH=%s" % self.env["PATH"])
@@ -484,7 +483,6 @@ class Setup():
             tmplconf.close()
 
         layers = []
-        configure_args = " ".join(self.configure_args)
         machines = {}
         defaultmachine = self.machines[0]
         distros = {}
@@ -533,8 +531,8 @@ class Setup():
                     for l in layers:
                         dst.write(line.replace('####LAYERS####', '##OEROOT##/%s' % (l)))
                     continue
-                if '####CONFIGURE_ARGS####' in line:
-                    dst.write(line.replace('####CONFIGURE_ARGS####', configure_args))
+                if '####SETUP_ARGS####' in line:
+                    dst.write(line.replace('####SETUP_ARGS####', self.setup_args))
                     continue
                 if '####MACHINES####' in line:
                     for (name, desc) in sorted(machines.items(), key=lambda t: t[0]):
@@ -734,8 +732,7 @@ class Setup():
         if (ret.returncode != 0):
             logging.warning('Updated project configuration')
             # Command failed -- so self.default_xml changed...
-            configure_args = " ".join(self.configure_args)
-            cmd = [self.tools['git'], 'commit', '-m', 'Configuration change - %s' % (configure_args), '--']
+            cmd = [self.tools['git'], 'commit', '-m', 'Configuration change - %s' % (self.setup_args), '--']
             for file in filelist:
                 cmd.append(file)
             self.run_cmd(cmd, cwd=self.project_dir)
