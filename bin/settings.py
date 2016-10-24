@@ -46,3 +46,15 @@ BASE_LAYERS = "wr-base"
 DEFAULT_DISTRO = "wrlinux"
 DEFAULT_MACHINE = "qemux86-64"
 DEFAULT_KTYPE = "standard"
+
+# Default number of repo jobs
+REPO_JOBS = 4
+
+# Repo remote name list
+REMOTES = [
+    ( 'git://git.openembedded.org', 'openembedded' ),
+    ( 'git://git.yoctoproject.org', 'yoctoproject' ),
+    ( 'http://git.yoctoproject.org', 'http_yoctoproject' ),
+    ( 'git://github.com', 'github' ),
+    ( 'https://github.com', 'https_github' ),
+]

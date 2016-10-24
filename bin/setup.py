@@ -34,7 +34,6 @@ class Setup():
 
     tool_list = ['repo', 'git']
 
-    default_jobs = '4'
     default_xml = 'default.xml'
     default_project_dir = 'project'
     default_repo_quiet = '--quiet'
@@ -55,7 +54,7 @@ class Setup():
     def __init__(self):
         # Set various default values
         # Default -j for repo init
-        self.jobs = self.default_jobs
+        self.jobs = str(settings.REPO_JOBS)
 
         # Pull in the defaults from the environment (set by setup.sh)
         self.base_url = os.getenv('WR_BASEURL')
@@ -397,11 +396,18 @@ class Setup():
                     url = urlparse(vcs_url)
                     if not url.scheme:
                         self.remotes['local'] = '/'
-                    elif vcs_url.startswith('git://git.openembedded.org'):
-                        self.remotes['openembedded'] = 'git://git.openembedded.org'
-                    elif vcs_url.startswith('git://git.yoctoproject.org'):
-                        self.remotes['yoctoproject'] = 'git://git.yoctoproject.org'
-                    else:
+                        found = True
+
+                    if not found:
+                        for (remoteurl, remotename) in settings.REMOTES:
+                            print('%s: %s - %s' % (vcs_url, remotename, remoteurl))
+                            if vcs_url.startswith(remoteurl):
+                                print('found')
+                                self.remotes[remotename] = remoteurl
+                                found = True
+                                break
+
+                    if not found:
                         self.remotes[url.scheme + '_' + url.netloc.translate(str.maketrans('/:', '__'))] = url.scheme + '://' + url.netloc
 
         for (lindex, layerBranch) in self.requiredlayers + self.recommendedlayers:
@@ -577,7 +583,7 @@ class Setup():
 
         remote = 'base'
         fxml.write('    <remote  name="%s" fetch="%s"/>\n' % (remote, self.remotes[remote]))
-        fxml.write('    <default revision="%s" remote="%s" sync-j="%s"/>\n' % (self.base_branch, remote, self.default_jobs))
+        fxml.write('    <default revision="%s" remote="%s" sync-j="%s"/>\n' % (self.base_branch, remote, self.jobs))
 
         for remote in self.remotes:
             if remote == 'base':
