@@ -222,4 +222,4 @@ fi
 
 # Python 3 required utf-8 support to work properly, adjust the LANG to en_US.UTF-8.
 # Pass the computed url and branch to ${cmd}
-LANG='en_US.UTF-8' REPO_URL=${BASEURL}/tools/git-repo OE_BASEURL=${BASEURL} OE_BASEBRANCH=${BASEBRANCH} OE_BUILDTOOLS_REMOTE=${BUILDTOOLS_REMOTE} ${CMD} "$@"
+LANG='en_US.UTF-8' REPO_URL=${BASEURL}/tools/git-repo OE_BASEURL=${BASEURL} OE_BASEBRANCH=${BASEBRANCH} OE_BUILDTOOLS_REMOTE=${BUILDTOOLS_REMOTE} OE_BUILDTOOLS_BRANCH=${BUILDTOOLSBRANCH} ${CMD} "$@"

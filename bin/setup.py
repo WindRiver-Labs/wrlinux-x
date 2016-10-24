@@ -59,6 +59,7 @@ class Setup():
         # Pull in the defaults from the environment (set by setup.sh)
         self.base_url = os.getenv('OE_BASEURL')
         self.base_branch = os.getenv('OE_BASEBRANCH')
+        self.buildtools_branch = os.getenv('OE_BUILDTOOLS_BRANCH')
         self.buildtools_remote = os.getenv('OE_BUILDTOOLS_REMOTE')
 
         # Real project or a mirror?
@@ -584,7 +585,7 @@ class Setup():
         fxml.write('    <remote  name="%s" fetch="%s"/>\n' % (remote, self.remotes[remote]))
         fxml.write('    <default revision="%s" remote="%s" sync-j="%s"/>\n' % (self.base_branch, remote, self.jobs))
 
-        for remote in self.remotes:
+        for remote in sorted(self.remotes):
             if remote == 'base':
                 continue
             fxml.write('    <remote  name="%s" fetch="%s"/>\n' % (remote, self.remotes[remote]))
@@ -622,11 +623,10 @@ class Setup():
             add_xml(name, url, remote, path, revision)
 
         if self.mirror == True:
-            if (not os.path.exists(self.project_dir + '/wrlinux-x')):
-                write_xml('wrlinux-x', 'wrlinux-x', 'base', 'wrlinux-x', self.base_branch)
-
-            write_xml('git-repo', 'tools/git-repo', 'base', 'tools/git-repo', 'master') # hard coded for now...
-            write_xml('buildtools', self.buildtools_remote, 'base', self.buildtools_remote, 'master')
+            repo_url = os.getenv('REPO_URL')
+            if repo_url:
+                write_xml('git-repo', repo_url, 'base', repo_url, 'master') # hard coded for now...
+            write_xml('buildtools', self.buildtools_remote, 'base', self.buildtools_remote, self.buildtools_branch)
 
         def process_xml_layers(allLayers):
             def process_xml_layer(lindex, layerBranch):
