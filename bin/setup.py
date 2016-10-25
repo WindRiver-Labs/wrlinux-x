@@ -721,6 +721,10 @@ class Setup():
         if os.path.exists('config/site.conf.sample'):
             filelist.append('config/site.conf.sample')
 
+        # Add log dir if it contains files
+        if os.listdir('config/log'):
+            filelist.append('config/log')
+
         # git add manifest. (Since these files are new, always try to add them)
         cmd = [self.tools['git'], 'add', '--']
         for file in filelist:
