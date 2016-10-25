@@ -38,11 +38,18 @@ Once in the build directory edit the 'conf/local.conf' file.  Please
 refer to the comments in the file for specific configuration instructions.
 
 After configuring your build directory, you may now run bitbake commands.
+Note that bitbake, actually python3, requires the LANG environment variable
+to be a utf-8 variant, e.g. en_US.UTF-8, or it will terminate with an error.
 Bitbake commands are of the format: bitbake <recipe>
 
 For example:
 
+$ export LANG=en_US.UTF-8      # if needed
 $ bitbake core-image-minimal
+
+or
+
+$ LANG=en_US.UTF-8 bitbake core-image-minimal
 
 Once your have built an image, you can boot this using QEMU (for compatible
 MACHINE settings) using the 'runqemu' command, such as:
