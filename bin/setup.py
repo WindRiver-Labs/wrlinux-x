@@ -833,22 +833,6 @@ class Setup():
 
         logging.debug('Done')
 
-    def git_commit_file_conf_dir(self, fn, msg):
-        logging.debug('Starting')
-        if not os.path.isabs(fn):
-            fn = self.conf_dir + "/" + fn
-
-        # git add file.
-        cmd = [self.tools['git'], 'add', fn]
-        self.run_cmd(cmd, cwd=self.conf_dir)
-
-        #git commit log dir
-        cmd = [self.tools['git'], 'commit', '-am', msg]
-        if self.quiet == self.default_repo_quiet:
-            cmd.append(self.quiet)
-        self.run_cmd(cmd, cwd=self.conf_dir)
-        logging.debug('Done')
-
     def setup_env(self):
         self.set_ssl_cert()
         self.set_repo_git_env()
