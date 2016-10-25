@@ -217,6 +217,8 @@ class Setup():
         self.update_project()
         self.update_manifest()
 
+        self.update_gitignore()
+
         self.commit_files()
 
         self.repo_sync()
@@ -705,6 +707,35 @@ class Setup():
 
         logging.debug('Done')
 
+    def update_gitignore(self):
+        logging.debug('Starting')
+
+        import xml.etree.ElementTree as ET
+
+        ign_list = [
+                    '.repo*',
+                    '*.pyc',
+                    '/bin/buildtools*',
+                    '/environment-setup-*',
+                    '/layers/*',
+                    '!layers/local',
+                    ]
+
+        tree = ET.parse(os.path.join(self.project_dir, 'default.xml'))
+        root = tree.getroot()
+        for linkfile in root.iter('linkfile'):
+            ign_list.append(linkfile.attrib['dest'])
+
+        with open(os.path.join(self.project_dir, '.gitignore'), 'a+') as f:
+            f.seek(0)
+            existed = f.readlines()
+            for l in ign_list:
+                item = '%s\n' % l
+                if item not in existed:
+                    f.write(item)
+
+        logging.debug('Done')
+
     def commit_files(self):
         logging.debug('Starting')
 
@@ -716,6 +747,7 @@ class Setup():
             'config/local.conf.sample',
             'README',
             'default.xml',
+            '.gitignore',
             ]
 
         if os.path.exists('config/site.conf.sample'):
@@ -788,17 +820,6 @@ class Setup():
         if self.quiet == self.default_repo_quiet:
             cmd.append(self.quiet)
         self.run_cmd(cmd, cwd=self.conf_dir)
-
-        gitignore = open(os.path.join(self.project_dir, '.gitignore'), 'w')
-
-        gitignore.write('.repo*\n')
-        gitignore.write('*.pyc\n')
-        gitignore.write('/bin/buildtools*\n')
-        gitignore.write('/environment-setup-*\n')
-        gitignore.write('/layers/*\n')
-        gitignore.write('!layers/local\n')
-
-        gitignore.close()
 
         # git add file.
         cmd = [self.tools['git'], 'add', '.']
