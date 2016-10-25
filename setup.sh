@@ -24,13 +24,6 @@ CMD="bin/setup.py"
 # Only requires python2
 CMD_HELP="bin/setup_help.py"
 
-# Load custom setup additions
-if [ -d "data/environment.d" ]; then
-	for envfile in data/environment.d/*.sh ; do
-		. $envfile
-	done
-fi
-
 # Takes value_name default_value
 # value_name is set to the first value found in the list:
 # git config, git config --global, and finally default_value
@@ -40,6 +33,13 @@ add_gitconfig() {
 }
 
 BASEDIR=$(readlink -f "$(dirname "$0")")
+
+# Load custom setup additions
+if [ -d "${BASEDIR}/data/environment.d" ]; then
+	for envfile in ${BASEDIR}/data/environment.d/*.sh ; do
+		. $envfile
+	done
+fi
 
 # Argument parsing, limited set of arguments parsed here
 help=0
