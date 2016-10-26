@@ -152,7 +152,7 @@ if [ $help -ne 1 ]; then
 	add_gitconfig "color.status" "false"
 else
 	# If we don't have python3, fall back to the help only version
-	if which python3 &> /dev/null; then
+	if ! which python3 &> /dev/null; then
 		CMD="${CMD_HELP}"
 	fi
 fi # if help -ne 1
