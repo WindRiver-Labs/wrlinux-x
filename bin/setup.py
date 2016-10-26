@@ -764,6 +764,15 @@ class Setup():
                 cmd.append(self.quiet)
             self.run_cmd(cmd, cwd=self.conf_dir)
 
+            # Add self.install_dir as a submodule if it is in self.project_dir
+            if self.install_dir.startswith(self.project_dir + '/'):
+                logging.debug('Add %s as a submodule' % self.install_dir)
+                cmd = [self.tools['git'], 'submodule', 'add', \
+                        './' + os.path.relpath(self.install_dir, self.project_dir)]
+                self.run_cmd(cmd, cwd=self.project_dir)
+                filelist.append(self.install_dir)
+                filelist.append('.gitmodules')
+
         # git add manifest. (Since these files are new, always try to add them)
         cmd = [self.tools['git'], 'add', '--'] + filelist
         self.run_cmd(cmd, cwd=self.project_dir)
