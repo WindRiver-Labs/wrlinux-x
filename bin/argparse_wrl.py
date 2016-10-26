@@ -52,6 +52,10 @@ class Argparse_Wrl(Argparse_Setup):
             if self.setup:
                 self.setup.dl_layers = parsed_args.dl_layers
 
+        if parsed_args.kernel:
+            if self.setup:
+                self.setup.kernel = parsed_args.kernel
+
     def add_setup_options(self):
         Argparse_Setup.add_setup_options(self)
 
