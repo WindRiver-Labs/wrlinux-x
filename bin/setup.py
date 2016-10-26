@@ -246,7 +246,7 @@ class Setup():
                 base_layerBranch = self.index.getLayerBranch(lindex, branchid, name=lname)
 
                 if not base_layerBranch or not branchid:
-                    raise StandardError('Unable to find base layer: %s in the Layer_Index' % (lname))
+                    raise Exception('Unable to find base layer: %s in the Layer_Index' % (lname))
 
                 for lb in base_layerBranch:
                     requiredQueue.append( (lindex, lb) )
@@ -870,7 +870,7 @@ class Setup():
             log_it = 0
         try:
             self.run_cmd(cmd, log=log_it)
-        except StandardError as e:
+        except Exception as e:
             raise
         logging.debug('Done')
 
@@ -888,14 +888,14 @@ class Setup():
             local_only = 1
         try:
             self.call_repo_sync(args)
-        except StandardError as e:
+        except Exception as e:
             if not local_only:
                 raise
             else:
                 logging.info('Using --local-only failed.  Trying full sync.')
                 try:
                     self.call_repo_sync(orig_args)
-                except StandardError as e2:
+                except Exception as e2:
                     raise
 
         logging.debug('Done')
@@ -961,7 +961,7 @@ class Setup():
             if log:
                 msg = '\n'.join(err_msg)
                 msg += '\n'
-            raise StandardError(msg)
+            raise Exception(msg)
         logging.debug('Finished running cmd: "%s"' % repr(cmd))
 
 
