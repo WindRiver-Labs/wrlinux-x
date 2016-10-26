@@ -944,7 +944,7 @@ class Setup():
                 if output:
                     output = output.strip()
                     if len(err_msg) > 0 or output.startswith(err) or output.startswith(err2) or output.startswith(err3):
-                        err_msg.append(output)
+                        err_msg.append(output.decode('utf-8'))
                     logging.debug(output)
 
         else:
