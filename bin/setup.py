@@ -24,11 +24,14 @@ import sys
 import time
 
 # Setup-specific modules
+import logger_setup
 from argparse_wrl import Argparse_Wrl
 
 from layer_index import Layer_Index
 
 import settings
+
+logger = logger_setup.setup_logging()
 
 class Setup():
 
@@ -44,13 +47,10 @@ class Setup():
     check_repo_install_dir = '.repo/repo/.git'
     check_repo_sync_file = '.repo/projects/'
 
-    FILE_LOG_FORMAT='%(asctime)s %(levelname)8s [%(filename)s:%(lineno)s - %(funcName)20s(): %(message)s'
-    SCREEN_LOG_FORMAT='%(asctime)s %(levelname)8s: %(message)s'
 
     BINTOOLS_SSL_DIR="/bin/buildtools/sysroots/x86_64-wrlinuxsdk-linux/usr/share/ca-certificates/mozilla"
     BINTOOLS_SSL_CERT= "/bin/buildtools/sysroots/x86_64-wrlinuxsdk-linux/etc/ssl/certs/ca-certificates.crt"
 
-    logging.TO_FILE = 5
     def __init__(self):
         # Set various default values
         # Default -j for repo init
@@ -85,12 +85,8 @@ class Setup():
         self.requiredlayers = []
         self.recommendedlayers = []
 
-        # Set other useful values...
-        self.start_time = time.strftime('%(asctime)s', time.gmtime())
-
         # Default quiet:
         self.quiet = self.default_repo_quiet
-        self.logging = 0
 
         self.debug_lvl = 0
 
@@ -103,8 +99,6 @@ class Setup():
 
         self.conf_dir = os.path.join(self.project_dir, self.class_config_dir)
 
-        # Logging timezone is UTC
-        self.log_dir= os.path.join(self.conf_dir, self.class_log_dir)
 
         # Environment setup
         self.env = os.environ.copy()
@@ -121,32 +115,16 @@ class Setup():
         self.list_wrtemplates = False
 
     def exit(self, ret=0):
-        logging.debug("setup.py finished (ret=%s)" % (ret))
+        logger.debug("setup.py finished (ret=%s)" % (ret))
         sys.exit(ret)
 
-    def start_logging(self):
-        if not self.logging:
-            self.logging = 1
+    def start_file_logging(self):
+        log_dir = os.path.join(self.conf_dir, self.class_log_dir)
+        if not os.path.exists(log_dir):
+            os.makedirs(log_dir)
 
-        if not os.path.exists(self.conf_dir):
-            os.makedirs(self.conf_dir)
-
-        if not os.path.exists(self.log_dir):
-            os.makedirs(self.log_dir)
-
-        log_file = '%s/%s.log' % (self.log_dir, time.strftime('%Y-%m-%d-%H:%M:%S+0000', time.gmtime()))
-        logging.basicConfig(filename=log_file, format=self.FILE_LOG_FORMAT, level=logging.TO_FILE)
-        logging.addLevelName(logging.TO_FILE, 'TO_FILE')
-        logging.Formatter.converter = time.gmtime
-
-        # Duplicate INFO logging to screen.
-        self.screen_out = logging.StreamHandler(sys.stdout)
-        formatter = logging.Formatter(self.SCREEN_LOG_FORMAT)
-        self.screen_out.setFormatter(formatter)
-        self.screen_out.setLevel(logging.INFO)
-        logging.getLogger().addHandler(self.screen_out)
-
-        logging.info("Logging to %s" % log_file);
+        log_file = '%s/%s.log' % (log_dir, time.strftime('%Y-%m-%d-%H:%M:%S+0000', time.gmtime()))
+        logger_setup.setup_logging_file(log_file)
 
     def main(self, orig_args):
         parser = Argparse_Wrl(self)
@@ -156,11 +134,12 @@ class Setup():
         parser.evaluate_args(orig_args[1:])
         self.setup_args = " ".join(orig_args[1:])
 
+        self.start_file_logging()
         if not self.base_url:
-            logging.error('Unable to determine base url, you may need to specify --base-url=')
+            logger.error('Unable to determine base url, you may need to specify --base-url=')
 
         if not self.base_branch:
-            logging.error('Unable to determine base branch, you may need to specify --base-branch=')
+            logger.error('Unable to determine base branch, you may need to specify --base-branch=')
 
         if not self.base_url or not self.base_branch:
             self.exit(1)
@@ -193,22 +172,21 @@ class Setup():
         if self.list_distros or self.list_machines or self.list_layers or self.list_recipes or self.list_wrtemplates:
             sys.exit(0)
 
-        self.start_logging()
-        logging.debug('setup.py started')
-        logging.debug('Calling setup main with arguments %s', str(orig_args))
+        logger.debug('setup.py started')
+        logger.debug('Calling setup main with arguments %s', str(orig_args))
 
         # Log debug which may have been missed due to log level.
-        logging.debug("PATH=%s" % self.env["PATH"])
+        logger.debug("PATH=%s" % self.env["PATH"])
 
-        logging.debug("Tools are:")
+        logger.debug("Tools are:")
         for key in self.tools:
-            logging.debug("%s -> %s", key, self.tools[key])
+            logger.debug("%s -> %s", key, self.tools[key])
 
-        logging.info('Setting distro to "%s"' % (self.distros))
-        logging.info('Setting machine to "%s"' % (self.machines))
-        logging.info('Setting layers to "%s"' % (self.layers))
-        logging.info('Setting recipes to "%s"' % (self.recipes))
-        logging.info('Setting templates to "%s"' % (self.wrtemplates))
+        logger.plain('Setting distro to "%s"' % (self.distros))
+        logger.plain('Setting machine to "%s"' % (self.machines))
+        logger.plain('Setting layers to "%s"' % (self.layers))
+        logger.plain('Setting recipes to "%s"' % (self.recipes))
+        logger.plain('Setting templates to "%s"' % (self.wrtemplates))
 
         self.process_layers()
 
@@ -235,11 +213,11 @@ class Setup():
         # Queue of recommended objects
         recommendedQueue = deque([])
 
-        logging.debug('Starting')
+        logger.debug('Starting')
         # if this switches to false, we have to exit at the end of this function
         allfound = True
 
-        # It all startes with BASE_LAYERS, so always include this. (only from index 0)
+        # It all starts with BASE_LAYERS, so always include this. (only from index 0)
         lindex = self.index.index[0]
         branchid = self.index.getBranchId(lindex, self.get_branch(lindex=lindex))
         if branchid:
@@ -288,7 +266,7 @@ class Setup():
                     break
 
             if not found:
-                logging.critical('%s "%s" not found' % (type, item))
+                logger.critical('%s "%s" not found' % (type, item))
                 return False
 
             return True
@@ -327,7 +305,7 @@ class Setup():
                         requiredQueue.append( (lindex, layerBranch) )
 
         if not allfound:
-            logging.critical('Please correct the missing items, exiting.')
+            logger.critical('Please correct the missing items, exiting.')
             self.exit(1)
 
         # Compute requires and recommended layers...
@@ -407,9 +385,9 @@ class Setup():
 
                     if not found:
                         for (remoteurl, remotename) in settings.REMOTES:
-                            print('%s: %s - %s' % (vcs_url, remotename, remoteurl))
+                            logger.plain('%s: %s - %s' % (vcs_url, remotename, remoteurl))
                             if vcs_url.startswith(remoteurl):
-                                print('found')
+                                logger.plain('found')
                                 self.remotes[remotename] = remoteurl
                                 found = True
                                 break
@@ -430,17 +408,17 @@ class Setup():
 
                 if (layer['name'] == 'openembedded-core'):
                     bitbakeBranch = self.index.getBranch(lindex, layerBranch['branch'])['bitbake_branch']
-                    logging.debug('bitbake: %s %s %s' % ( settings.BITBAKE, path + '/bitbake', bitbakeBranch ))
+                    logger.debug('bitbake: %s %s %s' % ( settings.BITBAKE, path + '/bitbake', bitbakeBranch ))
 
                 actual_branch = layerBranch['actual_branch'] or self.index.getBranch(lindex, branchid)['name']
-                logging.debug('%s: %s %s %s' % (layer['name'], vcs_url, path, actual_branch ))
+                logger.debug('%s: %s %s %s' % (layer['name'], vcs_url, path, actual_branch ))
 
 
-        logging.debug('Computed required layers:')
+        logger.debug('Computed required layers:')
         for (lindex, layerBranch) in self.requiredlayers:
             display_layer(lindex, layerBranch)
 
-        logging.debug('Computed recommended layers:%s' % (["", ' (skipping)'][self.no_recommend == True]))
+        logger.debug('Computed recommended layers:%s' % (["", ' (skipping)'][self.no_recommend == True]))
         for (lindex, layerBranch) in self.recommendedlayers:
             display_layer(lindex, layerBranch)
 
@@ -456,10 +434,10 @@ class Setup():
             else:
                 self.recommendedlayers = []
 
-        logging.debug('Done')
+        logger.debug('Done')
 
     def project_setup(self):
-        logging.debug('Starting')
+        logger.debug('Starting')
         if not os.path.exists(self.project_dir + '/.git'):
             if self.mirror != True:
                 self.setup_local_layer()
@@ -477,10 +455,10 @@ class Setup():
                             os.unlink(os.path.join(self.project_dir, filename))
                         os.symlink(os.path.join(dirpath, filename), os.path.join(self.project_dir, filename))
 
-        logging.debug('Done')
+        logger.debug('Done')
 
     def update_project(self):
-        logging.debug('Starting')
+        logger.debug('Starting')
         if not os.path.exists(self.project_dir + '/.templateconf'):
             tmplconf = open(self.project_dir + '/.templateconf', 'w')
             tmplconf.write('# Project template settings\n')
@@ -580,7 +558,7 @@ class Setup():
             copySample(self.install_dir + '/data/samples/site.conf.sample', self.project_dir + '/config/site.conf.sample')
 
     def update_manifest(self):
-        logging.debug('Starting')
+        logger.debug('Starting')
 
         fxml = open(os.path.join(self.project_dir, self.default_xml), 'w')
         fxml.write('<manifest>\n')
@@ -600,7 +578,7 @@ class Setup():
         def inc_xml(name, url, remote, path, revision):
             # incfile is included inline and has to work as elements of the 'project'
             incfile = os.path.join(self.install_dir, 'data/xml/%s.inc' % (name))
-            logging.debug('Looking for %s' % (incfile))
+            logger.debug('Looking for %s' % (incfile))
             if os.path.exists(incfile):
                 fbase = open(incfile, 'r')
                 for line in fbase:
@@ -613,7 +591,7 @@ class Setup():
         def add_xml(name, url, remote, path, revision):
             # xmlfile is included after the entry and is completely standalone
             xmlfile = os.path.join(self.install_dir, 'data/xml/%s.xml' % (name))
-            logging.debug('Looking for %s' % (xmlfile))
+            logger.debug('Looking for %s' % (xmlfile))
             if os.path.exists(xmlfile):
                 fbase = open(xmlfile, 'r')
                 for line in fbase:
@@ -703,7 +681,7 @@ class Setup():
         fxml.write('</manifest>\n')
         fxml.close()
 
-        logging.debug('Done')
+        logger.debug('Done')
 
     def update_gitignore(self):
         logging.debug('Starting')
@@ -740,7 +718,7 @@ class Setup():
         logging.debug('Done')
 
     def commit_files(self):
-        logging.debug('Starting')
+        logger.debug('Starting')
 
         # List of all files that may change due to config
         filelist = [
@@ -786,15 +764,15 @@ class Setup():
         ret = subprocess.Popen(cmd, cwd=self.project_dir, close_fds=True)
         ret.wait()
         if (ret.returncode != 0):
-            logging.warning('Updated project configuration')
+            logger.warning('Updated project configuration')
             # Command failed -- so self.default_xml changed...
             cmd = [self.tools['git'], 'commit', '-m', 'Configuration change - %s' % (self.setup_args), '--'] + filelist
             self.run_cmd(cmd, cwd=self.project_dir)
 
-        logging.debug('Done')
+        logger.debug('Done')
 
     def repo_sync(self):
-        logging.debug('Starting')
+        logger.debug('Starting')
 
         if os.path.exists(os.path.join(self.project_dir, self.check_repo_install_dir)):
             cmd = ['-j', self.jobs]
@@ -812,15 +790,15 @@ class Setup():
             cmd = ['-j', self.jobs]
             self.call_initial_repo_sync(cmd)
 
-        logging.debug('Done')
+        logger.debug('Done')
 
     def setup_local_layer(self):
-        logging.debug('Starting')
+        logger.debug('Starting')
         if not os.path.exists(os.path.join(self.project_dir, 'layers')):
             os.mkdir(os.path.join(self.project_dir, 'layers'))
         if not os.path.exists(os.path.join(self.project_dir, 'layers/local')):
             shutil.copytree(os.path.join(self.install_dir, 'data/local_layer'), os.path.join(self.project_dir, 'layers/local'))
-        logging.debug('Done')
+        logger.debug('Done')
 
     def setup_env(self):
         self.set_ssl_cert()
@@ -831,7 +809,7 @@ class Setup():
         self.env["PATH"] = self.install_dir + "/bin:" + self.env["PATH"]
 
     def set_repo_git_env(self):
-        # Set HOME to install_dir to use install_dir/.gitconfig settings.  Otherwise the user will 
+        # Set HOME to install_dir to use install_dir/.gitconfig settings.  Otherwise the user will
         # be prompted for information.
         self.env["HOME"] = self.project_dir
 
@@ -844,11 +822,11 @@ class Setup():
         self.env["SSL_CERT_DIR"] = dn
 
     def call_repo_init(self, args):
-        logging.debug('Starting')
+        logger.debug('Starting')
         repo = self.tools['repo']
         directory = os.path.join(self.project_dir, self.check_repo_install_dir)
         if os.path.exists(directory):
-            logging.info('Done: detected repo init already run since %s exists' % directory)
+            logger.info('Done: detected repo init already run since %s exists' % directory)
             return
         cmd = args
         cmd.insert(0, repo)
@@ -861,18 +839,18 @@ class Setup():
             self.run_cmd(cmd, log=log_it)
         except Exception as e:
             raise
-        logging.debug('Done')
+        logger.debug('Done')
 
     # This only exists to check if we have fully sync'ed the project
     # Updating should use call_repo_sync
     def call_initial_repo_sync(self, args):
-        logging.debug('Starting')
+        logger.debug('Starting')
         sync_file= os.path.join(self.project_dir, self.check_repo_sync_file)
         local_only = 0
         orig_args = list(args)
         if os.path.exists(sync_file):
-            logging.info('Detected repo sync already run since %s exists' % sync_file)
-            logging.info('Only running local update.')
+            logger.info('Detected repo sync already run since %s exists' % sync_file)
+            logger.info('Only running local update.')
             args.append('--local-only')
             local_only = 1
         try:
@@ -881,16 +859,16 @@ class Setup():
             if not local_only:
                 raise
             else:
-                logging.info('Using --local-only failed.  Trying full sync.')
+                logger.info('Using --local-only failed.  Trying full sync.')
                 try:
                     self.call_repo_sync(orig_args)
                 except Exception as e2:
                     raise
 
-        logging.debug('Done')
+        logger.debug('Done')
 
     def call_repo_sync(self, args):
-        logging.debug('Starting')
+        logger.debug('Starting')
         repo = self.tools['repo']
         cmd = args
         cmd.insert(0, repo)
@@ -900,7 +878,7 @@ class Setup():
             cmd.append(self.quiet)
             log_it = 0
         self.run_cmd(cmd, log=log_it)
-        logging.debug('Done')
+        logger.debug('Done')
 
     def get_branch(self, lindex=None):
         if lindex:
@@ -910,8 +888,8 @@ class Setup():
     def get_path(self, tool):
         cmd = self.which(tool)
         if (not cmd):
-            logging.critical('Cannot find %s in path!', tool)
-            logging.critical('Path was: %s', os.environ['PATH'])
+            logger.critical('Cannot find %s in path!', tool)
+            logger.critical('Path was: %s', os.environ['PATH'])
             self.exit(1)
         return cmd
 
@@ -920,9 +898,9 @@ class Setup():
         if environment == None:
             environment = self.env
 
-        logging.debug('Running cmd: "%s"' % repr(cmd))
+        logger.debug('Running cmd: "%s"' % repr(cmd))
         if cwd:
-            logging.debug('From %s' % cwd)
+            logger.debug('From %s' % cwd)
 
         if log == 1:
             ret = subprocess.Popen(cmd, env=environment, cwd=cwd, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
@@ -934,47 +912,42 @@ class Setup():
                     output = output.strip()
                     if len(err_msg) > 0 or output.startswith(err) or output.startswith(err2) or output.startswith(err3):
                         err_msg.append(output.decode('utf-8'))
-                    logging.debug(output)
-
+                    logger.debug(output)
         else:
-            logging.debug('output not logged for this command (%s) without verbose flag (-v).' % (cmd))
+            logger.debug('output not logged for this command (%s) without verbose flag (-v).' % (cmd))
             ret = subprocess.Popen(cmd, env=environment, cwd=cwd, close_fds=True)
 
         ret.wait()
         if (ret.returncode != expected_ret):
             for key in environment.keys():
-                logging.log(logging.TO_FILE, '%20s = %s' % (key, repr(environment[key])))
-            logging.critical('cmd "%s" returned %d' % (cmd, ret.returncode))
+                logger.to_file('%20s = %s' % (key, repr(environment[key])))
+            logger.critical('cmd "%s" returned %d' % (cmd, ret.returncode))
 
             msg = ''
             if log:
                 msg = '\n'.join(err_msg)
                 msg += '\n'
             raise Exception(msg)
-        logging.debug('Finished running cmd: "%s"' % repr(cmd))
-
+        logger.debug('Finished running cmd: "%s"' % repr(cmd))
 
 
     # Helpers: Set_*, which..
     def set_jobs(self, jobs):
-        logging.debug('Setting jobs to %s' % jobs)
+        logger.debug('Setting jobs to %s' % jobs)
         self.jobs = jobs
 
     def set_debug(self):
-        self.start_logging()
         self.set_debug_env()
         self.quiet = None
-        self.screen_out.setLevel(logging.DEBUG)
-        formatter = logging.Formatter(self.FILE_LOG_FORMAT)
-        self.screen_out.setFormatter(formatter)
-        logging.debug('logging level set to DEBUG')
+        logger.setLevel(logging.DEBUG)
+        logger.debug('logging level set to DEBUG')
 
     def set_base_url(self, url):
-        logging.debug('Setting base-url to %s' % url)
+        logger.debug('Setting base-url to %s' % url)
         self.base_url = url
 
     def set_base_branch(self, branch):
-        logging.debug('Setting base-branch to %s' % branch)
+        logger.debug('Setting base-branch to %s' % branch)
         self.base_branch = branch
 
     def set_debug_env(self):
@@ -982,7 +955,7 @@ class Setup():
 
 
     def touch(self, fn):
-        logging.debug("Creating %s", fn)
+        logger.debug("Creating %s", fn)
         open(fn, 'a').close()
 
     ''' When this is python3.3, use built in version'''

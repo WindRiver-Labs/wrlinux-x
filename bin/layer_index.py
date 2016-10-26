@@ -18,15 +18,17 @@ import json
 import sys
 import os
 
-import logging
 
 from collections import OrderedDict
+
+import logger_setup
 
 # type, url/path, description, cache
 # type:  restapi-web   - REST API from a LayerIndex-web
 #        restapi-files - REST API, but only from files
 #        export        - Exported DB from a LayerIndex-web -- reads file(s)
 
+logger = logger_setup.setup_logging()
 class Layer_Index():
     # Index in REST-API format...  This is used by external items.
     index = []
@@ -71,7 +73,7 @@ class Layer_Index():
                 lindex = self.load_django_export(indexurl, name=indexname)
             else:
                 # Unknown index type...
-                print('Unknown index type  %s' % indextype)
+                logger.error('Unknown index type  %s' % indextype)
                 raise SyntaxError
 
             # Cache the data we loaded... if we loaded data.
@@ -131,8 +133,7 @@ class Layer_Index():
 
         assert url is not None
 
-        logging.info('Loading %s from url %s...' % (name, url))
-        print('Loading %s from url %s...' % (name, url))
+        logger.plain('Loading %s from url %s...' % (name, url))
 
         try:
             from urllib.request import urlopen, URLError
@@ -146,7 +147,7 @@ class Layer_Index():
         def _get_json_response(apiurl=None):
             assert apiurl is not None
 
-            logging.debug("Fetching %s..." % apiurl)
+            logger.debug("Fetching %s..." % apiurl)
 
             _parsedurl = urlparse(apiurl)
             path = _parsedurl.path
@@ -158,7 +159,7 @@ class Layer_Index():
 
             parsed = json.loads(res.read().decode('utf-8'))
 
-            logging.debug("done.")
+            logger.debug("done.")
             return parsed
 
         try:
@@ -166,8 +167,8 @@ class Layer_Index():
         except Exception as e:
             import traceback
             if proxy_settings is not None:
-                logging.error("Using proxy %s" % proxy_settings)
-            logging.error("Index %s: could not connect to %s:"
+                logger.error("Using proxy %s" % proxy_settings)
+            logger.error("Index %s: could not connect to %s:"
                       "%s\n%s" % (name, url, e, traceback.format_exc()))
             return None
 
@@ -178,7 +179,7 @@ class Layer_Index():
         lindex['branches'] = _get_json_response(lindex['apilinks']['branches'] + filter)
 
         if not lindex['branches']:
-            logging.info("No valid branches (%s) found at url %s." % (branches or "", url))
+            logger.info("No valid branches (%s) found at url %s." % (branches or "", url))
             return lindex
 
         filter = ""
@@ -187,7 +188,7 @@ class Layer_Index():
                      % "OR".join(branches)
         lindex['layerBranches'] = _get_json_response(lindex['apilinks']['layerBranches'] + filter)
         if not lindex['layerBranches']:
-            logging.info("No layers on branches (%s) found at url %s." % (branches or "", url))
+            logger.info("No layers on branches (%s) found at url %s." % (branches or "", url))
             return lindex
 
         layerids = []
@@ -238,8 +239,7 @@ class Layer_Index():
         else:
             lindex['wrtemplates'] = []
 
-        logging.info('done.')
-        print('done.')
+        logger.plain('done.')
 
         return lindex
 
@@ -277,7 +277,7 @@ class Layer_Index():
             return listtwo
 
         def loadCache(path):
-            logging.debug('Loading json file %s' % path)
+            logger.debug('Loading json file %s' % path)
             pindex = json.load(open(path, 'rt', encoding='utf-8'))
 
             for entry in pindex:
@@ -288,27 +288,23 @@ class Layer_Index():
                     lindex[entry] = []
                 lindex[entry] = add_cmp_lists(pindex[entry], lindex[entry])
 
-            logging.debug('done.')
+            logger.debug('done.')
 
         if os.path.exists(path) and os.path.isdir(path):
-            logging.info('Loading %s from path %s...' % (name, path))
-            print('Loading %s from path %s...' % (name, path))
+            logger.info('Loading %s from path %s...' % (name, path))
             for (dirpath, dirnames, filenames) in os.walk(path):
                 for filename in filenames:
                     if not filename.endswith('.json'):
                         continue
                     fpath = os.path.join(dirpath, filename)
                     loadCache(fpath)
-            logging.info('done.')
-            print('done.')
+            logger.info('done.')
         elif os.path.exists(path):
-            logging.info('Loading %s from path %s...' % (name, path))
-            print('Loading %s from path %s...' % (name, path))
+            logger.info('Loading %s from path %s...' % (name, path))
             loadCache(path)
-            logging.info('done.')
-            print('done.')
+            logger.info('done.')
         else:
-            logging.error("Index %s: could not find path %s" % (name, path))
+            logger.error("Index %s: could not find path %s" % (name, path))
             return None
 
         return lindex
@@ -354,7 +350,7 @@ class Layer_Index():
 
             pindex = {}
 
-            logging.debug('Loading json file %s' % path)
+            logger.debug('Loading json file %s' % path)
             dbindex = json.load(open(path, 'rt', encoding='utf-8'))
 
             # We discard anything that doesn't start with 'layerindex.'
@@ -391,27 +387,23 @@ class Layer_Index():
                     lindex[entry] = []
                 lindex[entry] = add_cmp_lists(pindex[entry], lindex[entry])
 
-            logging.debug('done.')
+            logger.debug('done.')
 
         if os.path.exists(path) and os.path.isdir(path):
-            logging.info('Loading %s from path %s...' % (name, path))
-            print('Loading %s from path %s...' % (name, path))
+            logger.info('Loading %s from path %s...' % (name, path))
             for (dirpath, dirnames, filenames) in os.walk(path):
                 for filename in filenames:
                     if not filename.endswith('.json'):
                         continue
                     fpath = os.path.join(dirpath, filename)
                     loadDB(fpath)
-            logging.info('done.')
-            print('done.')
+            logger.info('done.')
         elif os.path.exists(path):
-            logging.info('Loading %s from path %s...' % (name, path))
-            print('Loading %s from path %s...' % (name, path))
+            logger.info('Loading %s from path %s...' % (name, path))
             loadDB(path)
-            logging.info('done.')
-            print('done.')
+            logger.info('done.')
         else:
-            logging.error("Index %s: could not find path %s" % (name, path))
+            logger.error("Index %s: could not find path %s" % (name, path))
             return None
 
         return lindex
@@ -661,9 +653,9 @@ class Layer_Index():
     def list_layers(self, base_branch):
         import unicodedata
         for lindex in self.index:
-            print ('Index: %s' % (lindex['CFG']['DESCRIPTION'] or lindex['CFG']['URL']))
-            print ('%s %s' % (('{:25}'.format('layer'), 'summary')))
-            print ('{:-^80}'.format(""))
+            logger.plain ('Index: %s' % (lindex['CFG']['DESCRIPTION'] or lindex['CFG']['URL']))
+            logger.plain ('%s %s' % (('{:25}'.format('layer'), 'summary')))
+            logger.plain ('{:-^80}'.format(""))
             branchid = self.getBranchId(lindex, self.getIndexBranch(default=base_branch, lindex=lindex))
             if branchid:
                 for lb in lindex['layerBranches']:
@@ -671,14 +663,14 @@ class Layer_Index():
                         for layer in self.find_layer(lindex, layerBranch=lb):
                             name = layer['name']
                             summary = layer['summary'] or name
-                            print('%s %s' % ('{:25}'.format(name), summary[:52]))
-            print ('')
+                            logger.plain('%s %s' % ('{:25}'.format(name), summary[:52]))
+            logger.plain ('')
 
     def list_obj(self, base_branch, object, display):
         for lindex in self.index:
-            print ('Index: %s' % (lindex['CFG']['DESCRIPTION'] or lindex['CFG']['URL']))
-            print ('%s %s %s' % (('{:24}'.format(display), '{:34}'.format('description'), '{:19}'.format('layer'))))
-            print ('{:-^80}'.format(""))
+            logger.plain ('Index: %s' % (lindex['CFG']['DESCRIPTION'] or lindex['CFG']['URL']))
+            logger.plain ('%s %s %s' % (('{:24}'.format(display), '{:34}'.format('description'), '{:19}'.format('layer'))))
+            logger.plain ('{:-^80}'.format(""))
             branchid = self.getBranchId(lindex, self.getIndexBranch(default=base_branch, lindex=lindex))
             if branchid:
                 # there are more layerBranches then objects (usually)...
@@ -689,8 +681,8 @@ class Layer_Index():
                                 lname = layer['name']
                                 name = obj['name']
                                 description = (obj['description'] or name).strip()
-                                print('%s %s %s' % ('{:24}'.format(name), '{:34}'.format(description[:34]), lname))
-            print ('')
+                                logger.plain('%s %s %s' % ('{:24}'.format(name), '{:34}'.format(description[:34]), lname))
+            logger.plain ('')
 
     def list_distros(self, base_branch):
         self.list_obj(base_branch, 'distros', 'distro')
@@ -703,9 +695,9 @@ class Layer_Index():
 
     def list_recipes(self, base_branch):
         for lindex in self.index:
-            print ('Index: %s' % (lindex['CFG']['DESCRIPTION'] or lindex['CFG']['URL']))
-            print ('%s %s %s' % (('{:15}'.format('recipe'), '{:9}'.format('version'), 'summary')))
-            print ('{:-^80}'.format(""))
+            logger.plain ('Index: %s' % (lindex['CFG']['DESCRIPTION'] or lindex['CFG']['URL']))
+            logger.plain ('%s %s %s' % (('{:15}'.format('recipe'), '{:9}'.format('version'), 'summary')))
+            logger.plain ('{:-^80}'.format(""))
             branchid = self.getBranchId(lindex, self.getIndexBranch(default=base_branch, lindex=lindex))
             if branchid:
                 # there are more layerBranches then objects (usually)...
@@ -717,8 +709,8 @@ class Layer_Index():
                                 pn = obj['pn']
                                 pv = obj['pv']
                                 summary = (obj['summary'] or pn).strip()
-                                print('%s %s %s' % ('{:15}'.format(pn), '{:9}'.format(pv), summary[:50]))
-            print ('')
+                                logger.plain('%s %s %s' % ('{:15}'.format(pn), '{:9}'.format(pv), summary[:50]))
+            logger.plain ('')
 
     def getBranchId(self, lindex, name):
         for branch in lindex['branches']:
