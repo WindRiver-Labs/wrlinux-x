@@ -713,6 +713,11 @@ class Setup():
         ign_list = [
                     '.repo*',
                     '*.pyc',
+                    '*.pyo',
+                    '*.swp',
+                    '*.orig',
+                    '*.rej',
+                    '*~',
                     '/bin/buildtools*',
                     '/environment-setup-*',
                     '/layers/*',
