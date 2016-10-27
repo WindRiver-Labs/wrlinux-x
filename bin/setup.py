@@ -811,7 +811,6 @@ class Setup():
 
     def setup_local_layer(self):
         logging.debug('Starting')
-        import shutil
         if not os.path.exists(os.path.join(self.project_dir, 'layers')):
             os.mkdir(os.path.join(self.project_dir, 'layers'))
         if not os.path.exists(os.path.join(self.project_dir, 'layers/local')):
