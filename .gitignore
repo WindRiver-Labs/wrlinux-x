@@ -1,2 +1,3 @@
 buildtools.git
 *.pyc
+bin/.venv
