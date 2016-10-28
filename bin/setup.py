@@ -791,13 +791,13 @@ class Setup():
         logger.debug('Done')
 
     def __setup_local_layer(self):
-        """Setup the local layer in /layer/local - if required."""
+        """Setup the local layer in /layers/local - if required."""
         logger.debug('Checking local layer')
 
-        if os.path.exists(os.path.join(self.project_dir,'layer/local')):
+        if os.path.exists(os.path.join(self.project_dir,'layers/local')):
             return
 
-        if self.mirror is not True:
+        if self.mirror is True:
             return
 
 
