@@ -33,10 +33,37 @@ class Layer_Index():
     # Index in REST-API format...  This is used by external items.
     index = []
 
-    def __init__(self, indexcfg, base_branch, replace=[]):
+    def __init__(self, indexcfg, base_branch, replace=[], mirror=None):
         self.index = []
 
+        # Do we have local mirror entries to load?
+        m_index = {}
+
+        if mirror:
+            for (dirpath, dirnames, filenames) in os.walk(mirror):
+                if dirpath.endswith('/.git') or mirror + '/.git' in dirpath:
+                    continue
+                for filename in filenames:
+                    pindex = self.load_serialized_index(os.path.join(dirpath, filename), name='Mirrored Index')
+                    # A mirror can be made up of multiple indexes, so we need to identify which one they belong to
+                    if pindex and pindex['CFG']['DESCRIPTION'] in m_index:
+                        lindex = m_index[pindex['CFG']['DESCRIPTION']]
+                        for entry in pindex:
+                            if 'apilinks' == entry:
+                                continue
+                            if 'CFG' == entry:
+                                # Conflicts don't matter here, just accept it
+                                lindex[entry] = pindex[entry]
+                                continue
+                            if entry not in lindex:
+                                lindex[entry] = []
+                            lindex[entry] = self.__add_cmp_lists(pindex[entry], lindex[entry])
+                    else: # Not already know
+                        m_index[pindex['CFG']['DESCRIPTION']] = pindex
+
         for cfg in indexcfg:
+            lindex = None
+
             branch = base_branch
             indextype = None
             indexurl = None
@@ -63,16 +90,27 @@ class Layer_Index():
                 indexurl = indexurl.replace(find, rep)
                 branch = branch.replace(find, rep)
 
-            if indextype == 'restapi-web':
-                lindex = self.load_API_Index(indexurl, indexname, branches=branch)
-            elif indextype == 'restapi-files':
-                lindex = self.load_serialized_index(indexurl, name=indexname)
-            elif indextype == 'export':
-                lindex = self.load_django_export(indexurl, name=indexname)
+            # Do we have an mirrored version? If so use it, skip regular processing
+            if indexname in m_index:
+                logger.plain('Using index %s from the mirror index...' % (indexname))
+                lindex = m_index[indexname]
+                # Prevent caching.. no reason to 'double cache'
+                indexcache = None
             else:
-                # Unknown index type...
-                logger.error('Unknown index type  %s' % indextype)
-                raise SyntaxError
+               logger.plain('Loading index %s from %s...' % (indexname, indexurl))
+
+            # If not previously loaded from the mirror, attempt to load...
+            if not lindex:
+                if indextype == 'restapi-web':
+                    lindex = self.load_API_Index(indexurl, indexname, branches=branch)
+                elif indextype == 'restapi-files':
+                    lindex = self.load_serialized_index(indexurl, name=indexname)
+                elif indextype == 'export':
+                    lindex = self.load_django_export(indexurl, name=indexname)
+                elif not lindex:
+                    # Unknown index type...
+                    logger.error('Unknown index type %s' % indextype)
+                    raise SyntaxError
 
             # Cache the data we loaded... if we loaded data.
             if lindex and indexcache:
@@ -243,6 +281,31 @@ class Layer_Index():
 
         return lindex
 
+    # Merge listone and listtwo, returning listtwo
+    def __add_cmp_lists(self, listone, listtwo):
+        # Copy the items from listone, into listtwo -- if it isn't already
+        # there..  if it is there, verify it's the same or raise an error...
+        if not listone:
+            return listtwo
+
+        for one in reversed(listone):
+            found = False
+            for two in listtwo:
+                if 'id' in one and 'id' in two:
+                    if one['id'] == two['id']:
+                        found = True
+                        # Contents need to be the same!
+                        if one != two:
+                            # Something is out of sync here...
+                            raise
+                        break
+                else:
+                    # This is not a valid object
+                    raise
+            if not found:
+                listtwo.append(one)
+        return listtwo
+
     def load_serialized_index(self, path, name=None, branches=None):
         lindex = {}
         lindex['branches'] = []
@@ -256,37 +319,20 @@ class Layer_Index():
 
         assert path is not None
 
-        def add_cmp_lists(listone, listtwo):
-            # Copy the items from listone, into listtwo -- if it isn't already
-            # there..  if it is there, verify it's the same or raise an error...
-            if not listone:
-                return listtwo
-
-            for one in reversed(listone):
-                found = False
-                for two in listtwo:
-                    if one['id'] == two['id']:
-                        found = True
-                        # Contents need to be the same!
-                        if one != two:
-                            # Something is out of sync here...
-                            raise
-                        break
-                if not found:
-                    listtwo.append(one)
-            return listtwo
-
         def loadCache(path):
             logger.debug('Loading json file %s' % path)
             pindex = json.load(open(path, 'rt', encoding='utf-8'))
 
             for entry in pindex:
-                if 'CFG' == entry or 'apilinks' == entry:
+                if 'apilinks' == entry:
+                    continue
+                if 'CFG' == entry:
+                    # Conflicts don't matter here, just accept it
                     lindex[entry] = pindex[entry]
                     continue
                 if entry not in lindex:
                     lindex[entry] = []
-                lindex[entry] = add_cmp_lists(pindex[entry], lindex[entry])
+                lindex[entry] = self.__add_cmp_lists(pindex[entry], lindex[entry])
 
             logger.debug('done.')
 
@@ -321,26 +367,6 @@ class Layer_Index():
         lindex['wrtemplates'] = []
 
         assert path is not None
-
-        def add_cmp_lists(listone, listtwo):
-            # Copy the items from listone, into listtwo -- if it isn't already
-            # there..  if it is there, verify it's the same or raise an error...
-            if not listone:
-                return listtwo
-
-            for one in reversed(listone):
-                found = False
-                for two in listtwo:
-                    if one['id'] == two['id']:
-                        found = True
-                        # Contents need to be the same!
-                        if one != two:
-                            # Something is out of sync here...
-                            raise
-                        break
-                if not found:
-                    listtwo.append(one)
-            return listtwo
 
         def loadDB(path):
             def constructObject(entry):
@@ -385,7 +411,7 @@ class Layer_Index():
             for entry in pindex:
                 if entry not in lindex:
                     lindex[entry] = []
-                lindex[entry] = add_cmp_lists(pindex[entry], lindex[entry])
+                lindex[entry] = self.__add_cmp_lists(pindex[entry], lindex[entry])
 
             logger.debug('done.')
 
@@ -432,7 +458,9 @@ class Layer_Index():
             lindex[entry] = self.sortEntry(lindex[entry])
         return lindex
 
-    def serialize_index(self, lindex, path, split=False):
+    # layerBranches must be a list of layerBranch entries to parse, it only affects
+    # output when 'split' is True.
+    def serialize_index(self, lindex, path, split=False, layerBranches=None, IncludeCFG=False, mirror=False):
         # If we're not splitting, we must be caching...
         if not split:
             dir = os.path.dirname(path)
@@ -443,7 +471,7 @@ class Layer_Index():
             # Need to filter out local information
             pindex = {}
             for entry in lindex:
-                if 'CFG' == entry or 'apilinks' == entry:
+                if (IncludeCFG == False and 'CFG' == entry) or 'apilinks' == entry:
                     continue
                 pindex[entry] = lindex[entry]
 
@@ -452,7 +480,9 @@ class Layer_Index():
 
         # We serialize based on the layerBranches, this allows us to subset
         # everything in a logical way...
-        for lb in lindex['layerBranches']:
+        if not layerBranches:
+            layerBranches = lindex['layerBranches']
+        for lb in layerBranches:
             pindex = {}
 
             def filter_item(lb, objects):
@@ -471,7 +501,10 @@ class Layer_Index():
                 return filtered
 
             for entry in lindex:
-                if 'CFG' == entry or 'apilinks' == entry or 'branches' == entry or 'layerBranches' == entry or 'layerItems' == entry:
+                if (IncludeCFG == False and 'CFG' == entry) or 'apilinks' == entry or 'branches' == entry or 'layerBranches' == entry or 'layerItems' == entry:
+                    continue
+                elif (IncludeCFG == True and 'CFG' == entry):
+                    pindex[entry] = lindex[entry]
                     continue
                 pindex[entry] = filter_item(lb, entry)
 
@@ -479,8 +512,55 @@ class Layer_Index():
                 if branch['id'] == lb['branch']:
                     pindex['branches'] = [branch]
 
+            # We must include the layerbranch for what we are processing...
             pindex['layerBranches'] = [lb]
-            pindex['layerItems'] = self.find_layer(lindex, layerBranch=lb)
+
+            # We also need to include the layerbranch for any required dependencies...
+            (required, recommended) = self.getDependencies(lindex, lb)
+            for req_lb in required:
+                found = False
+                for p_lb in pindex['layerBranches']:
+                    if p_lb['id'] == req_lb['id']:
+                        found = True
+                        break
+                if found == False:
+                    pindex['layerBranches'].append(req_lb)
+
+            # We need to include the layerItems for each layerBranch
+            pindex['layerItems'] = []
+            for p_lb in pindex['layerBranches']:
+                for li in self.find_layer(lindex, layerBranch=p_lb):
+                    found = False
+                    for p_li in pindex['layerItems']:
+                        if p_li['id'] == li['id']:
+                            found = True
+                            break
+                    if found == False:
+                        pindex['layerItems'].append(li)
+
+            # If we're mirroring, we need to adjust the URL for the
+            # mirror to work properly.  Replace remote with BASE_URL.
+            # (This uses the same logic as the default.xml construction)
+            if mirror == True:
+                try:
+                    from urllib.request import urlopen, URLError
+                    from urllib.parse import urlparse
+                except ImportError:
+                    from urllib2 import urlopen, URLError
+                    from urlparse import urlparse
+
+                from copy import deepcopy
+                pindex['layerItems'] = deepcopy(pindex['layerItems'])
+                for layer in pindex['layerItems']:
+                    vcs_url = layer['vcs_url']
+                    url = urlparse(vcs_url)
+                    replace = ""
+                    if url.scheme:
+                        replace += url.scheme + '://' + url.netloc
+                    else:
+                        replace = self.base_url
+
+                    layer['vcs_url'] = layer['vcs_url'].replace(replace, '#BASE_URL#')
 
             dir = os.path.dirname(path)
             base = os.path.basename(path)
@@ -490,7 +570,9 @@ class Layer_Index():
 
             json.dump(self.sortRestApi(pindex), open(fpath + '.json', 'wt'), indent=4)
 
-    def serialize_django_export(self, lindex, path, split=False):
+    # layerBranches must be a list of layerBranch entries to parse, it only affects
+    # output when 'split' is True.
+    def serialize_django_export(self, lindex, path, split=False, layerBranches=None, IncludeCFG=False):
         def convertToDjango(restindex):
             dbindex = []
 
@@ -510,7 +592,7 @@ class Layer_Index():
 
             # Convert the restindex to a dbindex
             for entry in restindex:
-                if 'CFG' == entry or 'apilinks' == entry:
+                if (IncludeCFG == False and 'CFG' == entry) or 'apilinks' == entry:
                     continue
                 elif 'branches' == entry:
                     model = 'layerindex.branch'
@@ -546,7 +628,7 @@ class Layer_Index():
             # Need to filter out local information
             pindex = {}
             for entry in lindex:
-                if 'CFG' == entry or 'apilinks' == entry:
+                if (IncludeCFG == False and 'CFG' == entry) or 'apilinks' == entry:
                     continue
                 pindex[entry] = lindex[entry]
 
@@ -555,7 +637,9 @@ class Layer_Index():
 
         # We serialize based on the layerBranches, this allows us to subset
         # everything in a logical way...
-        for lb in lindex['layerBranches']:
+        if not layerBranches:
+            layerBranches = lindex['layerBranches']
+        for lb in layerBranches:
             pindex = {}
 
             def filter_item(lb, objects):
@@ -574,7 +658,7 @@ class Layer_Index():
                 return filtered
 
             for entry in lindex:
-                if 'CFG' == entry or 'apilinks' == entry or 'branches' == entry or 'layerBranches' == entry or 'layerItems' == entry:
+                if (IncludeCFG == False and 'CFG' == entry) or 'apilinks' == entry or 'branches' == entry or 'layerBranches' == entry or 'layerItems' == entry:
                     continue
                 pindex[entry] = filter_item(lb, entry)
 
@@ -770,7 +854,10 @@ class Layer_Index():
         recommended = []
         for ld in lindex['layerDependencies']:
             if layerBranch['id'] == ld['layerbranch']:
-                for layer in self.find_layer(lindex, id=ld['dependency']):
+                layers = self.find_layer(lindex, id=ld['dependency'])
+                if (not layers or layers == []) and ld['required'] == True:
+                    logger.warning('%s: Unable to find dependency %s -- Skipping' % (self.find_layer(lindex, layerBranch=layerBranch)[0]['name'], ld['dependency']))
+                for layer in layers:
                     for lb in self.getLayerBranch(lindex, layerBranch['branch'], layerItem=layer):
                         if not lb:
                             continue

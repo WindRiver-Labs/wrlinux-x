@@ -38,7 +38,6 @@ class Setup():
     tool_list = ['repo', 'git']
 
     default_xml = 'default.xml'
-    default_project_dir = 'project'
     default_repo_quiet = '--quiet'
 
     class_config_dir = 'config'
@@ -145,15 +144,7 @@ class Setup():
         if not self.base_url or not self.base_branch:
             self.exit(1)
 
-        # Load Layer_Index
-        replace = []
-        replace = replace + settings.REPLACE
-        replace = replace + [
-                   ( '#INSTALL_DIR#', self.install_dir ),
-                   ( '#BASE_URL#', self.base_url ),
-                   ( '#BASE_BRANCH#', self.base_branch ),
-                  ]
-        self.index = Layer_Index(indexcfg=settings.INDEXES, base_branch=self.base_branch, replace=replace)
+        self.load_layer_index()
 
         if self.list_distros:
             self.index.list_distros(self.base_branch)
@@ -203,6 +194,7 @@ class Setup():
         else:
             # Setup an index for others to use if we're mirroring...
             self.update_mirror()
+            self.update_mirror_index()
 
         self.update_manifest()
 
@@ -213,6 +205,43 @@ class Setup():
         self.repo_sync()
 
         self.exit(0)
+
+    def load_layer_index(self):
+        # Load Layer_Index
+        replace = []
+        replace = replace + settings.REPLACE
+        replace = replace + [
+                   ( '#INSTALL_DIR#', self.install_dir ),
+                   ( '#BASE_URL#', self.base_url ),
+                   ( '#BASE_BRANCH#', self.base_branch ),
+                  ]
+
+        # See if there is a mirror index available from the BASE_URL
+        mirror_index_path = None
+        mirror_index = os.path.join(self.conf_dir, 'mirror-index')
+        cmd = [self.tools['git'], 'ls-remote', self.base_url + '/mirror-index', self.base_branch]
+        ret = subprocess.Popen(cmd, cwd=self.project_dir, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        ret.wait()
+        if (ret.returncode == 0):
+            logger.plain('Loading the mirror index from %s (%s)...' % (self.base_url + '/mirror-index', self.base_branch))
+            # This MIGHT be a valid mirror..
+            if not os.path.exists(os.path.join(mirror_index, '.git')):
+                os.makedirs(mirror_index)
+                cmd = [self.tools['git'], 'init' ]
+                self.run_cmd(cmd, cwd=mirror_index)
+
+            cmd = [self.tools['git'], 'fetch', '-f', '-n', '-u', self.base_url + '/mirror-index', self.base_branch + ':' + self.base_branch]
+            ret = subprocess.Popen(cmd, cwd=mirror_index, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            ret.wait()
+            if (ret.returncode == 0):
+                logger.debug('Found mirrored index.')
+                cmd = [self.tools['git'], 'checkout', self.base_branch ]
+                self.run_cmd(cmd, cwd=mirror_index)
+                cmd = [self.tools['git'], 'reset', '--hard' ]
+                self.run_cmd(cmd, cwd=mirror_index)
+                mirror_index_path = mirror_index
+
+        self.index = Layer_Index(indexcfg=settings.INDEXES, base_branch=self.base_branch, replace=replace, mirror=mirror_index_path)
 
     def process_layers(self):
         from collections import deque
@@ -567,6 +596,64 @@ class Setup():
         src.close()
         dst.close()
 
+    def update_mirror_index(self):
+        logger.debug('Starting')
+        path = os.path.join(self.project_dir, 'mirror-index.git')
+
+        logger.plain('Exporting mirror-index %s...' % (path))
+        if not os.path.exists(os.path.join(path, '.git')):
+            cmd = [self.tools['git'], 'init', path]
+            if self.quiet == self.default_repo_quiet:
+                cmd.append(self.quiet)
+            self.run_cmd(cmd, cwd=self.project_dir)
+
+        cmd = [self.tools['git'], 'checkout', '-b', self.base_branch]
+        ret = subprocess.Popen(cmd, cwd=path, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        ret.wait()
+        if (ret.returncode != 0):
+            # if we failed, then simply try to switch branches
+            cmd = [self.tools['git'], 'checkout', self.base_branch]
+            ret = subprocess.Popen(cmd, cwd=path, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            ret.wait()
+
+        # Make sure the directory is empty, use -f to ignore failures
+        for (dirpath, dirnames, filenames) in os.walk(path):
+            if dirpath.endswith('/.git') or path + '/.git' in dirpath:
+                continue
+            for filename in filenames:
+                os.remove(os.path.join(dirpath, filename))
+
+        # Construct a list of all layers we've downloaded, by url, including sublayers not activated
+        url_cache = {}
+        for (lindex, layerBranch) in self.requiredlayers + self.recommendedlayers:
+            for layer in self.index.find_layer(lindex, id=layerBranch['layer']):
+                vcs_url = layer['vcs_url']
+                if not vcs_url in url_cache:
+                    url_cache[vcs_url] = []
+                url_cache[vcs_url].append((lindex, layerBranch['branch']))
+
+        # Serialize the information for each of the layers (and their sublayers)
+        for vcs_url in url_cache:
+            for (lindex, branchid) in url_cache[vcs_url]:
+                for layer in lindex['layerItems']:
+                    if layer['vcs_url'] in url_cache:
+                        for lb in self.index.getLayerBranch(lindex, branchid=branchid, layerItem=layer):
+                            self.index.serialize_index(lindex, path + '/' + lindex['CFG']['DESCRIPTION'], split=True, layerBranches=[lb], IncludeCFG=True, mirror=True)
+
+        # git add file.
+        cmd = [self.tools['git'], 'add', '-A', '.']
+        self.run_cmd(cmd, cwd=path)
+
+        cmd = [self.tools['git'], 'diff-index', '--quiet', 'HEAD', '--']
+        ret = subprocess.Popen(cmd, cwd=path, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        ret.wait()
+        if (ret.returncode != 0):
+            logger.debug('Updating mirror-index')
+            cmd = [self.tools['git'], 'commit', '-m', 'Updated index - %s' % (self.setup_args)]
+            self.run_cmd(cmd, cwd=path)
+        logger.debug('Done')
+
+
     def update_manifest(self):
         logger.debug('Starting')
 
@@ -774,7 +861,7 @@ class Setup():
         self.run_cmd(cmd, cwd=self.project_dir)
 
         cmd = [self.tools['git'], 'diff-index', '--quiet', 'HEAD', '--'] + filelist
-        ret = subprocess.Popen(cmd, cwd=self.project_dir, close_fds=True)
+        ret = subprocess.Popen(cmd, cwd=self.project_dir, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         ret.wait()
         if (ret.returncode != 0):
             logger.plain('Updated project configuration')
