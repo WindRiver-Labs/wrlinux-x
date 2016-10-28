@@ -61,12 +61,10 @@ class Layer_Index():
             # Replace magic values with real values...
             for (find, rep) in replace:
                 indexurl = indexurl.replace(find, rep)
+                branch = branch.replace(find, rep)
 
             if indextype == 'restapi-web':
-                if branch:
-                    lindex = self.load_API_Index(indexurl, indexname, branches=[branch])
-                else:
-                    lindex = self.load_API_Index(indexurl, indexname, branches=None)
+                lindex = self.load_API_Index(indexurl, indexname, branches=branch)
             elif indextype == 'restapi-files':
                 lindex = self.load_serialized_index(indexurl, name=indexname)
             elif indextype == 'export':
@@ -89,11 +87,12 @@ class Layer_Index():
                 lindex = self.load_serialized_index(indexcache + '.json', name=indexname, branches=[branch])
 
             if not lindex or 'branches' not in lindex or 'layerItems' not in lindex or 'layerBranches' not in lindex:
-                logger.warning('Index %s was empty... Ignoring.')
+                logger.warning('Index %s was empty... Ignoring.' % indexname)
                 continue
 
             # Start data transforms...
             lindex['CFG'] = cfg
+            lindex['CFG']['BRANCH'] = branch
 
             if lindex and 'distros' in lindex:
                 # Default setup is actually implemented as 'nodistro'
@@ -121,14 +120,14 @@ class Layer_Index():
     def load_API_Index(self, url, name=None, branches=None):
         """
             Fetches layer information from a remote layer index.
-            The return value is a dictionary containing API, branch,
+            The return value is a dictionary containing API,
             layer, branch, dependency, recipe, machine, distro,
             and template information.
 
             url is the url to the rest api of the layer index, such as:
             http://layers.openembedded.org/layerindex/api/
 
-            branches is a list of branches to filter on
+            branches is a str or list of branches to filter on
         """
         lindex = {}
 
@@ -171,6 +170,9 @@ class Layer_Index():
             return None
 
         filter = ""
+        # If it's list, keep it, if it's a string change it to a list
+        if branches and type(branches) == type(str()):
+            branches = [branches]
         if branches:
             filter = "?filter=name:%s" \
                      % "OR".join(branches)
