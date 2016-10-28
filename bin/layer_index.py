@@ -85,10 +85,11 @@ class Layer_Index():
 
             # If we couldn't pull from the regular location, pull from the cache!
             if lindex is None and indexcache and os.path.exists(indexcache + '.json'):
-                lindex = self.load_serialized_index(indexcache, name=indexname, branches=[branch])
+                logger.plain('Falling back to the index cache %s...' % (indexcache))
+                lindex = self.load_serialized_index(indexcache + '.json', name=indexname, branches=[branch])
 
             if not lindex or 'branches' not in lindex or 'layerItems' not in lindex or 'layerBranches' not in lindex:
-                # It's empty, skip it...
+                logger.warning('Index %s was empty... Ignoring.')
                 continue
 
             # Start data transforms...
@@ -152,10 +153,7 @@ class Layer_Index():
             _parsedurl = urlparse(apiurl)
             path = _parsedurl.path
 
-            try:
-                res = urlopen(apiurl)
-            except URLError as e:
-                raise Exception("Failed to read %s: %s" % (path, e.reason))
+            res = urlopen(apiurl)
 
             parsed = json.loads(res.read().decode('utf-8'))
 
@@ -164,12 +162,12 @@ class Layer_Index():
 
         try:
             lindex['apilinks'] = _get_json_response(url)
-        except Exception as e:
-            import traceback
+        except URLError as e:
+            msg = ""
             if proxy_settings is not None:
-                logger.error("Using proxy %s" % proxy_settings)
-            logger.error("Index %s: could not connect to %s:"
-                      "%s\n%s" % (name, url, e, traceback.format_exc()))
+                msg = (" using proxy %s" % proxy_settings)
+            logger.info("Index %s: could not connect to %s%s:"
+                      "%s" % (name, url, msg, e.reason))
             return None
 
         filter = ""
