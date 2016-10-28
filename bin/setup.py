@@ -682,7 +682,7 @@ class Setup():
         logger.debug('Done')
 
     def update_gitignore(self):
-        logging.debug('Starting')
+        logger.debug('Starting')
 
         import xml.etree.ElementTree as ET
 
@@ -713,7 +713,7 @@ class Setup():
                 if item not in existed:
                     f.write(item)
 
-        logging.debug('Done')
+        logger.debug('Done')
 
     def commit_files(self):
         logger.debug('Starting')
@@ -747,7 +747,7 @@ class Setup():
 
             # Add self.install_dir as a submodule if it is in self.project_dir
             if self.install_dir.startswith(self.project_dir + '/'):
-                logging.debug('Add %s as a submodule' % self.install_dir)
+                logger.debug('Add %s as a submodule' % self.install_dir)
                 cmd = [self.tools['git'], 'submodule', 'add', \
                         './' + os.path.relpath(self.install_dir, self.project_dir)]
                 self.run_cmd(cmd, cwd=self.project_dir)
