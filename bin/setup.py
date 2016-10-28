@@ -312,7 +312,8 @@ class Setup():
                         # dl layers are always added as recommends in an --all-layers mode
                         if '-dl-' in l['name'] or l['name'].endswith('-dl'):
                             recommendedQueue.append( (lindex, layerBranch) )
-                        requiredQueue.append( (lindex, layerBranch) )
+                        else:
+                            requiredQueue.append( (lindex, layerBranch) )
 
         if not allfound:
             logger.critical('Please correct the missing items, exiting.')
