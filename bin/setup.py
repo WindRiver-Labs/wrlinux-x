@@ -438,9 +438,7 @@ class Setup():
 
     def project_setup(self):
         logger.debug('Starting')
-        if not os.path.exists(self.project_dir + '/.git'):
-            if self.mirror != True:
-                self.setup_local_layer()
+        self.__setup_local_layer()
 
         if self.mirror != True:
             # We need to make sure the environment-setup link is always current
@@ -792,12 +790,25 @@ class Setup():
 
         logger.debug('Done')
 
-    def setup_local_layer(self):
-        logger.debug('Starting')
+    def __setup_local_layer(self):
+        """Setup the local layer in /layer/local - if required."""
+        logger.debug('Checking local layer')
+
+        if os.path.exists(os.path.join(self.project_dir,'layer/local')):
+            return
+
+        if self.mirror is not True:
+            return
+
+
+        logger.debug('Starting local layer')
+
         if not os.path.exists(os.path.join(self.project_dir, 'layers')):
-            os.mkdir(os.path.join(self.project_dir, 'layers'))
+            os.makedirs(os.path.join(self.project_dir, 'layers'))
+
         if not os.path.exists(os.path.join(self.project_dir, 'layers/local')):
             shutil.copytree(os.path.join(self.install_dir, 'data/local_layer'), os.path.join(self.project_dir, 'layers/local'))
+
         logger.debug('Done')
 
     def setup_env(self):
