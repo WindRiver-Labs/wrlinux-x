@@ -183,11 +183,14 @@ class Setup():
         for key in self.tools:
             logger.debug("%s -> %s", key, self.tools[key])
 
-        logger.plain('Setting distro to "%s"' % (self.distros))
-        logger.plain('Setting machine to "%s"' % (self.machines))
-        logger.plain('Setting layers to "%s"' % (self.layers))
-        logger.plain('Setting recipes to "%s"' % (self.recipes))
-        logger.plain('Setting templates to "%s"' % (self.wrtemplates))
+        logger.plain('Setting distro to "%s"' % (",".join(self.distros)))
+        logger.plain('Setting machine to "%s"' % (",".join(self.machines)))
+        if self.layers != []:
+            logger.plain('Setting layers to "%s"' % (",".join(self.layers)))
+        if self.recipes != []:
+            logger.plain('Setting recipes to "%s"' % (",".join(self.recipes)))
+        if self.wrtemplates != []:
+            logger.plain('Setting templates to "%s"' % (",".join(self.wrtemplates)))
 
         self.process_layers()
 
@@ -393,7 +396,6 @@ class Setup():
                     if not found:
                         for (remoteurl, remotename) in settings.REMOTES:
                             if vcs_url.startswith(remoteurl):
-                                logger.plain('found')
                                 self.remotes[remotename] = remoteurl
                                 found = True
                                 break
@@ -774,7 +776,7 @@ class Setup():
         ret = subprocess.Popen(cmd, cwd=self.project_dir, close_fds=True)
         ret.wait()
         if (ret.returncode != 0):
-            logger.warning('Updated project configuration')
+            logger.plain('Updated project configuration')
             # Command failed -- so self.default_xml changed...
             cmd = [self.tools['git'], 'commit', '-m', 'Configuration change - %s' % (self.setup_args), '--'] + filelist
             self.run_cmd(cmd, cwd=self.project_dir)

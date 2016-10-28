@@ -134,7 +134,7 @@ class Layer_Index():
 
         assert url is not None
 
-        logger.plain('Loading %s from url %s...' % (name, url))
+        logger.debug('Loading %s from url %s...' % (name, url))
 
         try:
             from urllib.request import urlopen, URLError
@@ -177,7 +177,7 @@ class Layer_Index():
         lindex['branches'] = _get_json_response(lindex['apilinks']['branches'] + filter)
 
         if not lindex['branches']:
-            logger.info("No valid branches (%s) found at url %s." % (branches or "", url))
+            logger.warning("No valid branches (%s) found at url %s." % (branches or "*", url))
             return lindex
 
         filter = ""
@@ -186,7 +186,7 @@ class Layer_Index():
                      % "OR".join(branches)
         lindex['layerBranches'] = _get_json_response(lindex['apilinks']['layerBranches'] + filter)
         if not lindex['layerBranches']:
-            logger.info("No layers on branches (%s) found at url %s." % (branches or "", url))
+            logger.warning("No layers on branches (%s) found at url %s." % (branches or "*", url))
             return lindex
 
         layerids = []
@@ -237,7 +237,7 @@ class Layer_Index():
         else:
             lindex['wrtemplates'] = []
 
-        logger.plain('done.')
+        logger.debug('done.')
 
         return lindex
 
@@ -289,18 +289,18 @@ class Layer_Index():
             logger.debug('done.')
 
         if os.path.exists(path) and os.path.isdir(path):
-            logger.info('Loading %s from path %s...' % (name, path))
+            logger.debug('Loading %s from path %s...' % (name, path))
             for (dirpath, dirnames, filenames) in os.walk(path):
                 for filename in filenames:
                     if not filename.endswith('.json'):
                         continue
                     fpath = os.path.join(dirpath, filename)
                     loadCache(fpath)
-            logger.info('done.')
+            logger.debug('done.')
         elif os.path.exists(path):
-            logger.info('Loading %s from path %s...' % (name, path))
+            logger.debug('Loading %s from path %s...' % (name, path))
             loadCache(path)
-            logger.info('done.')
+            logger.debug('done.')
         else:
             logger.error("Index %s: could not find path %s" % (name, path))
             return None
@@ -388,18 +388,18 @@ class Layer_Index():
             logger.debug('done.')
 
         if os.path.exists(path) and os.path.isdir(path):
-            logger.info('Loading %s from path %s...' % (name, path))
+            logger.debug('Loading %s from path %s...' % (name, path))
             for (dirpath, dirnames, filenames) in os.walk(path):
                 for filename in filenames:
                     if not filename.endswith('.json'):
                         continue
                     fpath = os.path.join(dirpath, filename)
                     loadDB(fpath)
-            logger.info('done.')
+            logger.debug('done.')
         elif os.path.exists(path):
-            logger.info('Loading %s from path %s...' % (name, path))
+            logger.debug('Loading %s from path %s...' % (name, path))
             loadDB(path)
-            logger.info('done.')
+            logger.debug('done.')
         else:
             logger.error("Index %s: could not find path %s" % (name, path))
             return None
