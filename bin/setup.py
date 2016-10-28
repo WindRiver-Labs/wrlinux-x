@@ -47,6 +47,7 @@ class Setup():
     check_repo_install_dir = '.repo/repo/.git'
     check_repo_sync_file = '.repo/projects/'
 
+    replacement = {}
 
     BINTOOLS_SSL_DIR="/bin/buildtools/sysroots/x86_64-wrlinuxsdk-linux/usr/share/ca-certificates/mozilla"
     BINTOOLS_SSL_CERT= "/bin/buildtools/sysroots/x86_64-wrlinuxsdk-linux/etc/ssl/certs/ca-certificates.crt"
@@ -192,7 +193,13 @@ class Setup():
 
         self.project_setup()
 
-        self.update_project()
+        self.__prep_replacements()
+        if self.mirror != True:
+            # We only want to do this if we're not mirroring...
+            self.update_project()
+        else:
+            # Setup an index for others to use if we're mirroring...
+            self.update_mirror()
 
         self.update_manifest()
 
@@ -385,7 +392,6 @@ class Setup():
 
                     if not found:
                         for (remoteurl, remotename) in settings.REMOTES:
-                            logger.plain('%s: %s - %s' % (vcs_url, remotename, remoteurl))
                             if vcs_url.startswith(remoteurl):
                                 logger.plain('found')
                                 self.remotes[remotename] = remoteurl
@@ -463,12 +469,20 @@ class Setup():
             tmplconf.write('TEMPLATECONF=${TEMPLATECONF:-$OEROOT/config}\n')
             tmplconf.close()
 
-        layers = []
-        machines = {}
-        defaultmachine = self.machines[0]
-        distros = {}
-        defaultdistro = self.distros[0]
-        defaultktype = self.kernel
+        self.copySample(self.install_dir + '/data/samples/README.sample', self.project_dir + '/README')
+        self.copySample(self.install_dir + '/data/samples/bblayers.conf.sample', self.project_dir + '/config/bblayers.conf.sample')
+        self.copySample(self.install_dir + '/data/samples/conf-notes.sample', self.project_dir + '/config/conf-notes.txt')
+        self.copySample(self.install_dir + '/data/samples/local.conf.sample', self.project_dir + '/config/local.conf.sample')
+        if os.path.exists(self.install_dir + '/data/samples/site.conf.sample'):
+            self.copySample(self.install_dir + '/data/samples/site.conf.sample', self.project_dir + '/config/site.conf.sample')
+
+    def update_mirror(self):
+        self.copySample(self.install_dir + '/data/samples/README-MIRROR.sample', self.project_dir + '/README')
+
+    def __prep_replacements(self):
+        self.replacement['layers'] = []
+        self.replacement['machines'] = {}
+        self.replacement['distros'] = {}
 
         def addLayer(lindex, layerBranch):
             branchid = self.index.getBranchId(lindex, self.get_branch(lindex=lindex))
@@ -487,73 +501,68 @@ class Setup():
 
         # Add layers to 'LAYERS'
         for (lindex, layerBranch) in self.requiredlayers + self.recommendedlayers:
-            layers = layers + addLayer(lindex, layerBranch)
+            self.replacement['layers'] = self.replacement['layers'] + addLayer(lindex, layerBranch)
 
         # Add machines to 'MACHINES'
         for (lindex, layerBranch) in self.requiredlayers + self.recommendedlayers:
             for machine in lindex['machines']:
                 if machine['layerbranch'] == layerBranch['id']:
                     desc = machine['description'] or machine['name']
-                    machines[machine['name']] = desc
+                    self.replacement['machines'][machine['name']] = desc
 
         # Add distro to 'DISTROS'
         for (lindex, layerBranch) in self.requiredlayers + self.recommendedlayers:
             for distro in lindex['distros']:
                 if distro['layerbranch'] == layerBranch['id']:
                     desc = distro['description'] or distro['name']
-                    distros[distro['name']] = desc
+                    self.replacement['distros'][distro['name']] = desc
 
-        def copySample(src, dst):
-            src = open(src, 'r')
-            dst = open(dst, 'w')
 
-            for line in src:
-                if '####LAYERS####' in line:
-                    for l in layers:
-                        dst.write(line.replace('####LAYERS####', '##OEROOT##/%s' % (l)))
-                    continue
-                if '####SETUP_ARGS####' in line:
-                    dst.write(line.replace('####SETUP_ARGS####', self.setup_args))
-                    continue
-                if '####MACHINES####' in line:
-                    for (name, desc) in sorted(machines.items(), key=lambda t: t[0]):
-                        dst.write('# %s\n' % desc.strip())
-                        dst.write(line.replace('####MACHINES####', name))
-                    continue
-                if '####DEFAULTMACHINE####' in line:
-                    name = defaultmachine
-                    if ':' in name:
-                        name = ':'.join(name.split(':')[1:])
-                    dst.write(line.replace('####DEFAULTMACHINE####', name))
-                    continue
-                if '####DISTROS####' in line:
-                    for (name, desc) in sorted(distros.items(), key=lambda t: t[0]):
-                        dst.write('# %s\n' % desc.strip())
-                        dst.write(line.replace('####DISTROS####', name))
-                    continue
-                if '####DEFAULTDISTRO####' in line:
-                    name = defaultdistro
-                    if ':' in name:
-                        name = ':'.join(name.split(':')[1:])
-                    dst.write(line.replace('####DEFAULTDISTRO####', name))
-                    continue
-                if '####DEFAULTWRTEMPLATE####' in line:
-                    dst.write(line.replace('####DEFAULTWRTEMPLATE####', ' '.join(self.wrtemplates)))
-                    continue
-                if '####DEFAULTKTYPE####' in line:
-                    dst.write(line.replace('####DEFAULTKTYPE####', defaultktype))
-                    continue
-                dst.write(line)
 
-            src.close()
-            dst.close()
+    def copySample(self, src, dst):
+        src = open(src, 'r')
+        dst = open(dst, 'w')
 
-        copySample(self.install_dir + '/data/samples/README.sample', self.project_dir + '/README')
-        copySample(self.install_dir + '/data/samples/bblayers.conf.sample', self.project_dir + '/config/bblayers.conf.sample')
-        copySample(self.install_dir + '/data/samples/conf-notes.sample', self.project_dir + '/config/conf-notes.txt')
-        copySample(self.install_dir + '/data/samples/local.conf.sample', self.project_dir + '/config/local.conf.sample')
-        if os.path.exists(self.install_dir + '/data/samples/site.conf.sample'):
-            copySample(self.install_dir + '/data/samples/site.conf.sample', self.project_dir + '/config/site.conf.sample')
+        for line in src:
+            if '####LAYERS####' in line:
+                for l in self.replacement['layers']:
+                    dst.write(line.replace('####LAYERS####', '##OEROOT##/%s' % (l)))
+                continue
+            if '####SETUP_ARGS####' in line:
+                dst.write(line.replace('####SETUP_ARGS####', self.setup_args))
+                continue
+            if '####MACHINES####' in line:
+                for (name, desc) in sorted(self.replacement['machines'].items(), key=lambda t: t[0]):
+                    dst.write('# %s\n' % desc.strip())
+                    dst.write(line.replace('####MACHINES####', name))
+                continue
+            if '####DEFAULTMACHINE####' in line:
+                name = self.machines[0]
+                if ':' in name:
+                    name = ':'.join(name.split(':')[1:])
+                dst.write(line.replace('####DEFAULTMACHINE####', name))
+                continue
+            if '####DISTROS####' in line:
+                for (name, desc) in sorted(self.replacement['distros'].items(), key=lambda t: t[0]):
+                    dst.write('# %s\n' % desc.strip())
+                    dst.write(line.replace('####DISTROS####', name))
+                continue
+            if '####DEFAULTDISTRO####' in line:
+                name = self.distros[0]
+                if ':' in name:
+                    name = ':'.join(name.split(':')[1:])
+                dst.write(line.replace('####DEFAULTDISTRO####', name))
+                continue
+            if '####DEFAULTWRTEMPLATE####' in line:
+                dst.write(line.replace('####DEFAULTWRTEMPLATE####', ' '.join(self.wrtemplates)))
+                continue
+            if '####DEFAULTKTYPE####' in line:
+                dst.write(line.replace('####DEFAULTKTYPE####', self.kernel))
+                continue
+            dst.write(line)
+
+        src.close()
+        dst.close()
 
     def update_manifest(self):
         logger.debug('Starting')
@@ -720,19 +729,22 @@ class Setup():
 
         # List of all files that may change due to config
         filelist = [
-            'layers/local',
-            '.templateconf',
-            'config/bblayers.conf.sample',
-            'config/conf-notes.txt',
-            'config/local.conf.sample',
             'README',
             'default.xml',
             '.gitignore',
             '.gitconfig',
             ]
 
-        if os.path.exists('config/site.conf.sample'):
-            filelist.append('config/site.conf.sample')
+        # If we are mirroring, skip all of these...
+        if self.mirror != True:
+            filelist.append('layers/local')
+            filelist.append('.templateconf')
+            filelist.append('config/bblayers.conf.sample')
+            filelist.append('config/conf-notes.txt')
+            filelist.append('config/local.conf.sample')
+
+            if os.path.exists('config/site.conf.sample'):
+                filelist.append('config/site.conf.sample')
 
         # Add log dir if it contains files
         if os.listdir('config/log'):
