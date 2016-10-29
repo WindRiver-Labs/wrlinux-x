@@ -24,16 +24,11 @@ INDEXES = [
         'CACHE' : 'config/index-cache/layers_wrs_com',
     },
 #    {
-#        'DESCRIPTION' : 'Wind River Linux Index',
-#        'TYPE' : 'export',
-#        'URL' : '#INSTALL_DIR#/data/index',
-#    },
-#    {
 #        'DESCRIPTION' : 'OpenEmbedded Layer Index',
 #        'TYPE' : 'restapi-web',
 #        'URL' : 'http://layers.openembedded.org/layerindex/api/',
 #        'CACHE' : 'config/index-cache/layers_openembedded_org',
-#        'BRANCH' : 'master'
+#        'BRANCH' : 'morty'
 #    },
 ]
 
