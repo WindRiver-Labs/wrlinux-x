@@ -1,6 +1,6 @@
-ADDFUNCS+=" wr_repo_setup ;"
+EXPORTFUNCS+=" wr_repo_export ;"
 
-wr_repo_setup() {
+wr_repo_export() {
 	# Ensure subsequent 'repo' calls use the correct URL
 	export REPO_URL=${BASEURL}/tools/git-repo
 }

@@ -11,6 +11,8 @@ ARGPARSE+=" --buildtools-branch=*:BUILDTOOLSBRANCH"
 
 ADDFUNCS+=" buildtools_setup ;"
 
+EXPORTFUNCS+=" buildtools_export ;"
+
 buildtools_setup() {
 	if [ -z "${BUILDTOOLSBRANCH}" ]; then
 		BUILDTOOLSBRANCH="${BASEBRANCH}"
@@ -110,6 +112,13 @@ buildtools_setup() {
 	if [ $? -ne 0 ]; then
 		echo "Unable to load the buildtools environment setup file." >&2
 		exit 1
+	fi
+}
+
+
+buildtools_export() {
+	if [ -z "${BUILDTOOLSBRANCH}" ]; then
+		BUILDTOOLSBRANCH="${BASEBRANCH}"
 	fi
 
 	export OE_BUILDTOOLS_BRANCH=${BUILDTOOLSBRANCH}

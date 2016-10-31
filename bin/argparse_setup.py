@@ -150,19 +150,20 @@ class Argparse_Setup:
         self.parser.add_argument('--mirror', help='Do not construct a project, instead construct a mirror of the repositories that would have been used to construct a project (requires a Layer Selection argument)', action='store_true')
 
     def add_repo_options(self):
+        self.repo_args = self.parser.add_argument_group('repo Settings')
         # Repo options
         setup_jobs = ""
         if self.setup and self.setup.jobs:
             setup_jobs = '(default %s)' % (self.setup.jobs)
-        self.parser.add_argument('-rj', '--repo-jobs', help='Sets repo project to fetch simultaneously %s' % (setup_jobs))
+        self.repo_args.add_argument('-rj', '--repo-jobs', metavar='JOBS', help='Sets repo project to fetch simultaneously %s' % (setup_jobs))
 
     def add_list_options(self):
         self.list_args = self.parser.add_argument_group('Layer Listings')
         # List options
-        self.list_args.add_argument('--list-distros',   action='store_true', help='List all available distro values.')
-        self.list_args.add_argument('--list-machines',  action='store_true', help='List all available machine values.')
-        self.list_args.add_argument('--list-layers',    action='store_true', help='List all available layers.')
-        self.list_args.add_argument('--list-recipes',   action='store_true', help='List all available recipes.')
+        self.list_args.add_argument('--list-distros',   action='store_true', help='List all available distro values')
+        self.list_args.add_argument('--list-machines',  action='store_true', help='List all available machine values')
+        self.list_args.add_argument('--list-layers',    action='store_true', help='List all available layers')
+        self.list_args.add_argument('--list-recipes',   action='store_true', help='List all available recipes')
 
     def add_layer_options(self):
         self.layer_args = self.parser.add_argument_group('Layer Selection')
@@ -173,7 +174,7 @@ class Argparse_Setup:
         if self.setup and self.setup.distros:
             setup_distro = self.setup.distros[0]
             setup_distro_str = '(default %s)' % setup_distro
-        self.layer_args.add_argument('--distros', metavar='distro', help='Select layer(s) based on required distribution and set the default DISTRO= value %s' % setup_distro_str, nargs="+")
+        self.layer_args.add_argument('--distros', metavar='DISTRO', help='Select layer(s) based on required distribution and set the default DISTRO= value %s' % setup_distro_str, nargs="+")
 
         setup_machine = ""
         setup_machine_str = ""

@@ -68,12 +68,12 @@ class Argparse_Wrl(Argparse_Setup):
 
     def add_list_options(self):
         Argparse_Setup.add_list_options(self)
-        self.list_args.add_argument('--list-templates', action='store_true', help='List all available templates.')
+        self.list_args.add_argument('--list-templates', action='store_true', help='List all available templates')
 
     def add_layer_options(self):
         Argparse_Setup.add_layer_options(self)
         self.layer_args.add_argument('--templates', metavar='TEMPLATE', help='Select layers(s) based on template(s) and add them by default to the builds', nargs='+')
-        self.layer_args.add_argument('--dl-layers', help='Enable download layers, these layers include predownloaded items', action='store_true')
+        self.layer_args.add_argument('--dl-layers', help='Enable download layers; these layers include predownloaded items', action='store_true')
 
     def add_other_options(self):
         Argparse_Setup.add_other_options(self)

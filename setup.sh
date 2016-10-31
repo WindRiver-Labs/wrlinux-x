@@ -164,5 +164,9 @@ export LANG='en_US.UTF-8'
 export OE_BASEURL=${BASEURL}
 export OE_BASEBRANCH=${BASEBRANCH}
 
+if [ -n "$EXPORTFUNCS" ]; then
+	$EXPORTFUNCS
+fi
+
 # Switch to the python script
 exec ${BASEDIR}/${CMD} "$@"
