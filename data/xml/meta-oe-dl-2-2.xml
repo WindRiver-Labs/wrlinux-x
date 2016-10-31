@@ -21,3 +21,5 @@
     <project name="external/yocto/git.pengutronix.de.git.tools.libsocketcan.git" remote="base" path="layers/meta-oe-dl-2.2/git/git.pengutronix.de.git.tools.libsocketcan.git" bare="True"/>
     <project name="external/yocto/git.sv.gnu.org.gnulib" remote="base" path="layers/meta-oe-dl-2.2/git/git.sv.gnu.org.gnulib" bare="True"/>
     <project name="external/yocto/tipc.git.sourceforge.net.gitroot.tipc.tipcutils" remote="base" path="layers/meta-oe-dl-2.2/git/tipc.git.sourceforge.net.gitroot.tipc.tipcutils" bare="True"/>
+    <project name="external/yocto/github.com.rsyslog.libfastjson.git" remote="base" path="layers/meta-oe-dl-2.2/git/github.com.rsyslog.libfastjson.git" bare="True"/>
+    <project name="external/yocto/github.com.rsyslog.librelp.git" remote="base" path="layers/meta-oe-dl-2.2/git/github.com.rsyslog.librelp.git" bare="True"/>

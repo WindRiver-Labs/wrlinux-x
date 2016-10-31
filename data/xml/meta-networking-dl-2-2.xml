@@ -15,3 +15,4 @@
     <project name="external/yocto/gitosis.stanford.edu.openflow.git" remote="base" path="layers/meta-networking-dl-2.2/git/gitosis.stanford.edu.openflow.git" bare="True"/>
     <project name="external/yocto/git.samba.org.cifs-utils.git" remote="base" path="layers/meta-networking-dl-2.2/git/git.samba.org.cifs-utils.git" bare="True"/>
     <project name="external/yocto/nbd.name.relayd.git" remote="base" path="layers/meta-networking-dl-2.2/git/nbd.name.relayd.git" bare="True"/>
+    <project name="external/yocto/github.com.wkz.phytool.git" remote="base" path="layers/meta-networking-dl-2.2/git/github.com.wkz.phytool.git" bare="True"/>
