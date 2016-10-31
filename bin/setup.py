@@ -87,6 +87,13 @@ class Setup():
 
         # Default quiet:
         self.quiet = self.default_repo_quiet
+        self.repo_verbose = False
+
+        # Default depth
+        self.depth = None
+
+        # Default to NOT force-sync
+        self.force_sync = None
 
         self.debug_lvl = 0
 
@@ -985,8 +992,10 @@ class Setup():
         cmd = args
         cmd.insert(0, repo)
         cmd.insert(1, 'init')
+        if self.depth:
+            cmd.append(self.depth)
         log_it = 1
-        if self.quiet == self.default_repo_quiet:
+        if self.repo_verbose is not True and self.quiet == self.default_repo_quiet:
             cmd.append(self.quiet)
             log_it = 0
         try:
@@ -1027,8 +1036,10 @@ class Setup():
         cmd = args
         cmd.insert(0, repo)
         cmd.insert(1, 'sync')
+        if self.force_sync:
+            cmd.append(self.force_sync)
         log_it = 1
-        if self.quiet == self.default_repo_quiet:
+        if self.repo_verbose is not True and self.quiet == self.default_repo_quiet:
             cmd.append(self.quiet)
             log_it = 0
         self.run_cmd(cmd, log=log_it)
@@ -1065,8 +1076,8 @@ class Setup():
                 if output:
                     output = output.strip()
                     if len(err_msg) > 0 or output.startswith(err) or output.startswith(err2) or output.startswith(err3):
-                        err_msg.append(output.decode('utf-8'))
-                    logger.debug(output)
+                        err_msg.append("%s" % output.decode('utf-8'))
+                    logger.plain("%s" % output.decode('utf-8'))
         else:
             logger.debug('output not logged for this command (%s) without verbose flag (-v).' % (cmd))
             ret = subprocess.Popen(cmd, env=environment, cwd=cwd, close_fds=True)
@@ -1086,9 +1097,24 @@ class Setup():
 
 
     # Helpers: Set_*, which..
+    def set_repo_verbose(self, verbose):
+        self.repo_verbose = verbose
+
     def set_jobs(self, jobs):
         logger.debug('Setting jobs to %s' % jobs)
         self.jobs = jobs
+
+    def set_depth(self, depth):
+        if int(depth) <= 1:
+            logger.info('repo depth %s is invalid, setting to 2' % depth)
+            depth = '2'
+        logger.debug('Setting depth to %s' % depth)
+        self.depth = '--depth=%s' % depth
+
+    def set_force_sync(self, sync):
+        logger.debug('Setting force-sync to %s' % sync)
+        if sync is True:
+            self.force_sync = '--force-sync'
 
     def set_debug(self):
         self.set_debug_env()

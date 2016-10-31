@@ -51,10 +51,25 @@ class Argparse_Setup:
             del parsed_args.base_branch
 
         # Parse repo option
+        if (parsed_args.repo_verbose):
+            if self.setup:
+                self.setup.set_repo_verbose(parsed_args.repo_verbose)
+            del parsed_args.repo_verbose
+
         if (parsed_args.repo_jobs):
             if self.setup:
                 self.setup.set_jobs(parsed_args.repo_jobs)
             del parsed_args.repo_jobs
+
+        if (parsed_args.repo_depth):
+            if self.setup:
+                self.setup.set_depth(parsed_args.repo_depth)
+            del parsed_args.repo_depth
+
+        if (parsed_args.repo_force_sync):
+            if self.setup:
+                self.setup.set_force_sync(parsed_args.repo_force_sync)
+            del parsed_args.repo_force_sync
 
         # Look for list options
         if parsed_args.list_distros:
@@ -153,9 +168,12 @@ class Argparse_Setup:
         self.repo_args = self.parser.add_argument_group('repo Settings')
         # Repo options
         setup_jobs = ""
+        self.repo_args.add_argument('-rv', '--repo-verbose', action='store_true', help='Disables use of --quiet with repo commands')
         if self.setup and self.setup.jobs:
             setup_jobs = '(default %s)' % (self.setup.jobs)
         self.repo_args.add_argument('-rj', '--repo-jobs', metavar='JOBS', help='Sets repo project to fetch simultaneously %s' % (setup_jobs))
+        self.repo_args.add_argument('--repo-depth', metavar='DEPTH', help='Sets repo --depth; see repo init --help (note: if set, a value of >= 2 is required)')
+        self.repo_args.add_argument('--repo-force-sync', action='store_true', help='Sets repo --force-sync; see repo sync --help')
 
     def add_list_options(self):
         self.list_args = self.parser.add_argument_group('Layer Listings')
