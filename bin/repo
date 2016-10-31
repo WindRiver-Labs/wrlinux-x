@@ -6,7 +6,7 @@ import os
 REPO_URL = os.environ.get('REPO_URL', None)
 if not REPO_URL:
   REPO_URL = 'git://git.wrs.com/tools/git-repo'
-REPO_REV = 'wr-9.0-20161018'
+REPO_REV = 'master-wr'
 
 # Copyright (C) 2008 Google Inc.
 #
@@ -278,6 +278,10 @@ def _Init(args, gitc_init=False):
       rev = 'refs/remotes/origin/%s^0' % branch
 
     _Checkout(dst, branch, rev, opt.quiet)
+
+    if not os.path.isfile('%s/repo' % dst):
+      _print("warning: '%s' does not look like a git-repo repository, is "
+             "REPO_URL set correctly?" % url, file=sys.stderr)
   except CloneFailure:
     if opt.quiet:
       _print('fatal: repo init failed; run without --quiet to see why',
@@ -778,7 +782,10 @@ def main(orig_args):
       try:
         _Init(args, gitc_init=(cmd == 'gitc-init'))
       except CloneFailure:
-        shutil.rmtree(os.path.join(repodir, S_repo), ignore_errors=True)
+        path = os.path.join(repodir, S_repo)
+        _print("fatal: cloning the git-repo repository failed, will remove "
+               "'%s' " % path, file=sys.stderr)
+        shutil.rmtree(path, ignore_errors=True)
         sys.exit(1)
       repo_main, rel_repo_dir = _FindRepo()
     else:
