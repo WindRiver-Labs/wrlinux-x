@@ -355,69 +355,27 @@ class Setup():
         # all layer indexes may contain 'collection'
         depCacheCol = []
         depCacheName = []
-        depCachePath = []
 
         def checkCache(lindex, layerBranch, addCache=False):
-            (collection, name, vcs_url) = self.index.getLayerInfo(lindex, layerBranch=layerBranch)
-            path = None
-            if vcs_url:
-                path = 'layers/' + "".join(vcs_url.split('/')[-1:])
-
-            if collection in depCacheCol or name in depCacheName or path in depCachePath:
+            collection = ""
+            if 'collection' in layerBranch:
+                collection = layerBranch['collection']
+            for layer in self.index.find_layer(lindex, layerBranch=layerBranch):
+                name = ""
+                if layer:
+                    name = layer['name']
+                    break
+            if collection in depCacheCol or name in depCacheName:
                 return True
-
             if addCache:
                 if collection:
                     depCacheCol.append(collection)
                 if name:
                     depCacheName.append(name)
-                if path:
-                    depCachePath.append(path)
             return False
-
-        def resolveIndexOrder(lindex, layerBranch, Queue):
-            # We want to recompute the dependency in INDEXES order...
-            (collection, name, vcs_url) = self.index.getLayerInfo(lindex, layerBranch)
-            found = False
-            for pindex in self.index.index:
-                # We already know it'll be in this index, so we just use it as-is...
-                if pindex == lindex:
-                    break
-
-                # Look for the collection (or name if no collection) in the indexes in
-                # priority order...
-                pbranchid = self.index.getBranchId(pindex, self.get_branch(lindex=pindex))
-                if collection:
-                    new_layerBranches = self.index.getLayerBranch(pindex, pbranchid, collection=collection)
-                    if new_layerBranches and new_layerBranches != []:
-                        for lb in new_layerBranches:
-                            logger.info('Resolving dependency %s from %s to %s from %s' % (name, lindex['CFG']['DESCRIPTION'], name, pindex['CFG']['DESCRIPTION']))
-                            Queue.append( (pindex, lb) )
-                        lindex = None
-                        layerBranch = None
-
-                        (lindex, layerBranch) = Queue.popleft()
-                        break
-
-                if name:
-                    new_layerBranches = self.index.getLayerBranch(pindex, pbranchid, name=name)
-                    if new_layerBranches and new_layerBranches != []:
-                        for lb in new_layerBranches:
-                            logger.info('Resolving dependency %s from %s to %s from %s' % (name, lindex['CFG']['DESCRIPTION'], name, pindex['CFG']['DESCRIPTION']))
-                            Queue.append( (pindex, lb) )
-                        lindex = None
-                        layerBranch = None
-
-                        (lindex, layerBranch) = Queue.popleft()
-                        break
-
-            return (lindex, layerBranch)
 
         while requiredQueue:
             (lindex, layerBranch) = requiredQueue.popleft()
-
-            (lindex, layerBranch) = resolveIndexOrder(lindex, layerBranch, requiredQueue)
-
             if not checkCache(lindex, layerBranch, True):
                 self.requiredlayers.append( (lindex, layerBranch) )
                 (required, recommended) = self.index.getDependencies(lindex, layerBranch)
@@ -429,9 +387,6 @@ class Setup():
 
         while recommendedQueue:
             (lindex, layerBranch) = recommendedQueue.popleft()
-
-            (lindex, layerBranch) = resolveIndexOrder(lindex, layerBranch, recommendedQueue)
-
             if not checkCache(lindex, layerBranch, True):
                 if self.dl_layers != True:
                     layers = self.index.find_layer(lindex, id=layerBranch['layer'])

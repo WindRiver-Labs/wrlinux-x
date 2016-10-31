@@ -802,18 +802,11 @@ class Layer_Index():
                 return branch['id']
         return None
 
-    def getLayerBranch(self, lindex, branchid, layerBranchId=None, collection=None, name=None, distro=None, machine=None, recipe=None, wrtemplate=None, layerItem=None):
+    def getLayerBranch(self, lindex, branchid, layerBranchId=None, name=None, distro=None, machine=None, recipe=None, wrtemplate=None, layerItem=None):
         result = []
         if layerBranchId:
             for lb in lindex['layerBranches']:
                 if branchid == lb['branch'] and layerBranchId == lb['id']:
-                    result.append(lb)
-                    break
-            return result
-
-        if collection:
-            for lb in lindex['layerBranches']:
-                if 'collection' in lb and collection == lb['collection']:
                     result.append(lb)
                     break
             return result
@@ -876,20 +869,6 @@ class Layer_Index():
                             recommended.append(lb)
 
         return (required, recommended)
-
-    def getLayerInfo(self, lindex, layerBranch):
-        collection = None
-        name = None
-        vcs_url = None
-        if 'collection' in layerBranch:
-            collection = layerBranch['collection']
-        for layer in self.find_layer(lindex, layerBranch=layerBranch):
-            if layer:
-                name = layer['name']
-                vcs_url = layer['vcs_url']
-                break
-
-        return (collection, name, vcs_url)
 
     def getBranch(self, lindex, branchid):
         for branch in lindex['branches']:
