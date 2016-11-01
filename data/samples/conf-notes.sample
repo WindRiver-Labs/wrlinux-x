@@ -1,10 +1,16 @@
 This project was configured with the following options:
     ####SETUP_ARGS####
 
-Common targets are:
-    core-image-minimal
-    core-image-sato
-    meta-toolchain
-    meta-ide-support
+Common Wind River images are:
+    wrlinux-image-glibc-tiny      (requires distro: wrlinux-tiny)
+    wrlinux-image-glibc-small     (requires distro: wrlinux-small)
+    wrlinux-image-glibc-core      (suggests distro: wrlinux)
+    wrlinux-image-glibc-std       (suggests distro: wrlinux)
+    wrlinux-image-glibc-std-sato  (requires distro: wrlinux-std-sato)
 
-You can also run generated qemu images with a command like 'runqemu qemux86'
+Common Yocto Project images, typically built with distro poky, are:
+    core-image-minimal
+    core-image-base
+    core-image-sato
+
+You can also run generated qemu images with a command like 'runqemu ####DEFAULTMACHINE####'

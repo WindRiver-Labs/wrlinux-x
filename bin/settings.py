@@ -36,9 +36,9 @@ INDEXES = [
 BITBAKE = "bitbake"
 
 # Base Layers (these layers and their dependencies are -always- included)
-BASE_LAYERS = "wr-base"
+BASE_LAYERS = "wr-base wr-fixes"
 
-DEFAULT_DISTRO = "wrlinux"
+DEFAULT_DISTRO = "wrlinux-small"
 DEFAULT_MACHINE = "qemux86-64"
 DEFAULT_KTYPE = "standard"
 
