@@ -750,9 +750,6 @@ class Setup():
             add_xml(name, url, remote, path, revision)
 
         if self.mirror == True:
-            repo_url = os.getenv('REPO_URL')
-            if repo_url:
-                write_xml('git-repo', repo_url, 'base', repo_url, 'master') # hard coded for now...
             write_xml('buildtools', self.buildtools_remote, 'base', self.buildtools_remote, self.buildtools_branch)
 
         def process_xml_layers(allLayers):
