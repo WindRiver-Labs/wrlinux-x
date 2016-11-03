@@ -8,3 +8,5 @@
     <project name="external/yocto/github.com.rhinstaller.python-meh.git" remote="base" path="layers/wr-installer-dl/git/github.com.rhinstaller.python-meh.git" bare="True"/>
     <project name="external/yocto/github.com.seveas.python-prctl" remote="base" path="layers/wr-installer-dl/git/github.com.seveas.python-prctl" bare="True"/>
     <project name="external/yocto/github.com.TigerVNC.tigervnc.git" remote="base" path="layers/wr-installer-dl/git/github.com.TigerVNC.tigervnc.git" bare="True"/>
+    <project name="external/yocto/github.com.rhinstaller.pyparted.git" remote="base" path="layers/wr-installer-dl/git/github.com.rhinstaller.pyparted.git" bare="True"/>
+    <project name="external/yocto/github.com.pravins.lohit.git" remote="base" path="layers/wr-installer-dl/git/github.com.pravins.lohit.git" bare="True"/>
