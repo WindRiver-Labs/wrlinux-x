@@ -101,6 +101,9 @@ class Setup():
         # Use the path from this file.  Note bin has to be dropped.
         self.install_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)) + '/../')
 
+        # Default location for the related XML files
+        self.xml_dir = os.path.join(self.install_dir, 'data/xml')
+
         # Set the directory where we're running.
         self.project_dir = os.getcwd()
 
@@ -232,7 +235,7 @@ class Setup():
         if (ret.returncode == 0):
             logger.plain('Loading the mirror index from %s (%s)...' % (self.base_url + '/mirror-index', self.base_branch))
             # This MIGHT be a valid mirror..
-            if not os.path.exists(os.path.join(mirror_index, '.git')):
+            if not os.path.exists(mirror_index):
                 os.makedirs(mirror_index)
                 cmd = [self.tools['git'], 'init' ]
                 self.run_cmd(cmd, cwd=mirror_index)
@@ -247,6 +250,8 @@ class Setup():
                 cmd = [self.tools['git'], 'reset', '--hard' ]
                 self.run_cmd(cmd, cwd=mirror_index)
                 mirror_index_path = mirror_index
+                # Mirror also has a copy of the associated XML bits
+                self.xml_dir = os.path.join(mirror_index, 'xml')
 
         self.index = Layer_Index(indexcfg=settings.INDEXES, base_branch=self.base_branch, replace=replace, mirror=mirror_index_path)
 
@@ -646,10 +651,10 @@ class Setup():
 
     def update_mirror_index(self):
         logger.debug('Starting')
-        path = os.path.join(self.project_dir, 'mirror-index.git')
+        path = os.path.join(self.project_dir, 'mirror-index')
 
         logger.plain('Exporting mirror-index %s...' % (path))
-        if not os.path.exists(os.path.join(path, '.git')):
+        if not os.path.exists(path):
             cmd = [self.tools['git'], 'init', path]
             if self.quiet == self.default_repo_quiet:
                 cmd.append(self.quiet)
@@ -686,7 +691,28 @@ class Setup():
                 for layer in lindex['layerItems']:
                     if layer['vcs_url'] in url_cache:
                         for lb in self.index.getLayerBranch(lindex, branchid=branchid, layerItem=layer):
-                            self.index.serialize_index(lindex, path + '/' + lindex['CFG']['DESCRIPTION'], split=True, layerBranches=[lb], IncludeCFG=True, mirror=True)
+                            self.index.serialize_index(lindex, os.path.join(path, lindex['CFG']['DESCRIPTION']), split=True, layerBranches=[lb], IncludeCFG=True, mirror=True, base_url=self.base_url)
+                        name = layer['name']
+                        destdir = os.path.join(path, 'xml')
+                        srcfile = os.path.join(self.xml_dir, '%s.inc' % (name))
+                        if os.path.exists(srcfile):
+                            os.makedirs(destdir, exist_ok=True)
+                            shutil.copy(srcfile, destdir)
+                        srcfile = os.path.join(self.xml_dir, '%s.xml' % (name))
+                        if os.path.exists(srcfile):
+                            os.makedirs(destdir, exist_ok=True)
+                            shutil.copy(srcfile, destdir)
+
+                        # Special processing for the openembedded-core layer
+                        if name == 'openembedded-core':
+                            srcfile = os.path.join(self.xml_dir, 'bitbake.inc')
+                            if os.path.exists(srcfile):
+                                os.makedirs(destdir, exist_ok=True)
+                                shutil.copy(srcfile, destdir)
+                            srcfile = os.path.join(self.xml_dir, 'bitbake.xml')
+                            if os.path.exists(srcfile):
+                                os.makedirs(destdir, exist_ok=True)
+                                shutil.copy(srcfile, destdir)
 
         # git add file.
         cmd = [self.tools['git'], 'add', '-A', '.']
@@ -722,7 +748,7 @@ class Setup():
 
         def inc_xml(name, url, remote, path, revision):
             # incfile is included inline and has to work as elements of the 'project'
-            incfile = os.path.join(self.install_dir, 'data/xml/%s.inc' % (name))
+            incfile = os.path.join(self.xml_dir, '%s.inc' % (name))
             logger.debug('Looking for %s' % (incfile))
             if os.path.exists(incfile):
                 fbase = open(incfile, 'r')
@@ -735,7 +761,7 @@ class Setup():
 
         def add_xml(name, url, remote, path, revision):
             # xmlfile is included after the entry and is completely standalone
-            xmlfile = os.path.join(self.install_dir, 'data/xml/%s.xml' % (name))
+            xmlfile = os.path.join(self.xml_dir, '%s.xml' % (name))
             logger.debug('Looking for %s' % (xmlfile))
             if os.path.exists(xmlfile):
                 fbase = open(xmlfile, 'r')

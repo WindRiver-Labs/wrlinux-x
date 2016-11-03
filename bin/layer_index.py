@@ -41,7 +41,7 @@ class Layer_Index():
 
         if mirror:
             for (dirpath, dirnames, filenames) in os.walk(mirror):
-                if dirpath.endswith('/.git') or mirror + '/.git' in dirpath:
+                if dirpath.endswith('/.git') or mirror + '/.git' in dirpath or mirror + '/xml' in dirpath:
                     continue
                 for filename in filenames:
                     pindex = self.load_serialized_index(os.path.join(dirpath, filename), name='Mirrored Index')
@@ -460,7 +460,7 @@ class Layer_Index():
 
     # layerBranches must be a list of layerBranch entries to parse, it only affects
     # output when 'split' is True.
-    def serialize_index(self, lindex, path, split=False, layerBranches=None, IncludeCFG=False, mirror=False):
+    def serialize_index(self, lindex, path, split=False, layerBranches=None, IncludeCFG=False, mirror=False, base_url=None):
         # If we're not splitting, we must be caching...
         if not split:
             dir = os.path.dirname(path)
@@ -554,13 +554,15 @@ class Layer_Index():
                 for layer in pindex['layerItems']:
                     vcs_url = layer['vcs_url']
                     url = urlparse(vcs_url)
-                    replace = ""
-                    if url.scheme:
-                        replace += url.scheme + '://' + url.netloc
-                    else:
-                        replace = self.base_url
 
-                    layer['vcs_url'] = layer['vcs_url'].replace(replace, '#BASE_URL#')
+                    replace = None
+                    if url.scheme:
+                        replace = url.scheme + '://' + url.netloc
+                    elif base_url:
+                        replace = base_url
+
+                    if replace:
+                        layer['vcs_url'] = layer['vcs_url'].replace(replace, '#BASE_URL#')
 
             dir = os.path.dirname(path)
             base = os.path.basename(path)
