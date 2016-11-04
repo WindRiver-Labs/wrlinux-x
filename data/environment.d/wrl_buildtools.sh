@@ -1,8 +1,11 @@
 # Buildtools location can change -- this is the path on top of the BASEURL
-BUILDTOOLS_REMOTE="layers/buildtools/buildtools-standalone-20161013"
+BUILDTOOLS_REMOTE="${BUILDTOOLS_REMOTE:-layers/buildtools/buildtools-standalone-20161013}"
+
+# Where to cache the git fetch
+BUILDTOOLS_GIT="${BUILDTOOLS_GIT:-bin/buildtools.git}"
 
 # Where to install the build tools
-BUILDTOOLS="bin/buildtools"
+BUILDTOOLS="${BUILDTOOLS:-bin/buildtools}"
 
 # Arch of the SDK to load
 SDKARCH=$(uname -p)
@@ -18,13 +21,6 @@ buildtools_setup() {
 		BUILDTOOLSBRANCH="${BASEBRANCH}"
 	fi
 
-	# By default we fetch the buildtools from the wrlinux-X directory
-	# Otherwise we will fetch it into this project directory
-	if [ -d buildtools.git ]; then
-		BUILDTOOLS_GIT="${BUILDTOOLS_GIT:-buildtools.git}"
-	else
-		BUILDTOOLS_GIT="${BUILDTOOLS_GIT:-${BASEDIR}/buildtools.git}"
-	fi
 	FETCH_BUILDTOOLS=0
 
 	# Install them into the project directory
@@ -35,21 +31,15 @@ buildtools_setup() {
 	if [ ! -d "${BUILDTOOLS_GIT}" ]; then
 		FETCH_BUILDTOOLS=1
 
-		# Create empty buildtools.git cache and determine the right location
-		(mkdir -p "${BUILDTOOLS_GIT}" 2>/dev/null && cd "${BUILDTOOLS_GIT}" && git init)
+		(mkdir -p ${BUILDTOOLS_GIT} && git init ${BUILDTOOLS_GIT})
 		if [ $? -ne 0 ]; then
-			echo "Unable to create ${BUILDTOOLS_GIT} directory.  Falling back to project directory." >&2
-			BUILDTOOLS_GIT="buildtools.git"
-			(mkdir -p ${BUILDTOOLS_GIT} 2>/dev/null && cd ${BUILDTOOLS_GIT} && git init)
-			if [ $? -ne 0 ]; then
-				echo "Still unable to create ${BUILDTOOLS_GIT} directory.  Please check permissions." >&2
-				exit 1
-			fi
+			echo "Unable to create ${BUILDTOOLS_GIT} directory." >&2
+			exit 1
 		fi
 	else
 		# Did the buildtools URL change?
-		BUILDTOOLSURL=$(git config -f ${BUILDTOOLS_GIT}/.git/config local.last.url)
-		if [ "${BUILDTOOLSURL}" != "${BASEURL}/${BUILDTOOLS_REMOTE}" ]; then
+		LASTREF=$(git config -f ${BUILDTOOLS_GIT}/.git/config local.last.ref)
+		if [ "${LASTREF}" != "${BUILDTOOLS_REF}" ]; then
 			FETCH_BUILDTOOLS=1
 		fi
 	fi
@@ -76,7 +66,7 @@ buildtools_setup() {
 		(
 			cd ${BUILDTOOLS_GIT}
 			git config "local.${BUILDTOOLS_REF}.url" "${BASEURL}/${BUILDTOOLS_REMOTE}"
-			git config local.last.url "${BASEURL}/${BUILDTOOLS_REMOTE}"
+			git config local.last.ref "${BUILDTOOLS_REF}"
 			git checkout "${BUILDTOOLS_REF}"
 		)
 		if [ $? -ne 0 ]; then
