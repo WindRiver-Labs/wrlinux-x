@@ -114,7 +114,7 @@ if [ $help -ne 1 ]; then
 	fi
 
 	if [ -n "$ADDFUNCS" ]; then
-		eval $ADDFUNCS
+		$ADDFUNCS
 	fi
 
 	# The following checks are from oe-buildenv-internal
@@ -165,7 +165,7 @@ export OE_BASEURL=${BASEURL}
 export OE_BASEBRANCH=${BASEBRANCH}
 
 if [ -n "$EXPORTFUNCS" ]; then
-	eval $EXPORTFUNCS
+	$EXPORTFUNCS
 fi
 
 # Switch to the python script
