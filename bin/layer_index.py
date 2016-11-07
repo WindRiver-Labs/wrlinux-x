@@ -94,8 +94,6 @@ class Layer_Index():
             if indexname in m_index:
                 logger.plain('Using index %s from the mirror index...' % (indexname))
                 lindex = m_index[indexname]
-                # Prevent caching.. no reason to 'double cache'
-                indexcache = None
             else:
                logger.plain('Loading index %s from %s...' % (indexname, indexurl))
 
