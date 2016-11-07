@@ -110,13 +110,6 @@ class Layer_Index():
                     logger.error('Unknown index type %s' % indextype)
                     raise SyntaxError
 
-            # Cache the data we loaded... if we loaded data.
-            if lindex and indexcache:
-                dir = os.path.dirname(indexcache)
-                if dir:
-                    os.makedirs(dir, exist_ok=True)
-                self.serialize_index(lindex, indexcache, split=False)
-
             # If we couldn't pull from the regular location, pull from the cache!
             if lindex is None and indexcache and os.path.exists(indexcache + '.json'):
                 logger.plain('Falling back to the index cache %s...' % (indexcache))
@@ -127,6 +120,22 @@ class Layer_Index():
                 continue
 
             # Start data transforms...
+            for entry in lindex['layerItems']:
+                for obj in entry:
+                    # Run replace on any 'url' items.
+                    if 'url' in obj:
+                        vcs_url = entry[obj]
+                        for (find, rep) in replace:
+                            vcs_url = vcs_url.replace(find, rep)
+                        entry[obj] = vcs_url
+
+            # Cache the data we loaded... (after replacements) if we loaded data.
+            if lindex and indexcache:
+                dir = os.path.dirname(indexcache)
+                if dir:
+                    os.makedirs(dir, exist_ok=True)
+                self.serialize_index(lindex, indexcache, split=False)
+
             lindex['CFG'] = cfg
             lindex['CFG']['BRANCH'] = branch
 
@@ -136,15 +145,6 @@ class Layer_Index():
                     if dist['name'] == "defaultsetup":
                         dist['name'] = 'nodistro'
                         lindex['distros'][idx] = dist
-
-            for entry in lindex['layerItems']:
-                for obj in entry:
-                    # Run replace on any 'url' items.
-                    if 'url' in obj:
-                        vcs_url = entry[obj]
-                        for (find, rep) in replace:
-                            vcs_url = vcs_url.replace(find, rep)
-                        entry[obj] = vcs_url
 
             # Everything works off layerBranches, so make sure to keep it sorted!
             lindex['layerBranches'] = self.sortEntry(lindex['layerBranches'])
