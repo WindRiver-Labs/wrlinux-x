@@ -23,6 +23,8 @@ import subprocess
 import sys
 import time
 
+import utils_setup
+
 # Setup-specific modules
 import logger_setup
 from argparse_wrl import Argparse_Wrl
@@ -230,7 +232,7 @@ class Setup():
         mirror_index_path = None
         mirror_index = os.path.join(self.conf_dir, 'mirror-index')
         cmd = [self.tools['git'], 'ls-remote', self.base_url + '/mirror-index', self.base_branch]
-        ret = subprocess.Popen(cmd, cwd=self.project_dir, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        ret = subprocess.Popen(cmd, env=self.env, cwd=self.project_dir, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         ret.wait()
         if (ret.returncode == 0):
             logger.plain('Loading the mirror index from %s (%s)...' % (self.base_url + '/mirror-index', self.base_branch))
@@ -238,17 +240,17 @@ class Setup():
             if not os.path.exists(mirror_index):
                 os.makedirs(mirror_index)
                 cmd = [self.tools['git'], 'init' ]
-                self.run_cmd(cmd, cwd=mirror_index)
+                utils_setup.run_cmd(cmd, environment=self.env, cwd=mirror_index)
 
             cmd = [self.tools['git'], 'fetch', '-f', '-n', '-u', self.base_url + '/mirror-index', self.base_branch + ':' + self.base_branch]
-            ret = subprocess.Popen(cmd, cwd=mirror_index, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            ret = subprocess.Popen(cmd, env=self.env, cwd=mirror_index, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             ret.wait()
             if (ret.returncode == 0):
                 logger.debug('Found mirrored index.')
                 cmd = [self.tools['git'], 'checkout', self.base_branch ]
-                self.run_cmd(cmd, cwd=mirror_index)
+                utils_setup.run_cmd(cmd, environment=self.env, cwd=mirror_index)
                 cmd = [self.tools['git'], 'reset', '--hard' ]
-                self.run_cmd(cmd, cwd=mirror_index)
+                utils_setup.run_cmd(cmd, environment=self.env, cwd=mirror_index)
                 mirror_index_path = mirror_index
                 # Mirror also has a copy of the associated XML bits
                 self.xml_dir = os.path.join(mirror_index, 'xml')
@@ -658,15 +660,15 @@ class Setup():
             cmd = [self.tools['git'], 'init', path]
             if self.quiet == self.default_repo_quiet:
                 cmd.append(self.quiet)
-            self.run_cmd(cmd, cwd=self.project_dir)
+            utils_setup.run_cmd(cmd, environment=self.env, cwd=self.project_dir)
 
         cmd = [self.tools['git'], 'checkout', '-b', self.base_branch]
-        ret = subprocess.Popen(cmd, cwd=path, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        ret = subprocess.Popen(cmd, env=self.env, cwd=path, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         ret.wait()
         if (ret.returncode != 0):
             # if we failed, then simply try to switch branches
             cmd = [self.tools['git'], 'checkout', self.base_branch]
-            ret = subprocess.Popen(cmd, cwd=path, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            ret = subprocess.Popen(cmd, env=self.env, cwd=path, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             ret.wait()
 
         # Make sure the directory is empty, use -f to ignore failures
@@ -716,15 +718,15 @@ class Setup():
 
         # git add file.
         cmd = [self.tools['git'], 'add', '-A', '.']
-        self.run_cmd(cmd, cwd=path)
+        utils_setup.run_cmd(cmd, environment=self.env, cwd=path)
 
         cmd = [self.tools['git'], 'diff-index', '--quiet', 'HEAD', '--']
-        ret = subprocess.Popen(cmd, cwd=path, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        ret = subprocess.Popen(cmd, env=self.env, cwd=path, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         ret.wait()
         if (ret.returncode != 0):
             logger.debug('Updating mirror-index')
             cmd = [self.tools['git'], 'commit', '-m', 'Updated index - %s' % (self.setup_args)]
-            self.run_cmd(cmd, cwd=path)
+            utils_setup.run_cmd(cmd, environment=self.env, cwd=path)
         logger.debug('Done')
 
 
@@ -916,29 +918,29 @@ class Setup():
             cmd = [self.tools['git'], 'init', self.project_dir]
             if self.quiet == self.default_repo_quiet:
                 cmd.append(self.quiet)
-            self.run_cmd(cmd, cwd=self.conf_dir)
+            utils_setup.run_cmd(cmd, environment=self.env, cwd=self.conf_dir)
 
             # Add self.install_dir as a submodule if it is in self.project_dir
             if self.install_dir.startswith(self.project_dir + '/'):
                 logger.debug('Add %s as a submodule' % self.install_dir)
                 cmd = [self.tools['git'], 'submodule', 'add', \
                         './' + os.path.relpath(self.install_dir, self.project_dir)]
-                self.run_cmd(cmd, cwd=self.project_dir)
+                utils_setup.run_cmd(cmd, environment=self.env, cwd=self.project_dir)
                 filelist.append(self.install_dir)
                 filelist.append('.gitmodules')
 
         # git add manifest. (Since these files are new, always try to add them)
         cmd = [self.tools['git'], 'add', '--'] + filelist
-        self.run_cmd(cmd, cwd=self.project_dir)
+        utils_setup.run_cmd(cmd, environment=self.env, cwd=self.project_dir)
 
         cmd = [self.tools['git'], 'diff-index', '--quiet', 'HEAD', '--'] + filelist
-        ret = subprocess.Popen(cmd, cwd=self.project_dir, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        ret = subprocess.Popen(cmd, env=self.env, cwd=self.project_dir, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         ret.wait()
         if (ret.returncode != 0):
             logger.plain('Updated project configuration')
             # Command failed -- so self.default_xml changed...
             cmd = [self.tools['git'], 'commit', '-m', 'Configuration change - %s' % (self.setup_args), '--'] + filelist
-            self.run_cmd(cmd, cwd=self.project_dir)
+            utils_setup.run_cmd(cmd, environment=self.env, cwd=self.project_dir)
 
         logger.debug('Done')
 
@@ -1022,7 +1024,7 @@ class Setup():
             cmd.append(self.quiet)
             log_it = 0
         try:
-            self.run_cmd(cmd, log=log_it)
+            utils_setup.run_cmd(cmd, environment=self.env, log=log_it)
         except Exception as e:
             raise
         logger.debug('Done')
@@ -1065,7 +1067,7 @@ class Setup():
         if self.repo_verbose is not True and self.quiet == self.default_repo_quiet:
             cmd.append(self.quiet)
             log_it = 0
-        self.run_cmd(cmd, log=log_it)
+        utils_setup.run_cmd(cmd, environment=self.env, log=log_it)
         logger.debug('Done')
 
     def get_branch(self, lindex=None):
@@ -1080,44 +1082,6 @@ class Setup():
             logger.critical('Path was: %s', os.environ['PATH'])
             self.exit(1)
         return cmd
-
-    def run_cmd(self, cmd, environment=None, cwd=None, log=1, expected_ret=0, err=b'GitError', err2=b'error', err3=b'fatal'):
-        err_msg = []
-        if environment == None:
-            environment = self.env
-
-        logger.debug('Running cmd: "%s"' % repr(cmd))
-        if cwd:
-            logger.debug('From %s' % cwd)
-
-        if log == 1:
-            ret = subprocess.Popen(cmd, env=environment, cwd=cwd, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
-            while True:
-                output = ret.stdout.readline()
-                if not output and ret.poll() is not None:
-                    break
-                if output:
-                    output = output.strip()
-                    if len(err_msg) > 0 or output.startswith(err) or output.startswith(err2) or output.startswith(err3):
-                        err_msg.append("%s" % output.decode('utf-8'))
-                    logger.plain("%s" % output.decode('utf-8'))
-        else:
-            logger.debug('output not logged for this command (%s) without verbose flag (-v).' % (cmd))
-            ret = subprocess.Popen(cmd, env=environment, cwd=cwd, close_fds=True)
-
-        ret.wait()
-        if (ret.returncode != expected_ret):
-            for key in environment.keys():
-                logger.to_file('%20s = %s' % (key, repr(environment[key])))
-            logger.critical('cmd "%s" returned %d' % (cmd, ret.returncode))
-
-            msg = ''
-            if log:
-                msg = '\n'.join(err_msg)
-                msg += '\n'
-            raise Exception(msg)
-        logger.debug('Finished running cmd: "%s"' % repr(cmd))
-
 
     # Helpers: Set_*, which..
     def set_repo_verbose(self, verbose):
