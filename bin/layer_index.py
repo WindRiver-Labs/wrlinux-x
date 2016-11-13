@@ -551,16 +551,14 @@ class Layer_Index():
                 pindex['layerItems'] = deepcopy(pindex['layerItems'])
                 for layer in pindex['layerItems']:
                     vcs_url = layer['vcs_url']
-                    url = urlparse(vcs_url)
 
-                    replace = None
-                    if url.scheme:
-                        replace = url.scheme + '://' + url.netloc
-                    elif base_url:
-                        replace = base_url
+                    if base_url and vcs_url.startswith(base_url):
+                        layer['vcs_url'] = layer['vcs_url'].replace(base_url, '#BASE_URL#')
+                    else:
+                        url = urlparse(vcs_url)
 
-                    if replace:
-                        layer['vcs_url'] = layer['vcs_url'].replace(replace, '#BASE_URL#')
+                        if url.scheme:
+                            layer['vcs_url'] = layer['vcs_url'].replace(url.scheme + '://' + url.netloc, '#BASE_URL#')
 
             dir = os.path.dirname(path)
             base = os.path.basename(path)
