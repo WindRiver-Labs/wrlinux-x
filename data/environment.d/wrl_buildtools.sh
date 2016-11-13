@@ -45,10 +45,10 @@ buildtools_setup() {
 	fi
 
 	if [ ${FETCH_BUILDTOOLS} -eq 1 ]; then
-		if ! git ls-remote "${BASEURL}/${BUILDTOOLS_REMOTE}" 2>&1 >/dev/null ; then
+		if ! git ls-remote "${BASEURL}/${BUILDTOOLS_REMOTE}" >/dev/null 2>&1 ; then
 			# If 'full' URL doesn't work, retry with a flattened view
 			NEW_REMOTE=$(echo ${BUILDTOOLS_REMOTE} | sed -e 's,.*/buildtools-standalone-,buildtools-standalone-,')
-			if ! git ls-remote "${BASEURL}/${NEW_REMOTE}" 2>&1 >/dev/null ; then
+			if ! git ls-remote "${BASEURL}/${NEW_REMOTE}" >/dev/null 2>&1 ; then
 				echo "Unable to find ${BASEURL}/${BUILDTOOLS_REMOTE} or ${BASEURL}/${NEW_REMOTE}" >&2
 				exit 1
 			else
