@@ -777,7 +777,7 @@ class Setup():
             close_xml_tag(name, url, remote, path, revision)
             add_xml(name, url, remote, path, revision)
 
-        if self.mirror == True:
+        if self.mirror == True and self.buildtools_remote and self.buildtools_branch:
             write_xml('buildtools', self.buildtools_remote, 'base', self.buildtools_remote, self.buildtools_branch)
 
         def process_xml_layers(allLayers):
