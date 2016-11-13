@@ -4,33 +4,33 @@
     <project name="external/yocto/anongit.freedesktop.org.gummiboot" remote="base" path="layers/oe-core-dl-2.2/git/anongit.freedesktop.org.gummiboot" bare="True"/>
     <project name="external/yocto/anongit.freedesktop.org.piglit" remote="base" path="layers/oe-core-dl-2.2/git/anongit.freedesktop.org.piglit" bare="True"/>
     <project name="external/yocto/anongit.freedesktop.org.pkg-config" remote="base" path="layers/oe-core-dl-2.2/git/anongit.freedesktop.org.pkg-config" bare="True"/>
-    <project name="external/yocto/anonscm.debian.org.collab-maint.ca-certificates.git" remote="base" path="layers/oe-core-dl-2.2/git/anonscm.debian.org.collab-maint.ca-certificates.git" bare="True"/>
-    <project name="external/yocto/anonscm.debian.org.collab-maint.ncurses.git" remote="base" path="layers/oe-core-dl-2.2/git/anonscm.debian.org.collab-maint.ncurses.git" bare="True"/>
-    <project name="external/yocto/anonscm.debian.org.git.collab-maint.ifupdown.git" remote="base" path="layers/oe-core-dl-2.2/git/anonscm.debian.org.git.collab-maint.ifupdown.git" bare="True"/>
-    <project name="external/yocto/git.debian.org.git.debian-eeepc.eeepc-acpi-scripts.git" remote="base" path="layers/oe-core-dl-2.2/git/git.debian.org.git.debian-eeepc.eeepc-acpi-scripts.git" bare="True"/>
-    <project name="external/yocto/git.denx.de.u-boot.git" remote="base" path="layers/oe-core-dl-2.2/git/git.denx.de.u-boot.git" bare="True"/>
-    <project name="external/yocto/git.eclipse.org.gitroot.tcf.org.eclipse.tcf.agent.git" remote="base" path="layers/oe-core-dl-2.2/git/git.eclipse.org.gitroot.tcf.org.eclipse.tcf.agent" bare="True"/>
+    <project name="external/yocto/anonscm.debian.org.collab-maint.ca-certificates" remote="base" path="layers/oe-core-dl-2.2/git/anonscm.debian.org.collab-maint.ca-certificates.git" bare="True"/>
+    <project name="external/yocto/anonscm.debian.org.collab-maint.ncurses" remote="base" path="layers/oe-core-dl-2.2/git/anonscm.debian.org.collab-maint.ncurses.git" bare="True"/>
+    <project name="external/yocto/anonscm.debian.org.git.collab-maint.ifupdown" remote="base" path="layers/oe-core-dl-2.2/git/anonscm.debian.org.git.collab-maint.ifupdown.git" bare="True"/>
+    <project name="external/yocto/git.debian.org.git.debian-eeepc.eeepc-acpi-scripts" remote="base" path="layers/oe-core-dl-2.2/git/git.debian.org.git.debian-eeepc.eeepc-acpi-scripts.git" bare="True"/>
+    <project name="external/yocto/git.denx.de.u-boot" remote="base" path="layers/oe-core-dl-2.2/git/git.denx.de.u-boot.git" bare="True"/>
+    <project name="external/yocto/git.eclipse.org.gitroot.tcf.org.eclipse.tcf.agent" remote="base" path="layers/oe-core-dl-2.2/git/git.eclipse.org.gitroot.tcf.org.eclipse.tcf.agent" bare="True"/>
     <project name="external/yocto/git.gnome.org.cantarell-fonts" remote="base" path="layers/oe-core-dl-2.2/git/git.gnome.org.cantarell-fonts" bare="True"/>
     <project name="external/yocto/git.gnome.org.mobile-broadband-provider-info" remote="base" path="layers/oe-core-dl-2.2/git/git.gnome.org.mobile-broadband-provider-info" bare="True"/>
     <project name="external/yocto/git.gnome.org.sysprof" remote="base" path="layers/oe-core-dl-2.2/git/git.gnome.org.sysprof" bare="True"/>
-    <project name="external/yocto/git.infradead.org.mtd-utils.git" remote="base" path="layers/oe-core-dl-2.2/git/git.infradead.org.mtd-utils.git" bare="True"/>
-    <project name="external/yocto/git.kernel.dk.blktrace.git" remote="base" path="layers/oe-core-dl-2.2/git/git.kernel.dk.blktrace.git" bare="True"/>
-    <project name="external/yocto/git.kernel.org.pub.scm.fs.ext2.e2fsprogs.git" remote="base" path="layers/oe-core-dl-2.2/git/git.kernel.org.pub.scm.fs.ext2.e2fsprogs.git" bare="True"/>
-    <project name="external/yocto/git.kernel.org.pub.scm.linux.kernel.git.cjb.mmc-utils.git" remote="base" path="layers/oe-core-dl-2.2/git/git.kernel.org.pub.scm.linux.kernel.git.cjb.mmc-utils.git" bare="True"/>
-    <project name="external/yocto/git.kernel.org.pub.scm.linux.kernel.git.firmware.linux-firmware.git" remote="base" path="layers/oe-core-dl-2.2/git/git.kernel.org.pub.scm.linux.kernel.git.firmware.linux-firmware.git" bare="True"/>
-    <project name="external/yocto/git.kernel.org.pub.scm.linux.kernel.git.kdave.btrfs-progs.git" remote="base" path="layers/oe-core-dl-2.2/git/git.kernel.org.pub.scm.linux.kernel.git.kdave.btrfs-progs.git" bare="True"/>
-    <project name="external/yocto/git.kernel.org.pub.scm.linux.kernel.git.rostedt.trace-cmd.git" remote="base" path="layers/oe-core-dl-2.2/git/git.kernel.org.pub.scm.linux.kernel.git.rostedt.trace-cmd.git" bare="True"/>
-    <project name="external/yocto/git.kernel.org.pub.scm.utils.dtc.dtc.git" remote="base" path="layers/oe-core-dl-2.2/git/git.kernel.org.pub.scm.utils.dtc.dtc.git" bare="True"/>
-    <project name="external/yocto/git.kernel.org.pub.scm.utils.kernel.kmod.kmod.git" remote="base" path="layers/oe-core-dl-2.2/git/git.kernel.org.pub.scm.utils.kernel.kmod.kmod.git" bare="True"/>
-    <project name="external/yocto/git.kernel.org.pub.scm.utils.rt-tests.rt-tests.git" remote="base" path="layers/oe-core-dl-2.2/git/git.kernel.org.pub.scm.utils.rt-tests.rt-tests.git" bare="True"/>
-    <project name="external/yocto/git.lttng.org.lttng-modules.git" remote="base" path="layers/oe-core-dl-2.2/git/git.lttng.org.lttng-modules.git" bare="True"/>
-    <project name="external/yocto/git.lttng.org.lttng-tools.git" remote="base" path="layers/oe-core-dl-2.2/git/git.lttng.org.lttng-tools.git" bare="True"/>
-    <project name="external/yocto/git.lttng.org.lttng-ust.git" remote="base" path="layers/oe-core-dl-2.2/git/git.lttng.org.lttng-ust.git" bare="True"/>
-    <project name="external/yocto/git.samba.org.ccache.git" remote="base" path="layers/oe-core-dl-2.2/git/git.samba.org.ccache.git" bare="True"/>
-    <project name="external/yocto/git.savannah.gnu.org.grub.git" remote="base" path="layers/oe-core-dl-2.2/git/git.savannah.gnu.org.grub.git" bare="True"/>
-    <project name="external/yocto/git.sv.gnu.org.config.git" remote="base" path="layers/oe-core-dl-2.2/git/git.sv.gnu.org.config.git" bare="True"/>
-    <project name="external/yocto/git.sv.gnu.org.libunwind.git" remote="base" path="layers/oe-core-dl-2.2/git/git.sv.gnu.org.libunwind.git" bare="True"/>
-    <project name="external/yocto/git.tartarus.org.simon.puzzles.git" remote="base" path="layers/oe-core-dl-2.2/git/git.tartarus.org.simon.puzzles.git" bare="True"/>
+    <project name="external/yocto/git.infradead.org.mtd-utils" remote="base" path="layers/oe-core-dl-2.2/git/git.infradead.org.mtd-utils.git" bare="True"/>
+    <project name="external/yocto/git.kernel.dk.blktrace" remote="base" path="layers/oe-core-dl-2.2/git/git.kernel.dk.blktrace.git" bare="True"/>
+    <project name="external/yocto/git.kernel.org.pub.scm.fs.ext2.e2fsprogs" remote="base" path="layers/oe-core-dl-2.2/git/git.kernel.org.pub.scm.fs.ext2.e2fsprogs.git" bare="True"/>
+    <project name="external/yocto/git.kernel.org.pub.scm.linux.kernel.git.cjb.mmc-utils" remote="base" path="layers/oe-core-dl-2.2/git/git.kernel.org.pub.scm.linux.kernel.git.cjb.mmc-utils.git" bare="True"/>
+    <project name="external/yocto/git.kernel.org.pub.scm.linux.kernel.git.firmware.linux-firmware" remote="base" path="layers/oe-core-dl-2.2/git/git.kernel.org.pub.scm.linux.kernel.git.firmware.linux-firmware.git" bare="True"/>
+    <project name="external/yocto/git.kernel.org.pub.scm.linux.kernel.git.kdave.btrfs-progs" remote="base" path="layers/oe-core-dl-2.2/git/git.kernel.org.pub.scm.linux.kernel.git.kdave.btrfs-progs.git" bare="True"/>
+    <project name="external/yocto/git.kernel.org.pub.scm.linux.kernel.git.rostedt.trace-cmd" remote="base" path="layers/oe-core-dl-2.2/git/git.kernel.org.pub.scm.linux.kernel.git.rostedt.trace-cmd.git" bare="True"/>
+    <project name="external/yocto/git.kernel.org.pub.scm.utils.dtc.dtc" remote="base" path="layers/oe-core-dl-2.2/git/git.kernel.org.pub.scm.utils.dtc.dtc.git" bare="True"/>
+    <project name="external/yocto/git.kernel.org.pub.scm.utils.kernel.kmod.kmod" remote="base" path="layers/oe-core-dl-2.2/git/git.kernel.org.pub.scm.utils.kernel.kmod.kmod.git" bare="True"/>
+    <project name="external/yocto/git.kernel.org.pub.scm.utils.rt-tests.rt-tests" remote="base" path="layers/oe-core-dl-2.2/git/git.kernel.org.pub.scm.utils.rt-tests.rt-tests.git" bare="True"/>
+    <project name="external/yocto/git.lttng.org.lttng-modules" remote="base" path="layers/oe-core-dl-2.2/git/git.lttng.org.lttng-modules.git" bare="True"/>
+    <project name="external/yocto/git.lttng.org.lttng-tools" remote="base" path="layers/oe-core-dl-2.2/git/git.lttng.org.lttng-tools.git" bare="True"/>
+    <project name="external/yocto/git.lttng.org.lttng-ust" remote="base" path="layers/oe-core-dl-2.2/git/git.lttng.org.lttng-ust.git" bare="True"/>
+    <project name="external/yocto/git.samba.org.ccache" remote="base" path="layers/oe-core-dl-2.2/git/git.samba.org.ccache.git" bare="True"/>
+    <project name="external/yocto/git.savannah.gnu.org.grub" remote="base" path="layers/oe-core-dl-2.2/git/git.savannah.gnu.org.grub.git" bare="True"/>
+    <project name="external/yocto/git.sv.gnu.org.config" remote="base" path="layers/oe-core-dl-2.2/git/git.sv.gnu.org.config.git" bare="True"/>
+    <project name="external/yocto/git.sv.gnu.org.libunwind" remote="base" path="layers/oe-core-dl-2.2/git/git.sv.gnu.org.libunwind.git" bare="True"/>
+    <project name="external/yocto/git.tartarus.org.simon.puzzles" remote="base" path="layers/oe-core-dl-2.2/git/git.tartarus.org.simon.puzzles.git" bare="True"/>
     <project name="external/yocto/git.yoctoproject.org.dbus-wait" remote="base" path="layers/oe-core-dl-2.2/git/git.yoctoproject.org.dbus-wait" bare="True"/>
     <project name="external/yocto/git.yoctoproject.org.fstests" remote="base" path="layers/oe-core-dl-2.2/git/git.yoctoproject.org.fstests" bare="True"/>
     <project name="external/yocto/git.yoctoproject.org.libfakekey" remote="base" path="layers/oe-core-dl-2.2/git/git.yoctoproject.org.libfakekey" bare="True"/>
@@ -43,42 +43,42 @@
     <project name="external/yocto/git.yoctoproject.org.matchbox-terminal" remote="base" path="layers/oe-core-dl-2.2/git/git.yoctoproject.org.matchbox-terminal" bare="True"/>
     <project name="external/yocto/git.yoctoproject.org.matchbox-window-manager" remote="base" path="layers/oe-core-dl-2.2/git/git.yoctoproject.org.matchbox-window-manager" bare="True"/>
     <project name="external/yocto/git.yoctoproject.org.opkg-utils" remote="base" path="layers/oe-core-dl-2.2/git/git.yoctoproject.org.opkg-utils" bare="True"/>
-    <project name="external/yocto/git.yoctoproject.org.prelink-cross.git" remote="base" path="layers/oe-core-dl-2.2/git/git.yoctoproject.org.prelink-cross.git" bare="True"/>
+    <project name="external/yocto/git.yoctoproject.org.prelink-cross" remote="base" path="layers/oe-core-dl-2.2/git/git.yoctoproject.org.prelink-cross.git" bare="True"/>
     <project name="external/yocto/git.yoctoproject.org.psplash" remote="base" path="layers/oe-core-dl-2.2/git/git.yoctoproject.org.psplash" bare="True"/>
     <project name="external/yocto/git.yoctoproject.org.ptest-runner2" remote="base" path="layers/oe-core-dl-2.2/git/git.yoctoproject.org.ptest-runner2" bare="True"/>
     <project name="external/yocto/git.yoctoproject.org.screenshot" remote="base" path="layers/oe-core-dl-2.2/git/git.yoctoproject.org.screenshot" bare="True"/>
     <project name="external/yocto/git.yoctoproject.org.test-xvideo" remote="base" path="layers/oe-core-dl-2.2/git/git.yoctoproject.org.test-xvideo" bare="True"/>
     <project name="external/yocto/git.yoctoproject.org.xcursor-transparent-theme" remote="base" path="layers/oe-core-dl-2.2/git/git.yoctoproject.org.xcursor-transparent-theme" bare="True"/>
     <project name="external/yocto/git.yoctoproject.org.xsettings-daemon" remote="base" path="layers/oe-core-dl-2.2/git/git.yoctoproject.org.xsettings-daemon" bare="True"/>
-    <project name="external/yocto/git.yoctoproject.org.yocto-kernel-tools.git" remote="base" path="layers/oe-core-dl-2.2/git/git.yoctoproject.org.yocto-kernel-tools.git" bare="True"/>
-    <project name="external/yocto/github.com.Cyan4973.lz4.git" remote="base" path="layers/oe-core-dl-2.2/git/github.com.Cyan4973.lz4.git" bare="True"/>
-    <project name="external/yocto/github.com.anholt.libepoxy.git" remote="base" path="layers/oe-core-dl-2.2/git/github.com.anholt.libepoxy.git" bare="True"/>
-    <project name="external/yocto/github.com.clutter-project.mx.git" remote="base" path="layers/oe-core-dl-2.2/git/github.com.clutter-project.mx.git" bare="True"/>
-    <project name="external/yocto/github.com.connectivity.connman-gnome.git" remote="base" path="layers/oe-core-dl-2.2/git/github.com.connectivity.connman-gnome.git" bare="True"/>
-    <project name="external/yocto/github.com.distcc.distcc.git" remote="base" path="layers/oe-core-dl-2.2/git/github.com.distcc.distcc.git" bare="True"/>
-    <project name="external/yocto/github.com.dv1.eglinfo.git" remote="base" path="layers/oe-core-dl-2.2/git/github.com.dv1.eglinfo.git" bare="True"/>
-    <project name="external/yocto/github.com.file.file.git" remote="base" path="layers/oe-core-dl-2.2/git/github.com.file.file.git" bare="True"/>
+    <project name="external/yocto/git.yoctoproject.org.yocto-kernel-tools" remote="base" path="layers/oe-core-dl-2.2/git/git.yoctoproject.org.yocto-kernel-tools.git" bare="True"/>
+    <project name="external/yocto/github.com.Cyan4973.lz4" remote="base" path="layers/oe-core-dl-2.2/git/github.com.Cyan4973.lz4.git" bare="True"/>
+    <project name="external/yocto/github.com.anholt.libepoxy" remote="base" path="layers/oe-core-dl-2.2/git/github.com.anholt.libepoxy.git" bare="True"/>
+    <project name="external/yocto/github.com.clutter-project.mx" remote="base" path="layers/oe-core-dl-2.2/git/github.com.clutter-project.mx.git" bare="True"/>
+    <project name="external/yocto/github.com.connectivity.connman-gnome" remote="base" path="layers/oe-core-dl-2.2/git/github.com.connectivity.connman-gnome.git" bare="True"/>
+    <project name="external/yocto/github.com.distcc.distcc" remote="base" path="layers/oe-core-dl-2.2/git/github.com.distcc.distcc.git" bare="True"/>
+    <project name="external/yocto/github.com.dv1.eglinfo" remote="base" path="layers/oe-core-dl-2.2/git/github.com.dv1.eglinfo.git" bare="True"/>
+    <project name="external/yocto/github.com.file.file" remote="base" path="layers/oe-core-dl-2.2/git/github.com.file.file.git" bare="True"/>
     <project name="external/yocto/github.com.gitpan.SGMLSpm" remote="base" path="layers/oe-core-dl-2.2/git/github.com.gitpan.SGMLSpm" bare="True"/>
-    <project name="external/yocto/github.com.ivmai.bdwgc.git" remote="base" path="layers/oe-core-dl-2.2/git/github.com.ivmai.bdwgc.git" bare="True"/>
+    <project name="external/yocto/github.com.ivmai.bdwgc" remote="base" path="layers/oe-core-dl-2.2/git/github.com.ivmai.bdwgc.git" bare="True"/>
     <project name="external/yocto/github.com.kergoth.chkconfig" remote="base" path="layers/oe-core-dl-2.2/git/github.com.kergoth.chkconfig" bare="True"/>
     <project name="external/yocto/github.com.kraj.localedef" remote="base" path="layers/oe-core-dl-2.2/git/github.com.kraj.localedef" bare="True"/>
-    <project name="external/github.com.linux-test-project.ltp.git" remote="base" path="layers/oe-core-dl-2.2/git/github.com.linux-test-project.ltp.git" bare="True"/>
-    <project name="external/yocto/github.com.mmeeks.bootchart.git" remote="base" path="layers/oe-core-dl-2.2/git/github.com.mmeeks.bootchart.git" bare="True"/>
-    <project name="external/yocto/github.com.openSUSE.build-compare.git" remote="base" path="layers/oe-core-dl-2.2/git/github.com.openSUSE.build-compare.git" bare="True"/>
-    <project name="external/yocto/github.com.openSUSE.libsolv.git" remote="base" path="layers/oe-core-dl-2.2/git/github.com.openSUSE.libsolv.git" bare="True"/>
-    <project name="external/yocto/github.com.philb.update-rc.d.git" remote="base" path="layers/oe-core-dl-2.2/git/github.com.philb.update-rc.d.git" bare="True"/>
-    <project name="external/yocto/github.com.plougher.squashfs-tools.git" remote="base" path="layers/oe-core-dl-2.2/git/github.com.plougher.squashfs-tools.git" bare="True"/>
-    <project name="external/yocto/github.com.sdroege.gst-player.git" remote="base" path="layers/oe-core-dl-2.2/git/github.com.sdroege.gst-player.git" bare="True"/>
-    <project name="external/yocto/github.com.smartpm.smart.git" remote="base" path="layers/oe-core-dl-2.2/git/github.com.smartpm.smart.git" bare="True"/>
-    <project name="external/yocto/github.com.stevenhoneyman.l3afpad.git" remote="base" path="layers/oe-core-dl-2.2/git/github.com.stevenhoneyman.l3afpad.git" bare="True"/>
-    <project name="external/yocto/github.com.systemd.systemd-bootchart.git" remote="base" path="layers/oe-core-dl-2.2/git/github.com.systemd.systemd-bootchart.git" bare="True"/>
-    <project name="external/yocto/github.com.systemd.systemd.git" remote="base" path="layers/oe-core-dl-2.2/git/github.com.systemd.systemd.git" bare="True"/>
-    <project name="external/yocto/github.com.tias.xinput_calibrator.git" remote="base" path="layers/oe-core-dl-2.2/git/github.com.tias.xinput_calibrator.git" bare="True"/>
-    <project name="external/yocto/github.com.xinetd-org.xinetd.git" remote="base" path="layers/oe-core-dl-2.2/git/github.com.xinetd-org.xinetd.git" bare="True"/>
-    <project name="external/yocto/repo.or.cz.guilt.git" remote="base" path="layers/oe-core-dl-2.2/git/repo.or.cz.guilt.git" bare="True"/>
+    <project name="external/github.com.linux-test-project.ltp" remote="base" path="layers/oe-core-dl-2.2/git/github.com.linux-test-project.ltp.git" bare="True"/>
+    <project name="external/yocto/github.com.mmeeks.bootchart" remote="base" path="layers/oe-core-dl-2.2/git/github.com.mmeeks.bootchart.git" bare="True"/>
+    <project name="external/yocto/github.com.openSUSE.build-compare" remote="base" path="layers/oe-core-dl-2.2/git/github.com.openSUSE.build-compare.git" bare="True"/>
+    <project name="external/yocto/github.com.openSUSE.libsolv" remote="base" path="layers/oe-core-dl-2.2/git/github.com.openSUSE.libsolv.git" bare="True"/>
+    <project name="external/yocto/github.com.philb.update-rc.d" remote="base" path="layers/oe-core-dl-2.2/git/github.com.philb.update-rc.d.git" bare="True"/>
+    <project name="external/yocto/github.com.plougher.squashfs-tools" remote="base" path="layers/oe-core-dl-2.2/git/github.com.plougher.squashfs-tools.git" bare="True"/>
+    <project name="external/yocto/github.com.sdroege.gst-player" remote="base" path="layers/oe-core-dl-2.2/git/github.com.sdroege.gst-player.git" bare="True"/>
+    <project name="external/yocto/github.com.smartpm.smart" remote="base" path="layers/oe-core-dl-2.2/git/github.com.smartpm.smart.git" bare="True"/>
+    <project name="external/yocto/github.com.stevenhoneyman.l3afpad" remote="base" path="layers/oe-core-dl-2.2/git/github.com.stevenhoneyman.l3afpad.git" bare="True"/>
+    <project name="external/yocto/github.com.systemd.systemd-bootchart" remote="base" path="layers/oe-core-dl-2.2/git/github.com.systemd.systemd-bootchart.git" bare="True"/>
+    <project name="external/yocto/github.com.systemd.systemd" remote="base" path="layers/oe-core-dl-2.2/git/github.com.systemd.systemd.git" bare="True"/>
+    <project name="external/yocto/github.com.tias.xinput_calibrator" remote="base" path="layers/oe-core-dl-2.2/git/github.com.tias.xinput_calibrator.git" bare="True"/>
+    <project name="external/yocto/github.com.xinetd-org.xinetd" remote="base" path="layers/oe-core-dl-2.2/git/github.com.xinetd-org.xinetd.git" bare="True"/>
+    <project name="external/yocto/repo.or.cz.guilt" remote="base" path="layers/oe-core-dl-2.2/git/repo.or.cz.guilt.git" bare="True"/>
     <project name="external/yocto/review.coreboot.org.p.coreboot" remote="base" path="layers/oe-core-dl-2.2/git/review.coreboot.org.p.coreboot" bare="True"/>
-    <project name="external/yocto/sourceware.org.git.binutils-gdb.git" remote="base" path="layers/oe-core-dl-2.2/git/sourceware.org.git.binutils-gdb.git" bare="True"/>
-    <project name="external/yocto/sourceware.org.git.glibc.git" remote="base" path="layers/oe-core-dl-2.2/git/sourceware.org.git.glibc.git" bare="True"/>
-    <project name="external/yocto/sourceware.org.git.systemtap.git" remote="base" path="layers/oe-core-dl-2.2/git/sourceware.org.git.systemtap.git" bare="True"/>
+    <project name="external/yocto/sourceware.org.git.binutils-gdb" remote="base" path="layers/oe-core-dl-2.2/git/sourceware.org.git.binutils-gdb.git" bare="True"/>
+    <project name="external/yocto/sourceware.org.git.glibc" remote="base" path="layers/oe-core-dl-2.2/git/sourceware.org.git.glibc.git" bare="True"/>
+    <project name="external/yocto/sourceware.org.git.systemtap" remote="base" path="layers/oe-core-dl-2.2/git/sourceware.org.git.systemtap.git" bare="True"/>
     <project name="external/yocto/anongit.freedesktop.org.xorg.driver.xf86-video-intel" remote="base" path="layers/oe-core-dl-2.2/git/anongit.freedesktop.org.xorg.driver.xf86-video-intel" bare="True"/>
-    <project name="external/yocto/anonscm.debian.org.collab-maint.xf86-video-omapfb.git" remote="base" path="layers/oe-core-dl-2.2/git/anonscm.debian.org.collab-maint.xf86-video-omapfb.git" bare="True"/>
+    <project name="external/yocto/anonscm.debian.org.collab-maint.xf86-video-omapfb" remote="base" path="layers/oe-core-dl-2.2/git/anonscm.debian.org.collab-maint.xf86-video-omapfb.git" bare="True"/>

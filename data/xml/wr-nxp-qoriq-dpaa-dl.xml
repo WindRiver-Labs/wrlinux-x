@@ -1,9 +1,9 @@
     <project name="external/yocto/tclap.git.sourceforge.net.gitroot.tclap.tclap" remote="base" path="layers/wr-nxp-qoriq-dpaa-dl/git/tclap.git.sourceforge.net.gitroot.tclap.tclap" bare="True"/>
-    <project name="external/yocto/git.freescale.com.ppc.sdk.eth-config.git" remote="base" path="layers/wr-nxp-qoriq-dpaa-dl/git/git.freescale.com.ppc.sdk.eth-config.git" bare="True"/>
-    <project name="external/yocto/git.freescale.com.ppc.sdk.flib.git" remote="base" path="layers/wr-nxp-qoriq-dpaa-dl/git/git.freescale.com.ppc.sdk.flib.git" bare="True"/>
-    <project name="external/yocto/git.freescale.com.ppc.sdk.fmc.git" remote="base" path="layers/wr-nxp-qoriq-dpaa-dl/git/git.freescale.com.ppc.sdk.fmc.git" bare="True"/>
-    <project name="external/yocto/git.freescale.com.ppc.sdk.fmlib.git" remote="base" path="layers/wr-nxp-qoriq-dpaa-dl/git/git.freescale.com.ppc.sdk.fmlib.git" bare="True"/>
-    <project name="external/yocto/git.freescale.com.ppc.sdk.ipc.git" remote="base" path="layers/wr-nxp-qoriq-dpaa-dl/git/git.freescale.com.ppc.sdk.ipc.git" bare="True"/>
-    <project name="external/yocto/git.freescale.com.ppc.sdk.usdpaa.dpa-offload.git" remote="base" path="layers/wr-nxp-qoriq-dpaa-dl/git/git.freescale.com.ppc.sdk.usdpaa.dpa-offload.git" bare="True"/>
-    <project name="external/yocto/git.freescale.com.ppc.sdk.usdpaa.git" remote="base" path="layers/wr-nxp-qoriq-dpaa-dl/git/git.freescale.com.ppc.sdk.usdpaa.git" bare="True"/>
-    <project name="external/yocto/git.freescale.com.ppc.sdk.usdpaa.usdpaa-apps.git" remote="base" path="layers/wr-nxp-qoriq-dpaa-dl/git/git.freescale.com.ppc.sdk.usdpaa.usdpaa-apps.git" bare="True"/>
+    <project name="external/yocto/git.freescale.com.ppc.sdk.eth-config" remote="base" path="layers/wr-nxp-qoriq-dpaa-dl/git/git.freescale.com.ppc.sdk.eth-config.git" bare="True"/>
+    <project name="external/yocto/git.freescale.com.ppc.sdk.flib" remote="base" path="layers/wr-nxp-qoriq-dpaa-dl/git/git.freescale.com.ppc.sdk.flib.git" bare="True"/>
+    <project name="external/yocto/git.freescale.com.ppc.sdk.fmc" remote="base" path="layers/wr-nxp-qoriq-dpaa-dl/git/git.freescale.com.ppc.sdk.fmc.git" bare="True"/>
+    <project name="external/yocto/git.freescale.com.ppc.sdk.fmlib" remote="base" path="layers/wr-nxp-qoriq-dpaa-dl/git/git.freescale.com.ppc.sdk.fmlib.git" bare="True"/>
+    <project name="external/yocto/git.freescale.com.ppc.sdk.ipc" remote="base" path="layers/wr-nxp-qoriq-dpaa-dl/git/git.freescale.com.ppc.sdk.ipc.git" bare="True"/>
+    <project name="external/yocto/git.freescale.com.ppc.sdk.usdpaa.dpa-offload" remote="base" path="layers/wr-nxp-qoriq-dpaa-dl/git/git.freescale.com.ppc.sdk.usdpaa.dpa-offload.git" bare="True"/>
+    <project name="external/yocto/git.freescale.com.ppc.sdk.usdpaa" remote="base" path="layers/wr-nxp-qoriq-dpaa-dl/git/git.freescale.com.ppc.sdk.usdpaa.git" bare="True"/>
+    <project name="external/yocto/git.freescale.com.ppc.sdk.usdpaa.usdpaa-apps" remote="base" path="layers/wr-nxp-qoriq-dpaa-dl/git/git.freescale.com.ppc.sdk.usdpaa.usdpaa-apps.git" bare="True"/>
