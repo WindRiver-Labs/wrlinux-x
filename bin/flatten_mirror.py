@@ -42,6 +42,28 @@ if len(sys.argv) < 2:
     print("usage: %s <dest>" % sys.argv[0])
     sys.exit(1)
 
+git_push = False
+if os.getenv('PUSH_NOT_COPY') and os.getenv('PUSH_NOT_COPY') == '1':
+    git_push = True
+
+def push_or_copy(_src, _dst, _branch=None):
+    if not git_push or not _branch:
+        logger.plain('cp %s -> %s' % (_src, _dst))
+        shutil.copytree(_src, _dst, symlinks=True, ignore_dangling_symlinks=True)
+    else:
+        logger.plain('push %s -> %s (%s)' % (_src, _dst, _branch))
+        if os.path.exists(_dst):
+            logger.critical('Destination %s already exists!' % _dst)
+        os.makedirs(_dst, exist_ok=False)
+
+        # New bare repo
+        cmd = [ 'git', 'init', '--bare' ]
+        utils_setup.run_cmd(cmd, cwd=_dst)
+
+        # Push just the one branch
+        cmd = [ 'git', 'push', _dst, _branch ]
+        utils_setup.run_cmd(cmd, cwd=_src)
+
 logger = logger_setup.setup_logging()
 
 dest = os.path.abspath(sys.argv[1])
@@ -79,8 +101,7 @@ dst = os.path.join(dest, os.path.basename(setup_dir))
 if not dst.endswith('.git'):
     dst += '.git'
 
-logger.plain('%s -> %s' % (src, dst))
-shutil.copytree(src, dst, symlinks=True, ignore_dangling_symlinks=True)
+push_or_copy(src, dst, branch)
 
 # Duplicate the git-repo.git
 src = os.path.abspath('git-repo')
@@ -93,13 +114,22 @@ dst = os.path.join(dest, os.path.basename(src))
 if not dst.endswith('.git'):
     dst += '.git'
 
-logger.plain('%s -> %s' % (src, dst))
-shutil.copytree(src, dst, symlinks=True, ignore_dangling_symlinks=True)
+push_or_copy(src, dst)
 
 tree = ET.parse('default.xml')
 root = tree.getroot()
 
+default_revision = None
+base_url = None
 for child in root:
+    if child.tag == 'remote':
+        if 'fetch' in child.attrib:
+            base_url = child.attrib['fetch']
+
+    if child.tag == 'default':
+        if 'revision' in child.attrib:
+            default_revision = child.attrib['revision']
+
     if child.tag != 'project':
         continue
 
@@ -114,8 +144,13 @@ for child in root:
 
     dst = os.path.join(dest, os.path.basename(src))
 
-    logger.plain('%s -> %s' % (src, dst))
-    shutil.copytree(src, dst, symlinks=True, ignore_dangling_symlinks=True)
+    revision = None
+    if not ('bare' in child.attrib and child.attrib['bare'] == 'True'):
+        revision = default_revision
+        if 'revision' in child.attrib:
+            revision = child.attrib['revision']
+
+    push_or_copy(src, dst, revision)
 
 index = Layer_Index(indexcfg=settings.INDEXES, base_branch=branch, replace=settings.REPLACE, mirror=mirror_path)
 
@@ -198,7 +233,7 @@ for lindex in index.index:
             if os.path.exists(src):
                 transform_xml(src, os.path.join(dst_xml, 'bitbake.xml'))
 
-    index.serialize_index(lindex, os.path.join(dst, lindex['CFG']['DESCRIPTION']), split=True, IncludeCFG=True, mirror=True)
+    index.serialize_index(lindex, os.path.join(dst, lindex['CFG']['DESCRIPTION']), split=True, IncludeCFG=True, mirror=True, base_url=base_url)
 
 # git add file.
 cmd = ['git', 'add', '-A', '.']
