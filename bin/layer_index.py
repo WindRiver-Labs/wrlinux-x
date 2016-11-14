@@ -41,7 +41,7 @@ class Layer_Index():
 
         if mirror:
             for (dirpath, dirnames, filenames) in os.walk(mirror):
-                if dirpath.endswith('/.git') or mirror + '/.git' in dirpath or mirror + '/xml' in dirpath:
+                if dirpath.endswith('/.git') or '/.git/' in dirpath or dirpath.endswith('/xml') or '/xml/' in dirpath:
                     continue
                 for filename in filenames:
                     pindex = self.load_serialized_index(os.path.join(dirpath, filename), name='Mirrored Index')
