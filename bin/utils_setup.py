@@ -47,13 +47,17 @@ def run_cmd(cmd, environment=None, cwd=None, log=1, expected_ret=0, err=b'GitErr
 
     ret.wait()
     if ret.returncode != expected_ret:
-        for key in environment.keys():
-            logger.to_file('%20s = %s' % (key, repr(environment[key])))
+        if environment:
+            for key in environment.keys():
+                logger.to_file('%20s = %s' % (key, repr(environment[key])))
         logger.critical('cmd "%s" returned %d' % (cmd, ret.returncode))
 
         msg = ''
         if log:
-            msg = '\n'.join(err_msg)
+            if cwd:
+                msg += cwd + ': '
+            msg += " ".join(cmd) + '\n'
+            msg += '\n'.join(err_msg)
             msg += '\n'
         raise Exception(msg)
     logger.debug('Finished running cmd: "%s"' % repr(cmd))
