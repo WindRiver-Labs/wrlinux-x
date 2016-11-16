@@ -160,40 +160,42 @@ def get_xml_dir(_layer, _mirror):
 # write out a result.  This is necessary to parse the components owned
 # by the xml file so we know to skip them...
 def transform_xml(_src, _dest):
-    result = []
-
     logger.plain('Processing %s' % _src)
     if not os.path.exists(_src):
         logger.warning('Not found %s' % _src)
-        return result
+        return []
 
-    fin = open(_src, 'rt')
-
-    fout = None
     if _dest:
         os.makedirs(os.path.dirname(_dest), exist_ok=True)
-        fout = open(_dest, 'wt')
+        with open(_src, 'rt') as fin, open(_dest, 'wt') as fout:
+            return transform_xml_inside(fin, fout)
+    else:
+        with open(_src, 'rt') as fin:
+            return transform_xml_inside(fin, None)
 
-    for _line in fin:
+def transform_xml_inside(_fin, _fout):
+    result = []
+
+    for _line in _fin:
         modified = False
         try:
             _root = ET.fromstring(_line)
         except:
             logger.warning('exception on: %s' % _line)
-            if fout:
-                fout.write('%s' % _line)
+            if _fout:
+                _fout.write('%s' % _line)
             continue
 
         # Skip linkfiles, don't warn.. we know these are valid
         if _root.tag == 'linkfile':
-            if fout:
-                fout.write('%s' % _line)
+            if _fout:
+                _fout.write('%s' % _line)
             continue
 
         if _root.tag != 'project':
             logger.warning('Not project: %s' % _line)
-            if fout:
-                fout.write('%s' % _line)
+            if _fout:
+                _fout.write('%s' % _line)
             continue
 
         for attrib in _root.attrib:
@@ -211,11 +213,11 @@ def transform_xml(_src, _dest):
                         _child.attrib['name'] = _child.attrib['name'].split('/')[-1]
                         modified = True
 
-        if fout:
+        if _fout:
             if modified:
-                fout.write('    %s\n' % (ET.tostring(_root, encoding='unicode')))
+                _fout.write('    %s\n' % (ET.tostring(_root, encoding='unicode')))
             else:
-                fout.write('%s' % _line)
+                _fout.write('%s' % _line)
 
     return result
 
@@ -240,19 +242,17 @@ def main():
 
     if subset_file:
         subset_folders = {}
-        f = open(subset_file, 'rt')
-        for line in f:
-            if line.startswith('#'):
-                continue
-            lsplit = line.split()
-            if len(lsplit) == 0:
-                continue
-            if len(lsplit) != 2:
-                logger.critical("Subset Folders, invalid line: %s" % (line))
-                return 1
-            subset_folders[lsplit[0]] = lsplit[1]
-        f.close()
-
+        with open(subset_file, 'rt') as f:
+            for line in f:
+                if line.startswith('#'):
+                    continue
+                lsplit = line.split()
+                if len(lsplit) == 0:
+                    continue
+                if len(lsplit) != 2:
+                    logger.critical("Subset Folders, invalid line: %s" % (line))
+                    return 1
+                subset_folders[lsplit[0]] = lsplit[1]
 
     if os.path.exists(dest):
         logger.critical('Destination directory %s already exists.  Please choose a different destination.' % (dest))
