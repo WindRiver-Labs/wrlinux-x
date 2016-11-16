@@ -52,6 +52,16 @@ def config_args(args):
     return (parsed_args.dest, parsed_args.push_not_copy)
 
 def push_or_copy(_src, _dst, _branch=None):
+    if not os.path.exists(_src):
+        _src += '.git'
+        if not os.path.exists(_src):
+            logger.critical("Unable to find %s!" % _src)
+            raise
+
+    # Make output consistent
+    if not _dst.endswith('.git'):
+        _dst += '.git'
+
     if not git_push or not _branch:
         logger.plain('cp %s -> %s' % (_src, _dst))
         shutil.copytree(_src, _dst, symlinks=True, ignore_dangling_symlinks=True)
@@ -59,15 +69,16 @@ def push_or_copy(_src, _dst, _branch=None):
         logger.plain('push %s -> %s (%s)' % (_src, _dst, _branch))
         if os.path.exists(_dst):
             logger.critical('Destination %s already exists!' % _dst)
-        os.makedirs(_dst, exist_ok=False)
+            raise
+        os.makedirs(_dst, exist_ok=True)
 
         # New bare repo
-        cmd = [ 'git', 'init', '--bare' ]
-        utils_setup.run_cmd(cmd, cwd=_dst)
+        _cmd = [ 'git', 'init', '--bare' ]
+        utils_setup.run_cmd(_cmd, cwd=_dst)
 
         # Push just the one branch
-        cmd = [ 'git', 'push', _dst, _branch ]
-        utils_setup.run_cmd(cmd, cwd=_src)
+        _cmd = [ 'git', 'push', os.path.abspath(_dst), _branch ]
+        utils_setup.run_cmd(_cmd, cwd=_src)
 
 def transform_xml(_src, _dest):
     logger.plain('Processing %s' % _src)
@@ -127,17 +138,12 @@ def main():
     ret.wait()
     branch = branch.strip()
 
-    # We assume this program is located in the bin directory
-    setup_dir = os.path.dirname(os.path.dirname(sys.argv[0]))
-
     # Create the destination
     os.makedirs(dest)
 
     # Duplicate the setup dir to a bare repo
     src = os.path.join(setup_dir, '.git')
     dst = os.path.join(dest, os.path.basename(setup_dir))
-    if not dst.endswith('.git'):
-        dst += '.git'
 
     push_or_copy(src, dst, branch)
 
@@ -149,8 +155,6 @@ def main():
             logger.critical("Unable to find git-repo.git!")
             sys.exit(1)
     dst = os.path.join(dest, os.path.basename(src))
-    if not dst.endswith('.git'):
-        dst += '.git'
 
     push_or_copy(src, dst)
 
@@ -172,13 +176,6 @@ def main():
             continue
 
         src = child.attrib['name']
-
-        if not os.path.exists(src):
-            if os.path.exists(src + '.git'):
-                src += '.git'
-            else:
-                logger.warning('Unable to find %s' % src)
-                continue
 
         dst = os.path.join(dest, os.path.basename(src))
 
