@@ -82,18 +82,29 @@ def push_or_copy(_src, _dst, _branch=None):
 
 def transform_xml(_src, _dest):
     logger.plain('Processing %s' % _src)
+    if not os.path.exists(_src):
+        logger.warning('Not found %s' % _src)
+        return result
+
     fin = open(_src, 'rt')
     fout = open(_dest, 'wt')
-    for line in fin:
+    for _line in fin:
         modified = False
         try:
-            _root = ET.fromstring(line)
+            _root = ET.fromstring(_line)
         except:
-            fout.write('%s' % line)
+            logger.warning('exception on: %s' % _line)
+            fout.write('%s' % _line)
             continue
 
+        # Skip linkfiles, don't warn.. we know these are valid
+        if _root.tag == 'linkfile':
+             fout.write('%s' % _line)
+             continue
+
         if _root.tag != 'project':
-            fout.write('%s' % line)
+            logger.warning('Not project: %s' % _line)
+            fout.write('%s' % _line)
             continue
 
         for attrib in _root.attrib:
@@ -110,7 +121,7 @@ def transform_xml(_src, _dest):
         if modified:
             fout.write('    %s\n' % (ET.tostring(_root, encoding='unicode')))
         else:
-            fout.write('%s' % line)
+            fout.write('%s' % _line)
 
 # This assumes variables 'dest', 'git_push', and
 # 'setup_dir' is globally set.
