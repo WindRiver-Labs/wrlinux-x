@@ -61,7 +61,6 @@ WRTEMPLATE ?= "####DEFAULTWRTEMPLATE####"
 MACHINE ??= "####DEFAULTMACHINE####"
 
 # Setup the default the kernel type
-KTYPE_ENABLED ?= "####DEFAULTKTYPE####"
 LINUX_KERNEL_TYPE ?= "####DEFAULTKTYPE####"
 
 #
