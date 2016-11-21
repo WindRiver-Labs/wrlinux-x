@@ -177,14 +177,14 @@ class Setup():
             sys.exit(0)
 
         logger.debug('setup.py started')
-        logger.debug('Calling setup main with arguments %s', str(orig_args))
+        logger.debug('Calling setup main with arguments %s' % str(orig_args))
 
         # Log debug which may have been missed due to log level.
         logger.debug("PATH=%s" % self.env["PATH"])
 
         logger.debug("Tools are:")
         for key in self.tools:
-            logger.debug("%s -> %s", key, self.tools[key])
+            logger.debug("%s -> %s" % (key, self.tools[key]))
 
         logger.plain('Setting distro to "%s"' % (",".join(self.distros)))
         logger.plain('Setting machine to "%s"' % (",".join(self.machines)))
@@ -1078,8 +1078,8 @@ class Setup():
     def get_path(self, tool):
         cmd = self.which(tool)
         if (not cmd):
-            logger.critical('Cannot find %s in path!', tool)
-            logger.critical('Path was: %s', os.environ['PATH'])
+            logger.critical('Cannot find %s in path!' % tool)
+            logger.critical('Path was: %s' % os.environ['PATH'])
             self.exit(1)
         return cmd
 
@@ -1122,7 +1122,7 @@ class Setup():
 
 
     def touch(self, fn):
-        logger.debug("Creating %s", fn)
+        logger.debug("Creating %s" % fn)
         open(fn, 'a').close()
 
     ''' When this is python3.3, use built in version'''
