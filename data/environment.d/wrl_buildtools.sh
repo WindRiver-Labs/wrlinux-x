@@ -1,5 +1,5 @@
 # Buildtools location can change -- this is the path on top of the BASEURL
-BUILDTOOLS_REMOTE="${BUILDTOOLS_REMOTE:-layers/buildtools/buildtools-standalone-20161013}"
+BUILDTOOLS_REMOTE="${BUILDTOOLS_REMOTE:-layers/buildtools/buildtools-standalone-20161122}"
 
 # Where to cache the git fetch
 BUILDTOOLS_GIT="${BUILDTOOLS_GIT:-bin/buildtools.git}"
