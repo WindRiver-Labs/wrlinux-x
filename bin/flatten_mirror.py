@@ -59,10 +59,11 @@ def config_args(args):
 
     parser.add_argument('--push-not-copy', help='Push non-bare layers, don\'t copy them.  This allows the flattened version to only have one branch.', action='store_true')
     parser.add_argument('--subset-mirror', metavar='FILE', help='Use a file that will allow the system to subset the mirror into specific subdirectories.')
+    parser.add_argument('--strip-git', help='Strip the .git suffix from paths when copying.  This is needed when copying to an http server, vs a git server.', action='store_true')
 
     parsed_args = parser.parse_args(args)
 
-    return (parsed_args.dest, parsed_args.push_not_copy, parsed_args.subset_mirror)
+    return (parsed_args.dest, parsed_args.push_not_copy, parsed_args.subset_mirror, parsed_args.strip_git)
 
 def push_or_copy(_layer, _src, _dst, _branch=None):
     if subset_folders:
@@ -83,8 +84,11 @@ def push_or_copy(_layer, _src, _dst, _branch=None):
             raise
 
     # Make output consistent
-    if not _dst.endswith('.git'):
+    if not strip_git and not _dst.endswith('.git'):
         _dst += '.git'
+
+    if strip_git and _dst.endswith('.git'):
+        _dst = _dst[:-4]
 
     if not git_push or not _branch:
         logger.plain('cp %s -> %s' % (_src, _dst))
@@ -501,7 +505,7 @@ def main():
 # Define globals
 if __name__ == '__main__':
     logger = logger_setup.setup_logging()
-    dest, git_push, subset_file = config_args(sys.argv[1:])
+    dest, git_push, subset_file, strip_git = config_args(sys.argv[1:])
 
     subset_folders = None
     branch = None
