@@ -88,7 +88,8 @@ class Layer_Index():
             # Replace magic values with real values...
             for (find, rep) in replace:
                 indexurl = indexurl.replace(find, rep)
-                branch = branch.replace(find, rep)
+                if branch:
+                    branch = branch.replace(find, rep)
 
             # Do we have an mirrored version? If so use it, skip regular processing
             if indexname in m_index:
