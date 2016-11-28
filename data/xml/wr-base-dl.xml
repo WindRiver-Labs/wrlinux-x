@@ -2,4 +2,4 @@
     <project name="external/yocto/git.opensvc.com.multipath-tools." remote="base" path="layers/wr-base-dl/git/git.opensvc.com.multipath-tools..git" bare="True"/>
     <project name="external/git" remote="base" path="layers/wr-base-dl/git/github.com.git.git" bare="True"/>
     <project name="external/yocto/github.com.WindRiver-OpenSourceLabs.anspass" remote="base" path="layers/wr-base-dl/git/github.com.WindRiver-OpenSourceLabs.anspass" bare="True"/>
-    <project name="external/agent-proxy.git" remote="base" path="layers/wr-base-dl/git/git.kernel.org.pub.scm.utils.kernel.kgdb.agent-proxy.git" bare="True"/>
+    <project name="external/agent-proxy" remote="base" path="layers/wr-base-dl/git/git.kernel.org.pub.scm.utils.kernel.kgdb.agent-proxy.git" bare="True"/>
