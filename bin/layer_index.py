@@ -33,7 +33,7 @@ class Layer_Index():
     # Index in REST-API format...  This is used by external items.
     index = []
 
-    def __init__(self, indexcfg, base_branch, replace=[], mirror=None):
+    def __init__(self, indexcfg=[], base_branch=None, replace=[], mirror=None):
         self.index = []
 
         # Do we have local mirror entries to load?
