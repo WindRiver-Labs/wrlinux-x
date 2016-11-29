@@ -1,5 +1,8 @@
 # Buildtools location can change -- this is the path on top of the BASEURL
-BUILDTOOLS_REMOTE="${BUILDTOOLS_REMOTE:-layers/buildtools/buildtools-standalone-20161122}"
+BUILDTOOLS_REMOTE="${BUILDTOOLS_REMOTE:-buildtools-standalone-20161122}"
+
+# Special windshare folders to search
+BUILDTOOLS_FOLDERS="WRLinux-9-LTS-CVE WRLinux-9-LTS WRLinux-9-Base"
 
 # Where to cache the git fetch
 BUILDTOOLS_GIT="${BUILDTOOLS_GIT:-bin/buildtools.git}"
@@ -44,15 +47,25 @@ buildtools_setup() {
 		fi
 	fi
 
-	if [ ${FETCH_BUILDTOOLS} -eq 1 ]; then
+	if [ ${FETCH_BUILDTOOLS} -ne 1 ]; then
+		# We need this in order to have the right path for subsequent mirror operations
+		BUILDTOOLS_REMOTE=$(git config -f ${BUILDTOOLS_GIT}/.git/config local.${BUILDTOOLS_REF}.path)
+	else
 		if ! git ls-remote "${BASEURL}/${BUILDTOOLS_REMOTE}" >/dev/null 2>&1 ; then
-			# If 'full' URL doesn't work, retry with a flattened view
-			NEW_REMOTE=$(echo ${BUILDTOOLS_REMOTE} | sed -e 's,.*/buildtools-standalone-,buildtools-standalone-,')
-			if ! git ls-remote "${BASEURL}/${NEW_REMOTE}" >/dev/null 2>&1 ; then
-				echo "Unable to find ${BASEURL}/${BUILDTOOLS_REMOTE} or ${BASEURL}/${NEW_REMOTE}" >&2
+			ORIG_BT_REMOTE=${BUILDTOOLS_REMOTE}
+			# Additional places to search...
+			for folder in ${BUILDTOOLS_FOLDERS} layers/buildtools; do
+				NEW_REMOTE=${folder}/${BUILDTOOLS_REMOTE}
+				if git ls-remote "${BASEURL}/${NEW_REMOTE}" >/dev/null 2>&1 ; then
+					BUILDTOOLS_REMOTE=${NEW_REMOTE}
+				fi
+			done
+			if [ "${BUILDTOOLS_REMOTE}" = "${ORIG_BT_REMOTE}" ]; then
+				echo "Unable to find ${BUILDTOOLS_REMOTE}.  Search path:">&2
+				for folder in ${BUILDTOOLS_FOLDERS} layers/buildtools; do
+					echo "${BASE_URL}/${folder}/${BUILDTOOLS_REMOTE}" >&2
+				done
 				exit 1
-			else
-				BUILDTOOLS_REMOTE=${NEW_REMOTE}
 			fi
 		fi
 
@@ -66,6 +79,7 @@ buildtools_setup() {
 		(
 			cd ${BUILDTOOLS_GIT}
 			git config "local.${BUILDTOOLS_REF}.url" "${BASEURL}/${BUILDTOOLS_REMOTE}"
+			git config "local.${BUILDTOOLS_REF}.path" "${BUILDTOOLS_REMOTE}"
 			git config local.last.ref "${BUILDTOOLS_REF}"
 			git checkout "${BUILDTOOLS_REF}"
 		)
