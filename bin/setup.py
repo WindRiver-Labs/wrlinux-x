@@ -218,20 +218,11 @@ class Setup():
 
         self.exit(0)
 
-    def load_layer_index(self):
-        # Load Layer_Index
-        replace = []
-        replace = replace + settings.REPLACE
-        replace = replace + [
-                   ( '#INSTALL_DIR#', self.install_dir ),
-                   ( '#BASE_URL#', self.base_url ),
-                   ( '#BASE_BRANCH#', self.base_branch ),
-                  ]
-
+    def load_mirror_index(self, url):
         # See if there is a mirror index available from the BASE_URL
         mirror_index_path = None
         mirror_index = os.path.join(self.conf_dir, 'mirror-index')
-        remote_mirror = self.base_url + '/mirror-index'
+        remote_mirror = url
         cmd = [self.tools['git'], 'ls-remote', remote_mirror, self.base_branch]
         ret = subprocess.Popen(cmd, env=self.env, cwd=self.project_dir, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         ret.wait()
@@ -258,8 +249,28 @@ class Setup():
                 cmd = [self.tools['git'], 'reset', '--hard' ]
                 utils_setup.run_cmd(cmd, environment=self.env, cwd=mirror_index)
                 mirror_index_path = mirror_index
-                # Mirror also has a copy of the associated XML bits
-                self.xml_dir = os.path.join(mirror_index, 'xml')
+        return mirror_index_path
+
+
+    def load_layer_index(self):
+        # Load Layer_Index
+
+        # Check if we have a mirror-index, and load it if we do...
+        mirror_index_path = self.load_mirror_index(self.base_url + '/mirror-index')
+
+        # Mirror also has a copy of the associated XML bits
+        if mirror_index_path:
+            self.xml_dir = os.path.join(mirror_index_path, 'xml')
+
+        # Setup replace strings as late as possible.  The various self.* values
+        # may be modified prior to this place.
+        replace = []
+        replace = replace + settings.REPLACE
+        replace = replace + [
+                   ( '#INSTALL_DIR#', self.install_dir ),
+                   ( '#BASE_URL#', self.base_url ),
+                   ( '#BASE_BRANCH#', self.base_branch ),
+                  ]
 
         self.index = Layer_Index(indexcfg=settings.INDEXES, base_branch=self.base_branch, replace=replace, mirror=mirror_index_path)
 
