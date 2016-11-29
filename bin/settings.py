@@ -33,6 +33,7 @@ INDEXES = [
 ]
 
 # Bitbake URL on the same server at openembedded-core
+# bitbake is assumed to be at the same basepath as OpenEmbedded-Core
 BITBAKE = "bitbake"
 
 # Base Layers (these layers and their dependencies are -always- included)

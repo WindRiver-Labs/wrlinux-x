@@ -280,9 +280,6 @@ class Setup():
             # Adjust the location of the buildtools (was based on the original base_url)
             self.buildtools_remote = ws_base_folder + '/' + self.buildtools_remote
 
-            # Adjust the location of bitbake (was based on the original base_url)
-            settings.BITBAKE = ws_base_folder + '/' + settings.BITBAKE
-
         # Check if we have a mirror-index, and load it if we do...
         if not mirror_index_path:
             mirror_index_path = self.load_mirror_index(self.base_url + '/mirror-index')
@@ -852,6 +849,7 @@ class Setup():
                         cache[url] = []
 
                     if entry['name'] == 'openembedded-core':
+                        bitbakeurl = '/'.join(url.split('/')[:-1] + [ settings.BITBAKE ])
                         bitbakeBranch = self.index.getBranch(lindex, layerBranch['branch'])['bitbake_branch']
                         bitbake_entry = {
                                 'name' : 'bitbake',
@@ -859,9 +857,9 @@ class Setup():
                                 'path' : path + '/bitbake',
                                 'revision' : bitbakeBranch,
                             }
-                        if settings.BITBAKE not in cache:
-                            cache[settings.BITBAKE] = []
-                        cache[settings.BITBAKE].append(bitbake_entry)
+                        if bitbakeurl not in cache:
+                            cache[bitbakeurl] = []
+                        cache[bitbakeurl].append(bitbake_entry)
 
                     cache[url].append(entry)
 
