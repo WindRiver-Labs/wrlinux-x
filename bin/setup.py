@@ -218,7 +218,7 @@ class Setup():
 
         self.exit(0)
 
-    def load_mirror_index(self, remote_mirror):
+    def load_mirror_index(self, remote_mirror, folder=""):
         # See if there is a mirror index available from the BASE_URL
         mirror_index = os.path.join(self.conf_dir, 'mirror-index')
         try:
@@ -241,14 +241,14 @@ class Setup():
             utils_setup.run_cmd(cmd, log=2, environment=self.env, cwd=mirror_index)
 
         try:
-            cmd = [self.tools['git'], 'fetch', '-f', '-n', '-u', remote_mirror, self.base_branch + ':' + self.base_branch]
+            cmd = [self.tools['git'], 'fetch', '-f', '-n', '-u', remote_mirror, self.base_branch + ':' + folder + self.base_branch]
             utils_setup.run_cmd(cmd, log=2, environment=self.env, cwd=mirror_index)
         except:
             # Could not fetch, return
             return None
 
         logger.debug('Found mirrored index.')
-        cmd = [self.tools['git'], 'checkout', self.base_branch ]
+        cmd = [self.tools['git'], 'checkout', folder + self.base_branch ]
         utils_setup.run_cmd(cmd, log=2, environment=self.env, cwd=mirror_index)
         cmd = [self.tools['git'], 'reset', '--hard' ]
         utils_setup.run_cmd(cmd, log=2, environment=self.env, cwd=mirror_index)
@@ -259,8 +259,33 @@ class Setup():
     def load_layer_index(self):
         # Load Layer_Index
 
+        mirror_index_path = None
+
+        from windshare import Windshare
+        ws = Windshare()
+
+        # Determine if this is a windshare install
+        (ws_base_url, ws_base_folder, ws_entitlement_url) = ws.get_windshare_urls(self.base_url)
+        if ws_base_url and ws_base_url != "" and ws.load_folders(ws_entitlement_url):
+            logger.plain('Detected Windshare configuration.  Processing entitlements and indexes.')
+
+            for folder in ws.folders:
+                mirror_index_path = ws.load_mirror_index(self, ws_base_url, folder)
+
+            ws.write_local_mirror_index(self, mirror_index_path)
+
+            # We need to adjust the base_url so everything works properly...
+            self.base_url = ws_base_url
+
+            # Adjust the location of the buildtools (was based on the original base_url)
+            self.buildtools_remote = ws_base_folder + '/' + self.buildtools_remote
+
+            # Adjust the location of bitbake (was based on the original base_url)
+            settings.BITBAKE = ws_base_folder + '/' + settings.BITBAKE
+
         # Check if we have a mirror-index, and load it if we do...
-        mirror_index_path = self.load_mirror_index(self.base_url + '/mirror-index')
+        if not mirror_index_path:
+            mirror_index_path = self.load_mirror_index(self.base_url + '/mirror-index')
 
         # Mirror also has a copy of the associated XML bits
         if mirror_index_path:
