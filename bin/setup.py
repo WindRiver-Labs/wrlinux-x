@@ -218,38 +218,42 @@ class Setup():
 
         self.exit(0)
 
-    def load_mirror_index(self, url):
+    def load_mirror_index(self, remote_mirror):
         # See if there is a mirror index available from the BASE_URL
-        mirror_index_path = None
         mirror_index = os.path.join(self.conf_dir, 'mirror-index')
-        remote_mirror = url
-        cmd = [self.tools['git'], 'ls-remote', remote_mirror, self.base_branch]
-        ret = subprocess.Popen(cmd, env=self.env, cwd=self.project_dir, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        ret.wait()
-        if (ret.returncode != 0):
-            remote_mirror += "/.git"
+        try:
             cmd = [self.tools['git'], 'ls-remote', remote_mirror, self.base_branch]
-            ret = subprocess.Popen(cmd, env=self.env, cwd=self.project_dir, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            ret.wait()
-        if (ret.returncode == 0):
-            logger.plain('Loading the mirror index from %s (%s)...' % (remote_mirror, self.base_branch))
-            # This MIGHT be a valid mirror..
-            if not os.path.exists(mirror_index):
-                os.makedirs(mirror_index)
-                cmd = [self.tools['git'], 'init' ]
-                utils_setup.run_cmd(cmd, environment=self.env, cwd=mirror_index)
+            utils_setup.run_cmd(cmd, log=2, environment=self.env, cwd=self.project_dir, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+        except:
+            try:
+                remote_mirror += "/.git"
+                cmd = [self.tools['git'], 'ls-remote', remote_mirror, self.base_branch]
+                utils_setup.run_cmd(cmd, log=2, environment=self.env, cwd=self.project_dir, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+            except:
+                # No mirror, return
+                return None
 
+        logger.plain('Loading the mirror index from %s (%s)...' % (remote_mirror, self.base_branch))
+        # This MIGHT be a valid mirror..
+        if not os.path.exists(mirror_index):
+            os.makedirs(mirror_index)
+            cmd = [self.tools['git'], 'init' ]
+            utils_setup.run_cmd(cmd, environment=self.env, cwd=mirror_index)
+
+        try:
             cmd = [self.tools['git'], 'fetch', '-f', '-n', '-u', remote_mirror, self.base_branch + ':' + self.base_branch]
-            ret = subprocess.Popen(cmd, env=self.env, cwd=mirror_index, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            ret.wait()
-            if (ret.returncode == 0):
-                logger.debug('Found mirrored index.')
-                cmd = [self.tools['git'], 'checkout', self.base_branch ]
-                utils_setup.run_cmd(cmd, environment=self.env, cwd=mirror_index)
-                cmd = [self.tools['git'], 'reset', '--hard' ]
-                utils_setup.run_cmd(cmd, environment=self.env, cwd=mirror_index)
-                mirror_index_path = mirror_index
-        return mirror_index_path
+            utils_setup.run_cmd(cmd, log=2, environment=self.env, cwd=mirror_index)
+        except:
+            # Could not fetch, return
+            return None
+
+        logger.debug('Found mirrored index.')
+        cmd = [self.tools['git'], 'checkout', self.base_branch ]
+        utils_setup.run_cmd(cmd, environment=self.env, cwd=mirror_index)
+        cmd = [self.tools['git'], 'reset', '--hard' ]
+        utils_setup.run_cmd(cmd, environment=self.env, cwd=mirror_index)
+
+        return mirror_index
 
 
     def load_layer_index(self):
@@ -679,14 +683,13 @@ class Setup():
                 cmd.append(self.quiet)
             utils_setup.run_cmd(cmd, environment=self.env, cwd=self.project_dir)
 
-        cmd = [self.tools['git'], 'checkout', '-b', self.base_branch]
-        ret = subprocess.Popen(cmd, env=self.env, cwd=path, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        ret.wait()
-        if (ret.returncode != 0):
+        try:
+            cmd = [self.tools['git'], 'checkout', '-b', self.base_branch]
+            utils_setup.run_cmd(cmd, log=2, environment=self.env, cwd=path)
+        except:
             # if we failed, then simply try to switch branches
             cmd = [self.tools['git'], 'checkout', self.base_branch]
-            ret = subprocess.Popen(cmd, env=self.env, cwd=path, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            ret.wait()
+            utils_setup.run_cmd(cmd, log=2, environment=self.env, cwd=path)
 
         # Make sure the directory is empty, use -f to ignore failures
         for (dirpath, dirnames, filenames) in os.walk(path):
@@ -737,10 +740,10 @@ class Setup():
         cmd = [self.tools['git'], 'add', '-A', '.']
         utils_setup.run_cmd(cmd, environment=self.env, cwd=path)
 
-        cmd = [self.tools['git'], 'diff-index', '--quiet', 'HEAD', '--']
-        ret = subprocess.Popen(cmd, env=self.env, cwd=path, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        ret.wait()
-        if (ret.returncode != 0):
+        try:
+            cmd = [self.tools['git'], 'diff-index', '--quiet', 'HEAD', '--']
+            utils_setup.run_cmd(cmd, log=2, environment=self.env, cwd=path, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+        except:
             logger.debug('Updating mirror-index')
             cmd = [self.tools['git'], 'commit', '-m', 'Updated index - %s' % (self.setup_args)]
             utils_setup.run_cmd(cmd, environment=self.env, cwd=path)
@@ -950,10 +953,10 @@ class Setup():
         cmd = [self.tools['git'], 'add', '--'] + filelist
         utils_setup.run_cmd(cmd, environment=self.env, cwd=self.project_dir)
 
-        cmd = [self.tools['git'], 'diff-index', '--quiet', 'HEAD', '--'] + filelist
-        ret = subprocess.Popen(cmd, env=self.env, cwd=self.project_dir, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        ret.wait()
-        if (ret.returncode != 0):
+        try:
+            cmd = [self.tools['git'], 'diff-index', '--quiet', 'HEAD', '--'] + filelist
+            utils_setup.run_cmd(cmd, log=2, environment=self.env, cwd=self.project_dir, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+        except:
             logger.plain('Updated project configuration')
             # Command failed -- so self.default_xml changed...
             cmd = [self.tools['git'], 'commit', '-m', 'Configuration change - %s' % (self.setup_args), '--'] + filelist
