@@ -238,7 +238,7 @@ class Setup():
         if not os.path.exists(mirror_index):
             os.makedirs(mirror_index)
             cmd = [self.tools['git'], 'init' ]
-            utils_setup.run_cmd(cmd, environment=self.env, cwd=mirror_index)
+            utils_setup.run_cmd(cmd, log=2, environment=self.env, cwd=mirror_index)
 
         try:
             cmd = [self.tools['git'], 'fetch', '-f', '-n', '-u', remote_mirror, self.base_branch + ':' + self.base_branch]
@@ -249,9 +249,9 @@ class Setup():
 
         logger.debug('Found mirrored index.')
         cmd = [self.tools['git'], 'checkout', self.base_branch ]
-        utils_setup.run_cmd(cmd, environment=self.env, cwd=mirror_index)
+        utils_setup.run_cmd(cmd, log=2, environment=self.env, cwd=mirror_index)
         cmd = [self.tools['git'], 'reset', '--hard' ]
-        utils_setup.run_cmd(cmd, environment=self.env, cwd=mirror_index)
+        utils_setup.run_cmd(cmd, log=2, environment=self.env, cwd=mirror_index)
 
         return mirror_index
 
@@ -679,9 +679,7 @@ class Setup():
         logger.plain('Exporting mirror-index %s...' % (path))
         if not os.path.exists(path):
             cmd = [self.tools['git'], 'init', path]
-            if self.quiet == self.default_repo_quiet:
-                cmd.append(self.quiet)
-            utils_setup.run_cmd(cmd, environment=self.env, cwd=self.project_dir)
+            utils_setup.run_cmd(cmd, log=2, environment=self.env, cwd=self.project_dir)
 
         try:
             cmd = [self.tools['git'], 'checkout', '-b', self.base_branch]
