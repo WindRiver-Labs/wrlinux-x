@@ -231,18 +231,24 @@ class Setup():
         # See if there is a mirror index available from the BASE_URL
         mirror_index_path = None
         mirror_index = os.path.join(self.conf_dir, 'mirror-index')
-        cmd = [self.tools['git'], 'ls-remote', self.base_url + '/mirror-index', self.base_branch]
+        remote_mirror = self.base_url + '/mirror-index'
+        cmd = [self.tools['git'], 'ls-remote', remote_mirror, self.base_branch]
         ret = subprocess.Popen(cmd, env=self.env, cwd=self.project_dir, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         ret.wait()
+        if (ret.returncode != 0):
+            remote_mirror += "/.git"
+            cmd = [self.tools['git'], 'ls-remote', remote_mirror, self.base_branch]
+            ret = subprocess.Popen(cmd, env=self.env, cwd=self.project_dir, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            ret.wait()
         if (ret.returncode == 0):
-            logger.plain('Loading the mirror index from %s (%s)...' % (self.base_url + '/mirror-index', self.base_branch))
+            logger.plain('Loading the mirror index from %s (%s)...' % (remote_mirror, self.base_branch))
             # This MIGHT be a valid mirror..
             if not os.path.exists(mirror_index):
                 os.makedirs(mirror_index)
                 cmd = [self.tools['git'], 'init' ]
                 utils_setup.run_cmd(cmd, environment=self.env, cwd=mirror_index)
 
-            cmd = [self.tools['git'], 'fetch', '-f', '-n', '-u', self.base_url + '/mirror-index', self.base_branch + ':' + self.base_branch]
+            cmd = [self.tools['git'], 'fetch', '-f', '-n', '-u', remote_mirror, self.base_branch + ':' + self.base_branch]
             ret = subprocess.Popen(cmd, env=self.env, cwd=mirror_index, close_fds=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             ret.wait()
             if (ret.returncode == 0):
