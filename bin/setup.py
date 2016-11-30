@@ -278,7 +278,8 @@ class Setup():
             self.base_url = ws_base_url
 
             # Adjust the location of the buildtools (was based on the original base_url)
-            self.buildtools_remote = ws_base_folder + '/' + self.buildtools_remote
+            if self.buildtools_remote:
+                self.buildtools_remote = ws_base_folder + '/' + self.buildtools_remote
 
         # Check if we have a mirror-index, and load it if we do...
         if not mirror_index_path:
