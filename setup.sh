@@ -169,4 +169,8 @@ if [ -n "$EXPORTFUNCS" ]; then
 fi
 
 # Switch to the python script
-exec ${BASEDIR}/${CMD} "$@"
+${BASEDIR}/${CMD} "$@"
+
+if [ -n "$SHUTDOWNFUNCS" ]; then
+        eval $SHUTDOWNFUNCS
+fi
