@@ -1,0 +1,135 @@
+#! /usr/bin/env python
+
+import os
+import sys
+import socket
+import subprocess
+
+if len(sys.argv) <= 1:
+    sys.exit(0)
+
+named_socket = os.getenv("WRL_ASKPASS_SOCKET")
+if not named_socket or named_socket == "":
+    print('You must specify a named pipe in WRL_ASKPASS_SOCKET.')
+    sys.exit(1)
+
+
+if sys.argv[1] == '--server':
+    q_cache = {}
+
+    try:
+        os.unlink(named_socket)
+    except:
+        pass
+
+    s = socket.socket(socket.AF_UNIX)
+    s.bind(named_socket)
+    s.listen(1)
+    quit = False
+    while not quit:
+        conn, addr = s.accept()
+        while 1:
+            data = conn.recv(1024)
+            if not data:
+                break
+            if data[0] == 'q':
+                q = data[1:]
+                response = ''
+                if q in q_cache:
+                    response = q_cache[q]
+                #print('Q: "%s"' % q)
+                #print('R: "%s"' % response)
+                conn.send(response)
+                break
+            if data[0] == 's':
+                res = data.split('\n')
+                q = res[0][1:]
+                a = res[1]
+                q_cache[q] = a
+                #print('S: "%s" = "%s"' % (q, q_cache[q]))
+                break
+            if data[0] == 'd':
+                for q in q_cache:
+                    if q == 'tty':
+                        continue
+                    #print("D: "%s" = "%s"' % (q, q_cache[q]))
+                    conn.send(q + '\n' + q_cache[q][1:] + '\n')
+                break
+            if data[0] == 'x':
+                #print('quit')
+                quit = True
+                break
+            #print("skip: " + data)
+        conn.close()
+
+    sys.exit(0)
+
+if sys.argv[1] == '--quit':
+    s = socket.socket(socket.AF_UNIX)
+    s.connect(named_socket)
+    s.send('x')
+    s.close()
+    sys.exit(0)
+
+if sys.argv[1] == '--set':
+    s = socket.socket(socket.AF_UNIX)
+    s.connect(named_socket)
+    s.send('s' + sys.argv[2] + '\n' + sys.argv[3])
+    s.close()
+    sys.exit(0)
+
+if sys.argv[1] == '--dump':
+    s = socket.socket(socket.AF_UNIX)
+    s.connect(named_socket)
+    s.send('d')
+    while 1:
+        result = s.recv(1024)
+        if not result:
+            break
+        print(result)
+    s.close()
+    sys.exit(0)
+
+s = socket.socket(socket.AF_UNIX)
+s.connect(named_socket)
+s.send('q' + sys.argv[1])
+result = s.recv(1024)
+s.close()
+if result:
+    print(result[1:])
+    sys.exit(0)
+
+s = socket.socket(socket.AF_UNIX)
+s.connect(named_socket)
+s.send('qtty')
+tty_file = s.recv(1024)
+s.close()
+
+if not tty_file:
+    tty_file = "/dev/tty"
+
+with open(tty_file, 'rw+') as tty_fd:
+    if not tty_fd.isatty():
+        # Only operate on a tty
+        sys.exit(1)
+
+    question = sys.argv[1]
+    if question.startswith('Password'):
+        import getpass
+        result = getpass.getpass(question, tty_fd)
+    else:
+        tty_fd.write(question)
+        result = tty_fd.readline()
+
+s = socket.socket(socket.AF_UNIX)
+s.connect(named_socket)
+s.send('s' + question + '\n' + 'A' + result)
+s.close()
+
+s = socket.socket(socket.AF_UNIX)
+s.connect(named_socket)
+s.send('q' + sys.argv[1])
+result = s.recv(1024)
+s.close()
+if result:
+    print(result[1:])
