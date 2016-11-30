@@ -44,6 +44,7 @@ class Windshare():
         # We may have to do additional processing if this is file or web based...
         ws_entitlement_url = ws_base_url + '/wrlinux-9.json'
 
+        logger.debug("Windshare URLs: %s %s %s" % (ws_base_url, ws_base_folder, ws_entitlement_url))
         return (ws_base_url, ws_base_folder, ws_entitlement_url)
 
     def load_folders(self, url=None):
@@ -84,7 +85,8 @@ class Windshare():
             else:
                 return False
 
-        except URLError:
+        except URLError as e:
+            logger.debug('Unable to fetch URL: %s' % e)
             return False
 
         return True
