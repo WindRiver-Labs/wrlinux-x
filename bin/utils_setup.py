@@ -34,8 +34,8 @@ def run_cmd(cmd, environment=None, cwd=None, log=1, expected_ret=0, err=b'GitErr
     # log 1 - send output to plain
     # log 2 - send output to debug
     if log == 1 or log == 2:
-        if stderr == None:
-            stderr = subprocess.PIPE
+        if stderr is None:
+            stderr = subprocess.STDOUT
 
         ret = subprocess.Popen(cmd, env=environment, cwd=cwd, stderr=stderr, stdout=subprocess.PIPE)
         while True:
