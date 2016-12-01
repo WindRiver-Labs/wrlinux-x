@@ -35,18 +35,28 @@ class Windshare():
         self.xmls = {}
 
     def get_windshare_urls(self, base_url):
-        # Folder root is one directory higher then the base_url
-        ws_base_url = "/".join(base_url.split('/')[:-1])
+        from urllib.parse import urlsplit, urlunsplit
+
+        (uscheme, uloc, upath, uquery, ufragid) = urlsplit(base_url)
+
+        # TODO: Deal with file level access for WS offline mode
+        if uscheme != "http" and uscheme != "https":
+            return (None, None, None)
 
         # What folder are we in?
-        ws_base_folder = base_url.split('/')[-1]
+        ws_base_folder = os.path.basename(upath)
+
+        if not ws_base_folder or ws_base_folder == "":
+            # Invalid URL
+            return (None, None, None)
+
+        # Folder root is one directory higher then the base_url
+        upath = os.path.dirname(upath)
+        ws_base_url = urlunsplit((uscheme, uloc, upath, uquery, ufragid))
 
         # Magic URL to the entitlement file
-        # TODO: Get the REAL url...
-        # We may have to do additional processing if this is file or web based...
         ws_entitlement_url = ws_base_url + '/wrlinux-9.json'
 
-        logger.debug("Windshare URLs: %s %s %s" % (ws_base_url, ws_base_folder, ws_entitlement_url))
         return (ws_base_url, ws_base_folder, ws_entitlement_url)
 
     def load_folders(self, url=None):
