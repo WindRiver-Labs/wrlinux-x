@@ -23,6 +23,8 @@ from collections import OrderedDict
 
 import logger_setup
 
+import utils_setup
+
 # type, url/path, description, cache
 # type:  restapi-web   - REST API from a LayerIndex-web
 #        restapi-files - REST API, but only from files
@@ -172,28 +174,13 @@ class Layer_Index():
 
         logger.debug('Loading %s from url %s...' % (name, url))
 
-        try:
-            from urllib.request import urlopen, URLError
-            from urllib.parse import urlparse
-        except ImportError:
-            from urllib2 import urlopen, URLError
-            from urlparse import urlparse
-
-        proxy_settings = os.environ.get("http_proxy", None)
-
         def _get_json_response(apiurl=None):
             assert apiurl is not None
 
-            logger.debug("Fetching %s..." % apiurl)
-
-            _parsedurl = urlparse(apiurl)
-            path = _parsedurl.path
-
-            res = urlopen(apiurl)
+            res = utils_setup.fetch_url(apiurl)
 
             parsed = json.loads(res.read().decode('utf-8'))
 
-            logger.debug("done.")
             return parsed
 
         try:
@@ -541,12 +528,7 @@ class Layer_Index():
             # mirror to work properly.  Replace remote with BASE_URL.
             # (This uses the same logic as the default.xml construction)
             if mirror == True:
-                try:
-                    from urllib.request import urlopen, URLError
-                    from urllib.parse import urlparse
-                except ImportError:
-                    from urllib2 import urlopen, URLError
-                    from urlparse import urlparse
+                from urllib.parse import urlparse
 
                 from copy import deepcopy
                 pindex['layerItems'] = deepcopy(pindex['layerItems'])

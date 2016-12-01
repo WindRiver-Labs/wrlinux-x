@@ -498,12 +498,7 @@ class Setup():
                     recommendedQueue.append( (lindex, dep) )
 
         # Also compute the various remotes
-        try:
-            from urllib.request import urlopen, URLError
-            from urllib.parse import urlparse
-        except ImportError:
-            from urllib2 import urlopen, URLError
-            from urlparse import urlparse
+        from urllib.parse import urlparse
 
         self.remotes['base'] = self.base_url
 
