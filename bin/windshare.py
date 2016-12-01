@@ -25,6 +25,8 @@ import os
 
 import logger_setup
 
+import utils_setup
+
 logger = logger_setup.setup_logging()
 class Windshare():
     def __init__(self):
@@ -50,20 +52,13 @@ class Windshare():
     def load_folders(self, url=None):
         assert url is not None
 
-        try:
-            from urllib.request import urlopen, URLError
-            from urllib.parse import urlparse
-        except ImportError:
-            from urllib2 import urlopen, URLError
-            from urlparse import urlparse
-
         def _get_json_response(wsurl=None):
             assert wsurl is not None
 
-            logger.debug("Fetching %s..." % wsurl)
+            from urllib.parse import urlparse
 
-            url = urlparse(wsurl)
-            if not url.scheme:
+            up = urlparse(wsurl)
+            if not up.scheme:
                 # Check for it on the disk...
                 if os.path.exists(wsurl):
                     parsed = json.load(open(path, 'rt', encoding='utf-8'))
@@ -71,10 +66,9 @@ class Windshare():
                     return None
             else:
                 # Go out to the network...
-                res = urlopen(wsurl)
+                res = utils_setup.fetch_url(wsurl)
                 parsed = json.loads(res.read().decode('utf-8'))
 
-            logger.debug("done.")
             return parsed
 
         try:
@@ -84,9 +78,8 @@ class Windshare():
                 self.folders = entitlement['dataFolderTrueFolders']
             else:
                 return False
-
-        except URLError as e:
-            logger.debug('Unable to fetch URL: %s' % e)
+        except Exception as e:
+            logger.debug('Unable to fetch entitlement: %s' % e)
             return False
 
         return True

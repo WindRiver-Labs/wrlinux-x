@@ -280,6 +280,8 @@ class Setup():
             # Adjust the location of the buildtools (was based on the original base_url)
             if self.buildtools_remote:
                 self.buildtools_remote = ws_base_folder + '/' + self.buildtools_remote
+        else:
+            logger.debug('No Windshare configuration detected.')
 
         # Check if we have a mirror-index, and load it if we do...
         if not mirror_index_path:
@@ -1043,6 +1045,8 @@ class Setup():
         self.env["CURL_CA_BUNDLE"] = fn
         self.env["SSL_CERT_FILE"] = fn
         self.env["SSL_CERT_DIR"] = dn
+        os.environ["SSL_CERT_FILE"] = fn
+        os.environ["SSL_CERT_DIR"] = dn
 
     def call_repo_init(self, args):
         logger.debug('Starting')
