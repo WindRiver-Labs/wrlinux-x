@@ -177,9 +177,9 @@ class Windshare():
             utils_setup.run_cmd(cmd, environment=setup.env, cwd=mirror_index_path, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         except Exception:
             cmd = [setup.tools['git'], 'checkout', setup.base_branch ]
-            utils_setup.run_cmd(cmd, log=2, environment=setup.env, cwd=mirror_index_path, stderr=subprocess.PIPE)
+            utils_setup.run_cmd(cmd, log=2, environment=setup.env, cwd=mirror_index_path)
             cmd = [setup.tools['git'], 'reset', '--hard' ]
-            utils_setup.run_cmd(cmd, log=2, environment=setup.env, cwd=mirror_index_path, stderr=subprocess.PIPE)
+            utils_setup.run_cmd(cmd, log=2, environment=setup.env, cwd=mirror_index_path)
 
         # Remove obsolete entries only
         for (dirpath, _, filenames) in os.walk(mirror_index_path):
@@ -204,7 +204,7 @@ class Windshare():
                     fout.write(_line + '\n')
 
         cmd = [setup.tools['git'], 'add', '-A', '.']
-        utils_setup.run_cmd(cmd, log=2, environment=setup.env, cwd=mirror_index_path, stderr=subprocess.PIPE)
+        utils_setup.run_cmd(cmd, log=2, environment=setup.env, cwd=mirror_index_path)
 
         try:
             cmd = [setup.tools['git'], 'diff-index', '--quiet', 'HEAD', '--']
@@ -213,5 +213,5 @@ class Windshare():
             # We expect to fail to this code
             logger.debug('Updating windshare mirror-index')
             cmd = [setup.tools['git'], 'commit', '-m', 'Updated index - %s' % (setup.setup_args)]
-            utils_setup.run_cmd(cmd, log=2, environment=setup.env, cwd=mirror_index_path, stderr=subprocess.PIPE)
+            utils_setup.run_cmd(cmd, log=2, environment=setup.env, cwd=mirror_index_path)
 
