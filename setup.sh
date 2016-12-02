@@ -15,6 +15,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
+if [ -z "${BASH_VERSION}" ]; then
+	echo "This script must be run with bash." >&2
+	exit 1
+fi
+
 GIT_USERNAME="customer"
 GIT_USEREMAIL="customer@company.com"
 
