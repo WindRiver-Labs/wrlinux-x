@@ -175,7 +175,11 @@ fi
 
 # Switch to the python script
 ${BASEDIR}/${CMD} "$@"
+rc=$?
 
 if [ -n "$SHUTDOWNFUNCS" ]; then
         eval $SHUTDOWNFUNCS
 fi
+
+# Preserve the return code from the python script
+exit $rc
