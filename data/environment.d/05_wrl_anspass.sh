@@ -17,7 +17,7 @@
 
 ADDFUNCS+=" anspass_post_setup ;"
 
-SHUTDOWNFUNCS+=" askpass_shutdown ;"
+SHUTDOWNFUNCS+=" anspass_shutdown ;"
 
 . ${BASEDIR}/data/environment.d/setup_anspass
 
@@ -31,7 +31,7 @@ anspass_post_setup() {
 anspass_shutdown() {
 	# Did we start it?  if so we need to shut it down!
 	if [ -n "${wrl_anspass_started}" ]; then
-		anspass-ctrl --quit
+		anspass-ctrl --quit >/dev/null
 	fi
 }
 
