@@ -1,0 +1,685 @@
+                         WIND RIVER LINUX PLATFORM
+                         SOFTWARE LICENSE AGREEMENT
+
+This Wind River Linux Platform Software License Agreement (the 
+"Agreement"), is made between Wind River Systems, Inc. ("Wind River"), 
+on the one hand, and the individual accessing or using the Software or 
+any single legal entity on behalf of which such individual is acting 
+("Customer"), on the other hand.  The effective date of this Agreement 
+is the earlier of the date that you accept this Agreement or the date 
+that Wind River makes the Products available to you ("Effective Date").
+
+PLEASE READ THIS AGREEMENT CAREFULLY BEFORE DOWNLOADING, ACCESSING, 
+INSTALLING OR USING THE PRODUCTS.  BY CLICKING ON THE "I ACCEPT" BUTTON 
+YOU: ACKNOWLEDGE THAT YOU HAVE READ AND UNDERSTAND THIS AGREEMENT, 
+AGREE TO BE BOUND BY ITS TERMS AND CONDITIONS, AND WARRANT YOU HAVE 
+AUTHORITY TO ENTER INTO THIS AGREEMENT.  IF YOU ARE ACTING ON BEHALF OF 
+AN ENTITY, YOU REPRESENT THAT YOU HAVE THE AUTHORITY TO ENTER INTO THIS 
+AGREEMENT ON BEHALF OF THAT ENTITY.  IF YOU DO NOT ACCEPT THE TERMS OF 
+THIS AGREEMENT, THEN YOU MUST NOT USE THE PRODUCTS AND SERVICES AND YOU 
+MUST UNINSTALL AND RETURN THE PRODUCT TO WIND RIVER WITHIN TEN (10) 
+DAYS.
+
+IF YOU ARE EVALUATING THE PRODUCT, THE TERMS SPECIFIED IN APPENDIX B 
+SHALL APPLY IN ADDITION OF THE TERMS OF THE AGREEMENT AND APPENDIX A.
+  
+________________________________________________________________________
+
+The parties agree as follows:
+
+1. SCOPE. This framework Agreement governs Wind River's provision to 
+Customer of the Products and Services as detailed in the Quote or 
+Exhibit. Terms in initial capitalized letters, not defined elsewhere in 
+this Agreement, have the meanings set forth in Section 12 (Definitions).
+
+2. LICENSE. Each program, component or application included in the 
+Software may be governed by one or more Open Source License(s), as 
+specified or referenced in the respective Source Code files.  Without 
+limiting the foregoing, for the convenience of Customer, Wind River will 
+make available, upon request, applicable licensing information in the 
+Linux Foundation's SPDX(R) format. Tools provided to Customer shall be 
+licensed under the terms of the attached Appendix A, which is hereby 
+incorporated by reference into this Agreement.  
+
+3. SERVICES.
+3.1. Support. Customer's payment of the applicable fees entitles 
+Customer to Support during the License Term. Support is provided in 
+accordance with the terms of Wind River's then current Software Support 
+and Maintenance Agreement, which terms are hereby incorporated by 
+reference into this Agreement. A copy of the curr ent Software Support 
+and Maintenance Agreement can be accessed through Wind River's website: 
+http://www.windriver.com/support/SupportTerms.pdf
+
+
+3.2. Professional Services. Professional services, if included in a 
+signed statement of work, will be provided at additional cost and 
+subject to Wind River's then current Professional Services Terms and 
+Conditions, which terms are hereby incorporated by reference into this 
+Agreement. A copy of the current Professional Services Terms and 
+Conditions can be accessed through Wind River's website: 
+http://windriver.com/services/ProductAgreementServicesAttachment.pdf
+ 
+3.3. Education and Training. Education and training services (e.g., 
+mentoring, live or remote classes, etc.), if included in the Quote or 
+Exhibit will be provided pursuant to Wind River's then current Education 
+Services terms and conditions, which terms are hereby incorporated by 
+reference into this Agreement. A copy of the current Education Services 
+terms and conditions can be accessed through Wind River's website: 
+http://education.windriver.com/content/public/resources/Supplemental_Education_Services_Terms_and_Conditions.pdf
+
+4. CONFIDENTIAL INFORMATION. Customer will not use or disclose any 
+Confidential Information, except as expressly authorized by this 
+Agreement, and will protect all such Confidential Information using the 
+same degree of care that Customer uses with respect to its own 
+proprietary information, but in no event less than reasonable care. If 
+Confidential Information must be disclosed to a third party by reason of 
+legal, accounting or regulatory requirements beyond the reasonable 
+control of Customer, Customer will: (i) assert the confidential nature 
+of the information in the action or proceeding; (ii) promptly notify 
+Wind River of the order or request; and (iii) permit Wind River (at its 
+own expense) to seek an appropriate protective order.
+
+5. TERM AND TERMINATION.  
+5.1. Term.  The term of this Agreement will commence upon the Effective 
+Date and continue until expiration of the License Term unless earlier 
+terminated as set forth herein. The renewal date for all Products and 
+Services hereunder will be the last day of the applicable License Term, 
+regardless of whether Customer chooses to license additional Products 
+during such License Term. Customer must notify Wind River at least 
+thirty (30) days prior to the end of the License Term of its request to 
+renew its subscription. Unless the parties mutually agree to renew the 
+subscription, and Customer pays the then-applicable fees, Customer's 
+license to the Tools and entitlement to Support will terminate on the 
+last day of the then-current License Term.
+
+5.2. Termination. Either party may terminate this Agreement immediately 
+upon notice for the material breach of the other party, which breach is 
+curable and has remained uncured for a period of thirty (30) days from 
+the date of notice. In addition, Wind River may immediately terminate 
+this Agreement if Customer is delinquent on its payment obligations for 
+thirty (30) days or more.
+
+5.3. Consequences of Expiration or Termination. Upon expiration of the 
+License Term or termination of this Agreement, Customer will: (a) not 
+use the Tools for any purpose whatsoever; (b) no longer be entitled to 
+receive or have access to Support or other Services; (c) immediately 
+destroy or return to Wind River all material belonging to Wind River or 
+its licensors, including, without limitation, all Confidential 
+Information of Wind River then in Customer's possession; and (d) 
+promptly certify to Wind River in writing that Customer has completed 
+the actions described in the foregoing subsections. These remedies will 
+be cumulative and in addition to any other remedies available to Wind 
+River. Sections 4, 5, 6, 7, 8, 9, 10, 11 and 12 will survive expiration 
+or termination of this Agreement.
+
+6. DELIVERY, PAYMENT AND TAXES.
+6.1. Delivery and Payment Terms.
+6.1.1. The Product will be deemed irrevocably accepted upon shipment. 
+When Product is made available to Customer for electronic download 
+through access to a website and/or server, shipment will be deemed to 
+have occurred at the time of such availability.
+6.1.2. Customer will pay Wind River the fees set forth in the applicable 
+Exhibit or Quote.  Wind River will invoice Customer the applicable fees 
+upon receipt of a correctly issued purchase order from Customer, which 
+may coincide with shipment of the Software or Tools. Payment terms 
+herein are subject to prior credit approval by Wind River. Customer will 
+pay all invoices within thirty (30) days of the date of such invoice in 
+U.S. dollars unless otherwise set forth in the applicable Exhibit or 
+Quote. Interest on late payments will accrue at the rate of one and 
+one-half percent (1.5%) per month or partial month, or, if lower, the 
+highest rate permitted by law.  Customer is responsible for reasonable 
+costs associated with collection of overdue amounts, including without 
+limitation, reasonable attorneys' fees and court costs.  Failure to pay 
+any invoice in the manner described in this Section 6 may, at Wind 
+River's discretion, be deemed a material breach of this Agreement.
+6.1.3. If Products or Services are purchased through an authorized Wind 
+River distributor, Customer will be invoiced directly by such 
+distributor (and not Wind River), and Customer will pay the distributor 
+the applicable fees in accordance with the payment terms agreed to 
+between Customer and the distributor.
+
+6.2. Purchase Orders. Unless Products or Services are purchased through 
+an authorized Wind River distributor, Customer will submit to Wind River 
+a purchase order in the amount specified in the corresponding Exhibit or 
+Quote. Any additional or different terms and conditions on the purchase 
+order will be of no force or effect. Wind River may reject any purchase 
+order that Wind River determines to be outside the scope of this 
+Agreement.
+
+6.3. Taxes. All amounts due hereunder will be paid without deduction, 
+set-off or counter claim, free and clear of any restrictions or 
+conditions, and without deduction for any taxes, levies, imposts, 
+duties, fees, deductions, withholdings or other governmental charges.  
+If any deduction is required to be made by law, Customer will pay the 
+full amount owed to Wind River plus the amount to be deducted, so that 
+Wind River will receive the same amount as it would have received had 
+the deduction not been required.  If Customer is claiming sales or use 
+tax exemption, a valid and fully executed Tax Exempt Certificate must be 
+attached to this Agreement or the applicable Quote or Exhibit, or the 
+applicable purchase order.  Customer will promptly pay or reimburse all 
+taxes (exclusive of taxes on Wind River's net income), duties and 
+assessments arising from amounts payable to Wind River under this 
+Agreement, or furnish Wind River with evidence acceptable to the taxing 
+authority to sustain exemption therefrom.
+
+7. CUSTOMER COMPLIANCE.  Wind River or its designated representative 
+will have the right to: (a) require that Customer send a written 
+certification of compliance with the terms of this Agreement within 
+fifteen (15) days of Wind River's request; and (b) conduct an inspection 
+and audit ("Audit") upon reasonable notice of the relevant operational, 
+accounting and sales books and records of Customer and any other 
+information within Customer's possession or control that is reasonably 
+necessary to determine whether Customer has complied with this 
+Agreement, and obtain true and correct photocopies of the foregoing 
+materials.  Such Audit will be conducted during regular business hours 
+at Customer's offices and so as not to interfere unreasonably with 
+Customer's normal business activities.  Customer will permit or provide 
+for completion of any Audit within forty-five (45) days of notice.  If 
+an Audit discloses any underpayment of fees, then Wind River will 
+invoice Customer for, and Customer will promptly pay Wind River, the 
+underpaid fee amount based on the higher of the price specified in this 
+Agreement or Wind River's price list in effect at the time the audit is 
+completed, together with late payment interest in accordance with 
+Section 6.1 (Delivery and Payment Terms). If an Audit discloses 
+underpayment of five percent (5%) or more, then Wind River will also 
+invoice Customer for, and Customer will promptly pay, Wind River's 
+reasonable costs of conducting the Audit.
+
+8. LIMITED WARRANTY.
+
+8.1. Limited Warranty. The Software is provided "AS IS". In no event 
+does Wind River warrant that the Software is error free or that the 
+Software will satisfy Customer's own specific requirements. Customer 
+assumes full responsibility for: (a) the selection of the Product; (b) 
+the proper installation and use of the Products; (c) verifying the 
+results obtained from the use of the Products; and (d) taking 
+appropriate measures to prevent loss of data.
+    
+8.2. Warranty Disclaimer.  EXCEPT AS EXPRESSLY SET FORTH IN SECTION 8.1 
+ABOVE, WIND RIVER AND ITS LICENSORS DISCLAIM ALL WARRANTIES, EXPRESS, 
+IMPLIED AND STATUTORY INCLUDING, WITHOUT LIMITATION, THE IMPLIED 
+WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE 
+AND NON-INFRINGEMENT OF THIRD PARTY RIGHTS WITH RESPECT TO THE PRODUCTS 
+AND SERVICES PROVIDED UNDER THIS AGREEMENT.  NO ORAL OR WRITTEN 
+INFORMATION OR ADVICE GIVEN BY WIND RIVER, ITS DEALERS, DISTRIBUTORS, 
+AGENTS OR EMPLOYEES WILL IN ANY WAY INCREASE THE SCOPE OF THE WARRANTIES 
+PROVIDED BY WIND RIVER IN THIS AGREEMENT OR THE APPLICABLE OPEN SOURCE 
+LICENSES.  WIND RIVER DOES NOT WARRANT THAT THE QUALITY OR PERFORMANCE 
+OF ANY PRODUCT AND SERVICES WILL MEET CUSTOMER'S REQUIREMENTS OR THAT 
+CUSTOMER WILL BE ABLE TO ACHIEVE ANY PARTICULAR RESULTS FROM USE OR 
+MODIFICATION OF THE PRODUCT, OR THAT THE PRODUCT WILL OPERATE FREE FROM 
+ERROR.  WIND RIVER MAKES NO WARRANTY WITH RESPECT TO ANY MALFUNCTIONS OR 
+OTHER ERRORS IN ITS PRODUCTS CAUSED BY VIRUS, INFECTION, WORM OR SIMILAR 
+MALICIOUS CODE NOT DEVELOPED BY WIND RIVER.  WIND RIVER MAKES NO 
+WARRANTY THAT ANY PRODUCTS OF WIND RIVER WILL PROTECT AGAINST ALL 
+POSSIBLE SECURITY THREATS, INCLUDING INTENTIONAL MISCONDUCT BY THIRD 
+PARTIES.  WIND RIVER IS NOT LIABLE FOR ANY DOWNTIME OR SERVICE 
+INTERRUPTION, FOR ANY LOST OR STOLEN DATA OR SYSTEMS, OR FOR ANY OTHER 
+DAMAGES ARISING OUT OF OR RELATING TO ANY SUCH ACTIONS OR INTRUSIONS.  
+Some jurisdictions do not allow the limitation or exclusion of implied 
+warranties or how long an implied warranty may last, so the above 
+limitations may not apply to Customer.  This warranty gives Customer 
+specific legal rights and Customer may have other rights that vary from 
+jurisdiction to jurisdiction.
+
+9. CUSTOMER INDEMNITY. Customer will defend at its expense Wind River 
+against any claims, suits, or proceedings brought against Wind River by 
+third parties resulting from, in connection with, attributable to any 
+Customer product or service incorporating or using the Software, or by 
+Customer's direct or indirect end users, and will indemnify Wind River 
+for any costs, losses, damages, and expenses (including reasonable legal 
+fees) resulting from or in connection with such claim, suit, or 
+proceeding. Customer's obligations under this Section are conditioned on 
+Wind River: (a) providing Customer prompt notice of such claim, suit, or 
+proceeding; (b) tendering to Customer the defense or settlement of any 
+such claim, suit, or proceeding at Customer's expense; and (c) 
+cooperating with Customer, at Customer's expense, in defending or 
+settling such claim, suit, or proceeding.
+
+10. LIMITATION OF LIABILITY. WIND RIVER AND ITS LICENSORS WILL NOT BE 
+LIABLE TO CUSTOMER OR ANY THIRD PARTY FOR ANY LOSS OF PROFITS, REVENUE 
+OR GOODWILL, COSTS OF PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES, LOSS 
+OR INTERRUPTION OF BUSINESS, LOSS OF ANTICIPATED SAVINGS, OR LOSS OF 
+DATA, OR ANY INDIRECT, EXEMPLARY, PUNITIVE, SPECIAL, INCIDENTAL OR 
+CONSEQUENTIAL DAMAGES OF ANY KIND, HOWEVER CAUSED AND REGARDLESS OF THE 
+FORM OF ACTION, WHETHER IN CONTRACT, TORT (INCLUDING NEGLIGENCE), STRICT 
+PRODUCT LIABILITY OR ANY OTHER LEGAL OR EQUITABLE THEORY, EVEN IF WIND 
+RIVER HAS BEEN ADVISED OR SHOULD HAVE KNOWN OF THE POSSIBILITY OF SUCH 
+DAMAGES. IN NO EVENT WILL WIND RIVER'S AGGREGATE CUMULATIVE LIABILITY 
+FOR ANY CLAIMS ARISING OUT OF OR RELATED TO THIS AGREEMENT EXCEED THE 
+AMOUNTS PAID TO WIND RIVER BY CUSTOMER FOR THE AFFECTED PRODUCT OR 
+SERVICES PURSUANT TO THIS AGREEMENT IN THE TWELVE (12) MONTHS PRECEDING 
+THE CLAIM.  Some jurisdictions do not allow the exclusion or limitation 
+of incidental or consequential damages so this limitation and exclusion 
+may not apply to Customer.
+
+THE LIMITED WARRANTY, LIMITED REMEDIES, WARRANTY DISCLAIMER AND LIMITED 
+LIABILITY ARE FUNDAMENTAL ELEMENTS OF THE BASIS OF THE BARGAIN BETWEEN 
+WIND RIVER AND CUSTOMER. WIND RIVER WOULD NOT BE ABLE TO PROVIDE THE 
+PRODUCTS OR SERVICES WITHOUT SUCH LIMITATIONS.
+
+11. GENERAL.
+11.1. Governing Law and Venue. This Agreement will be governed in all 
+respects by the laws of the United States of America and the State of 
+Delaware, without reference to conflict of laws principles. The United 
+Nations Convention on Contracts for the International Sale of Goods is 
+specifically excluded from application to to this Agreement. All 
+disputes arising under this Agreement will be brought exclusively in the 
+State of Delaware or of the Federal courts sitting therein, provided, 
+however, that the parties will be entitled to seek injunctive relief in 
+the appropriate forum. Customer consents to the personal jurisdiction of 
+the above courts.
+	
+11.2. Export Control. All software and technical information delivered 
+under this Agreement are subject to U.S. export controls under the 
+Export Administration Regulations (the "EAR") or the International 
+Traffic in Arms Regulations (the "ITAR") and may be subject to export, 
+re-export or import regulations in other countries.  Customer agrees to 
+strictly comply with all such laws and regulations. Customer will not 
+export or re-export the software and technical information, directly or 
+indirectly, to: (a) any countries that are subject to US export 
+restrictions (currently including, but not necessarily limited to, Cuba, 
+Iran, North Korea, Sudan, and Syria); (b) any end user who Customer 
+knows or has reason to know will utilize them in the design, development 
+or production of nuclear, chemical or biological weapons, or rocket 
+systems, space launch vehicles, and sounding rockets, or unmanned air 
+vehicle systems; or (c) any end user who has been prohibited from 
+participating in US export transactions by any federal agency of the US 
+government. Some of Wind River's products are classified as "restricted" 
+encryption products under Section 740.17(b)(2) of the EAR and may not be 
+exported or re-exported to government end-users (as defined in Section 
+772 of the EAR) outside the countries listed in Supplement No. 3 to Part 
+740 of the EAR without authorization from the U.S. government.
+
+11.3. U.S. Government End-Users. All software and any data relating 
+thereto or derived therefrom are "commercial items" as defined in 48 
+C.F.R. 2.101, consisting of "commercial computer software" and 
+"commercial computer software documentation" as such terms are used in 
+48 C.F.R. 12.212.  If the end User is a U.S. Government agency, 
+department, or instrumentality, then the use, duplication, reproduction, 
+release, modification, disclosure or transfer of the Software and any 
+data relating thereto or derived therefrom, is restricted in accordance 
+with 48 C.F.R. 12.211, 48 C.F.R. 12.212, 48 C.F.R. 227.7102-2, and 48 
+C.F.R. 227.7202, as applicable.  Customer will provide the Software to 
+the U.S. Government or to U.S. Government end Users only pursuant to an 
+end user license agreement in accordance with the terms of this 
+Agreement. This U.S. Government end users clause is in lieu of, and 
+supersedes, any Federal Acquisition Regulations ("FAR"), the Defense FAR 
+Supplement ("DFARS"), or other clause or provision that addresses 
+Government rights in computer software or technical data.
+
+11.4. Notices. All notices under this Agreement will be: (a) in writing; 
+(b) delivered by personal delivery or certified or registered mail, 
+return receipt requested, and deemed given upon personal delivery or 
+five (5) days after deposit in the mail.  Notices to Wind River will be 
+sent to Wind River Systems, Inc., General Counsel, Legal Affairs, 500 
+Wind River Way, Alameda, CA 94501, USA (or such other address designated 
+in writing by Wind River), and notices to Customer will be sent to the 
+address identified in Customer's purchase order.
+
+11.5. Force Majeure. Neither party will be liable for any failure or 
+delay (except for the payment of money) on account of strikes, 
+shortages, riots, insurrection, fires, explosions, acts of God, war, 
+governmental action, labor conditions, material shortages or any other 
+cause which is beyond the reasonable control of such party.
+
+11.6. Use of Customer's Name. Subject to Customer's approval, Wind River 
+may identify Customer as a customer of Wind River products or services.
+
+11.7. Assignment. Customer will not assign, transfer or delegate any 
+right, license or obligation under this Agreement to a third party, 
+directly or indirectly, including by operation of law or through 
+bankruptcy, merger, acquisition, sale or transfer of all, substantially 
+all or any part of the business or assets of Customer, or undergo a 
+change of Control, without first obtaining Wind River's prior written 
+consent, which Wind River may withhold in Wind River's sole discretion.  
+Any purported assignment, transfer, delegation or change of Control in 
+violation of this Section 11.7 (Assignment) is null and void.  Wind 
+River may assign, transfer or delegate this Agreement or any right, 
+license or obligation hereunder in its sole discretion.
+
+11.8. Counterparts. In the event th is Agreement is executed with 
+signatures, this Agreement may be executed in one or more counterparts, 
+each of which will be deemed an original, but all of which together will 
+constitute one and the same instrument. Counterparts to this Agreement 
+transmitted by facsimile transmission, by electronic mail in "portable 
+document format" (".pdf") form, or by any other electronic means 
+intended to preserve the original graphic and pictorial appearance of a 
+document, will have the same effect as a signed original of this 
+Agreement.
+
+11.9. Waiver. The failure of either party to require performance by the 
+other party of any provision hereof will not affect the full right to 
+require such performance at any time thereafter; nor will the waiver by 
+either party of a breach of any provision hereof be taken or held to be 
+a waiver of the provision itself.
+
+11.10. Miscellaneous. This Agreement will not create any agency, 
+employment relationship, partnership or other form of joint enterprise 
+between the parties. This Agreement and its attachments and exhibits 
+constitute the entire agreement between Customer and Wind River and 
+supersedes all prior oral or written agreements between the parties with 
+respect to the subject matter hereof.  The terms and conditions of any 
+purchase order or other instrument issued by Customer in connection with 
+this Agreement will be of no force or effect.  This Agreement may only 
+be amended by a writing signed by the parties that refers explicitly to 
+this Agreement.  If a provision of this Agreement is unenforceable or 
+invalid, the provision will be revised so as to best accomplish the 
+objectives of the parties.
+
+12. DEFINITIONS. In addition to the terms in initial capitalized letters 
+defined elsewhere in this Agreement, the following terms in initial 
+capitalized letters have the respective meanings set forth below:
+
+12.1. "Confidential Information" means information disclosed by Wind 
+River to Customer, including without limitation, intellectual property, 
+software programs, documentation, pricing, current, future, and proposed 
+products and services, which is (a) in tangible form and bears a 
+"confidential", "proprietary" or similar legend; and (b) discussions 
+relating to that information whether those discussion occur prior to, 
+concurrent with, or following disclosure of the information. Wind River 
+shall make reasonable efforts to mark its confidential information in 
+tangible form with any of the aforementioned legends prior to 
+disclosure. However, Wind River's information in tangible form that does 
+not bear any of these legends, and discussions relating to that 
+information, shall nevertheless be protected hereunder as Confidential 
+Information, if Customer knew, or should have reasonably known under the 
+circumstances, that the information was confidential and had been 
+communicated to it in confidence. Confidential Information does not 
+include any information that Customer reasonably demonstrates is: (i) 
+published or otherwise available to the public other than by breach of 
+this Agreement by Customer; (ii) rightfully received by Customer from a 
+third party without confidentiality limitations; (iii) independently 
+developed by Customer as evidenced by appropriate records; (iv) known to 
+Customer prior to its first receipt from Wind River as evidenced by 
+appropriate records; (v) hereinafter disclosed by Wind River to a third 
+party without restriction on disclosure; or (vi) approved for public 
+release by written authorization of Wind River.
+
+12.2. "Control" means: (a) ownership of more than fifty percent (50%) of 
+the outstanding stock or securities entitled to vote for the election of 
+directors or similar managing authority of the subject entity; (b) 
+ownership of more than fifty percent (50%) of the ownership interest 
+that represents the right to make decisions for the subject entity; (c) 
+any other ability to elect more than half of the board of directors or 
+similar managing authority of the subject entity, whether by contract or 
+otherwise; or (d) the possession, directly or indirectly, of the power 
+to direct or cause the direction of the management or policies of the 
+subject entity whether through the ownership of voting securities, 
+through other voting rights, by contract or otherwise.
+
+12.3. "Exhibit" means an attachment to this Agreement that the parties 
+may elect to simultaneously or separately execute from time to time, in 
+addition to the Quote, detailing Products and Services to be provided to 
+Customer, as well as other business restrictions associated with such 
+Products and Services (e.g., Project and Development Locations).
+
+12.4. "License Term" means the term set forth in the Quote or Exhibit or 
+one (1) year commencing on the Effective Date if no term is specified.
+
+12.5. "Object Code" means computer programming code in a form not 
+readily perceivable by humans and suitable for machine execution without 
+the intervening steps of interpretation or compilation. 1 2.6. "Open 
+Source License" means a software license under which the Soft ware 
+Object Code and/or Source Code is made available under terms that allow 
+any licensee to copy, create derivative works and distribute the 
+software without any fee or cost, including but not limited to any open 
+source license listed by the Open Source Initiative 
+(http://www.opensource.org).
+
+12.7. "Product" means Software and Tools. 
+
+12.8. "Quote" means the Wind River final sales quote detailing the 
+Products and Services to be provided to Customer, as well as other 
+business restrictions associated with such Products and Services (e.g., 
+Project and Development Locations).
+
+12.9. "Services" means those services provided by Wind River as detailed 
+in the Quote, statement of work or Exhibit, and includes, but is not 
+limited to Support, professional services and education services.
+
+12.10. "Software" means the Linux operating system components (such as 
+the kernel, BSPs and drivers) and any add-on profiles and other related 
+software components, as specified in the Quote or Exhibit and made 
+available by Wind River to Customer in Source Code or Object Code form, 
+including any updates thereto and all accompanying documentation 
+governed by an Open Source License. Software does not include Tools.
+
+12.11. "Source Code" means computer programming code in human readable 
+form that is not suitable for machine execution without the intervening 
+steps of interpretation or compilation.
+
+12.12. "SPDX" means the Software Package Data Exchange specification for 
+communicating the components, licenses and copyrights associated with a 
+software package, as developed by the Linux Foundation.
+
+12.13. "Support" means the annual support and maintenance services 
+specified in the Quote or Exhibit to be provided by Wind River in 
+accordance with Section 3.1 (Support & Maintenance).
+
+12.14. "Tools" means the proprietary Source Code and Object Code and any 
+accompanying documentation provided by Wind River under this Agreement 
+which is intended for Customer's internal use in accordance with the 
+terms of the Tools Agreement in Addendum 1 (e.g., Wind River Workbench). 
+Tools shall be deemed "Confidential Information".
+
+
+                   APPENDIX A - WIND RIVER LINUX PLATFORM
+                          TOOLS ADDITIONAL TERMS
+
+1. SCOPE. These terms ("Tools Agreement") govern Customer's rights and 
+obligations with respect to the Tools, as specified in the Quote or 
+Exhibit. Terms in initial capitalized letters, not defined in the 
+Agreement or in this Tools Agreement, have the meanings set forth in 
+Section 5 (Definitions). The terms of the Agreement hereby incorporated 
+by reference into this Tools Agreement. The terms of this Tools 
+Agreement shall supersede any conflicting provisions of the Agreement 
+for purposes of such Tools.
+ 
+2. LICENSE GRANTS. Subject to Customer's compliance with the terms and 
+conditions of this Tools Agreement and any Quote or Exhibit, and payment 
+of the applicable fees, Wind River grants to Customer, during the 
+License Term, a restricted, personal, non-transferable, non-exclusive, 
+internal-use license:
+
+2.1. for Floating User Development Licenses, to reproduce and use one 
+(1) copy of the Tools per Development License on the Supported 
+Architecture Family, solely for the number of licensed concurrent 
+Floating Users located at each Development Location and specified as 
+licensed for such Tools in such Exhibit or Quote;
+
+OR
+
+2.2. for Named User Development Licenses, to reproduce and use one (1) 
+copy of the Tools per Development License on the Supported Architecture 
+Family, solely for the licensed Named Users located at each Development 
+Location and specified as licensed for such Tools in such Exhibit or 
+Quote. Customer will use license management technology in the Tools to 
+assign each Development License to a Named User and no other User may 
+use the copy of the Tools designated for that Development License 
+without the prior written consent of Wind River; except, however, that 
+Customer may (a) transfer a Named User Development License from one 
+Named User to another individual if the Named User has left Customer's 
+business, and is replaced by another Named User, or (b) make legal name 
+changes or network UserID changes to the Named User profile information, 
+subject to notification to Wind River submitted to Wind River's email 
+alias (CustomerReports@windriver.com);
+
+OR
+
+2.3. for Node-Lock User Development Licenses, to reproduce, access and 
+use one (1) copy of the Tools per Development License, solely on the 
+number of "Node-locked hosts" licensed and located at each Development 
+Location and specified as licensed for such Tools in such Exhibit A or 
+Quote.  For purposes of this Agreement, the "Node" means the host 
+computer where both the Tools and license management file are physically 
+installed.
+
+3. GENERAL RESTRICTIONS. 3.1. General.  Tools are provided to Customer 
+in Object Code and are intended for Customer's internal use in 
+developing applications in accordance with the Development License and 
+not for distribution. Except as expressly permitted by this Tools 
+Agreement, Customer will not, nor permit any third party to: (a) for 
+Floating User Development Licenses: (i) permit access to or use of the 
+Tools in excess of the quantity of concurrent Floating Users set forth 
+in the applicable Exhibit or Quote; (ii) transfer any Floating User 
+Development License from a Development Location in one country to a 
+Development Location in another country; or (iii) allow one Floating 
+User in one country to access the Tools from a licensed server in 
+another country; (b) for Named User Development License, permit 
+concurrent access to or use of a single copy of the Tools for any Named 
+User Development License, or access or use by anyone other than the 
+Named User assigned to the Development License, as set forth in the 
+applicable Exhibit or Quote; (c) for Node-Lock User Development 
+Licenses, install the Tools on more than the quantity of licensed Nodes 
+set forth in the applicable Exhibit or Quote; (d) translate, reverse 
+engineer, decompile, disassemble (except to the extent applicable laws 
+specifically prohibit such restriction) or attempt to derive the Source 
+Code of any Tools Object Code provided to Customer; (e) reproduce the 
+Tools other than as specified in the applicable license grant set forth 
+in Section 2 (License Grants); (f) sublicense, rent, lease, loan, 
+timeshare, sell, distribute, disclose, publish, assign or transfer any 
+rights, grant a security interest in, transfer possession of the Tools, 
+or electronically transfer the Tools from one computer to another except 
+over Customer's internal network pursuant to Section 3.2 (Network 
+Access); (g) modify, distribute or otherwise use the Tools in any manner 
+that causes any portion of the Tools that is not already subject to Open 
+Source License to become subject to the terms of any Open Source 
+License; or (h) alter or remove any of Wind River's or its licensors' 
+copyright or proprietary rights notices or legends appearing on or in 
+the Tools.  Customer will reproduce such notices on any copies of the 
+Tools Customer is permitted to make. Customer will inform all Users of 
+the restrictions set forth in this Tools Agreement with respect to use 
+of the Tools.
+
+3.2. Network Access.  Floating and Named Users who have a unique network 
+log-in (e.g., NT or Unix log-in) may access the Tools from a secure 
+network server located at the Development Location over a secure VPN or 
+equivalent secure network.  Within thirty (30) days following Wind 
+River's written request, Customer will disclose to Wind River the 
+Development Location of each network from which Tools will be accessed.  
+Node-Lock Users will not remotely access the licensed node, where 
+"remote access" means any access to the node other than being physically 
+present at the host computer.
+
+3.3. Third Party Software. The Tools licensed under this Tools Agreement 
+may contain or be derived from materials of third party licensors such 
+as materials subject to an Open Source Licenses ("Third Party 
+Software"). Such third party materials may be subject to restrictions in 
+addition to those listed in this Section 3 (General Restrictions), which 
+restrictions, if any, are set forth in the third party notice file that 
+accompanies the Tools. Customer acknowledges and agrees that its use of 
+Third Party Software is subject to its compliance with any such 
+additional terms.
+
+3.4 Copies.  Customer may make a reasonable number of copies of the 
+Tools for archival purposes or for use as a back-up.  Customer must copy 
+all copyright legends, trademarks, trade names, and other legends on any 
+copies of the Tools.
+
+4. KEYS AND ACCESS. Wind River will provide Customer those keys that are 
+reasonably necessary to permit Customer to gain access to the licensed 
+Tools. Any technology, ideas, know how, documentation, processes, 
+algorithms, and trade secrets disclosed to Customer by Wind River in 
+connection with or as embodied in the Tools and keys shall be considered 
+"Confidential Information" as defined in the Agreement. Customer will 
+disclose such keys solely to authorized Users of the Tools.  The Tools 
+also contains license management technology intended to cause the Tools 
+to cease operating upon expiration or termination of the license.  
+Customer will not circumvent the license management technology, or any 
+other security devices, access logs, or other protective measures 
+provided with the Tools or permit or assist any User or any third party 
+to do the same.  The license management technology and any other 
+protective measures in the Tools are included solely as a matter of 
+administrative convenience, and Customer has no right or license in or 
+to such protective measures.  Customer will be invoiced for any 
+additional Users who access the Tools and will pay any such invoice in 
+accordance with Section 6 (Delivery, Payment and Taxes) of the 
+Agreement.  Customer will follow the recommended installation procedures 
+for each Tools product licensed under this Tools Agreement.
+  
+5. DEFINITIONS. In addition to the terms in initial capitalized letters 
+defined elsewhere in this Agreement, the following terms in initial 
+capitalized letters have the respective meanings set forth below:
+
+
+5.1. "Development License" means the right of a User to use certain 
+Tools pursuant to Section 2 (License Grants) of this Tools Agreement. 
+The Development License type and quantity will be specified in an 
+Exhibit or Quote.
+   
+5.2. "Development Location" means the geographic address of each 
+Customer site or facility where the Tools are authorized to be installed 
+and used in accordance with the terms of this Agreement.  Customer's 
+Development Location(s) will be specified in an Exhibit A or Quote.
+
+5.3. "Floating User" means any User who may access and use the Tools 
+pursuant to Section 2.1 (Floating User Development License).
+
+5.4. "Named User" means any User who uses the Tools pursuant to Section 
+2.2 (Named User Development License).
+
+5.5. "Node-Lock User" means any User who uses the Tools pursuant to 
+Section 2.3 (Node-Lock User Development License).
+
+5.6. "Supported Architecture Family" means the target architecture 
+family or families then-supported by Wind River on which Customer may 
+use the Tools pursuant to this Agreement, as specified in an Exhibit or 
+Quote.
+
+5.7. "User" means a Customer employee or independent contractor who (a) 
+is based at a Development Location, (b) will utilize the Tools on behalf 
+of Customer, and (c) has signed a confidentiality agreement with 
+Customer in which such employee or independent contractor agrees to 
+protect third party confidential information with terms no less 
+stringent than those set forth herein.  A User may be either: a Floating 
+User, Named User or Node-Lock User, as such terms are further defined in 
+Section 2 (License Grants). For the avoidance of doubt, a User will be 
+deemed to have utilized the Tools if such User has accessed or used any 
+portion of the Tools, including without limitation, to accomplish the 
+goal of, or which results in, any of the following: (a) developing 
+Customer products, including without limitation, software systems, 
+devices, applications or API code, as further specified in Section 
+2.1(License Grants); (b) using Tools to compile any code; or other 
+similar engineering activity or result.
+
+
+                 APPENDIX B - WIND RIVER LINUX PLATFORM
+                      PRODUCT EVALUATION TERMS
+
+1. SCOPE. These terms govern Customer's rights and obligations with 
+respect to Products which are for Customer's limited evaluation purposes 
+("Evaluation Software"). These terms shall supersede any conflicting 
+provisions of the Agreement with respect to the Evaluation Software.
+
+2. LICENSE GRANTS. The following license terms and conditions set forth 
+in this Section 2 (and no other terms) will solely apply to Customer's 
+use of Evaluation Software:
+
+2.1. Evaluation License. Subject to Customer's compliance with the terms 
+and conditions of the Agreement, Appendix A and this Appendix B, Wind 
+River hereby grants to Customer a restricted, personal, 
+non-transferable, non-exclusive, internal-use license, for a thirty (30) 
+day period from the Effective Date ("Evaluation Term") to: (i) use the 
+Tools solely at the Development Location agreed to in writing by the 
+parties and solely for the purpose of internally evaluating the Products 
+and not for any other purpose (including without limitation, commercial 
+or production purposes); and (ii) reproduce the Tools for archive 
+purposes, consistent with Customer's standard archive procedures.
+ 
+2.2. Feedback. Customer may disclose any results of any evaluation of 
+the Products including, without limitation, Customer's opinions, 
+observations, comments, criticisms and suggested improvements, whether 
+in written or oral form (herein, "Feedback") from its evaluations only 
+to Wind River.  Should Customer provide Wind River with Feedback, Wind 
+River will have the right to use such Feedback and related information 
+in any manner it deems appropriate.
+ 
+2.3. LIMITED OBLIGATIONS. CUSTOMER ACKNOWLEDGES THAT WIND RIVER HAS NO 
+OBLIGATION TO PROVIDE SUPPORT OR MAINTENANCE FOR THE EVALUATION 
+SOFTWARE. IN NO EVENT WILL WIND RIVER'S AGGREGATE CUMULATIVE LIABILITY 
+FOR ANY CLAIMS ARISING OUT OF OR RELATED TO EVALUATION OF THE PRODUCTS 
+EXCEED $50.00.
+
+---
+Linux Click Wrap Rev Feb 2016
