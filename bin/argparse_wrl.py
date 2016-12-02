@@ -40,6 +40,10 @@ class Argparse_Wrl(Argparse_Setup):
             # ignore (handled by setup.sh)
             del parsed_args.password
 
+        if (parsed_args.accept_eula):
+            # ignore (handled by setup.sh)
+            del parsed_args.accept_eula
+
         if parsed_args.list_templates:
             if self.setup:
                 self.setup.list_wrtemplates = True
@@ -75,6 +79,7 @@ class Argparse_Wrl(Argparse_Setup):
         self.base_args.add_argument('--buildtools-branch', metavar="BRANCH", help='Buildtools branch %s' % (setup_buildtools_branch))
         self.base_args.add_argument('--user', help='Specify default user for download')
         self.base_args.add_argument('--password', help='Specify default password for download')
+        self.base_args.add_argument('--accept-eula', metavar="ACCEPT", help='Accept End User License Agreement (yes|no)')
 
     def add_list_options(self):
         Argparse_Setup.add_list_options(self)
