@@ -40,10 +40,10 @@ anspass_transfer() {
 				eval url_${murl}="${url}"
 				case $type in
 					username)
-						eval username_${murl}="${line}"
+						eval username_${murl}=\${line}
 						;;
 					password)
-						eval password_${murl}="${line}"
+						eval password_${murl}=\${line}
 						;;
 				esac
 				;;
