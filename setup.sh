@@ -119,7 +119,17 @@ if [ $help -ne 1 ]; then
 	fi
 
 	if [ -n "$ADDFUNCS" ]; then
-		eval $ADDFUNCS
+		OIFS=${IFS}
+		IFS=';'
+		for func in $ADDFUNCS; do
+			IFS=${OIFS} eval $func
+			rc=$?
+			if [ $rc -ne 0 ]; then
+				echo "Stopping: an error occured in $func." >&2
+				exit $rc
+			fi
+		done
+		IFS=${OIFS}
 	fi
 
 	# The following checks are from oe-buildenv-internal
@@ -170,7 +180,17 @@ export OE_BASEURL=${BASEURL}
 export OE_BASEBRANCH=${BASEBRANCH}
 
 if [ -n "$EXPORTFUNCS" ]; then
-	eval $EXPORTFUNCS
+	OIFS=${IFS}
+	IFS=';'
+	for func in $EXPORTFUNCS; do
+		IFS=${OIFS} eval $func
+		rc=$?
+		if [ $rc -ne 0 ]; then
+			echo "Stopping: an error occured in $func." >&2
+			exit $rc
+		fi
+	done
+	IFS=${OIFS}
 fi
 
 # Switch to the python script
@@ -178,7 +198,8 @@ ${BASEDIR}/${CMD} "$@"
 rc=$?
 
 if [ -n "$SHUTDOWNFUNCS" ]; then
-        eval $SHUTDOWNFUNCS
+	# During shutdown, we don't care about return codes
+	eval "$SHUTDOWNFUNCS"
 fi
 
 # Preserve the return code from the python script
