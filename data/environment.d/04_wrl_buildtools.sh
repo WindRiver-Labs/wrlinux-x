@@ -113,6 +113,14 @@ buildtools_setup() {
 		EXTRACT_BUILDTOOLS=1
 	fi
 
+	if [ ${EXTRACT_BUILDTOOLS} -ne 1 ]; then
+		ENVIRON=$(find -L ${BUILDTOOLS} -name "environment-setup-${SDKARCH}-*-linux" | head -n1)
+		if [ -z "${ENVIRON}" ]; then
+			# Something is wrong, try to fix it!
+			EXTRACT_BUILDTOOLS=1
+		fi
+	fi
+
 	if [ ${EXTRACT_BUILDTOOLS} -eq 1 ]; then
 		# Needs python.
 		buildtoolssdk=$(find "${BUILDTOOLS_GIT}" -name "${SDKARCH}-buildtools-nativesdk-standalone-*.sh" 2>/dev/null | sort | head -n1)
@@ -124,11 +132,14 @@ buildtools_setup() {
 		if [ -d "${BUILDTOOLS}.${BUILDTOOLS_REF}" ]; then
 			rm -rf "${BUILDTOOLS}.${BUILDTOOLS_REF}"
 		fi
+		trap : INT
 		${buildtoolssdk} -d "${BUILDTOOLS}.${BUILDTOOLS_REF}" -y
 		if [ $? -ne 0 ]; then
+			echo >&2
 			echo "Error installing the buildtools-nativesdk-standalone archive: ${buildtoolssdk}" >&2
 			return 1
 		fi
+		trap - INT
 		rm -f ${BUILDTOOLS}
 		ln -s $(basename ${BUILDTOOLS}).${BUILDTOOLS_REF} ${BUILDTOOLS}
 		echo "Done"
