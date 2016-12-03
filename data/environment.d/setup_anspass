@@ -75,7 +75,13 @@ anspass_setup() {
 	echo "Enabling anspass..."
 
 	export ANSPASS_PATH=${PWD}/bin/.anspass
-	export ANSPASS_TOKEN=$(anspassd < /dev/null | head -n 1 | sed 's,Token: ,,')
+	result=$(anspassd < /dev/null 2>&1)
+	if [ $? -ne 0 ]; then
+		echo "anspassd failed to start:"
+		echo "${result}"
+		return 1
+	fi
+	export ANSPASS_TOKEN=$(echo "$result" | grep "Token:" | head -n 1 | sed 's,Token: ,,')
 	echo "Token: ${ANSPASS_TOKEN}"
 	wrl_anspass_started=1
 
