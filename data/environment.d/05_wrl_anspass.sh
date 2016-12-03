@@ -23,10 +23,13 @@ SHUTDOWNFUNCS+=" anspass_shutdown ;"
 
 anspass_post_setup() {
 	ret=0
-	# Do we have anspassd available yet?
-	if which anspassd >/dev/null 2>&1 ; then
-		anspass_setup
-		ret=$?
+	# If the buildtools have been loaded, we can startup anspass
+	# This avoids errant things that might be in the environment
+	if [ -n "${BUILDTOOLS_LOADED}" ] ; then
+		if which anspassd >/dev/null 2>&1 ; then
+			anspass_setup
+			ret=$?
+		fi
 	fi
 	return $ret
 }

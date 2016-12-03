@@ -156,6 +156,7 @@ buildtools_setup() {
 		echo "Unable to load the buildtools environment setup file." >&2
 		return 1
 	fi
+	BUILDTOOLS_LOADED=1
 	return 0
 }
 

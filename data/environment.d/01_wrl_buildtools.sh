@@ -19,6 +19,8 @@ BUILDTOOLS="${BUILDTOOLS:-bin/buildtools}"
 
 ADDFUNCS+=" buildtools_pre_setup ;"
 
+unset -v BUILDTOOLS_LOADED
+
 buildtools_pre_setup() {
 	ENVIRON=$(find -L ${BUILDTOOLS} -name "environment-setup-${SDKARCH}-*-linux" 2>/dev/null | head -n1)
 	if [ -z "${ENVIRON}" ]; then
@@ -30,5 +32,6 @@ buildtools_pre_setup() {
 		# Something went wrong.. ignore it
 		return 0
 	fi
+	BUILDTOOLS_LOADED=1
 	return 0
 }
