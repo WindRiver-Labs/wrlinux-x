@@ -24,6 +24,11 @@ REPO_FOLDERS="WRLinux-9-LTS-CVE WRLinux-9-LTS WRLinux-9-Base"
 . ${BASEDIR}/data/environment.d/setup_utils
 
 wr_repo_setup() {
+	if [ -e bin/.git-repo ]; then
+		export REPO_URL=$(cat bin/.git-repo)
+		return 0
+	fi
+
 	echo "Searching for git-repo..."
 	REPO_URL=${BASEURL}/git-repo
 	if ! setup_check_url "${REPO_URL}" ; then
@@ -47,6 +52,7 @@ wr_repo_setup() {
 	fi
 
 	# Ensure subsequent 'repo' calls use the correct URL
+	echo ${REPO_URL} > bin/.git-repo
 	export REPO_URL
 	return 0
 }
