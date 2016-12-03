@@ -36,6 +36,8 @@ ADDFUNCS+=" buildtools_setup ;"
 
 EXPORTFUNCS+=" buildtools_export ;"
 
+. ${BASEDIR}/data/environment.d/setup_utils
+
 buildtools_setup() {
 	if [ -z "${BUILDTOOLSBRANCH}" ]; then
 		BUILDTOOLSBRANCH="${BASEBRANCH}"
@@ -68,19 +70,21 @@ buildtools_setup() {
 		# We need this in order to have the right path for subsequent mirror operations
 		BUILDTOOLS_REMOTE=$(git config -f ${BUILDTOOLS_GIT}/.git/config local.${BUILDTOOLS_REF}.path)
 	else
-		if ! git ls-remote "${BASEURL}/${BUILDTOOLS_REMOTE}" >/dev/null 2>&1 ; then
+		echo "Searching for ${BUILDTOOLS_REMOTE}..."
+
+		if ! setup_check_url "${BASEURL}/${BUILDTOOLS_REMOTE}" ; then
 			ORIG_BT_REMOTE=${BUILDTOOLS_REMOTE}
 			# Additional places to search...
 			for folder in ${BUILDTOOLS_FOLDERS} layers/buildtools; do
 				NEW_REMOTE=${folder}/${BUILDTOOLS_REMOTE}
-				if git ls-remote "${BASEURL}/${NEW_REMOTE}" >/dev/null 2>&1 ; then
+				if setup_check_url "${BASEURL}/${NEW_REMOTE}" ; then
 					BUILDTOOLS_REMOTE=${NEW_REMOTE}
 				fi
 			done
 			if [ "${BUILDTOOLS_REMOTE}" = "${ORIG_BT_REMOTE}" ]; then
 				echo "Unable to find ${BUILDTOOLS_REMOTE}.  Search path:">&2
 				for folder in ${BUILDTOOLS_FOLDERS} layers/buildtools; do
-					echo "${BASE_URL}/${folder}/${BUILDTOOLS_REMOTE}" >&2
+					echo "	${BASEURL}/${folder}/${BUILDTOOLS_REMOTE}" >&2
 				done
 				return 1
 			fi
@@ -137,6 +141,8 @@ buildtools_setup() {
 		if [ $? -ne 0 ]; then
 			echo >&2
 			echo "Error installing the buildtools-nativesdk-standalone archive: ${buildtoolssdk}" >&2
+			# We try to cleanup, but an over zealous (sigint) user can stop the rm as well.
+			rm -rf ${BUILDTOOLS}.${BUILDTOOLS_REF}
 			return 1
 		fi
 		trap - INT

@@ -1,0 +1,55 @@
+# Copyright (C) 2016 Wind River Systems, Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 2 as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+
+# These are common utility functions multiple environment scripts
+# This unit may be loaded more then once
+
+# $1 is the url (or file path) to check if it's a git repository
+# Function returns:
+#   0 if git repository is available
+#   1 if it's a bad path
+#   2 if authentication failed (and prints a message)
+#   3 an unknown error occurs (and prints a message)
+setup_check_url() {
+	err=$(LANG=C git ls-remote "$1" 2>&1 >/dev/null)
+	ret=$?
+
+	# Found!
+	if [ $ret -eq 0 ]; then
+		return 0
+	fi
+
+	# Check for authentication error...
+	if [ "${err}" != "${err/Authentication/}" ]; then
+		echo "Authentication failed for $1" >&2
+		return 2
+	fi
+
+	# Check if it's just a bad path
+	if [ "${err}" != "${err/not found/}" ]; then
+		# This is a normal, git repo not found error
+		return 1
+	fi
+
+	if [ "${err}" != "${err/Could not read/}" ]; then
+		# This is just a bad path, git repo not found error
+		return 1
+	fi
+
+	# Unknown error
+	echo "An unknown error occured looking for $1" >&2
+	echo "$err" >&2
+	return 3
+}
