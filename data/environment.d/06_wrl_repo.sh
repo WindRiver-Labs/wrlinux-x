@@ -46,9 +46,10 @@ wr_repo_setup() {
 		for folder in ${REPO_FOLDERS} ; do
 			echo "${BASEURL}/${folder}/git-repo" >&2
 		done
-		exit 1
+		return 1
 	fi
 
 	# Ensure subsequent 'repo' calls use the correct URL
 	export REPO_URL
+	return 0
 }

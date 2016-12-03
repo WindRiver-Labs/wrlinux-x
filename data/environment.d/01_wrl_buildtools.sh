@@ -23,11 +23,12 @@ buildtools_pre_setup() {
 	ENVIRON=$(find -L ${BUILDTOOLS} -name "environment-setup-${SDKARCH}-*-linux" 2>/dev/null | head -n1)
 	if [ -z "${ENVIRON}" ]; then
 		# Nothing there yet...
-		return
+		return 0
 	fi
 	. "${ENVIRON}"
 	if [ $? -ne 0 ]; then
 		# Something went wrong.. ignore it
-		return
+		return 0
 	fi
+	return 0
 }

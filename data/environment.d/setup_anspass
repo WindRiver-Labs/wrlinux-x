@@ -64,12 +64,12 @@ anspass_transfer_dump() {
 anspass_setup() {
 	# Do we have anspassd available yet?
 	if ! which anspassd >/dev/null 2>&1 ; then
-		return
+		return 0
 	fi
 
 	# Have we already configured anspass?
 	if [ -n "${ANSPASS_TOKEN}" ]; then
-		return
+		return 0
 	fi
 
 	echo "Enabling anspass..."

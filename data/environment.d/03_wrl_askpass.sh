@@ -22,7 +22,7 @@ SHUTDOWNFUNCS+=" askpass_shutdown ;"
 askpass_setup() {
 	# If anspass is already enabled, use it instead!
 	if [ -n "${ANSPASS_TOKEN}" ]; then
-		return
+		return 0
 	fi
 
 	export WRL_ASKPASS_SOCKET=${PWD}/bin/.setup_askpass
@@ -39,7 +39,7 @@ askpass_setup() {
 	while [ ! -e ${WRL_ASKPASS_SOCKET} ]; do
 		if ! jobs $askpass_jid >/dev/null 2>&1 ; then
 			echo "Unable to start the askpass server." >&2
-			return
+			return 1
 		fi
 		# We have to give it time to start...
 		sleep 1
@@ -55,6 +55,7 @@ askpass_setup() {
 
 	export GIT_ASKPASS=${BASEDIR}/data/environment.d/setup_askpass
 	export SSH_ASKPASS=${BASEDIR}/data/environment.d/setup_askpass
+	return 0
 }
 
 askpass_shutdown() {

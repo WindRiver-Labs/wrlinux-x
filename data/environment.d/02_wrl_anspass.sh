@@ -20,8 +20,11 @@ ADDFUNCS+=" anspass_pre_setup ;"
 . ${BASEDIR}/data/environment.d/setup_anspass
 
 anspass_pre_setup() {
+	ret=0
 	# Do we have anspassd available yet?
 	if which anspassd >/dev/null 2>&1 ; then
 		anspass_setup
+		ret=$?
 	fi
+	return $ret
 }

@@ -54,7 +54,7 @@ buildtools_setup() {
 		(mkdir -p ${BUILDTOOLS_GIT} && git init ${BUILDTOOLS_GIT})
 		if [ $? -ne 0 ]; then
 			echo "Unable to create ${BUILDTOOLS_GIT} directory." >&2
-			exit 1
+			return 1
 		fi
 	else
 		# Did the buildtools URL change?
@@ -82,7 +82,7 @@ buildtools_setup() {
 				for folder in ${BUILDTOOLS_FOLDERS} layers/buildtools; do
 					echo "${BASE_URL}/${folder}/${BUILDTOOLS_REMOTE}" >&2
 				done
-				exit 1
+				return 1
 			fi
 		fi
 
@@ -90,7 +90,7 @@ buildtools_setup() {
 		(cd ${BUILDTOOLS_GIT} && git fetch -f -n -u "${BASEURL}/${BUILDTOOLS_REMOTE}" ${BUILDTOOLSBRANCH}:${BUILDTOOLS_REF})
 		if [ $? -ne 0 ]; then
 			echo "Error fetching buildtools repository ${BASEURL}/${BUILDTOOLS_REMOTE}" >&2
-			exit 1
+			return 1
 		fi
 		# Set a flag so we know where the fetch was from...
 		(
@@ -102,7 +102,7 @@ buildtools_setup() {
 		)
 		if [ $? -ne 0 ]; then
 			echo "Unable to checkout branch ${BUILDTOOLS_REF}." >&2
-			exit 1
+			return 1
 		fi
 		echo "Done"
 
@@ -118,7 +118,7 @@ buildtools_setup() {
 		buildtoolssdk=$(find "${BUILDTOOLS_GIT}" -name "${SDKARCH}-buildtools-nativesdk-standalone-*.sh" 2>/dev/null | sort | head -n1)
 		if [ -z "${buildtoolssdk}" ]; then
 			echo "Unable to find ${SDKARCH} buildtools-nativesdk-standalone archive in ${PWD}/buildtools/" >&2
-			exit 1
+			return 1
 		fi
 		echo "Installing buildtools.."
 		if [ -d "${BUILDTOOLS}.${BUILDTOOLS_REF}" ]; then
@@ -127,7 +127,7 @@ buildtools_setup() {
 		${buildtoolssdk} -d "${BUILDTOOLS}.${BUILDTOOLS_REF}" -y
 		if [ $? -ne 0 ]; then
 			echo "Error installing the buildtools-nativesdk-standalone archive: ${buildtoolssdk}" >&2
-			exit 1
+			return 1
 		fi
 		rm -f ${BUILDTOOLS}
 		ln -s $(basename ${BUILDTOOLS}).${BUILDTOOLS_REF} ${BUILDTOOLS}
@@ -138,13 +138,14 @@ buildtools_setup() {
 	ENVIRON=$(find -L ${BUILDTOOLS} -name "environment-setup-${SDKARCH}-*-linux" | head -n1)
 	if [ -z "${ENVIRON}" ]; then
 		echo "Error unable to load buildtools environment-setup file." >&2
-		exit 1
+		return 1
 	fi
 	. "${ENVIRON}"
 	if [ $? -ne 0 ]; then
 		echo "Unable to load the buildtools environment setup file." >&2
-		exit 1
+		return 1
 	fi
+	return 0
 }
 
 
@@ -155,4 +156,5 @@ buildtools_export() {
 
 	export OE_BUILDTOOLS_BRANCH=${BUILDTOOLSBRANCH}
 	export OE_BUILDTOOLS_REMOTE=${BUILDTOOLS_REMOTE}
+	return 0
 }
