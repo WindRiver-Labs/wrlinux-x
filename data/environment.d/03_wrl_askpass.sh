@@ -45,12 +45,13 @@ askpass_setup() {
 		sleep 1
 	done
 
-	${BASEDIR}/data/environment.d/setup_askpass --set "tty" $(tty)
+	# We need to tell it what tty to use for questions...
+	echo $(tty) | ${BASEDIR}/data/environment.d/setup_askpass --set "tty" > /dev/null 2> /dev/null
 
 	# TODO: Implement a command line method to specify username and password
 	#if [ -n "${WINDSHARE_USER}" ]; then
-	#	${BASEDIR}/data/environment.d/setup_askpass --set "Username for 'https://windshare.windriver.com': " "${WINDSHARE_USER}"
-	#	${BASEDIR}/data/environment.d/setup_askpass --set "Password for 'https://${WINDSHARE_USER}@windshare.windriver.com': " "${WINDSHARE_PASS}"
+	#	echo "${WINDSHARE_USER}" | ${BASEDIR}/data/environment.d/setup_askpass --set "Username for 'https://windshare.windriver.com': "
+	#	echo "${WINDSHARE_PASS}" | ${BASEDIR}/data/environment.d/setup_askpass --set "Password for 'https://${WINDSHARE_USER}@windshare.windriver.com': "
 	#fi
 
 	export GIT_ASKPASS=${BASEDIR}/data/environment.d/setup_askpass

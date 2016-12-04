@@ -19,6 +19,7 @@ import os
 import sys
 import socket
 import subprocess
+import getpass
 
 if len(sys.argv) <= 1:
     sys.exit(0)
@@ -87,9 +88,11 @@ if sys.argv[1] == '--quit':
     sys.exit(0)
 
 if sys.argv[1] == '--set':
+    result = sys.stdin.readline()
+
     s = socket.socket(socket.AF_UNIX)
     s.connect(named_socket)
-    s.send('s' + sys.argv[2] + '\n' + sys.argv[3])
+    s.send('s' + sys.argv[2] + '\n' + 'A' + result)
     s.close()
     sys.exit(0)
 
@@ -117,7 +120,7 @@ if result:
 s = socket.socket(socket.AF_UNIX)
 s.connect(named_socket)
 s.send('qtty')
-tty_file = s.recv(1024)
+tty_file = s.recv(1024)[1:]
 s.close()
 
 if not tty_file:
@@ -130,7 +133,6 @@ with open(tty_file, 'rw+') as tty_fd:
 
     question = sys.argv[1]
     if question.startswith('Password'):
-        import getpass
         result = getpass.getpass(question, tty_fd)
     else:
         tty_fd.write(question)
