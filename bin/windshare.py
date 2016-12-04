@@ -82,12 +82,20 @@ class Windshare():
             return parsed
 
         try:
+            from urllib.request import URLError
+
             entitlement = _get_json_response(url)
 
             if entitlement and 'dataFolderTrueFolders' in entitlement:
                 self.folders = entitlement['dataFolderTrueFolders']
             else:
                 return False
+        except URLError as e:
+            # Authentication failure, we need to stop now.
+            if hasattr(e, 'code') and e.code == 401:
+                import sys
+                sys.exit(1)
+            return False
         except Exception as e:
             logger.debug('Unable to fetch entitlement: %s' % e)
             return False

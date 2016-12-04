@@ -123,7 +123,9 @@ def fetch_url(url=None, auth=False):
             raise Exception('Unable to get password for %s from %s.\n%s' % (up.netloc, client, cmd))
         passwd = passwd.rstrip('\n')
 
-        logger.debug("%s: u:'%s' p:'%s'" % ( url, uname, passwd ))
+        # This is a security leak, as the username/password could be logged.
+        # Only enable this during development.
+        #logger.debug("%s: u:'%s' p:'%s'" % ( url, uname, passwd ))
 
         password_mgr = urllib.request.HTTPPasswordMgrWithDefaultRealm()
         password_mgr.add_password(None, "%s://%s" % (up.scheme, up.netloc), uname, passwd)
@@ -136,8 +138,12 @@ def fetch_url(url=None, auth=False):
     try:
         res = urlopen(url)
     except URLError as e:
-        if hasattr(e, 'code') and e.code == 401:
+        if not auth and hasattr(e, 'code') and e.code == 401:
             res = fetch_url(url, auth=True)
+        elif auth:
+            logger.critical("Failed to connect to: %s" % url)
+            logger.critical(e)
+            raise e
         else:
             raise
 
