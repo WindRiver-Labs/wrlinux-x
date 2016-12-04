@@ -37,6 +37,13 @@ add_gitconfig() {
 	git config -f .gitconfig "${1}" "${VAR}"
 }
 
+shutdown() {
+	if [ -n "$SHUTDOWNFUNCS" ]; then
+		# During shutdown, we don't care about return codes
+		eval "${SHUTDOWNFUNCS}"
+	fi
+}
+
 BASEDIR=$(readlink -f "$(dirname "$0")")
 
 # Load custom setup additions
@@ -126,6 +133,7 @@ if [ $help -ne 1 ]; then
 			rc=$?
 			if [ $rc -ne 0 ]; then
 				echo "Stopping: an error occured in $func." >&2
+				shutdown
 				exit $rc
 			fi
 		done
@@ -187,6 +195,7 @@ if [ -n "$EXPORTFUNCS" ]; then
 		rc=$?
 		if [ $rc -ne 0 ]; then
 			echo "Stopping: an error occured in $func." >&2
+			shutdown
 			exit $rc
 		fi
 	done
@@ -197,10 +206,7 @@ fi
 ${BASEDIR}/${CMD} "$@"
 rc=$?
 
-if [ -n "$SHUTDOWNFUNCS" ]; then
-	# During shutdown, we don't care about return codes
-	eval "$SHUTDOWNFUNCS"
-fi
+shutdown
 
 # Preserve the return code from the python script
 exit $rc
