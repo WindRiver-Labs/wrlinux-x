@@ -30,7 +30,7 @@ BUILDTOOLS="${BUILDTOOLS:-bin/buildtools}"
 # Arch of the SDK to load
 SDKARCH=$(uname -p)
 
-ARGPARSE+=" --buildtools-branch=*:BUILDTOOLSBRANCH"
+setup_add_arg --buildtools-branch BUILDTOOLSBRANCH keep
 
 ADDFUNCS+=" buildtools_setup ;"
 
