@@ -29,6 +29,25 @@ CMD="bin/setup.py"
 # Only requires python2
 CMD_HELP="bin/setup_help.py"
 
+# Adds arguments to the arg processing
+#   1 - argument
+#   2 - variable to define
+#   3 - keep or discard (if defined, keep)
+#       there may be arguments you don't want passed to the .py script
+setup_add_arg() {
+	found=0
+	for parse in ${ARGPARSE[@]}; do
+		comp=${parse%%:*}
+		if [ "${comp}" = "$1" ]; then
+			found=1
+		fi
+	done
+
+	if [ ${found} -eq 0 ]; then
+		ARGPARSE[${#ARGPARSE[@]}]="$1:$2:$3"
+	fi
+}
+
 # Takes value_name default_value
 # value_name is set to the first value found in the list:
 # git config, git config --global, and finally default_value
@@ -53,38 +72,56 @@ if [ -d "${BASEDIR}/data/environment.d" ]; then
 	done
 fi
 
-# Argument parsing, limited set of arguments parsed here
+# Argument parsing, define a limited set of args
+setup_add_arg --base-url BASEURL keep
+setup_add_arg --base-branch BASEBRANCH keep
+
 help=0
-if [ "$#" -eq 0 ]; then
-	# Default into a --help module which is part of setup.py
-	help=1
-fi
-
-# We only parse things this shell script cares about, actual argparse
-# and looking for bad args is done by the python script this calls.
-for arg in "$@" ; do
-	case $arg in
-		--help|-h)
-			help=1
-			;;
-		--base-url=*)
-			BASEURL="${arg#*=}"
-			;;
-		--base-branch=*)
-			BASEBRANCH="${arg#*=}"
-			;;
-	esac
-
-	# If there are additional parameters defined, deal with them here...
-	for parse in $ARGPARSE; do
-		comp=${parse%:*}
-		val=${parse#*:}
-		case "$arg" in
+while [ $# -ge 1 ] ; do
+	found=0
+	if [ "$1" = "--help" -o "$1" = "-h" ]; then
+		# Default into a --help module which is part of setup.py
+		help=1
+		PASSARGS[${#PASSARGS[@]}]="$1"
+		shift
+		continue
+	fi
+	for parse in ${ARGPARSE[@]}; do
+		comp=${parse%%:*}
+		next=${parse#${comp}:}
+		val=${next%%:*}
+		next=${next#${val}:}
+		if [ "${next}" != "${val}" ]; then
+			keep=${next}
+		else
+			keep=""
+		fi
+		case "$1" in
+			${comp}=*)
+				eval ${val}=\${1#*=}
+				if [ -n "${keep}" ]; then
+					PASSARGS[${#PASSARGS[@]}]="$1"
+				fi
+				shift
+				found=1
+				break
+				;;
 			${comp})
-				eval ${val}="${arg#*=}"
+				eval ${val}=\${2}
+				if [ -n "${keep}" ]; then
+					PASSARGS[${#PASSARGS[@]}]="$1"
+					PASSARGS[${#PASSARGS[@]}]="$2"
+				fi
+				shift 2
+				found=1
+				break
 				;;
 		esac
 	done
+	if [ $found -ne 1 ]; then
+		PASSARGS[${#PASSARGS[@]}]="$1"
+		shift
+	fi
 done
 
 # setup git url
@@ -203,7 +240,7 @@ if [ -n "$EXPORTFUNCS" ]; then
 fi
 
 # Switch to the python script
-${BASEDIR}/${CMD} "$@"
+${BASEDIR}/${CMD} "${PASSARGS[@]}"
 rc=$?
 
 shutdown
