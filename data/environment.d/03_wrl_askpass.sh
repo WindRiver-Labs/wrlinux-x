@@ -15,11 +15,20 @@
 
 # This needs to be run BEFORE we run any password checks...
 
+setup_add_arg --user WINDSHARE_USER
+setup_add_arg --password WINDSHARE_PASS
+
 ADDFUNCS+=" askpass_setup ;"
 
 SHUTDOWNFUNCS+=" askpass_shutdown ;"
 
 askpass_setup() {
+	# These values may also be used by anspass
+	WINDSHARE_SCHEME=$(echo ${BASEURL} | sed 's,\([^:/]*\).*,\1,')
+	if [ ${WINDSHARE_SCHEME} ]; then
+		WINDSHARE_HOST=$(echo ${BASEURL} | sed 's,\([^:/]*\)://\([^/]*\).*,\2,')
+	fi
+
 	# If anspass is already enabled, use it instead!
 	if [ -n "${ANSPASS_TOKEN}" ]; then
 		return 0
@@ -48,11 +57,11 @@ askpass_setup() {
 	# We need to tell it what tty to use for questions...
 	echo $(tty) | ${BASEDIR}/data/environment.d/setup_askpass --set "tty" > /dev/null 2> /dev/null
 
-	# TODO: Implement a command line method to specify username and password
-	#if [ -n "${WINDSHARE_USER}" ]; then
-	#	echo "${WINDSHARE_USER}" | ${BASEDIR}/data/environment.d/setup_askpass --set "Username for 'https://windshare.windriver.com': "
-	#	echo "${WINDSHARE_PASS}" | ${BASEDIR}/data/environment.d/setup_askpass --set "Password for 'https://${WINDSHARE_USER}@windshare.windriver.com': "
-	#fi
+	# If user/pass passed in (can't do this for a file path)
+	if [ -n "${WINDSHARE_USER}" -a -n "${WINDSHARE_HOST}" ]; then
+		echo "${WINDSHARE_USER}" | ${BASEDIR}/data/environment.d/setup_askpass --set "Username for '${WINDSHARE_SCHEME}://${WINDSHARE_HOST}': " > /dev/null
+		echo "${WINDSHARE_PASS}" | ${BASEDIR}/data/environment.d/setup_askpass --set "Password for '${WINDSHARE_SCHEME}://${WINDSHARE_USER}@${WINDSHARE_HOST}': " "${WINDSHARE_PASS}" > /dev/null
+	fi
 
 	export GIT_ASKPASS=${BASEDIR}/data/environment.d/setup_askpass
 	export SSH_ASKPASS=${BASEDIR}/data/environment.d/setup_askpass

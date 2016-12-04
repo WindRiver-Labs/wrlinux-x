@@ -51,7 +51,7 @@ anspass_transfer() {
 	done
 
 	for murl in $urls ; do
-		anspass_transfer_dump | eval anspass-ctrl --add \${url_${murl}} > /dev/null
+		anspass_transfer_dump | eval anspass-ctrl --add \${url_${murl}} > /dev/null 2>&1
 	done
 }
 
@@ -62,6 +62,11 @@ anspass_transfer_dump() {
 }
 
 anspass_setup() {
+	WINDSHARE_SCHEME=$(echo ${BASEURL} | sed 's,\([^:/]*\).*,\1,')
+	if [ ${WINDSHARE_SCHEME} ]; then
+		WINDSHARE_HOST=$(echo ${BASEURL} | sed 's,\([^:/]*\)://\([^/]*\).*,\2,')
+	fi
+
 	# Do we have anspassd available yet?
 	if ! which anspassd >/dev/null 2>&1 ; then
 		return 0
@@ -84,6 +89,21 @@ anspass_setup() {
 	export ANSPASS_TOKEN=$(echo "$result" | grep "Token:" | head -n 1 | sed 's,Token: ,,')
 	echo "Token: ${ANSPASS_TOKEN}"
 	wrl_anspass_started=1
+
+	# If user/pass passed in, default these first (can't do this for a file path)
+	if [ -n "${WINDSHARE_USER}" -a -n "${WINDSHARE_HOST}" ]; then
+		echo "${WINDSHARE_USER}" | anspass-ctrl --delete ${WINDSHARE_SCHEME}://${WINDSHARE_HOST} > /dev/null 2>&1
+		cat << EOF | anspass-ctrl --add ${WINDSHARE_SCHEME}://${WINDSHARE_HOST} > /dev/null 2>&1
+${WINDSHARE_USER}
+${WINDSHARE_PASS}
+${WINDSHARE_PASS}
+EOF
+		if [ $? -ne 0 ]; then
+			echo "Unable to set the credentials for ${WINDSHARE_SCHEME}://${WINDSHARE_HOST}" >&2
+			anspass-ctrl --quit > /dev/null 2>&1
+			return 1
+		fi
+	fi
 
 	# askpass was running, transfer entries and shutdown...
 	if [ -n "${WRL_ASKPASS_SOCKET}" ]; then
