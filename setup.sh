@@ -48,6 +48,21 @@ setup_add_arg() {
 	fi
 }
 
+# Functions that add functionality during early processing
+setup_add_func() {
+	ADDFUNCS[${#ADDFUNCS[@]}]="$1"
+}
+
+# Functions that export variables (or need to run very late)
+setup_export_func() {
+	EXPORTFUNCS[${#EXPORTFUNCS[@]}]="$1"
+}
+
+# Functions that run on shutdown
+setup_shutdown_func() {
+	SHUTDOWNFUNCS[${#SHUTDOWNFUNCS[@]}]="$1"
+}
+
 # Takes value_name default_value
 # value_name is set to the first value found in the list:
 # git config, git config --global, and finally default_value
@@ -57,10 +72,10 @@ add_gitconfig() {
 }
 
 shutdown() {
-	if [ -n "$SHUTDOWNFUNCS" ]; then
+	for func in "${SHUTDOWNFUNCS[@]}"; do
 		# During shutdown, we don't care about return codes
-		eval "${SHUTDOWNFUNCS}"
-	fi
+		$func
+	done
 }
 
 BASEDIR=$(readlink -f "$(dirname "$0")")
@@ -162,20 +177,15 @@ if [ $help -ne 1 ]; then
 		exit 1
 	fi
 
-	if [ -n "$ADDFUNCS" ]; then
-		OIFS=${IFS}
-		IFS=';'
-		for func in $ADDFUNCS; do
-			IFS=${OIFS} eval $func
-			rc=$?
-			if [ $rc -ne 0 ]; then
-				echo "Stopping: an error occured in $func." >&2
-				shutdown
-				exit $rc
-			fi
-		done
-		IFS=${OIFS}
-	fi
+	for func in "${ADDFUNCS[@]}"; do
+		$func
+		rc=$?
+		if [ $rc -ne 0 ]; then
+			echo "Stopping: an error occurred in $func." >&2
+			shutdown
+			exit $rc
+		fi
+	done
 
 	# The following checks are from oe-buildenv-internal
 	# Make sure we're not using python v3.x as 'python', we don't support it.
@@ -224,20 +234,15 @@ export LANG='en_US.UTF-8'
 export OE_BASEURL=${BASEURL}
 export OE_BASEBRANCH=${BASEBRANCH}
 
-if [ -n "$EXPORTFUNCS" ]; then
-	OIFS=${IFS}
-	IFS=';'
-	for func in $EXPORTFUNCS; do
-		IFS=${OIFS} eval $func
-		rc=$?
-		if [ $rc -ne 0 ]; then
-			echo "Stopping: an error occured in $func." >&2
-			shutdown
-			exit $rc
-		fi
-	done
-	IFS=${OIFS}
-fi
+for func in "${EXPORTFUNCS[@]}"; do
+	$func
+	rc=$?
+	if [ $rc -ne 0 ]; then
+		echo "Stopping: an error occurred in $func." >&2
+		shutdown
+		exit $rc
+	fi
+done
 
 # Switch to the python script
 ${BASEDIR}/${CMD} "${PASSARGS[@]}"
