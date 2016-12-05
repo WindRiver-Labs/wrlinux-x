@@ -18,9 +18,9 @@
 setup_add_arg --user WINDSHARE_USER
 setup_add_arg --password WINDSHARE_PASS
 
-ADDFUNCS+=" askpass_setup ;"
+setup_add_func askpass_setup
 
-SHUTDOWNFUNCS+=" askpass_shutdown ;"
+setup_shutdown_func askpass_shutdown
 
 askpass_setup() {
 	# These values may also be used by anspass

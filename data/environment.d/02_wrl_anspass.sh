@@ -15,7 +15,7 @@
 
 # Check if we have access to anspassd, if so try to setup anspass.
 
-ADDFUNCS+=" anspass_pre_setup ;"
+setup_add_func anspass_pre_setup
 
 . ${BASEDIR}/data/environment.d/setup_anspass
 

@@ -16,7 +16,7 @@
 # Identify the right path for the Wind River version of git-repo
 # setup the REPO_URL to point there...
 
-ADDFUNCS+=" wr_repo_setup ;"
+setup_add_func wr_repo_setup
 
 # Special windshare folders to search
 REPO_FOLDERS="WRLinux-9-LTS-CVE WRLinux-9-LTS WRLinux-9-Base"

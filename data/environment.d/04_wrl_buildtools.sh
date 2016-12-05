@@ -32,9 +32,9 @@ SDKARCH=$(uname -p)
 
 setup_add_arg --buildtools-branch BUILDTOOLSBRANCH keep
 
-ADDFUNCS+=" buildtools_setup ;"
+setup_add_func buildtools_setup
 
-EXPORTFUNCS+=" buildtools_export ;"
+setup_export_func buildtools_export
 
 . ${BASEDIR}/data/environment.d/setup_utils
 

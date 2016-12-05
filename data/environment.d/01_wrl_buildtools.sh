@@ -17,7 +17,7 @@
 
 BUILDTOOLS="${BUILDTOOLS:-bin/buildtools}"
 
-ADDFUNCS+=" buildtools_pre_setup ;"
+setup_add_func buildtools_pre_setup
 
 unset -v BUILDTOOLS_LOADED
 

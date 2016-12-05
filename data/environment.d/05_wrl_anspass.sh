@@ -15,9 +15,9 @@
 
 # This needs to run after anspass is installed by the buildtools-tarball
 
-ADDFUNCS+=" anspass_post_setup ;"
+setup_add_func anspass_post_setup
 
-SHUTDOWNFUNCS+=" anspass_shutdown ;"
+setup_shutdown_func anspass_shutdown
 
 . ${BASEDIR}/data/environment.d/setup_anspass
 
