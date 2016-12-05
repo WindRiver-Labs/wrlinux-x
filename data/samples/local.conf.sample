@@ -15,7 +15,7 @@
 # Network Control
 #
 # Disable bitbake from being able to access the network
-BB_NO_NETWORK ?= '1'
+#BB_NO_NETWORK ?= '1'
 
 # Only allow downloads from PREMIRRORs
 # If you have enabled download (dl-layers), use this to restrict fetch to those
