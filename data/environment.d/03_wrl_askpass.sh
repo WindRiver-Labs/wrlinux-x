@@ -71,5 +71,7 @@ askpass_setup() {
 askpass_shutdown() {
 	if [ -n "${WRL_ASKPASS_SOCKET}" ]; then
 		${BASEDIR}/data/environment.d/setup_askpass --quit
+		rm -f ${WRL_ASKPASS_SOCKET}
+		unset WRL_ASKPASS_SOCKET
 	fi
 }

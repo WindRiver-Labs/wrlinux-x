@@ -61,23 +61,18 @@ anspass_transfer_dump() {
 	eval echo \${password_${murl}}
 }
 
-anspass_setup() {
-	WINDSHARE_SCHEME=$(echo ${BASEURL} | sed 's,\([^:/]*\).*,\1,')
-	if [ ${WINDSHARE_SCHEME} ]; then
-		WINDSHARE_HOST=$(echo ${BASEURL} | sed 's,\([^:/]*\)://\([^/]*\).*,\2,')
-	fi
-
+anspass_start() {
 	# Do we have anspassd available yet?
 	if ! which anspassd >/dev/null 2>&1 ; then
 		return 0
 	fi
 
 	# Have we already configured anspass?
-	if [ -n "${ANSPASS_TOKEN}" ]; then
+	if [ -n "${ANSPASS_PATH}" -a -n "${ANSPASS_TOKEN}" ]; then
 		return 0
 	fi
 
-	echo "Enabling anspass..."
+	echo "Starting anspass..."
 
 	export ANSPASS_PATH=${PWD}/bin/.anspass
 	result=$(anspassd < /dev/null 2>&1)
@@ -87,11 +82,41 @@ anspass_setup() {
 		return 1
 	fi
 	export ANSPASS_TOKEN=$(echo "$result" | grep "Token:" | head -n 1 | sed 's,Token: ,,')
-	echo "Token: ${ANSPASS_TOKEN}"
+	#echo "Token: ${ANSPASS_TOKEN}"
 	wrl_anspass_started=1
+
+	return 0
+}
+
+
+anspass_setup() {
+	# Do we have anspassd available yet?
+	if ! which anspassd >/dev/null 2>&1 ; then
+		return 0
+	fi
+
+	# Have we already configured anspass?
+	if [ -n "${ANSPASS_PATH}" -a -n "${ANSPASS_TOKEN}" ]; then
+		return 0
+	fi
+
+	WINDSHARE_SCHEME=$(echo ${BASEURL} | sed 's,\([^:/]*\).*,\1,')
+	if [ -n "${WINDSHARE_SCHEME}" ]; then
+		WINDSHARE_HOST=$(echo ${BASEURL} | sed 's,\([^:/]*\)://\([^/]*\).*,\2,')
+	fi
+
+	# Has anspass been started before?
+	if [ -d ${PWD}/bin/.anspass ]; then
+		anspass_start
+		rc=$?
+		if [ $rc != 0 ]; then
+			return $rc
+		fi
+	fi
 
 	# If user/pass passed in, default these first (can't do this for a file path)
 	if [ -n "${WINDSHARE_USER}" -a -n "${WINDSHARE_HOST}" ]; then
+		# If this has already been set, delete it so we can add the new one
 		echo "${WINDSHARE_USER}" | anspass-ctrl --delete ${WINDSHARE_SCHEME}://${WINDSHARE_HOST} > /dev/null 2>&1
 		cat << EOF | anspass-ctrl --add ${WINDSHARE_SCHEME}://${WINDSHARE_HOST} > /dev/null 2>&1
 ${WINDSHARE_USER}
@@ -104,13 +129,15 @@ EOF
 			return 1
 		fi
 	fi
-
-	# askpass was running, transfer entries and shutdown...
-	if [ -n "${WRL_ASKPASS_SOCKET}" ]; then
-		${BASEDIR}/data/environment.d/setup_askpass --dump | anspass_transfer
-		${BASEDIR}/data/environment.d/setup_askpass --quit
-		unset WRL_ASKPASS_SOCKET
-	fi
 	export GIT_ASKPASS=$(which anspass)
 	export SSH_ASKPASS=$(which anspass)
+}
+
+anspass_stop() {
+	if [ -n "${ANSPASS_PATH}" -a -n "${ANSPASS_TOKEN}" ]; then
+		echo "Stopping anspass..."
+		anspass-ctrl --quit >/dev/null 2>&1
+		unset ANSPASS_PATH
+		unset ANSPASS_TOKEN
+	fi
 }

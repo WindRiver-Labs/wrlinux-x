@@ -15,19 +15,36 @@
 
 # Check if we have access to anspassd, if so try to setup anspass.
 
-setup_add_func anspass_pre_setup
+setup_add_func anspass_setup
+
+setup_shutdown_func anspass_early_shutdown
 
 . ${BASEDIR}/data/environment.d/setup_anspass
 
-anspass_pre_setup() {
-	ret=0
-	# If the buildtools have been loaded, we can startup anspass
-	# This avoids errant things that might be in the environment
-	if [ -n "${BUILDTOOLS_LOADED}" ] ; then
-		if which anspassd >/dev/null 2>&1 ; then
-			anspass_setup
-			ret=$?
+# anspass_setup defined in setup_anspass
+
+# This isn't really a shutdown, but a transfer.  Before we stop 'askpass', we
+# need to transfer any credential into anspass.  By this point anspass
+# should be ready for a transfer.
+#
+# If anspass isn't running yet, we have to start it, so we can transfer the
+# credentials.  But it should be shutdown right after.
+#
+# anspass_start defined in setup_anspass
+anspass_early_shutdown() {
+	# Before shutting down, try to transfer askpass items to anspass
+	if [ -n "${WRL_ASKPASS_SOCKET}" ]; then
+		if [ -z "$(${BASEDIR}/data/environment.d/setup_askpass --dump)" ]; then
+			return 0
 		fi
+		# If anspass is not running, we start it so we can transfer
+		# credentials for storage
+		if [ -z "${ANSPASS_PATH}" -o -z "${ANSPASS_TOKEN}" ]; then
+			anspass_start
+		fi
+		echo "Storing credentials into anspass."
+		${BASEDIR}/data/environment.d/setup_askpass --dump | anspass_transfer
+		anspass_stop
 	fi
-	return $ret
+	return 0
 }

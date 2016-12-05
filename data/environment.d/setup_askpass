@@ -33,7 +33,8 @@ sock_dir = os.path.dirname(named_socket)
 sock_name = os.path.basename(named_socket)
 
 # Make sure the socket directory exists
-os.makedirs(sock_dir, exist_ok=True)
+if not os.path.exists(sock_dir):
+    os.makedirs(sock_dir)
 os.chdir(sock_dir)
 
 if sys.argv[1] == '--server':

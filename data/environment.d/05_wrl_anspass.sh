@@ -13,31 +13,33 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-# This needs to run after anspass is installed by the buildtools-tarball
+# Check if we have access to anspassd, if so try to setup anspass.
 
-setup_add_func anspass_post_setup
+setup_add_func anspass_late_setup
 
 setup_shutdown_func anspass_shutdown
 
 . ${BASEDIR}/data/environment.d/setup_anspass
 
-anspass_post_setup() {
-	ret=0
-	# If the buildtools have been loaded, we can startup anspass
-	# This avoids errant things that might be in the environment
-	if [ -n "${BUILDTOOLS_LOADED}" ] ; then
-		if which anspassd >/dev/null 2>&1 ; then
-			anspass_setup
-			ret=$?
-		fi
+# anspass_setup defined in setup_anspass
+anspass_late_setup() {
+	# If we've already started anspass, skip this
+	if [ -n "${ANSPASS_PATH}" -a -n "${ANSPASS_TOKEN}" ]; then
+		return 0
 	fi
-	return $ret
+
+	# We want to use askpass (if enabled), no reason to invoke
+	# anspass yet.... unless the user passed in a user/pass
+	# meaning they want an offline install, no Q's asked.
+	if [ -n "${WINDSHARE_USER}" ]; then
+		anspass_setup
+		return $?
+	fi
+
+	return 0
 }
 
+# anspass_stop defined in setup_anspass
 anspass_shutdown() {
-	# Did we start it?  if so we need to shut it down!
-	if [ -n "${wrl_anspass_started}" ]; then
-		anspass-ctrl --quit >/dev/null
-	fi
+	anspass_stop
 }
-
