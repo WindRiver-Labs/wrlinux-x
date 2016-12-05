@@ -29,17 +29,23 @@ if not named_socket or named_socket == "":
     print('You must specify a named pipe in WRL_ASKPASS_SOCKET.')
     sys.exit(1)
 
+sock_dir = os.path.dirname(named_socket)
+sock_name = os.path.basename(named_socket)
+
+# Make sure the socket directory exists
+os.makedirs(sock_dir, exist_ok=True)
+os.chdir(sock_dir)
 
 if sys.argv[1] == '--server':
     q_cache = {}
 
     try:
-        os.unlink(named_socket)
+        os.unlink(sock_name)
     except:
         pass
 
     s = socket.socket(socket.AF_UNIX)
-    s.bind(named_socket)
+    s.bind(sock_name)
     s.listen(1)
     quit = False
     while not quit:
@@ -82,7 +88,7 @@ if sys.argv[1] == '--server':
 
 if sys.argv[1] == '--quit':
     s = socket.socket(socket.AF_UNIX)
-    s.connect(named_socket)
+    s.connect(sock_name)
     s.send('x')
     s.close()
     sys.exit(0)
@@ -91,14 +97,14 @@ if sys.argv[1] == '--set':
     result = sys.stdin.readline()
 
     s = socket.socket(socket.AF_UNIX)
-    s.connect(named_socket)
+    s.connect(sock_name)
     s.send('s' + sys.argv[2] + '\n' + 'A' + result)
     s.close()
     sys.exit(0)
 
 if sys.argv[1] == '--dump':
     s = socket.socket(socket.AF_UNIX)
-    s.connect(named_socket)
+    s.connect(sock_name)
     s.send('d')
     while 1:
         result = s.recv(1024)
@@ -109,7 +115,7 @@ if sys.argv[1] == '--dump':
     sys.exit(0)
 
 s = socket.socket(socket.AF_UNIX)
-s.connect(named_socket)
+s.connect(sock_name)
 s.send('q' + sys.argv[1])
 result = s.recv(1024)
 s.close()
@@ -118,7 +124,7 @@ if result:
     sys.exit(0)
 
 s = socket.socket(socket.AF_UNIX)
-s.connect(named_socket)
+s.connect(sock_name)
 s.send('qtty')
 tty_file = s.recv(1024)[1:]
 s.close()
@@ -139,12 +145,12 @@ with open(tty_file, 'rw+') as tty_fd:
         result = tty_fd.readline()
 
 s = socket.socket(socket.AF_UNIX)
-s.connect(named_socket)
+s.connect(sock_name)
 s.send('s' + question + '\n' + 'A' + result)
 s.close()
 
 s = socket.socket(socket.AF_UNIX)
-s.connect(named_socket)
+s.connect(sock_name)
 s.send('q' + sys.argv[1])
 result = s.recv(1024)
 s.close()
