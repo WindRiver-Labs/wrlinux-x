@@ -39,10 +39,6 @@ class Windshare():
 
         (uscheme, uloc, upath, uquery, ufragid) = urlsplit(base_url)
 
-        # TODO: Deal with file level access for WS offline mode
-        if uscheme != "http" and uscheme != "https":
-            return (None, None, None)
-
         # What folder are we in?
         ws_base_folder = os.path.basename(upath)
 
@@ -56,6 +52,11 @@ class Windshare():
 
         # Magic URL to the entitlement file
         ws_entitlement_url = ws_base_url + '/wrlinux-9.json'
+
+        # If no uscheme, this is file access, check here if an entitlement
+        # file exists.  If not, we know we're not windshare.
+        if not uscheme and not os.path.exists(ws_entitlement_url):
+            return (None, None, None)
 
         return (ws_base_url, ws_base_folder, ws_entitlement_url)
 
