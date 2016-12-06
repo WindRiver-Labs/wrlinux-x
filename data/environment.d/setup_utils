@@ -48,6 +48,12 @@ setup_check_url() {
 		return 1
 	fi
 
+	# This error is unique to git servers
+	if [ "${err}" != "${err/access denied or repository not exported/}" ]; then
+		# This is just a bad path, git repo not found error
+		return 1
+	fi
+
 	# Unknown error
 	echo "An unknown error occured looking for $1" >&2
 	echo "$err" >&2
