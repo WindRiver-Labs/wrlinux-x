@@ -112,6 +112,8 @@ anspass_setup() {
 		if [ $rc != 0 ]; then
 			return $rc
 		fi
+	else
+		return 0
 	fi
 
 	# If user/pass passed in, default these first (can't do this for a file path)
