@@ -54,7 +54,7 @@ $ LANG=en_US.UTF-8 bitbake core-image-minimal
 Once your have built an image, you can boot this using QEMU (for compatible
 MACHINE settings) using the 'runqemu' command, such as:
 
-$ runqemu ####DEFAULTMACHINE####
+$ runqemu qemux86-64
 
 
 To update your project
