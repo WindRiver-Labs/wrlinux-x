@@ -13,4 +13,4 @@ Common Yocto Project images, typically built with distro poky, are:
     core-image-base
     core-image-sato
 
-You can also run generated qemu images with a command like 'runqemu ####DEFAULTMACHINE####'
+You can also run generated qemu images with a command like 'runqemu qemux86-64'
