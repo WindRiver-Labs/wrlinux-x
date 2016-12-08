@@ -24,9 +24,9 @@ Basic setup/usage workflow:
 The setup program is expected to have been cloned inside of a project
 directory, such as:
 
-$ mkdir my-project
-$ cd my-project
-$ git clone --branch <branch> <url> wrlinux-9
+    $ mkdir my-project
+    $ cd my-project
+    $ git clone --branch <branch> <url> wrlinux-9
 
 Once cloned, simply run the setup.sh (./wrlinux-9/setup.sh) to get a list
 of options.  The setup program will construct a new git repository in the
@@ -44,10 +44,10 @@ with the same arguments.
 
 Mirror workflow:
 
-$ mkdir my-mirror
-$ cd my-mirror
-$ git clone --branch <branch> <url> wrlinux-9
-$ ./wrlinux-9/setup.sh --all-layers --mirror
+    $ mkdir my-mirror
+    $ cd my-mirror
+    $ git clone --branch <branch> <url> wrlinux-9
+    $ ./wrlinux-9/setup.sh --all-layers --mirror
 
 The above command will mirror all layers, including download layers into the
 current location.
@@ -58,9 +58,9 @@ with the same arguments.
 
 A user can reference this mirror by doing:
 
-$ mkdir my-project
-$ cd my-project
-$ git clone --branch master <path_to_mirror>/wrlinux-9
+    $ mkdir my-project
+    $ cd my-project
+    $ git clone --branch master <path_to_mirror>/wrlinux-9
 
 and then run the wrlinux-9/setup.sh program as described above.
 
