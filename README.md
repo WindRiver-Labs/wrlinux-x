@@ -16,6 +16,22 @@ The tool also configures various sample files that are used by
 oe-init-build-env to construct your build directory.
 
 
+Documentation
+-------------
+
+For documentation, see the Wind River Knowledge Library, specifically
+the section on Wind River Linux 9:
+https://knowledge.windriver.com/en-us/000_Products/000/010/050
+
+It is suggested that you start with _The Wind River Linux Platform Development
+Quick Start, 9_.
+
+For the quickstart and other examples, use
+
+branchName: WRLINUX_9_BASE
+repoURL: git://github.com/WindRiver-OpenSourceLabs/wrlinux-9.git
+
+
 Workflows
 ---------
 
@@ -24,9 +40,9 @@ Basic setup/usage workflow:
 The setup program is expected to have been cloned inside of a project
 directory, such as:
 
-$ mkdir my-project
-$ cd my-project
-$ git clone --branch <branch> <url> wrlinux-9
+    $ mkdir my-project
+    $ cd my-project
+    $ git clone --branch <branchName> <repoURL> wrlinux-9
 
 Once cloned, simply run the setup.sh (./wrlinux-9/setup.sh) to get a list
 of options.  The setup program will construct a new git repository in the
@@ -44,10 +60,10 @@ with the same arguments.
 
 Mirror workflow:
 
-$ mkdir my-mirror
-$ cd my-mirror
-$ git clone --branch <branch> <url> wrlinux-9
-$ ./wrlinux-9/setup.sh --all-layers --mirror
+    $ mkdir my-mirror
+    $ cd my-mirror
+    $ git clone --branch <branchName> <repoURL> wrlinux-9
+    $ ./wrlinux-9/setup.sh --all-layers --mirror
 
 The above command will mirror all layers, including download layers into the
 current location.
@@ -58,9 +74,9 @@ with the same arguments.
 
 A user can reference this mirror by doing:
 
-$ mkdir my-project
-$ cd my-project
-$ git clone --branch master <path_to_mirror>/wrlinux-9
+    $ mkdir my-project
+    $ cd my-project
+    $ git clone --branch master <path_to_mirror>/wrlinux-9
 
 and then run the wrlinux-9/setup.sh program as described above.
 
