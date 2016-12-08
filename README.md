@@ -26,10 +26,15 @@ https://knowledge.windriver.com/en-us/000_Products/000/010/050
 It is suggested that you start with _The Wind River Linux Platform Development
 Quick Start, 9_.
 
-For the quickstart and other examples, use
+The branchName and repoURL should have been provided to you by the download
+system.
 
-branchName: WRLINUX_9_BASE
-repoURL: git://github.com/WindRiver-OpenSourceLabs/wrlinux-9.git
+If you wish to download documentation for offline usage, run the following
+command:
+
+    $ git clone --branch <branchName> <repoURL>/../wrlinux-docs-9
+
+The documentation will be downloaded into the directory wrlinux-docs-9.
 
 
 Workflows
@@ -82,6 +87,17 @@ and then run the wrlinux-9/setup.sh program as described above.
 
 Note: the bin/settings.py file contains url REPLACE operations that may be
 required to reference the local mirror items.
+
+
+IP Compliance Artifacts
+-----------------------
+
+In order to download the Wind River Linux 9 IP Compliance Artifacts/Documents,
+run the following command:
+
+    $ git clone --branch <branchName> <repoURL>/../ip-disclosures-9
+
+The directory ip-disclosures-9 will contain the associated documents.
 
 
 License
