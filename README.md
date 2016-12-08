@@ -16,6 +16,22 @@ The tool also configures various sample files that are used by
 oe-init-build-env to construct your build directory.
 
 
+Documentation
+-------------
+
+For documentation, see the Wind River Knowledge Library, specifically
+the section on Wind River Linux 9:
+https://knowledge.windriver.com/en-us/000_Products/000/010/050
+
+It is suggested that you start with _The Wind River Linux Platform Development
+Quick Start, 9_.
+
+For the quickstart and other examples, use
+
+branchName: WRLINUX_9_BASE
+repoURL: git://github.com/WindRiver-OpenSourceLabs/wrlinux-9.git
+
+
 Workflows
 ---------
 
@@ -26,7 +42,7 @@ directory, such as:
 
     $ mkdir my-project
     $ cd my-project
-    $ git clone --branch <branch> <url> wrlinux-9
+    $ git clone --branch <branchName> <repoURL> wrlinux-9
 
 Once cloned, simply run the setup.sh (./wrlinux-9/setup.sh) to get a list
 of options.  The setup program will construct a new git repository in the
@@ -46,7 +62,7 @@ Mirror workflow:
 
     $ mkdir my-mirror
     $ cd my-mirror
-    $ git clone --branch <branch> <url> wrlinux-9
+    $ git clone --branch <branchName> <repoURL> wrlinux-9
     $ ./wrlinux-9/setup.sh --all-layers --mirror
 
 The above command will mirror all layers, including download layers into the
