@@ -28,7 +28,7 @@ BUILDTOOLS_GIT="${BUILDTOOLS_GIT:-bin/buildtools.git}"
 BUILDTOOLS="${BUILDTOOLS:-bin/buildtools}"
 
 # Arch of the SDK to load
-SDKARCH=$(uname -p)
+SDKARCH=${SDKARCH:-$(uname -m)}
 
 setup_add_arg --buildtools-branch BUILDTOOLSBRANCH keep
 
@@ -129,7 +129,13 @@ buildtools_setup() {
 		# Needs python.
 		buildtoolssdk=$(find "${BUILDTOOLS_GIT}" -name "${SDKARCH}-buildtools-nativesdk-standalone-*.sh" 2>/dev/null | sort | head -n1)
 		if [ -z "${buildtoolssdk}" ]; then
-			echo "Unable to find ${SDKARCH} buildtools-nativesdk-standalone archive in ${PWD}/buildtools/" >&2
+			echo "Unable to find buildtools-nativesdk-standalone archive for ${SDKARCH}." >&2
+			echo >&2
+			echo "SDKARCH values found:" >&2
+			echo $(find "${BUILDTOOLS_GIT}" -name "*-buildtools-nativesdk-standalone-*.sh" | xargs -n 1 basename | cut -d '-' -f 1) >&2
+			echo >&2
+			echo "If one of these is compatible, set SDKARCH in your environment." >&2
+			echo >&2
 			return 1
 		fi
 		echo "Installing buildtools.."
