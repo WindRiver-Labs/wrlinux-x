@@ -72,7 +72,7 @@ class Windshare():
             if not up.scheme:
                 # Check for it on the disk...
                 if os.path.exists(wsurl):
-                    parsed = json.load(open(path, 'rt', encoding='utf-8'))
+                    parsed = json.load(open(wsurl, 'rt', encoding='utf-8'))
                 else:
                     return None
             else:
