@@ -26,7 +26,7 @@ anspass_transfer() {
 				;;
 			Password*)
 				url=$(echo $line | sed "s,Password for '\(.*\)': *,\1,")
-				url=$(echo $url | sed "s,\([^:]*://\)\([^@]*@\)\(.*\),\1\3,")
+				url=$(echo $url | sed "s,\([^:]*://\)\(.*\)@\([^@]*\),\1\3,")
 				type=password
 				;;
 			*)
