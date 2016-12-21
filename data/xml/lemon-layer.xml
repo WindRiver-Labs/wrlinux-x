@@ -1,0 +1,1 @@
+    <project name="layers/examples/gits/lemon_server_git" remote="base" path="layers/lemon_layer/git/lemon_server.git" bare="True"/>
