@@ -17,3 +17,4 @@
     <project name="external/yocto/github.com.wkz.phytool" remote="base" path="layers/meta-networking-dl-2.2/git/github.com.wkz.phytool.git" bare="True"/>
     <project name="external/yocto/github.com.luigirizzo.netmap" remote="base" path="layers/meta-networking-dl-2.2/git/github.com.luigirizzo.netmap.git" bare="True"/>
     <project name="external/yocto/github.com.open-iscsi.open-iscsi" remote="base" path="layers/meta-networking-dl-2.2/git/github.com.open-iscsi.open-iscsi" bare="True"/>
+    <project name="external/yocto/github.com.open-iscsi.open-isns" remote="base" path="layers/meta-networking-dl-2.2/git/github.com.open-iscsi.open-isns" bare="True"/>
