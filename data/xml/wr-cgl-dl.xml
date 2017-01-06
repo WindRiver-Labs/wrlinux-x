@@ -1,1 +1,2 @@
     <project name="external/yocto/oss.oracle.com.git.ocfs2-tools" remote="base" path="layers/wr-cgl-dl/git/oss.oracle.com.git.ocfs2-tools.git" bare="True"/>
+    <project name="external/yocto/git.umip.org.umip" remote="base" path="layers/wr-cgl-dl/git/git.umip.org.umip.git" bare="True"/>
