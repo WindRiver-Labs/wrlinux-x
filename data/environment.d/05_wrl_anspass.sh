@@ -15,11 +15,13 @@
 
 # Check if we have access to anspassd, if so try to setup anspass.
 
+if [ "$NO_ANSPASS" = "" ] ; then
 setup_add_func anspass_late_setup
 
 setup_shutdown_func anspass_shutdown
 
 . ${BASEDIR}/data/environment.d/setup_anspass
+fi
 
 # anspass_setup defined in setup_anspass
 anspass_late_setup() {
