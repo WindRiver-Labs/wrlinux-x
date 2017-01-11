@@ -15,11 +15,22 @@
 
 # Check if we have access to anspassd, if so try to setup anspass.
 
+# Quick walk through args to look for --no-anspass 
+#  We do it here because we need to decide right now if the anspass
+#  needs to be started/stopped
+
+args="$@"
+if [ "${args/--no-anspass//}" != "${args}" ] ; then
+	export NO_ANSPASS=1
+fi
+
+if [ "$NO_ANSPASS" = "" ] ; then
 setup_add_func anspass_setup
 
 setup_shutdown_func anspass_early_shutdown
 
 . ${BASEDIR}/data/environment.d/setup_anspass
+fi
 
 # anspass_setup defined in setup_anspass
 

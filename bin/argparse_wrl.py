@@ -40,6 +40,10 @@ class Argparse_Wrl(Argparse_Setup):
             # ignore (handled by setup.sh)
             del parsed_args.password
 
+        if parsed_args.no_anspass:
+            # ignore (handled by setup.sh)
+            del parsed_args.no_anspass
+
         if (parsed_args.accept_eula):
             # ignore (handled by setup.sh)
             del parsed_args.accept_eula
@@ -80,6 +84,7 @@ class Argparse_Wrl(Argparse_Setup):
         self.base_args.add_argument('--user', help='Specify default user for download')
         self.base_args.add_argument('--password', help='Specify default password for download')
         self.base_args.add_argument('--accept-eula', metavar="ACCEPT", help='Accept End User License Agreement (yes|no)')
+        self.base_args.add_argument('--no-anspass', action='store_true', help='Do not use anspass to save the user name and password')
 
     def add_list_options(self):
         Argparse_Setup.add_list_options(self)
