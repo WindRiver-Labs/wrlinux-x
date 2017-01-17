@@ -1,0 +1,2 @@
+    <project name="external/yocto/github.com.schnitzeltony.xfce4-settings" remote="base" path="layers/meta-xfce-dl-2.3/git/github.com.schnitzeltony.xfce4-settings.git" bare="True"/>
+    <project name="external/yocto/github.com.schnitzeltony.xfce4-closebutton-plugin" remote="base" path="layers/meta-xfce-dl-2.3/git/github.com.schnitzeltony.xfce4-closebutton-plugin.git" bare="True"/>
