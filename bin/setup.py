@@ -397,15 +397,16 @@ class Setup():
 
         # Add all layers -- if necessary
         if self.all_layers == True:
+            # dl layers are always added as recommends in an --all-layers mode
+            self.dl_layers = True
             for lindex in self.index.index:
                 branchid = self.index.getBranchId(lindex, self.get_branch(lindex=lindex))
                 if not branchid:
                     continue
                 for l in lindex['layerItems']:
                     for layerBranch in self.index.getLayerBranch(lindex, branchid, layerItem=l) or []:
-                        # dl layers are always added as recommends in an --all-layers mode
                         if '-dl-' in l['name'] or l['name'].endswith('-dl'):
-                            recommendedQueue.append( (lindex, layerBranch) )
+                            continue
                         else:
                             requiredQueue.append( (lindex, layerBranch) )
 
