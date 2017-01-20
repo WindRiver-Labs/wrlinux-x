@@ -29,3 +29,4 @@
     <project name="external/yocto/git.0pointer.de.libatasmart" remote="base" path="layers/meta-oe-dl-2.3/git/git.0pointer.de.libatasmart.git" bare="True"/>
     <project name="external/yocto/github.com.google.leveldb" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.google.leveldb.git" bare="True"/>
     <project name="external/yocto/github.com.google.glog" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.google.glog.git" bare="True"/>
+    <project name="external/yocto/github.com.opencv.opencv" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.opencv.opencv.git" bare="True"/>
