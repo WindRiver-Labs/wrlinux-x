@@ -18,3 +18,4 @@
     <project name="external/yocto/github.com.luigirizzo.netmap" remote="base" path="layers/meta-networking-dl-2.3/git/github.com.luigirizzo.netmap.git" bare="True"/>
     <project name="external/yocto/github.com.open-iscsi.open-iscsi" remote="base" path="layers/meta-networking-dl-2.3/git/github.com.open-iscsi.open-iscsi" bare="True"/>
     <project name="external/yocto/github.com.open-iscsi.open-isns" remote="base" path="layers/meta-networking-dl-2.3/git/github.com.open-iscsi.open-isns" bare="True"/>
+    <project name="external/yocto/github.com.sctplab.usrsctp" remote="base" path="layers/meta-networking-dl-2.3/git/github.com.sctplab.usrsctp" bare="True"/>
