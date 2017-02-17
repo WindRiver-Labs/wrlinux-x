@@ -23,10 +23,9 @@
     <project name="external/yocto/tipc.git.sourceforge.net.gitroot.tipc.tipcutils" remote="base" path="layers/meta-oe-dl-2.3/git/tipc.git.sourceforge.net.gitroot.tipc.tipcutils" bare="True"/>
     <project name="external/yocto/github.com.rsyslog.libfastjson" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.rsyslog.libfastjson.git" bare="True"/>
     <project name="external/yocto/github.com.rsyslog.librelp" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.rsyslog.librelp.git" bare="True"/>
-    <project name="external/yocto/github.com.Itseez.opencv" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.Itseez.opencv.git" bare="True"/>
-    <project name="external/yocto/github.com.Itseez.opencv_contrib" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.Itseez.opencv_contrib.git" bare="True"/>
-    <project name="external/yocto/github.com.Itseez.opencv_3rdparty" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.Itseez.opencv_3rdparty.git" bare="True"/>
     <project name="external/yocto/git.0pointer.de.libatasmart" remote="base" path="layers/meta-oe-dl-2.3/git/git.0pointer.de.libatasmart.git" bare="True"/>
     <project name="external/yocto/github.com.google.leveldb" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.google.leveldb.git" bare="True"/>
     <project name="external/yocto/github.com.google.glog" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.google.glog.git" bare="True"/>
     <project name="external/yocto/github.com.opencv.opencv" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.opencv.opencv.git" bare="True"/>
+    <project name="external/yocto/github.com.opencv.opencv_contrib" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.opencv.opencv_contrib.git" bare="True"/>
+    <project name="external/yocto/github.com.opencv.opencv_3rdparty" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.opencv.opencv_3rdparty.git" bare="True"/>
