@@ -78,7 +78,7 @@ def run_cmd(cmd, environment=None, cwd=None, log=1, expected_ret=0, err=b'GitErr
 def fetch_url(url=None, auth=False):
     assert url is not None
 
-    from urllib.request import urlopen, URLError
+    from urllib.request import urlopen, Request, URLError
     from urllib.parse import urlparse
 
     if auth:
@@ -136,7 +136,7 @@ def fetch_url(url=None, auth=False):
     logger.debug("Fetching %s..." % url)
 
     try:
-        res = urlopen(url)
+        res = urlopen(Request(url, headers={'User-Agent': 'Mozilla/5.0 (Wind River Linux/setup.sh)'}, unverifiable=True))
     except URLError as e:
         if not auth and hasattr(e, 'code') and e.code == 401:
             res = fetch_url(url, auth=True)
