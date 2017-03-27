@@ -82,3 +82,4 @@
     <project name="external/yocto/sourceware.org.git.systemtap" remote="base" path="layers/oe-core-dl-2.3/git/sourceware.org.git.systemtap.git" bare="True"/>
     <project name="external/yocto/anongit.freedesktop.org.xorg.driver.xf86-video-intel" remote="base" path="layers/oe-core-dl-2.3/git/anongit.freedesktop.org.xorg.driver.xf86-video-intel" bare="True"/>
     <project name="external/yocto/anonscm.debian.org.collab-maint.xf86-video-omapfb" remote="base" path="layers/oe-core-dl-2.3/git/anonscm.debian.org.collab-maint.xf86-video-omapfb.git" bare="True"/>
+    <project name="external/yocto/ymorin.is-a-geek.org.kconfig-frontends" remote="base" path="layers/oe-core-dl-2.3/git/ymorin.is-a-geek.org.kconfig-frontends" bare="True"/>
