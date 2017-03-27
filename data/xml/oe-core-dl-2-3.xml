@@ -91,3 +91,4 @@
     <project name="external/yocto/github.com.rpm-software-management.rpm" remote="base" path="layers/oe-core-dl-2.3/git/github.com.rpm-software-management.rpm" bare="True"/>
     <project name="external/yocto/github.com.tianocore.edk2" remote="base" path="layers/oe-core-dl-2.3/git/github.com.tianocore.edk2.git" bare="True"/>
     <project name="external/yocto/github.com.rpm-software-management.librepo" remote="base" path="layers/oe-core-dl-2.3/git/github.com.rpm-software-management.librepo.git" bare="True"/>
+    <project name="external/yocto/github.com.rpm-software-management.libcomps" remote="base" path="layers/oe-core-dl-2.3/git/github.com.rpm-software-management.libcomps.git" bare="True"/>
