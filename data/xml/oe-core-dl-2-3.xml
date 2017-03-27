@@ -88,3 +88,4 @@
     <project name="external/yocto/github.com.rpm-software-management.dnf" remote="base" path="layers/oe-core-dl-2.3/git/github.com.rpm-software-management.dnf.git" bare="True"/>
     <project name="external/yocto/github.com.peterjc.backports.lzma" remote="base" path="layers/oe-core-dl-2.3/git/github.com.peterjc.backports.lzma.git" bare="True"/>
     <project name="external/yocto/github.com.01org.libva" remote="base" path="layers/oe-core-dl-2.3/git/github.com.01org.libva.git" bare="True"/>
+    <project name="external/yocto/github.com.rpm-software-management.rpm" remote="base" path="layers/oe-core-dl-2.3/git/github.com.rpm-software-management.rpm" bare="True"/>
