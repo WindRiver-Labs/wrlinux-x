@@ -1,8 +1,11 @@
 wrlinux-9 setup
 ===============
 
-With this tool you can either create a new distribution builder project, or
-create a mirror that other projects can be based on.
+With this tool you can either create a new distribution builder platform
+project, or create a mirror that other projects can be based on.
+
+In addition, you can use the tool to obtain information about available
+project configuration options.
 
 The tool uses a layer index (such as layers.openembedded.org), as specified in
 the bin/settings.py file, to determine what layers are required to construct
@@ -23,8 +26,8 @@ For documentation, see the Wind River Knowledge Library, specifically
 the section on Wind River Linux 9:
 https://knowledge.windriver.com/en-us/000_Products/000/010/050
 
-It is suggested that you start with _The Wind River Linux Platform Development
-Quick Start, 9_.
+It is suggested that you start with:
+_The Wind River Linux Platform Development Quick Start, 9_.
 
 The branchName and repoURL should have been provided to you by the download
 system.
@@ -59,8 +62,8 @@ settings.  However, your build directory will not be touched.  You will have
 to resync it with the updated project.  (Specifically bblayers.conf and
 local.conf to the config/*.sample versions.)
 
-To update your project, you may run 'repo sync' or re-run the setup program
-with the same arguments.
+To update your project, re-run the setup program with the same arguments.
+Note the original arguments are available in the generated README file.
 
 
 Mirror workflow:
@@ -71,22 +74,19 @@ Mirror workflow:
     $ ./wrlinux-9/setup.sh --all-layers --mirror
 
 The above command will mirror all layers, including download layers into the
-current location.
+current location, for the branch specified.
 
-To update the mirror, simply run 'repo sync' or re-run the setup.sh command
-with the same arguments.
-
+To update the mirror, re-run the setup.sh command with the same arguments.
+To add additional branches to your mirror, change the branch in the wrlinux-9,
+and re-run the setup.sh with the same arguments.
 
 A user can reference this mirror by doing:
 
     $ mkdir my-project
     $ cd my-project
-    $ git clone --branch master <path_to_mirror>/wrlinux-9
+    $ git clone --branch <branchName> <path_to_mirror>/wrlinux-9
 
 and then run the wrlinux-9/setup.sh program as described above.
-
-Note: the bin/settings.py file contains url REPLACE operations that may be
-required to reference the local mirror items.
 
 
 IP Compliance Artifacts
