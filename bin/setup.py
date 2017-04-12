@@ -267,7 +267,7 @@ class Setup():
         mirror_index_path = None
 
         from windshare import Windshare
-        ws = Windshare()
+        ws = Windshare(debug=self.debug_lvl)
 
         # Determine if this is a windshare install
         (ws_base_url, ws_base_folder, ws_entitlement_url) = ws.get_windshare_urls(self.base_url)
@@ -1150,6 +1150,7 @@ class Setup():
             self.force_sync = '--force-sync'
 
     def set_debug(self):
+        self.debug_lvl += 1
         self.set_debug_env()
         self.quiet = None
         logger.setLevel(logging.DEBUG)
