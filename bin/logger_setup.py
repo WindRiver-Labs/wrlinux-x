@@ -120,3 +120,19 @@ class ScreenFormatter(logging.Formatter):
         return result
 
 
+# Add a class to emulate stdout/stderr
+class LoggerOut:
+    def __init__(self, logger):
+        self.logger = logger
+
+    def write(self, message):
+        # We skip any lines that are simply a '\n'.
+        # The logger always ends in the equivalent of a \n, and many programs
+        # seem to like to insert blank lines using '\n' which makes the
+        # logging confusing.
+        if message != '\n':
+            self.logger(message)
+
+    def flush(self):
+        # We print all messages immediately, so flush is a no-op.
+        pass

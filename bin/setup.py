@@ -35,6 +35,11 @@ import settings
 
 logger = logger_setup.setup_logging()
 
+# Redirect stdout and stderr to the custom logger.  This allows us to use
+# python modules that may output only via stdout/stderr.
+sys.stdout = logger_setup.LoggerOut(logger.info)
+sys.stderr = logger_setup.LoggerOut(logger.error)
+
 class Setup():
 
     tool_list = ['repo', 'git']
