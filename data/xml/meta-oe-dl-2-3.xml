@@ -29,3 +29,4 @@
     <project name="external/yocto/github.com.opencv.opencv" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.opencv.opencv.git" bare="True"/>
     <project name="external/yocto/github.com.opencv.opencv_contrib" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.opencv.opencv_contrib.git" bare="True"/>
     <project name="external/yocto/github.com.opencv.opencv_3rdparty" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.opencv.opencv_3rdparty.git" bare="True"/>
+    <project name="external/yocto/github.com.Linutronix.minicoredumper-debian" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.Linutronix.minicoredumper-debian" bare="True"/>
