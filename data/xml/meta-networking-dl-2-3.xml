@@ -20,3 +20,4 @@
     <project name="external/yocto/github.com.open-iscsi.open-isns" remote="base" path="layers/meta-networking-dl-2.3/git/github.com.open-iscsi.open-isns" bare="True"/>
     <project name="external/yocto/github.com.sctplab.usrsctp" remote="base" path="layers/meta-networking-dl-2.3/git/github.com.sctplab.usrsctp" bare="True"/>
     <project name="external/yocto/github.com.jpbarrette.curlpp" remote="base" path="layers/meta-networking-dl-2.3/git/github.com.jpbarrette.curlpp.git" bare="True"/>
+    <project name="external/yocto/git.netfilter.org.arptables" remote="base" path="layers/meta-networking-dl-2.3/git/git.netfilter.org.arptables" bare="True"/>
