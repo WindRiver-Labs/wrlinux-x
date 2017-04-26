@@ -23,3 +23,4 @@
     <project name="external/yocto/git.netfilter.org.arptables" remote="base" path="layers/meta-networking-dl-2.3/git/git.netfilter.org.arptables" bare="True"/>
     <project name="external/yocto/git.netfilter.org.libnetfilter_queue" remote="base" path="layers/meta-networking-dl-2.3/git/git.netfilter.org.libnetfilter_queue" bare="True"/>
     <project name="external/yocto/github.com.ndpgroup.vpnc" remote="base" path="layers/meta-networking-dl-2.3/git/github.com.ndpgroup.vpnc" bare="True"/>
+    <project name="external/yocto/git.netfilter.org.libnftnl" remote="base" path="layers/meta-networking-dl-2.3/git/git.netfilter.org.libnftnl" bare="True"/>
