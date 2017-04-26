@@ -25,3 +25,4 @@
     <project name="external/yocto/github.com.ndpgroup.vpnc" remote="base" path="layers/meta-networking-dl-2.3/git/github.com.ndpgroup.vpnc" bare="True"/>
     <project name="external/yocto/git.netfilter.org.libnftnl" remote="base" path="layers/meta-networking-dl-2.3/git/git.netfilter.org.libnftnl" bare="True"/>
     <project name="external/yocto/github.com.tomaszmrugalski.dibbler" remote="base" path="layers/meta-networking-dl-2.3/git/github.com.tomaszmrugalski.dibbler" bare="True"/>
+    <project name="external/yocto/github.com.dugsong.libdnet" remote="base" path="layers/meta-networking-dl-2.3/git/github.com.dugsong.libdnet.git" bare="True"/>
