@@ -35,6 +35,11 @@ import settings
 
 logger = logger_setup.setup_logging()
 
+# Redirect stdout and stderr to the custom logger.  This allows us to use
+# python modules that may output only via stdout/stderr.
+sys.stdout = logger_setup.LoggerOut(logger.info)
+sys.stderr = logger_setup.LoggerOut(logger.error)
+
 class Setup():
 
     tool_list = ['repo', 'git']
@@ -262,7 +267,7 @@ class Setup():
         mirror_index_path = None
 
         from windshare import Windshare
-        ws = Windshare()
+        ws = Windshare(debug=self.debug_lvl)
 
         # Determine if this is a windshare install
         (ws_base_url, ws_base_folder, ws_entitlement_url) = ws.get_windshare_urls(self.base_url)
@@ -1145,6 +1150,7 @@ class Setup():
             self.force_sync = '--force-sync'
 
     def set_debug(self):
+        self.debug_lvl += 1
         self.set_debug_env()
         self.quiet = None
         logger.setLevel(logging.DEBUG)

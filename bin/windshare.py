@@ -29,10 +29,11 @@ import utils_setup
 
 logger = logger_setup.setup_logging()
 class Windshare():
-    def __init__(self):
+    def __init__(self, debug=0):
         self.folders = None
         self.indexes = {}
         self.xmls = {}
+        self.debug = debug
 
     def get_windshare_urls(self, base_url):
         from urllib.parse import urlsplit, urlunsplit
@@ -77,8 +78,10 @@ class Windshare():
                     return None
             else:
                 # Go out to the network...
-                res = utils_setup.fetch_url(wsurl)
-                parsed = json.loads(res.read().decode('utf-8'))
+                res = utils_setup.fetch_url(wsurl, debuglevel=self.debug)
+                result = res.read().decode('utf-8')
+                logger.debug('Result:\n%s' % result)
+                parsed = json.loads(result)
 
             return parsed
 
