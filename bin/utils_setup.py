@@ -75,15 +75,14 @@ def run_cmd(cmd, environment=None, cwd=None, log=1, expected_ret=0, err=b'GitErr
         raise Exception(msg)
     logger.debug('Finished running cmd: "%s"' % repr(cmd))
 
-def fetch_url(url=None, auth=False):
+def fetch_url(url=None, auth=False, debuglevel=0):
     assert url is not None
 
-    from urllib.request import urlopen, URLError
+    import urllib
+    from urllib.request import urlopen, Request
     from urllib.parse import urlparse
 
     if auth:
-        import urllib
-
         logger.debug("Configuring authentication for %s..." % url)
 
         up = urlparse(url)
@@ -130,22 +129,27 @@ def fetch_url(url=None, auth=False):
         password_mgr = urllib.request.HTTPPasswordMgrWithDefaultRealm()
         password_mgr.add_password(None, "%s://%s" % (up.scheme, up.netloc), uname, passwd)
         handler = urllib.request.HTTPBasicAuthHandler(password_mgr)
-        opener = urllib.request.build_opener(handler)
-        urllib.request.install_opener(opener)
+        opener = urllib.request.build_opener(handler, urllib.request.HTTPHandler(debuglevel=debuglevel))
+    else:
+        opener = urllib.request.build_opener(urllib.request.HTTPHandler(debuglevel=debuglevel))
+
+    urllib.request.install_opener(opener)
 
     logger.debug("Fetching %s..." % url)
 
     try:
-        res = urlopen(url)
-    except URLError as e:
-        if not auth and hasattr(e, 'code') and e.code == 401:
+        res = urlopen(Request(url, headers={'User-Agent': 'Mozilla/5.0 (Wind River Linux/setup.sh)'}, unverifiable=True))
+    except urllib.error.HTTPError as e:
+        logger.debug("HTTP Error for %s: %s: %s" % (url, e.code, e.reason))
+        logger.debug("Headers:\n%s" % (e.headers))
+        if not auth and e.code == 401:
+            logger.debug("Retrying with authentication...")
             res = fetch_url(url, auth=True)
-        elif auth:
-            logger.critical("Failed to connect to: %s" % url)
-            logger.critical(e)
-            raise e
         else:
-            raise
+            raise e
+    except urllib.error.URLError as e:
+        logger.critical("URL Error for %s: %s" % e.reason)
+        raise e
 
     logger.debug("done.")
 
