@@ -1,0 +1,1 @@
+    <project name="external/yocto/github.com.WindRiver-OpenSourceLabs.cryptfs-tpm2.git" remote="base" path="layers/meta-encrypted-storage-dl/git/github.com.WindRiver-OpenSourceLabs.cryptfs-tpm2.git" bare="True"/>

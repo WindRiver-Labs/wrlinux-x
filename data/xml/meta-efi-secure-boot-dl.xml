@@ -1,0 +1,6 @@
+    <project name="external/yocto/github.com.jiazhang0.SELoader.git" remote="base" path="layers/meta-efi-secure-boot-dl/git/github.com.jiazhang0.SELoader.git" bare="True"/>
+    <project name="external/yocto/git.kernel.org.pub.scm.linux.kernel.git.jejb.efitools.git" remote="base" path="layers/meta-efi-secure-boot-dl/git/git.kernel.org.pub.scm.linux.kernel.git.jejb.efitools.git" bare="True"/>
+    <project name="external/yocto/github.com.rhinstaller.shim.git" remote="base" path="layers/meta-efi-secure-boot-dl/git/github.com.rhinstaller.shim.git" bare="True"/>
+    <project name="external/yocto/github.com.jiazhang0.libsign.git" remote="base" path="layers/meta-efi-secure-boot-dl/git/github.com.jiazhang0.libsign.git" bare="True"/>
+    <project name="external/yocto/kernel.ubuntu.com.jk.sbsigntool" remote="base" path="layers/meta-efi-secure-boot-dl/git/kernel.ubuntu.com.jk.sbsigntool" bare="True"/>
+    <project name="external/yocto/github.com.lcp.mokutil.git" remote="base" path="layers/meta-efi-secure-boot-dl/git/github.com.lcp.mokutil.git" bare="True"/>
