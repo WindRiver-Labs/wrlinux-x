@@ -93,3 +93,4 @@
     <project name="external/yocto/github.com.rpm-software-management.librepo" remote="base" path="layers/oe-core-dl-2.3/git/github.com.rpm-software-management.librepo.git" bare="True"/>
     <project name="external/yocto/github.com.rpm-software-management.libcomps" remote="base" path="layers/oe-core-dl-2.3/git/github.com.rpm-software-management.libcomps.git" bare="True"/>
     <project name="external/yocto/github.com.rpm-software-management.createrepo_c" remote="base" path="layers/oe-core-dl-2.3/git/github.com.rpm-software-management.createrepo_c" bare="True"/>
+    <project name="external/yocto/github.com.lz4.lz4" remote="base" path="layers/oe-core-dl-2.3/git/github.com.lz4.lz4.git" bare="True"/>
