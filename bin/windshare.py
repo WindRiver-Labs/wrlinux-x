@@ -35,6 +35,10 @@ class Windshare():
         self.xmls = {}
         self.debug = debug
 
+        # This is only used if we want to instruct the system to ask the user
+        # for credentials, if a better credential manager is not available.
+        self.interactive = 0
+
     def get_windshare_urls(self, base_url):
         from urllib.parse import urlsplit, urlunsplit
 
@@ -43,8 +47,11 @@ class Windshare():
         # What folder are we in?
         ws_base_folder = os.path.basename(upath)
 
+        logger.debug('Product base folder = %s' % ws_base_folder)
+
         if not ws_base_folder or ws_base_folder == "":
             # Invalid URL
+            logger.debug('Invalid base folder, not Windshare.')
             return (None, None, None)
 
         # Folder root is one directory higher then the base_url
@@ -54,9 +61,12 @@ class Windshare():
         # Magic URL to the entitlement file
         ws_entitlement_url = ws_base_url + '/wrlinux-9.json'
 
+        logger.debug('Entitlement url %s' % ws_entitlement_url)
+
         # If no uscheme, this is file access, check here if an entitlement
         # file exists.  If not, we know we're not windshare.
         if not uscheme and not os.path.exists(ws_entitlement_url):
+            logger.debug('Local file path, file does not exist.  Not a Windshare install.')
             return (None, None, None)
 
         return (ws_base_url, ws_base_folder, ws_entitlement_url)
@@ -78,7 +88,7 @@ class Windshare():
                     return None
             else:
                 # Go out to the network...
-                res = utils_setup.fetch_url(wsurl, debuglevel=self.debug)
+                res = utils_setup.fetch_url(wsurl, debuglevel=self.debug, interactive=self.interactive)
                 result = res.read().decode('utf-8')
                 logger.debug('Result:\n%s' % result)
                 parsed = json.loads(result)
@@ -177,7 +187,6 @@ class Windshare():
 
     def write_local_mirror_index(self, setup, mirror_index_path):
         import subprocess
-        import utils_setup
 
         # We need access to the sortRestApi function...
         from layer_index import Layer_Index
