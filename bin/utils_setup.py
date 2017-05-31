@@ -108,12 +108,14 @@ def query_input(question, interactive):
     return retval
 
 
-def fetch_url(url=None, auth=False, debuglevel=0, interactive=0):
+def fetch_url(url=None, auth=False, debuglevel=0, interactive=0, conn_reset_retry=True):
     assert url is not None
 
     import urllib
     from urllib.request import urlopen, Request
     from urllib.parse import urlparse
+
+    import errno
 
     if auth:
         logger.debug("Configuring authentication for %s..." % url)
@@ -173,6 +175,14 @@ def fetch_url(url=None, auth=False, debuglevel=0, interactive=0):
                 logger.critical("Unable to fetch due to exception: [Error %s] %s" % (error, reason))
                 logger.critical("Unable to resolve the hostname for the URL (or proxy, if enabled).")
                 sys.exit(1)
+
+        if error == errno.ECONNRESET:
+            logger.debug("Connection reset by peer.")
+            if conn_reset_retry:
+                logger.debug("Retrying...")
+                res = fetch_url(url, auth=auth, debuglevel=debuglevel, interactive=interactive, conn_reset_retry=False)
+                logger.debug("...retry successful.")
+                pass
 
         logger.critical("Unable to fetch due to exception: [Error %s] %s" % (error, reason))
         sys.exit(1)
