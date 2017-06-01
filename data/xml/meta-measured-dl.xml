@@ -1,2 +1,2 @@
-    <project name="external/yocto/github.com.01org.tpm2.0-tools.git" remote="base" path="layers/meta-measured-dl/git/github.com.01org.tpm2.0-tools.git" bare="True"/>
-    <project name="external/yocto/github.com.01org.TPM2.0-TSS.git" remote="base" path="layers/meta-measured-dl/git/github.com.01org.TPM2.0-TSS.git" bare="True"/>
+    <project name="external/yocto/github.com.01org.tpm2.0-tools" remote="base" path="layers/meta-measured-dl/git/github.com.01org.tpm2.0-tools.git" bare="True"/>
+    <project name="external/yocto/github.com.01org.TPM2.0-TSS" remote="base" path="layers/meta-measured-dl/git/github.com.01org.TPM2.0-TSS.git" bare="True"/>
