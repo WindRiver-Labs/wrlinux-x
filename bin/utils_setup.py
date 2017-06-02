@@ -108,14 +108,12 @@ def query_input(question, interactive):
     return retval
 
 
-def fetch_url(url=None, auth=False, debuglevel=0, interactive=0, conn_reset_retry=True):
+def fetch_url(url=None, auth=False, debuglevel=0, interactive=0):
     assert url is not None
 
     import urllib
     from urllib.request import urlopen, Request
     from urllib.parse import urlparse
-
-    import errno
 
     if auth:
         logger.debug("Configuring authentication for %s..." % url)
@@ -172,22 +170,15 @@ def fetch_url(url=None, auth=False, debuglevel=0, interactive=0, conn_reset_retr
             error = e.reason.errno
             reason = e.reason.strerror
             if error == -2:
-                logger.critical("Unable to fetch due to exception: [Error %s] %s" % (error, reason))
-                logger.critical("Unable to resolve the hostname for the URL (or proxy, if enabled).")
-                sys.exit(1)
+                raise e
 
-        if error == errno.ECONNRESET:
-            logger.debug("Connection reset by peer.")
-            if conn_reset_retry:
-                logger.debug("Retrying...")
-                res = fetch_url(url, auth=auth, debuglevel=debuglevel, interactive=interactive, conn_reset_retry=False)
-                logger.debug("...retry successful.")
-                pass
-
-        logger.critical("Unable to fetch due to exception: [Error %s] %s" % (error, reason))
+        if error and error != 0:
+            logger.critical("Unable to fetch %s due to exception: [Error %s] %s" % (url, error, reason))
+        else:
+            logger.critical("Unable to fetch %s due to OSError exception: %s" % (url, e))
         sys.exit(1)
     except Exception as e:
-        logger.critical("Unable to fetch due to exception: %s" % e)
+        logger.critical('Unable to fetch entitlement: %s (%s)' % (type(e), e))
         sys.exit(1)
     finally:
         logger.debug("...fetching %s (%s), done." % (url, ["without authentication", "with authentication"][auth]))
