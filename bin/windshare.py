@@ -22,6 +22,7 @@ import json
 import xml.etree.ElementTree as ET
 
 import os
+import sys
 
 import logger_setup
 
@@ -107,11 +108,10 @@ class Windshare():
         except URLError as e:
             # Authentication failure, we need to stop now.
             if hasattr(e, 'code') and e.code == 401:
-                import sys
                 sys.exit(1)
             return False
         except Exception as e:
-            logger.debug('Unable to fetch entitlement: %s' % e)
+            logger.debug('Unable to fetch entitlement: %s (%s)' % (type(e), e))
             return False
 
         return True
