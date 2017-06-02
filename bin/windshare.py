@@ -59,6 +59,10 @@ class Windshare():
         upath = os.path.dirname(upath)
         ws_base_url = urlunsplit((uscheme, uloc, upath, uquery, ufragid))
 
+        if uscheme and (uscheme != "http" and uscheme != "https"):
+            logger.debug('Scheme (%s) not valid for Windshare.' % uscheme)
+            return (None, None, None)
+
         # Magic URL to the entitlement file
         ws_entitlement_url = ws_base_url + '/wrlinux-9.json'
 
