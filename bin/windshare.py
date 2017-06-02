@@ -79,7 +79,7 @@ class Windshare():
     def load_folders(self, url=None):
         assert url is not None
 
-        def _get_json_response(wsurl=None):
+        def _get_json_response(wsurl=None, retry=True):
             assert wsurl is not None
 
             from urllib.parse import urlparse
@@ -94,7 +94,19 @@ class Windshare():
             else:
                 # Go out to the network...
                 res = utils_setup.fetch_url(wsurl, debuglevel=self.debug, interactive=self.interactive)
-                result = res.read().decode('utf-8')
+
+                try:
+                    result = res.read().decode('utf-8')
+                except ConnectionResetError:
+                    if retry:
+                        logger.debug("%s: Connection reset by peer.  Retrying..." % wsurl)
+                        result = _get_json_response(wsurl=wsurl, retry=False)
+                        logger.debug("%s: retry successful." % wsurl)
+                    else:
+                        logger.critical("%s: Connection reset by peer." % wsurl)
+                        logger.critical("Is there a firewall blocking your connection?")
+                        sys.exit(1)
+
                 logger.debug('Result:\n%s' % result)
                 parsed = json.loads(result)
 
