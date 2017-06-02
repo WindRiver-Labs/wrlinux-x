@@ -93,7 +93,20 @@ class Windshare():
                     return None
             else:
                 # Go out to the network...
-                res = utils_setup.fetch_url(wsurl, debuglevel=self.debug, interactive=self.interactive)
+                from urllib.request import URLError
+                try:
+                    res = utils_setup.fetch_url(wsurl, debuglevel=self.debug, interactive=self.interactive)
+                except URLError as e:
+                    if 'windshare' in up.netloc:
+                        # Authentication failure, we need to stop now.
+                        if hasattr(e, 'code') and e.code == 401:
+                            logger.critical('Unable to authenticate: %s' % wsurl)
+                        else:
+                            logger.critical('Unable to contact Wind Share: %s: %s' % (wsurl, e.reason))
+
+                        logger.critical("Check your credentials, network and proxy settings.")
+                        sys.exit(1)
+                    raise e
 
                 try:
                     result = res.read().decode('utf-8')
@@ -113,19 +126,12 @@ class Windshare():
             return parsed
 
         try:
-            from urllib.request import URLError
-
             entitlement = _get_json_response(url)
 
             if entitlement and 'dataFolderTrueFolders' in entitlement:
                 self.folders = entitlement['dataFolderTrueFolders']
             else:
                 return False
-        except URLError as e:
-            # Authentication failure, we need to stop now.
-            if hasattr(e, 'code') and e.code == 401:
-                sys.exit(1)
-            return False
         except Exception as e:
             logger.debug('Unable to fetch entitlement: %s (%s)' % (type(e), e))
             return False
