@@ -1,3 +1,2 @@
     <project name="external/yocto/git.code.sf.net.p.trousers.tpm-tools" remote="base" path="layers/wr-security-dl/git/git.code.sf.net.p.trousers.tpm-tools" bare="True"/>
     <project name="external/yocto/git.code.sf.net.p.trousers.trousers" remote="base" path="layers/wr-security-dl/git/git.code.sf.net.p.trousers.trousers" bare="True"/>
-    <project name="external/yocto/git.code.sf.net.p.linux-ima.ima-evm-utils" remote="base" path="layers/wr-security-dl/git/git.code.sf.net.p.linux-ima.ima-evm-utils" bare="True"/>
