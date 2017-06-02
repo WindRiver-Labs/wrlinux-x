@@ -174,23 +174,30 @@ class Layer_Index():
 
         logger.debug('Loading %s from url %s...' % (name, url))
 
-        def _get_json_response(apiurl=None):
+        def _get_json_response(apiurl=None, retry=True):
             assert apiurl is not None
 
             res = utils_setup.fetch_url(apiurl)
 
-            parsed = json.loads(res.read().decode('utf-8'))
+            try:
+                parsed = json.loads(res.read().decode('utf-8'))
+            except ConnectionResetError:
+                if retry:
+                    logger.debug("%s: Connection reset by peer.  Retrying..." % url)
+                    parsed = _get_json_response(apiurl=apiurl, retry=False)
+                    logger.debug("%s: retry successful.")
+                else:
+                    logger.critical("%s: Connection reset by peer." % url)
+                    logger.critical("Is there a firewall blocking your connection?")
+                    sys.exit(1)
 
             return parsed
 
+        from urllib.request import URLError
         try:
             lindex['apilinks'] = _get_json_response(url)
         except URLError as e:
-            msg = ""
-            if proxy_settings is not None:
-                msg = (" using proxy %s" % proxy_settings)
-            logger.info("Index %s: could not connect to %s%s:"
-                      "%s" % (name, url, msg, e.reason))
+            logger.warning("Index %s: could not connect to %s: %s" % (name, url, msg, e.reason))
             return None
 
         filter = ""

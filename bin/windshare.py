@@ -22,6 +22,7 @@ import json
 import xml.etree.ElementTree as ET
 
 import os
+import sys
 
 import logger_setup
 
@@ -58,6 +59,10 @@ class Windshare():
         upath = os.path.dirname(upath)
         ws_base_url = urlunsplit((uscheme, uloc, upath, uquery, ufragid))
 
+        if uscheme and (uscheme != "http" and uscheme != "https"):
+            logger.debug('Scheme (%s) not valid for Windshare.' % uscheme)
+            return (None, None, None)
+
         # Magic URL to the entitlement file
         ws_entitlement_url = ws_base_url + '/wrlinux-9.json'
 
@@ -74,7 +79,7 @@ class Windshare():
     def load_folders(self, url=None):
         assert url is not None
 
-        def _get_json_response(wsurl=None):
+        def _get_json_response(wsurl=None, retry=True):
             assert wsurl is not None
 
             from urllib.parse import urlparse
@@ -88,30 +93,47 @@ class Windshare():
                     return None
             else:
                 # Go out to the network...
-                res = utils_setup.fetch_url(wsurl, debuglevel=self.debug, interactive=self.interactive)
-                result = res.read().decode('utf-8')
+                from urllib.request import URLError
+                try:
+                    res = utils_setup.fetch_url(wsurl, debuglevel=self.debug, interactive=self.interactive)
+                except URLError as e:
+                    if 'windshare' in up.netloc:
+                        # Authentication failure, we need to stop now.
+                        if hasattr(e, 'code') and e.code == 401:
+                            logger.critical('Unable to authenticate: %s' % wsurl)
+                        else:
+                            logger.critical('Unable to contact Wind Share: %s: %s' % (wsurl, e.reason))
+
+                        logger.critical("Check your credentials, network and proxy settings.")
+                        sys.exit(1)
+                    raise e
+
+                try:
+                    result = res.read().decode('utf-8')
+                except ConnectionResetError:
+                    if retry:
+                        logger.debug("%s: Connection reset by peer.  Retrying..." % wsurl)
+                        result = _get_json_response(wsurl=wsurl, retry=False)
+                        logger.debug("%s: retry successful." % wsurl)
+                    else:
+                        logger.critical("%s: Connection reset by peer." % wsurl)
+                        logger.critical("Is there a firewall blocking your connection?")
+                        sys.exit(1)
+
                 logger.debug('Result:\n%s' % result)
                 parsed = json.loads(result)
 
             return parsed
 
         try:
-            from urllib.request import URLError
-
             entitlement = _get_json_response(url)
 
             if entitlement and 'dataFolderTrueFolders' in entitlement:
                 self.folders = entitlement['dataFolderTrueFolders']
             else:
                 return False
-        except URLError as e:
-            # Authentication failure, we need to stop now.
-            if hasattr(e, 'code') and e.code == 401:
-                import sys
-                sys.exit(1)
-            return False
         except Exception as e:
-            logger.debug('Unable to fetch entitlement: %s' % e)
+            logger.debug('Unable to fetch entitlement: %s (%s)' % (type(e), e))
             return False
 
         return True
