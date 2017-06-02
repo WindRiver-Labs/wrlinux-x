@@ -16,6 +16,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 import os
+import sys
 import subprocess
 
 # Setup-specific modules
@@ -75,52 +76,54 @@ def run_cmd(cmd, environment=None, cwd=None, log=1, expected_ret=0, err=b'GitErr
         raise Exception(msg)
     logger.debug('Finished running cmd: "%s"' % repr(cmd))
 
-def fetch_url(url=None, auth=False, debuglevel=0):
+def query_input(question, interactive):
+    client = os.environ.get('GIT_ASKPASS', None)
+    if not client:
+        client = os.environ.get('SSH_ASKPASS', None)
+    if not client:
+        if interactive:
+            client = "[internal]"
+        else:
+            raise Exception('Unable to get authentication via ASKPASS.')
+
+    cmd = [ client, question ]
+    logger.debug("cmd: %s " % (cmd))
+
+    if cmd[0] == "[internal]":
+        import getpass
+        retval = getpass.getpass(cmd[1])
+    else:
+        ret = subprocess.Popen(cmd, env=os.environ, close_fds=True, stdout=subprocess.PIPE)
+        retval = ""
+        while True:
+            lin = ret.stdout.readline()
+            if not lin and ret.poll() is not None:
+                break
+            retval += lin.decode('utf-8')
+        ret.wait()
+        if ret.returncode != 0:
+            raise Exception('return code != 0 from %s.' % cmd)
+        retval = retval.rstrip('\n')
+
+    return retval
+
+
+def fetch_url(url=None, auth=False, debuglevel=0, interactive=0, conn_reset_retry=True):
     assert url is not None
 
     import urllib
     from urllib.request import urlopen, Request
     from urllib.parse import urlparse
 
+    import errno
+
     if auth:
         logger.debug("Configuring authentication for %s..." % url)
 
         up = urlparse(url)
 
-        client = os.environ.get('GIT_ASKPASS', None)
-        if not client:
-            client = os.environ.get('SSH_ASKPASS', None)
-        if not client:
-            raise Exception('Unable to get authentication via ASKPASS.')
-
-        cmd = [ client, "Username for '%s://%s': " % (up.scheme, up.netloc) ]
-        logger.debug("cmd: %s " % (cmd))
-
-        ret = subprocess.Popen(cmd, env=os.environ, close_fds=True, stdout=subprocess.PIPE)
-        uname = ""
-        while True:
-            lin = ret.stdout.readline()
-            if not lin and ret.poll() is not None:
-                break
-            uname += lin.decode('utf-8')
-        ret.wait()
-        if ret.returncode != 0:
-            raise Exception('Unable to get username for %s from %s.\n%s' % (up.netloc, client, cmd))
-        uname = uname.rstrip('\n')
-
-        cmd = [ client, "Password for '%s://%s@%s': " % (up.scheme, uname, up.netloc) ]
-        logger.debug("cmd: %s " % (cmd))
-        ret = subprocess.Popen(cmd, close_fds=True, stdout=subprocess.PIPE)
-        passwd = ""
-        while True:
-            lin = ret.stdout.readline()
-            if not lin and ret.poll() is not None:
-                break
-            passwd += lin.decode('utf-8')
-        ret.wait()
-        if ret.returncode != 0:
-            raise Exception('Unable to get password for %s from %s.\n%s' % (up.netloc, client, cmd))
-        passwd = passwd.rstrip('\n')
+        uname = query_input("Username for '%s://%s': " % (up.scheme, up.netloc), interactive)
+        passwd = query_input("Password for '%s://%s@%s': " % (up.scheme, uname, up.netloc), interactive)
 
         # This is a security leak, as the username/password could be logged.
         # Only enable this during development.
@@ -135,22 +138,58 @@ def fetch_url(url=None, auth=False, debuglevel=0):
 
     urllib.request.install_opener(opener)
 
-    logger.debug("Fetching %s..." % url)
+    logger.debug("Fetching %s (%s)..." % (url, ["without authentication", "with authentication"][auth]))
 
     try:
         res = urlopen(Request(url, headers={'User-Agent': 'Mozilla/5.0 (Wind River Linux/setup.sh)'}, unverifiable=True))
     except urllib.error.HTTPError as e:
-        logger.debug("HTTP Error for %s: %s: %s" % (url, e.code, e.reason))
-        logger.debug("Headers:\n%s" % (e.headers))
+        logger.debug("HTTP Error: %s: %s" % (e.code, e.reason))
+        logger.debug(" Requested: %s" % (url))
+        logger.debug(" Actual:    %s" % (e.geturl()))
+        if auth:
+            logger.debug(" Authentication enabled.  Using username '%s'." % uname)
         if not auth and e.code == 401:
             logger.debug("Retrying with authentication...")
-            res = fetch_url(url, auth=True)
-        else:
+            res = fetch_url(url, auth=True, debuglevel=debuglevel, interactive=interactive)
+            logger.debug("...retrying with authentication successful, continuing.")
+        elif e.code == 404:
+            logger.debug("Request not found.")
             raise e
-    except urllib.error.URLError as e:
-        logger.critical("URL Error for %s: %s" % e.reason)
-        raise e
+        else:
+            logger.debug("Headers:\n%s" % (e.headers))
+            raise e
+    except OSError as e:
+        error = 0
+        reason = ""
 
-    logger.debug("done.")
+        # Process base OSError first...
+        if hasattr(e, 'errno'):
+            error = e.errno
+            reason = e.strerror
+
+        # Process gaierror (socket error) subclass if available.
+        if hasattr(e, 'reason') and hasattr(e.reason, 'errno') and hasattr(e.reason, 'strerror'):
+            error = e.reason.errno
+            reason = e.reason.strerror
+            if error == -2:
+                logger.critical("Unable to fetch due to exception: [Error %s] %s" % (error, reason))
+                logger.critical("Unable to resolve the hostname for the URL (or proxy, if enabled).")
+                sys.exit(1)
+
+        if error == errno.ECONNRESET:
+            logger.debug("Connection reset by peer.")
+            if conn_reset_retry:
+                logger.debug("Retrying...")
+                res = fetch_url(url, auth=auth, debuglevel=debuglevel, interactive=interactive, conn_reset_retry=False)
+                logger.debug("...retry successful.")
+                pass
+
+        logger.critical("Unable to fetch due to exception: [Error %s] %s" % (error, reason))
+        sys.exit(1)
+    except Exception as e:
+        logger.critical("Unable to fetch due to exception: %s" % e)
+        sys.exit(1)
+    finally:
+        logger.debug("...fetching %s (%s), done." % (url, ["without authentication", "with authentication"][auth]))
 
     return res
