@@ -19,7 +19,9 @@
 setup_shutdown_func update_toaster_fixture_stop
 
 update_toaster_fixture_stop() {
-    # generate the wrlinux-specific Toaster fixture file
-    $BASEDIR/bin/toaster_fixture.py
+    if [ -e default.xml ]; then
+        # generate the wrlinux-specific Toaster fixture file
+        $BASEDIR/bin/toaster_fixture.py
+    fi
 }
 
