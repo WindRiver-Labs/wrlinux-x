@@ -130,9 +130,9 @@ def fetch_url(url=None, auth=False, debuglevel=0, interactive=0):
         password_mgr = urllib.request.HTTPPasswordMgrWithDefaultRealm()
         password_mgr.add_password(None, "%s://%s" % (up.scheme, up.netloc), uname, passwd)
         handler = urllib.request.HTTPBasicAuthHandler(password_mgr)
-        opener = urllib.request.build_opener(handler, urllib.request.HTTPHandler(debuglevel=debuglevel))
+        opener = urllib.request.build_opener(handler, urllib.request.HTTPSHandler(debuglevel=debuglevel))
     else:
-        opener = urllib.request.build_opener(urllib.request.HTTPHandler(debuglevel=debuglevel))
+        opener = urllib.request.build_opener(urllib.request.HTTPSHandler(debuglevel=debuglevel))
 
     urllib.request.install_opener(opener)
 
