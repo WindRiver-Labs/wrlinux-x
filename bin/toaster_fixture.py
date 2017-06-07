@@ -276,13 +276,17 @@ def main(argv):
     global root
 
     parser = argparse.ArgumentParser(description='toaster_fixture.py: create Toaster fixture file from setup output')
+    parser.add_argument('--project-dir', dest='project_dir',help='Project Directory')
     parser.add_argument('--verbose', '-v', action='store_true', dest='verbose',help='Verbose mode')
     args = parser.parse_args()
 
     # Core paths
     script_dir=os.path.dirname(os.path.abspath(argv[0]))
     wrlinux_dir=os.path.dirname(script_dir)
-    install_dir=os.path.dirname(wrlinux_dir)
+    if args.project_dir:
+        install_dir = args.project_dir
+    else:
+        install_dir = os.getcwd()
 
     # Read setup default.xml data
     default_xml_file=os.path.join(install_dir,'default.xml')
