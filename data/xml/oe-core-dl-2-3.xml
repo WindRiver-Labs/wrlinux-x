@@ -97,3 +97,4 @@
     <project name="external/yocto/github.com.thkukuk.libnsl" remote="base" path="layers/oe-core-dl-2.3/git/github.com.thkukuk.libnsl" bare="True"/>
     <project name="external/yocto/github.com.01org.bmap-tools" remote="base" path="layers/oe-core-dl-2.3/git/github.com.01org.bmap-tools.git" bare="True"/>
     <project name="external/yocto/anongit.freedesktop.org.mesa.kmscube" remote="base" path="layers/oe-core-dl-2.3/git/anongit.freedesktop.org.mesa.kmscube" bare="True"/>
+    <project name="external/yocto/github.com.thkukuk.libnsl" remote="base" path="layers/oe-core-dl-2.3/git/github.com.thkukuk.libnsl" bare="True"/>
