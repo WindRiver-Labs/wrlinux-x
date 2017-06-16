@@ -33,4 +33,3 @@
     <project name="external/yocto/git.code.sf.net.p.tipc.tipcutils" remote="base" path="layers/meta-oe-dl-2.3/git/git.code.sf.net.p.tipc.tipcutils" bare="True"/>
     <project name="external/yocto/github.com.jpirko.libndp" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.jpirko.libndp" bare="True"/>
     <project name="external/yocto/github.com.01org.tbb" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.01org.tbb" bare="True"/>
-    <project name="external/yocto/github.com.jpirko.libndp" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.jpirko.libndp" bare="True"/>
