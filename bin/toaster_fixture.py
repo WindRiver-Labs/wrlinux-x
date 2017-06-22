@@ -48,9 +48,6 @@ CUSTOM_SETTINGS_BASE=100
 # Toaster fixture file's relative path from install directory
 FIXTURE_FILE='layers/oe-core/bitbake/lib/toaster/orm/fixtures/custom.xml'
 
-# Toaster custom extension file's for anspass support
-TOASTER_CUSTOM_FILE='layers/oe-core/bitbake/lib/toaster/orm/fixtures/custom_toaster_append.sh'
-
 # Do not include optional layers in default layer list
 INCLUDE_DEFAULT_LAYERS=False
 
@@ -314,6 +311,10 @@ def main(argv):
     output_fd=open(os.path.join(install_dir,FIXTURE_FILE), 'w')
     write_prolog()
 
+    # Write Toaster environment hints
+    #   1. Point Toaster to the wrlinux-x directory
+    root.append(ET.Comment(' HINT:WRLINUX_DIR="%s" ' % wrlinux_dir))
+
     # Write default setting overrides
     root.append(ET.Comment(' Set the project default values '))
 
@@ -364,13 +365,6 @@ def main(argv):
 
     write_epilog()
     output_fd.close()
-
-    # point Toaster to the wrlinux-x directory
-    with open(TOASTER_CUSTOM_FILE, "r") as toaster_data:
-        lines = toaster_data.readlines()
-    with open(TOASTER_CUSTOM_FILE, "w") as toaster_data:
-        for line in lines:
-            toaster_data.write(re.sub(r'^WRLINUX_DIR=.*', "WRLINUX_DIR=%s" % wrlinux_dir, line))
 
     if args.verbose:
         print("Done:")
