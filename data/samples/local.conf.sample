@@ -60,8 +60,11 @@ WRTEMPLATE ?= "####DEFAULTWRTEMPLATE####"
 # This sets the default machine if no other machine has been selected:
 MACHINE ??= "####DEFAULTMACHINE####"
 
-# Setup the default the kernel type
-LINUX_KERNEL_TYPE ?= "####DEFAULTKTYPE####"
+# Set the default kernel type.  This may be overriden by a distribution
+# or other configuration file.  Change '??=' to '=' here to force the build
+# to use this value.
+#
+LINUX_KERNEL_TYPE ??= "####DEFAULTKTYPE####"
 
 #
 # Where to place downloads
