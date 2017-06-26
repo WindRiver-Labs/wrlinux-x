@@ -29,3 +29,4 @@
     <project name="external/yocto/git.0pointer.de.libatasmart" remote="base" path="layers/meta-oe-dl-2.2/git/git.0pointer.de.libatasmart.git" bare="True"/>
     <project name="external/yocto/github.com.schnitzeltony.xfce4-closebutton-plugin" remote="base" path="layers/meta-oe-dl-2.2/git/github.com.schnitzeltony.xfce4-closebutton-plugin.git" bare="True"/>
     <project name="external/yocto/github.com.schnitzeltony.xfce4-settings" remote="base" path="layers/meta-oe-dl-2.2/git/github.com.schnitzeltony.xfce4-settings.git" bare="True"/>
+    <project name="external/yocto/github.com.google.leveldb" remote="base" path="layers/meta-oe-dl-2.2/git/github.com.google.leveldb.git" bare="True"/>
