@@ -1,3 +1,9 @@
 buildtools.git
 *.pyc
 bin/.venv
+*.pyo
+/*.patch
+*.swp
+*.orig
+*.rej
+*~
