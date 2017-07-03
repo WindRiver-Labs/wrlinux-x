@@ -125,9 +125,20 @@ while [ $# -ge 1 ] ; do
 				eval ${val}=\${2}
 				if [ -n "${keep}" ]; then
 					PASSARGS[${#PASSARGS[@]}]="$1"
-					PASSARGS[${#PASSARGS[@]}]="$2"
+					# Only check whether $2 is set or not, set to "" or '--foo'
+					# should work because:
+					# - set to "": keep align with argparse since it works in this way.
+					# - set to "--foo": argparse knows it's not the arg of $1,
+					#                   but another option, and can handle it correctly.
+					if [ -n "${2+x}" ]; then
+						PASSARGS[${#PASSARGS[@]}]="$2"
+					fi
 				fi
-				shift 2
+				if [ -z "${2+x}" ]; then
+					shift 1
+				else
+					shift 2
+				fi
 				found=1
 				break
 				;;
