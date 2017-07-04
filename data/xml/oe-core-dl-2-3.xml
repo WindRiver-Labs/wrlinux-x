@@ -59,7 +59,6 @@
     <project name="external/yocto/github.com.dv1.eglinfo" remote="base" path="layers/oe-core-dl-2.3/git/github.com.dv1.eglinfo.git" bare="True"/>
     <project name="external/yocto/github.com.file.file" remote="base" path="layers/oe-core-dl-2.3/git/github.com.file.file.git" bare="True"/>
     <project name="external/yocto/github.com.gitpan.SGMLSpm" remote="base" path="layers/oe-core-dl-2.3/git/github.com.gitpan.SGMLSpm" bare="True"/>
-    <project name="external/yocto/github.com.ivmai.bdwgc" remote="base" path="layers/oe-core-dl-2.3/git/github.com.ivmai.bdwgc.git" bare="True"/>
     <project name="external/yocto/github.com.kergoth.chkconfig" remote="base" path="layers/oe-core-dl-2.3/git/github.com.kergoth.chkconfig" bare="True"/>
     <project name="external/yocto/github.com.kraj.localedef" remote="base" path="layers/oe-core-dl-2.3/git/github.com.kraj.localedef" bare="True"/>
     <project name="external/github.com.linux-test-project.ltp" remote="base" path="layers/oe-core-dl-2.3/git/github.com.linux-test-project.ltp.git" bare="True"/>
