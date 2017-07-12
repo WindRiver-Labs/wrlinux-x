@@ -22,6 +22,18 @@ setup_add_func eula_setup
 
 eula_askuser() {
 	accept=${ACCEPT_EULA}
+	# Check whether it is set or not.
+	if [ -n "${ACCEPT_EULA+x}" ]; then
+		if [ "${accept}" != "yes" -a "${accept}" != "no" ]; then
+			echo "error: argument --accept-eula: invalid choice: '${accept}' \
+(choose from 'yes', 'no')" >&2
+			exit 1
+		fi
+		if [ "${accept}" = "no" ]; then
+			echo "You must agree to the EULA to continue." >&2
+			exit 1
+		fi
+	fi
 	while [ "${accept}" != "yes" ] ; do
 		echo
 		echo "The End User License Agreement is available at:"
@@ -73,7 +85,7 @@ eula_setup() {
 		echo "The End User User License has changed since you last agreed to it."
 		EULA_SHA=""
 	fi
-	if [ -z "${EULA_SHA}" -o -z "${EULA_VERSION}" -o -z "${EULA_DATE}" ]; then
+	if [ -z "${EULA_SHA}" -o -z "${EULA_VERSION}" -o -z "${EULA_DATE}" -o -n "${ACCEPT_EULA+x}" ]; then
 		eula_askuser
 	else
 		echo "End User License Agreement '${EULA_VERSION}' agreed to by ${EULA_USER} on ${EULA_DATE}."
