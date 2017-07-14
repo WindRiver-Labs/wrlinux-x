@@ -1,0 +1,1 @@
+    <project name="external/yocto/github.com.openvswitch.ovs" remote="base" path="layers/meta-virtualization-dl-2.3/git/github.com.openvswitch.ovs.git" bare="True"/>
