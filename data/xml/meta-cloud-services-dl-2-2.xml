@@ -1,0 +1,4 @@
+    <project name="external/yocto/anongit.freedesktop.org.spice.spice" remote="base" path="layers/meta-cloud-services-dl-2.2/git/anongit.freedesktop.org.spice.spice" bare="True"/>
+    <project name="external/yocto/anongit.freedesktop.org.spice.spice-common" remote="base" path="layers/meta-cloud-services-dl-2.2/git/anongit.freedesktop.org.spice.spice-common" bare="True"/>
+    <project name="external/yocto/anongit.freedesktop.org.spice.spice-protocol" remote="base" path="layers/meta-cloud-services-dl-2.2/git/anongit.freedesktop.org.spice.spice-protocol" bare="True"/>
+    <project name="external/yocto/git.xiph.org.celt" remote="base" path="layers/meta-cloud-services-dl-2.2/git/git.xiph.org.celt.git" bare="True"/>
