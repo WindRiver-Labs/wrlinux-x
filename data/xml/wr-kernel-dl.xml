@@ -1,4 +1,3 @@
-    <project name="external/yocto/github.com.jlelli.schedtool-dl" remote="base" path="layers/wr-kernel-dl/git/github.com.jlelli.schedtool-dl.git" bare="True"/>
     <project name="external/yocto/git.kernel.org.pub.scm.linux.kernel.git.gong.chen.aer-inject" remote="base" path="layers/wr-kernel-dl/git/git.kernel.org.pub.scm.linux.kernel.git.gong.chen.aer-inject.git" bare="True"/>
     <project name="external/yocto/git.kernel.org.pub.scm.linux.kernel.git.gong.chen.mce-test" remote="base" path="layers/wr-kernel-dl/git/git.kernel.org.pub.scm.linux.kernel.git.gong.chen.mce-test.git" bare="True"/>
     <project name="external/yocto/git.kernel.org.pub.scm.utils.cpu.mce.mce-inject" remote="base" path="layers/wr-kernel-dl/git/git.kernel.org.pub.scm.utils.cpu.mce.mce-inject.git" bare="True"/>
