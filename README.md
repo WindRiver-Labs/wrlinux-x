@@ -1,5 +1,5 @@
-wrlinux-9 setup
-===============
+wrlinux setup
+=============
 
 With this tool you can either create a new distribution builder platform
 project, or create a mirror that other projects can be based on.
@@ -31,8 +31,8 @@ _The Wind River Linux Platform Development Quick Start, 9_.
 
 When following the quick start and other examples, use:
 
-    branchName: WRLINUX_9_BASE
-    repoURL: git://github.com/WindRiver-Labs/wrlinux-9.git
+    branchName: master-wr
+    repoURL: git://<git mirror>/git/wrlinux-x
 
 
 Workflows
@@ -45,9 +45,9 @@ directory, such as:
 
     $ mkdir my-project
     $ cd my-project
-    $ git clone --branch <branchName> <repoURL> wrlinux-9
+    $ git clone --branch <branchName> <repoURL> wrlinux-x
 
-Once cloned, simply run the setup.sh (./wrlinux-9/setup.sh) to get a list
+Once cloned, simply run the setup.sh (./wrlinux-x/setup.sh) to get a list
 of options.  The setup program will construct a new git repository in the
 current working directory.  This repository is used to manage the output of
 the setup program.
@@ -65,23 +65,23 @@ Mirror workflow:
 
     $ mkdir my-mirror
     $ cd my-mirror
-    $ git clone --branch <branchName> <repoURL> wrlinux-9
-    $ ./wrlinux-9/setup.sh --all-layers --mirror
+    $ git clone --branch <branchName> <repoURL> wrlinux-x
+    $ ./wrlinux-x/setup.sh --all-layers --mirror
 
 The above command will mirror all layers, including download layers into the
 current location, for the branch specified.
 
 To update the mirror, re-run the setup.sh command with the same arguments.
-To add additional branches to your mirror, change the branch in the wrlinux-9,
+To add additional branches to your mirror, change the branch in the wrlinux-x,
 and re-run the setup.sh with the same arguments.
 
 A user can reference this mirror by doing:
 
     $ mkdir my-project
     $ cd my-project
-    $ git clone --branch <branchName> <path_to_mirror>/wrlinux-9
+    $ git clone --branch <branchName> <path_to_mirror>/wrlinux-x
 
-and then run the wrlinux-9/setup.sh program as described above.
+and then run the wrlinux-x/setup.sh program as described above.
 
 
 License
