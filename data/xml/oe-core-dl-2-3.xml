@@ -99,3 +99,4 @@
     <project name="external/yocto/github.com.ivmai.libatomic_ops" remote="base" path="layers/oe-core-dl-2.3/git/github.com.ivmai.libatomic_ops" bare="True"/>
     <project name="external/yocto/github.com.assimp.assimp" remote="base" path="layers/oe-core-dl-2.3/git/github.com.assimp.assimp.git" bare="True"/>
     <project name="external/yocto/github.com.SaschaWillems.Vulkan" remote="base" path="layers/oe-core-dl-2.3/git/github.com.SaschaWillems.Vulkan.git" bare="True"/>
+    <project name="external/yocto/git.yoctoproject.org.linux-yocto-4.10" remote="base" path="layers/oe-core-dl-2.3/git/git.yoctoproject.org.linux-yocto-4.10.git" bare="True"/>
