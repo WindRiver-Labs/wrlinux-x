@@ -102,3 +102,4 @@
     <project name="external/yocto/git.yoctoproject.org.linux-yocto-4.10" remote="base" path="layers/oe-core-dl-2.3/git/git.yoctoproject.org.linux-yocto-4.10.git" bare="True"/>
     <project name="external/yocto/git.yoctoproject.org.yocto-kernel-cache" remote="base" path="layers/oe-core-dl-2.3/git/git.yoctoproject.org.yocto-kernel-cache" bare="True"/>
     <project name="external/yocto/git.savannah.gnu.org.config" remote="base" path="layers/oe-core-dl-2.3/git/git.savannah.gnu.org.config.git" bare="True"/>
+    <project name="external/yocto/github.com.llvm-mirror.llvm" remote="base" path="layers/oe-core-dl-2.3/git/github.com.llvm-mirror.llvm.git" bare="True"/>
