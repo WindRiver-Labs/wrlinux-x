@@ -1,3 +1,4 @@
+    <project name="external/agent-proxy" remote="base" path="layers/meta-oe-dl-2.3/git/git.kernel.org.pub.scm.utils.kernel.kgdb.agent-proxy.git" bare="True"/>
     <project name="external/yocto/anonscm.debian.org.collab-maint.ltrace" remote="base" path="layers/meta-oe-dl-2.3/git/anonscm.debian.org.collab-maint.ltrace.git" bare="True"/>
     <project name="external/yocto/github.com.ago.pps-tools" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.ago.pps-tools.git" bare="True"/>
     <project name="external/yocto/github.com.anyc.pmtools" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.anyc.pmtools.git" bare="True"/>
