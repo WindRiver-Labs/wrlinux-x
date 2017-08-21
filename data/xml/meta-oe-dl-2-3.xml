@@ -14,6 +14,7 @@
     <project name="external/yocto/github.com.oetiker.rrdtool-1.x" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.oetiker.rrdtool-1.x.git" bare="True"/>
     <project name="external/yocto/github.com.rhinstaller.efibootmgr" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.rhinstaller.efibootmgr.git" bare="True"/>
     <project name="external/yocto/github.com.rhinstaller.efivar" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.rhinstaller.efivar.git" bare="True"/>
+    <project name="external/yocto/github.com.rvoicilas.inotify-tools" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.rvoicilas.inotify-tools.git" bare="True"/>
     <project name="external/yocto/github.com.vim.vim" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.vim.vim.git" bare="True"/>
     <project name="external/yocto/github.com.zeromq.cppzmq" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.zeromq.cppzmq.git" bare="True"/>
     <project name="external/yocto/git.kernel.org.pub.scm.utils.cpu.mce.mcelog" remote="base" path="layers/meta-oe-dl-2.3/git/git.kernel.org.pub.scm.utils.cpu.mce.mcelog.git" bare="True"/>
