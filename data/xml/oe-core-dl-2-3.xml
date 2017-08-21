@@ -104,3 +104,4 @@
     <project name="external/yocto/git.savannah.gnu.org.config" remote="base" path="layers/oe-core-dl-2.3/git/git.savannah.gnu.org.config.git" bare="True"/>
     <project name="external/yocto/github.com.llvm-mirror.llvm" remote="base" path="layers/oe-core-dl-2.3/git/github.com.llvm-mirror.llvm.git" bare="True"/>
     <project name="external/yocto/github.com.martine.ninja" remote="base" path="layers/oe-core-dl-2.3/git/github.com.martine.ninja.git" bare="True"/>
+    <project name="external/yocto/github.com.01org.libva-utils" remote="base" path="layers/oe-core-dl-2.3/git/github.com.01org.libva-utils.git" bare="True"/>
