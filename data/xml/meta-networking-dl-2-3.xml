@@ -1,4 +1,4 @@
-    <project name="external/yocto/git.fedorahosted.org.netcf" remote="base" path="layers/meta-networking-dl-2.3/git/git.fedorahosted.org.netcf.git" bare="True"/>
+    <project name="external/yocto/pagure.io.netcf" remote="base" path="layers/meta-networking-dl-2.3/git/pagure.io.netcf.git" bare="True"/>
     <project name="external/yocto/accel-ppp.git.sourceforge.net.gitroot.accel-ppp.accel-ppp" remote="base" path="layers/meta-networking-dl-2.3/git/accel-ppp.git.sourceforge.net.gitroot.accel-ppp.accel-ppp" bare="True"/>
     <project name="external/yocto/anonscm.debian.org.collab-maint.ifenslave" remote="base" path="layers/meta-networking-dl-2.3/git/anonscm.debian.org.collab-maint.ifenslave.git" bare="True"/>
     <project name="external/yocto/git.code.sf.net.p.atftp.code" remote="base" path="layers/meta-networking-dl-2.3/git/git.code.sf.net.p.atftp.code" bare="True"/>
