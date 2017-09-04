@@ -1,1 +1,1 @@
-    <project name="external/yocto/github.com.archiecobbs.mtree-port" remote="base" path="layers/meta-security-dl/git/github.com.archiecobbs.mtree-port.git" bare="True"/>
+    <project name="external/yocto/github.com.archiecobbs.mtree-port" remote="base" path="layers/meta-ids-dl/git/github.com.archiecobbs.mtree-port.git" bare="True"/>
