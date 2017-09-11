@@ -1,2 +1,1 @@
-    <project name="external/yocto/pagure.io.microcode_ctl" remote="base" path="layers/wr-base-dl/git/pagure.io.microcode_ctl.git" bare="True"/>
     <project name="external/yocto/github.com.WindRiver-OpenSourceLabs.anspass" remote="base" path="layers/wr-base-dl/git/github.com.WindRiver-OpenSourceLabs.anspass" bare="True"/>
