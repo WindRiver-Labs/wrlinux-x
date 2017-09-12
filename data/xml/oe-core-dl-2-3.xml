@@ -107,3 +107,4 @@
     <project name="external/yocto/github.com.01org.libva-utils" remote="base" path="layers/oe-core-dl-2.3/git/github.com.01org.libva-utils.git" bare="True"/>
     <project name="external/yocto/git.yoctoproject.org.linux-yocto-4.12" remote="base" path="layers/oe-core-dl-2.3/git/git.yoctoproject.org.linux-yocto-4.12.git" bare="True"/>
     <project name="external/yocto/github.com.golang.example" remote="base" path="layers/oe-core-dl-2.3/git/github.com.golang.example" bare="True"/>
+    <project name="external/yocto/github.com.golang.dep" remote="base" path="layers/oe-core-dl-2.3/git/github.com.golang.dep" bare="True"/>
