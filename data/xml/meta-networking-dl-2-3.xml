@@ -29,3 +29,4 @@
     <project name="external/yocto/git.netfilter.org.libnetfilter_log" remote="base" path="layers/meta-networking-dl-2.3/git/git.netfilter.org.libnetfilter_log" bare="True"/>
     <project name="external/yocto/github.com.traviscross.mtr" remote="base" path="layers/meta-networking-dl-2.3/git/github.com.traviscross.mtr" bare="True"/>
     <project name="external/yocto/git.openwrt.org.project.relayd" remote="base" path="layers/meta-networking-dl-2.3/git/git.openwrt.org.project.relayd.git" bare="True"/>
+    <project name="external/yocto/github.com.c-ares.c-ares" remote="base" path="layers/meta-networking-dl-2.3/git/github.com.c-ares.c-ares.git" bare="True"/>
