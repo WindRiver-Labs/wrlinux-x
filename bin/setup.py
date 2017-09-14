@@ -1107,6 +1107,7 @@ class Setup():
         cmd = args
         cmd.insert(0, repo)
         cmd.insert(1, 'sync')
+        cmd.insert(2, '--prune')
         if self.force_sync:
             cmd.append(self.force_sync)
         log_it = 1
