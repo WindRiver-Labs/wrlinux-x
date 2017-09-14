@@ -1,0 +1,1 @@
+    <project name="external/yocto/oss.oracle.com.git.ocfs2-tools" remote="base" path="layers/meta-cgl-common-dl/git/oss.oracle.com.git.ocfs2-tools.git" bare="True"/>
