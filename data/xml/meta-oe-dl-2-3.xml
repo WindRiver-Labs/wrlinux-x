@@ -46,3 +46,4 @@
     <project name="external/yocto/github.com.vcrhonek.hwdata" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.vcrhonek.hwdata.git" bare="True"/>
     <project name="external/yocto/github.com.jlanza.umip" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.jlanza.umip.git" bare="True"/>
     <project name="external/yocto/github.com.ClusterLabs.libqb" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.ClusterLabs.libqb.git" bare="True"/>
+    <project name="external/yocto/github.com.uclouvain.openjpeg" remote="base" path="layers/meta-oe-dl-2.3/git/github.com.uclouvain.openjpeg.git" bare="True"/>
