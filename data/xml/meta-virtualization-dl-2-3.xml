@@ -21,3 +21,4 @@
     <project name="external/yocto/github.com.aanand.compose-file" remote="base" path="layers/meta-virtualization-dl-2.3/git/github.com.aanand.compose-file.git" bare="True"/>
     <project name="external/yocto/github.com.docker.containerd" remote="base" path="layers/meta-virtualization-dl-2.3/git/github.com.docker.containerd.git" bare="True"/>
     <project name="external/yocto/github.com.docker.cli" remote="base" path="layers/meta-virtualization-dl-2.3/git/github.com.docker.cli.git" bare="True"/>
+    <project name="external/yocto/github.com.docker.cli" remote="base" path="layers/meta-virtualization-dl-2.3/git/github.com.docker.cli" bare="True"/>
