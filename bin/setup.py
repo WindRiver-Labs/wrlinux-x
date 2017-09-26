@@ -266,27 +266,30 @@ class Setup():
 
         mirror_index_path = None
 
-        from windshare import Windshare
-        ws = Windshare(debug=self.debug_lvl)
+        if not (self.base_branch == "master" or self.base_branch == "master-wr"):
+            from windshare import Windshare
+            ws = Windshare(debug=self.debug_lvl)
 
-        # Determine if this is a windshare install
-        (ws_base_url, ws_base_folder, ws_entitlement_url) = ws.get_windshare_urls(self.base_url)
-        if ws_base_url and ws_base_url != "" and ws.load_folders(ws_entitlement_url):
-            logger.plain('Detected Windshare configuration.  Processing entitlements and indexes.')
+            # Determine if this is a windshare install
+            (ws_base_url, ws_base_folder, ws_entitlement_url) = ws.get_windshare_urls(self.base_url)
+            if ws_base_url and ws_base_url != "" and ws.load_folders(ws_entitlement_url):
+                logger.plain('Detected Windshare configuration.  Processing entitlements and indexes.')
 
-            for folder in ws.folders:
-                mirror_index_path = ws.load_mirror_index(self, ws_base_url, folder)
+                for folder in ws.folders:
+                    mirror_index_path = ws.load_mirror_index(self, ws_base_url, folder)
 
-            ws.write_local_mirror_index(self, mirror_index_path)
+                ws.write_local_mirror_index(self, mirror_index_path)
 
-            # We need to adjust the base_url so everything works properly...
-            self.base_url = ws_base_url
+                # We need to adjust the base_url so everything works properly...
+                self.base_url = ws_base_url
 
-            # Adjust the location of the buildtools (was based on the original base_url)
-            if self.buildtools_remote:
-                self.buildtools_remote = ws_base_folder + '/' + self.buildtools_remote
+                # Adjust the location of the buildtools (was based on the original base_url)
+                if self.buildtools_remote:
+                    self.buildtools_remote = ws_base_folder + '/' + self.buildtools_remote
+            else:
+                logger.debug('No Windshare configuration detected.')
         else:
-            logger.debug('No Windshare configuration detected.')
+            logger.debug('Windshare configuration disabled, building %s.' % self.base_branch)
 
         # Check if we have a mirror-index, and load it if we do...
         if not mirror_index_path:
