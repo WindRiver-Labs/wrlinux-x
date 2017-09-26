@@ -1,4 +1,4 @@
-# Copyright (C) 2016 Wind River Systems, Inc.
+# Copyright (C) 2016-2017 Wind River Systems, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as
@@ -19,7 +19,7 @@
 BUILDTOOLS_REMOTE="${BUILDTOOLS_REMOTE:-buildtools-standalone-20170614}"
 
 # Special windshare folders to search
-BUILDTOOLS_FOLDERS="WRLinux-9-LTS-CVE WRLinux-9-LTS WRLinux-9-Base"
+BUILDTOOLS_FOLDERS=""
 
 # Where to cache the git fetch
 BUILDTOOLS_GIT="${BUILDTOOLS_GIT:-bin/buildtools.git}"

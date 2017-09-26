@@ -19,7 +19,7 @@
 setup_add_func wr_repo_setup
 
 # Special windshare folders to search
-REPO_FOLDERS="WRLinux-9-LTS-CVE WRLinux-9-LTS WRLinux-9-Base"
+REPO_FOLDERS=""
 
 . ${BASEDIR}/data/environment.d/setup_utils
 
