@@ -64,15 +64,15 @@ To update your project either re-run the setup program or use the command:
 The preferred way of updating your project project is to re-run the setup
 program.
 
-First update wrlinux-9, for example:
+First update wrlinux-x, for example:
 
-$ cd wrlinux-9
+$ cd wrlinux-x
 $ git pull
 $ cd ..
 
 Then re-run the setup program with the original arguments.
 
-$ wrlinux-9/setup.sh ####SETUP_ARGS####
+$ wrlinux-x/setup.sh ####SETUP_ARGS####
 
 The sync command will simply update your project, on the current branch, to
 the latest version.

@@ -9,15 +9,15 @@ To update your mirror
 The preferred way of updating your repository mirror is to re-run the setup
 program.
 
-First you should update the wrlinux-9, for example:
+First you should update the wrlinux-x, for example:
 
-$ cd wrlinux-9
+$ cd wrlinux-x
 $ git pull
 $ cd ..
 
 Then re-run the setup program with the original arguments.
 
-$ wrlinux-9/setup.sh ####SETUP_ARGS####
+$ wrlinux-x/setup.sh ####SETUP_ARGS####
 
 You can change the arguments to the setup program.  This will change the
 what is downloaded as part of your repository mirror.  If repositories have
