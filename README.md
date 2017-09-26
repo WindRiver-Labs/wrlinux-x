@@ -89,7 +89,7 @@ and then run the wrlinux-x/setup.sh program as described above.
 License
 -------
 
-Copyright (C) 2016 Wind River Systems, Inc.
+Copyright (C) 2016-2017 Wind River Systems, Inc.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License version 2 as
