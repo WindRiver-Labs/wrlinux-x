@@ -22,12 +22,14 @@ oe-init-build-env to construct your build directory.
 Documentation
 -------------
 
-For documentation, see the Wind River Knowledge Library, specifically
-the section on Wind River Linux 9:
-https://knowledge.windriver.com/en-us/000_Products/000/010/050
+For documentation, see the Wind River Knowledge Library:
+https://knowledge.windriver.com
+
+Select "Products > Operating Systems > Linux > Linux LTS" to view all
+documentation categories.
 
 It is suggested that you start with:
-_The Wind River Linux Platform Development Quick Start, 9_.
+_The Wind River Linux Platform Development Quick Start_.
 
 When following the quick start and other examples, use:
 
