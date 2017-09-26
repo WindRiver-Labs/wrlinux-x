@@ -118,7 +118,7 @@ INDEXES = [
         'TYPE' : 'restapi-web',
         'URL' : 'http://layers.wrs.com/layerindex/api/',
         'CACHE' : None,
-        'BRANCH' : 'WRLINUX_9_BASE',
+        'BRANCH' : 'master-wr',
     },
 ]
 
