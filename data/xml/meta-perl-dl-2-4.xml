@@ -1,0 +1,1 @@
+    <project name="external/yocto/git.debian.org.git.logcheck.logcheck" remote="base" path="layers/meta-perl-dl-2.4/git/git.debian.org.git.logcheck.logcheck.git" bare="True"/>
