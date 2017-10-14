@@ -60,11 +60,17 @@ WRTEMPLATE ?= "####DEFAULTWRTEMPLATE####"
 # This sets the default machine if no other machine has been selected:
 MACHINE ??= "####DEFAULTMACHINE####"
 
-# Set the default kernel type.  This may be overriden by a distribution
-# or other configuration file.  Change '??=' to '=' here to force the build
-# to use this value.
 #
-LINUX_KERNEL_TYPE ??= "####DEFAULTKTYPE####"
+# Linux Kernel Type
+#
+# Change the default kernel type.  The LINUX_KERNEL_TYPE is typically set
+# by the linux-yocto, linux-yocto-rt and linux-yocto-tiny recipes.
+# However, if you wish to change the kernel type for the 'linux-yocto'
+# recipe, uncomment the line below and set the value.
+#
+# Typical values include: standard, preempt-rt and tiny
+#
+#LINUX_KERNEL_TYPE = "standard"
 
 #
 # Where to place downloads

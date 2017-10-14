@@ -68,10 +68,6 @@ class Argparse_Wrl(Argparse_Setup):
             if self.setup:
                 self.setup.dl_layers = parsed_args.dl_layers
 
-        if parsed_args.kernel:
-            if self.setup:
-                self.setup.kernel = parsed_args.kernel
-
         Argparse_Setup.handle_setup_args(self, parsed_args, args)
 
     def add_setup_options(self):
@@ -94,16 +90,3 @@ class Argparse_Wrl(Argparse_Setup):
         Argparse_Setup.add_layer_options(self)
         self.layer_args.add_argument('--templates', metavar='TEMPLATE', help='Select layers(s) based on template(s) and add them by default to the builds', nargs='+')
         self.layer_args.add_argument('--dl-layers', help='Enable download layers; these layers include predownloaded items', action='store_true')
-
-    def add_other_options(self):
-        Argparse_Setup.add_other_options(self)
-        # WR Specific configuration
-
-        self.misc_args = self.parser.add_argument_group('Miscellaneous')
-        setup_kernel = ""
-        setup_kernel_def = ""
-        if self.setup:
-            setup_kernel = self.setup.kernel
-            setup_kernel_def = "(default %s)" % setup_kernel
-        self.misc_args.add_argument('--kernel', metavar='KTYPE', help='Specify the target kernel configuration type %s' % (setup_kernel_def), default=setup_kernel)
-

@@ -78,7 +78,6 @@ class Setup():
         self.layers = []
         self.recipes = []
         self.wrtemplates = []
-        self.kernel = settings.DEFAULT_KTYPE
 
         self.all_layers = False
         self.dl_layers = False
@@ -691,9 +690,6 @@ class Setup():
                 continue
             if '####DEFAULTWRTEMPLATE####' in line:
                 dst.write(line.replace('####DEFAULTWRTEMPLATE####', ' '.join(self.wrtemplates)))
-                continue
-            if '####DEFAULTKTYPE####' in line:
-                dst.write(line.replace('####DEFAULTKTYPE####', self.kernel))
                 continue
             dst.write(line)
 

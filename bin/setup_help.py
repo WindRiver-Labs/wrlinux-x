@@ -28,7 +28,6 @@ class Setup():
     jobs = settings.REPO_JOBS
     distros = [ settings.DEFAULT_DISTRO ]
     machines = [ settings.DEFAULT_MACHINE ]
-    kernel = settings.DEFAULT_KTYPE
 
     def __init__(self):
        # Pull in the defaults from the environment (set by setup.sh)

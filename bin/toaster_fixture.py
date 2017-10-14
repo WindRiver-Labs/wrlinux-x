@@ -323,7 +323,7 @@ def main(argv):
     append_setting('DEFCONF_MACHINE',settings.DEFAULT_MACHINE,4)
     # append custom settings
     setting_pk=CUSTOM_SETTINGS_BASE
-    setting_pk=append_setting('DEFCONF_LINUX_KERNEL_TYPE',settings.DEFAULT_KTYPE,setting_pk)
+    setting_pk=append_setting('DEFCONF_LINUX_KERNEL_TYPE','standard',setting_pk)
     setting_pk=append_setting('DEFAULT_KTYPE_LIST','standard preempt-rt tiny',setting_pk)
     setting_pk=append_setting('CUSTOM_LAYERINDEX_SERVER',json_cache,setting_pk)
     setting_pk=append_setting('SETUP_XMLDIR',xml_dir,setting_pk)
