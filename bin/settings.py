@@ -41,7 +41,6 @@ BASE_LAYERS = "wrlinux"
 
 DEFAULT_DISTRO = "wrlinux-small"
 DEFAULT_MACHINE = "qemux86-64"
-DEFAULT_KTYPE = "standard"
 
 # Default number of repo jobs
 REPO_JOBS = 4

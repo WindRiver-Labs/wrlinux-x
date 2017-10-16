@@ -36,7 +36,7 @@ check_update_stop() {
 			cat << EOF
 
 Note: The project layers have been updated. You should inspect the
-conf/bblayers.conf file in all build directories and syncronise them to match
+conf/bblayers.conf file in all build directories and syncronize them to match
 the updated conf/bblayers.conf.sample file, as necessary.
 
 EOF
@@ -49,7 +49,7 @@ EOF
 			cat << EOF
 
 Note: The project local.conf.sample has been updated.  You should inspect the
-conf/local.conf file in all build directories and syncronisse them to match,
+conf/local.conf file in all build directories and syncronize them to match,
 as necessary.
 
 EOF
