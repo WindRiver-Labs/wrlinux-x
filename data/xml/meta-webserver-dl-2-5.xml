@@ -1,0 +1,3 @@
+    <project name="external/yocto/github.com.firehol.netdata" remote="base" path="layers/meta-webserver-dl-2.5/git/github.com.firehol.netdata.git" bare="True"/>
+    <project name="external/yocto/github.com.jchampio.apache-websocket" remote="base" path="layers/meta-webserver-dl-2.5/git/github.com.jchampio.apache-websocket.git" bare="True"/>
+    <project name="external/yocto/github.com.cherokee.webserver" remote="base" path="layers/meta-webserver-dl-2.5/git/github.com.cherokee.webserver.git" bare="True"/>
