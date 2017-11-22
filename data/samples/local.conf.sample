@@ -195,6 +195,11 @@ USER_CLASSES ?= "buildstats image-mklibs image-prelink"
 #   - 'tar.gz' to create a gzip compressed tarball of the image
 #   - 'tar.bz2' to create a bz2 compressed tarball of the image
 #   - 'ext4' to create an ext4 image
+#
+# NOTE:
+# Due to the way the OpenEmbedded build system processes this variable,
+# you cannot update its contents by using _append or _prepend. You must use
+# the += operator to add one or more options to the IMAGE_FSTYPES variable.
 IMAGE_FSTYPES += "tar.bz2"
 
 # The following options will build a companion 'debug filesystem' in addition
