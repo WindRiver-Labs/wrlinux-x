@@ -2,7 +2,6 @@ This project was configured with the following options:
     ####SETUP_ARGS####
 
 Common Wind River images are:
-    wrlinux-image-glibc-tiny      (requires distro: wrlinux-tiny)
     wrlinux-image-glibc-small     (requires distro: wrlinux-small)
     wrlinux-image-glibc-core      (suggests distro: wrlinux)
     wrlinux-image-glibc-std       (suggests distro: wrlinux)
