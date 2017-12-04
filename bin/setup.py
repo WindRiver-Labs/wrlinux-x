@@ -1107,6 +1107,8 @@ class Setup():
         cmd.insert(0, repo)
         cmd.insert(1, 'sync')
         cmd.insert(2, '--prune')
+        # disable use of /clone.bundle on HTTP/HTTPS
+        cmd.insert(3, '--no-clone-bundle')
         if self.force_sync:
             cmd.append(self.force_sync)
         log_it = 1
