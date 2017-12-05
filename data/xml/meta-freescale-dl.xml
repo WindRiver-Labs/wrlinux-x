@@ -1,0 +1,9 @@
+    <project name="external/yocto/github.com.qoriq-open-source.ceetm" remote="base" path="layers/meta-freescale-dl/git/github.com.qoriq-open-source.ceetm.git" bare="True"/>
+    <project name="external/yocto/git.freescale.com.ppc.sdk.dce" remote="base" path="layers/meta-freescale-dl/git/git.freescale.com.ppc.sdk.dce.git" bare="True"/>
+    <project name="external/yocto/github.com.qoriq-open-source.dpdk" remote="base" path="layers/meta-freescale-dl/git/github.com.qoriq-open-source.dpdk.git" bare="True"/>
+    <project name="external/yocto/github.com.qoriq-open-source.flib" remote="base" path="layers/meta-freescale-dl/git/github.com.qoriq-open-source.flib.git" bare="True"/>
+    <project name="external/yocto/github.com.qoriq-open-source.odp" remote="base" path="layers/meta-freescale-dl/git/github.com.qoriq-open-source.odp.git" bare="True"/>
+    <project name="external/yocto/github.com.qoriq-open-source.ofp" remote="base" path="layers/meta-freescale-dl/git/github.com.qoriq-open-source.ofp.git" bare="True"/>
+    <project name="external/yocto/github.com.qoriq-open-source.ovs-dpdk" remote="base" path="layers/meta-freescale-dl/git/github.com.qoriq-open-source.ovs-dpdk.git" bare="True"/>
+    <project name="external/yocto/github.com.qoriq-open-source.qbman_userspace" remote="base" path="layers/meta-freescale-dl/git/github.com.qoriq-open-source.qbman_userspace.git" bare="True"/>
+    <project name="external/yocto/github.com.qoriq-open-source.restool" remote="base" path="layers/meta-freescale-dl/git/github.com.qoriq-open-source.restool.git" bare="True"/>
