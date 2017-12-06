@@ -63,10 +63,26 @@ MACHINE ??= "####DEFAULTMACHINE####"
 #
 # Linux Kernel Type
 #
-# Change the default kernel type.  The LINUX_KERNEL_TYPE is typically set
-# by the linux-yocto, linux-yocto-rt and linux-yocto-tiny recipes.
+# The default kernel type is defined by LINUX_KERNEL_TYPE. This value
+# is typically set by the Linux kernel recipe.  The default kernel recipe
+# for your configuration is selected by the DISTRO.
+#
+# If you want to override the default kernel, typically you would
+# select the desired kernel recipe via PREFERRED_PROVIDER_virtual/kernel.
+# This is the preferred method to select the kernel type, as the recipe
+# may enable additional configuration options that adjusting the
+# LINUX_KERNEL_TYPE alone may not.
+#
+# To select a specific kernel recipe, uncomment the line below
+# and set the value.
+#
+# Typical values include: linux-yocto, linux-yocto-rt, and linux-yocto-tiny
+#
+#PREFERRED_PROVIDER_virtual/kernel = "linux-yocto"
+#
 # However, if you wish to change the kernel type for the 'linux-yocto'
-# recipe, uncomment the line below and set the value.
+# recipe, uncomment the line below and set the value.  Note: kernel
+# recipes other then 'linux-yocto' may choose to ignore the setting below.
 #
 # Typical values include: standard, preempt-rt and tiny
 #
