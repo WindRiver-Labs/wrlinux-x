@@ -82,7 +82,7 @@ MACHINE ??= "####DEFAULTMACHINE####"
 #
 # However, if you wish to change the kernel type for the 'linux-yocto'
 # recipe, uncomment the line below and set the value.  Note: kernel
-# recipes other then 'linux-yocto' may choose to ignore the setting below.
+# recipes other than 'linux-yocto' may choose to ignore the setting below.
 #
 # Typical values include: standard, preempt-rt and tiny
 #
