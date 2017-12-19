@@ -6,5 +6,4 @@
     <project name="external/yocto/github.com.rhinstaller.python-meh" remote="base" path="layers/wr-installer-dl/git/github.com.rhinstaller.python-meh.git" bare="True"/>
     <project name="external/yocto/github.com.seveas.python-prctl" remote="base" path="layers/wr-installer-dl/git/github.com.seveas.python-prctl" bare="True"/>
     <project name="external/yocto/github.com.pravins.lohit" remote="base" path="layers/wr-installer-dl/git/github.com.pravins.lohit.git" bare="True"/>
-    <project name="external/yocto/github.com.ensc.xmlrpc-c" remote="base" path="layers/wr-installer-dl/git/github.com.ensc.xmlrpc-c.git" bare="True"/>
     <project name="external/yocto/github.com.rhinstaller.blivet-gui" remote="base" path="layers/wr-installer-dl/git/github.com.rhinstaller.blivet-gui" bare="True"/>
