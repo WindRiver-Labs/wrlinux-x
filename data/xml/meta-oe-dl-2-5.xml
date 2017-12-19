@@ -47,3 +47,4 @@
     <project name="external/yocto/github.com.jlanza.umip" remote="base" path="layers/meta-oe-dl-2.5/git/github.com.jlanza.umip.git" bare="True"/>
     <project name="external/yocto/github.com.ClusterLabs.libqb" remote="base" path="layers/meta-oe-dl-2.5/git/github.com.ClusterLabs.libqb.git" bare="True"/>
     <project name="external/yocto/git.kernel.dk.fio" remote="base" path="layers/meta-oe-dl-2.5/git/git.kernel.dk.fio.git" bare="True"/>
+    <project name="external/yocto/github.com.rhinstaller.libblockdev" remote="base" path="layers/meta-oe-dl-2.5/git/github.com.rhinstaller.libblockdev" bare="True"/>
