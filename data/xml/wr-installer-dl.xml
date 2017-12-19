@@ -1,7 +1,5 @@
     <project name="external/yocto/github.com.autocracy.python-ipy" remote="base" path="layers/wr-installer-dl/git/github.com.autocracy.python-ipy.git" bare="True"/>
-    <project name="external/yocto/github.com.rhinstaller.blivet" remote="base" path="layers/wr-installer-dl/git/github.com.rhinstaller.blivet" bare="True"/>
     <project name="external/yocto/github.com.rhinstaller.anaconda" remote="base" path="layers/wr-installer-dl/git/github.com.rhinstaller.anaconda" bare="True"/>
     <project name="external/yocto/github.com.rhinstaller.isomd5sum" remote="base" path="layers/wr-installer-dl/git/github.com.rhinstaller.isomd5sum.git" bare="True"/>
     <project name="external/yocto/github.com.seveas.python-prctl" remote="base" path="layers/wr-installer-dl/git/github.com.seveas.python-prctl" bare="True"/>
     <project name="external/yocto/github.com.pravins.lohit" remote="base" path="layers/wr-installer-dl/git/github.com.pravins.lohit.git" bare="True"/>
-    <project name="external/yocto/github.com.rhinstaller.blivet-gui" remote="base" path="layers/wr-installer-dl/git/github.com.rhinstaller.blivet-gui" bare="True"/>
