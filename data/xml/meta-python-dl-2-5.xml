@@ -1,0 +1,1 @@
+    <project name="external/yocto/github.com.mike-fabian.langtable" remote="base" path="layers/meta-python-dl-2.5/git/github.com.mike-fabian.langtable.git" bare="True"/>
