@@ -8,7 +8,6 @@
     <project name="external/yocto/github.com.seveas.python-prctl" remote="base" path="layers/wr-installer-dl/git/github.com.seveas.python-prctl" bare="True"/>
     <project name="external/yocto/github.com.rhinstaller.pyparted" remote="base" path="layers/wr-installer-dl/git/github.com.rhinstaller.pyparted.git" bare="True"/>
     <project name="external/yocto/github.com.pravins.lohit" remote="base" path="layers/wr-installer-dl/git/github.com.pravins.lohit.git" bare="True"/>
-    <project name="external/yocto/github.com.abrt.satyr" remote="base" path="layers/wr-installer-dl/git/github.com.abrt.satyr.git" bare="True"/>
     <project name="external/yocto/github.com.ensc.xmlrpc-c" remote="base" path="layers/wr-installer-dl/git/github.com.ensc.xmlrpc-c.git" bare="True"/>
     <project name="external/yocto/github.com.rhinstaller.blivet-gui" remote="base" path="layers/wr-installer-dl/git/github.com.rhinstaller.blivet-gui" bare="True"/>
     <project name="external/yocto/github.com.rhinstaller.libbytesize" remote="base" path="layers/wr-installer-dl/git/github.com.rhinstaller.libbytesize" bare="True"/>
