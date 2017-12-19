@@ -1,4 +1,3 @@
-    <project name="external/yocto/github.com.abrt.libreport" remote="base" path="layers/wr-installer-dl/git/github.com.abrt.libreport.git" bare="True"/>
     <project name="external/yocto/github.com.autocracy.python-ipy" remote="base" path="layers/wr-installer-dl/git/github.com.autocracy.python-ipy.git" bare="True"/>
     <project name="external/yocto/github.com.engla.keybinder" remote="base" path="layers/wr-installer-dl/git/github.com.engla.keybinder.git" bare="True"/>
     <project name="external/yocto/github.com.rhinstaller.blivet" remote="base" path="layers/wr-installer-dl/git/github.com.rhinstaller.blivet" bare="True"/>
