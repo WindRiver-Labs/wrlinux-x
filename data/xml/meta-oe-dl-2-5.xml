@@ -54,5 +54,3 @@
     <project name="external/yocto/github.com.rhinstaller.libbytesize" remote="base" path="layers/meta-oe-dl-2.5/git/github.com.rhinstaller.libbytesize" bare="True"/>
     <project name="external/yocto/github.com.ensc.xmlrpc-c" remote="base" path="layers/meta-oe-dl-2.5/git/github.com.ensc.xmlrpc-c.git" bare="True"/>
     <project name="external/yocto/github.com.rhinstaller.isomd5sum" remote="base" path="layers/meta-oe-dl-2.5/git/github.com.rhinstaller.isomd5sum.git" bare="True"/>
-    <project name="external/yocto/github.com.abrt.libreport" remote="base" path="layers/meta-oe-dl-2.5/git/github.com.abrt.libreport.git" bare="True"/>
-    <project name="external/yocto/github.com.TigerVNC.tigervnc" remote="base" path="layers/meta-oe-dl-2.5/git/github.com.TigerVNC.tigervnc.git" bare="True"/>
