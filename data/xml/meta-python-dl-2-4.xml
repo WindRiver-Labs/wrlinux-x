@@ -1,0 +1,1 @@
+    <project name="external/yocto/github.com.seveas.python-prctl" remote="base" path="layers/meta-python-dl-2.4/git/github.com.seveas.python-prctl" bare="True"/>
