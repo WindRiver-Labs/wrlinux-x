@@ -51,3 +51,4 @@
     <project name="external/yocto/github.com.ensc.xmlrpc-c" remote="base" path="layers/meta-oe-dl-2.4/git/github.com.ensc.xmlrpc-c.git" bare="True"/>
     <project name="external/yocto/github.com.rhinstaller.isomd5sum" remote="base" path="layers/meta-oe-dl-2.4/git/github.com.rhinstaller.isomd5sum.git" bare="True"/>
     <project name="external/yocto/github.com.TigerVNC.tigervnc" remote="base" path="layers/meta-oe-dl-2.4/git/github.com.TigerVNC.tigervnc.git" bare="True"/>
+    <project name="external/yocto/github.com.abrt.satyr" remote="base" path="layers/meta-oe-dl-2.4/git/github.com.abrt.satyr.git" bare="True"/>
