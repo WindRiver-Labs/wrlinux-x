@@ -49,3 +49,4 @@
     <project name="external/yocto/git.kernel.dk.fio" remote="base" path="layers/meta-oe-dl-2.4/git/git.kernel.dk.fio.git" bare="True"/>
     <project name="external/yocto/github.com.rhinstaller.libblockdev" remote="base" path="layers/meta-oe-dl-2.4/git/github.com.rhinstaller.libblockdev" bare="True"/>
     <project name="external/yocto/github.com.ensc.xmlrpc-c" remote="base" path="layers/meta-oe-dl-2.4/git/github.com.ensc.xmlrpc-c.git" bare="True"/>
+    <project name="external/yocto/github.com.rhinstaller.isomd5sum" remote="base" path="layers/meta-oe-dl-2.4/git/github.com.rhinstaller.isomd5sum.git" bare="True"/>
