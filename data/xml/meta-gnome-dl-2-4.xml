@@ -1,0 +1,1 @@
+    <project name="external/yocto/github.com.engla.keybinder" remote="base" path="layers/meta-gnome-dl-2.4/git/github.com.engla.keybinder.git" bare="True"/>
