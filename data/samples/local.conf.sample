@@ -127,7 +127,7 @@ MACHINE ??= "####DEFAULTMACHINE####"
 #
 #DISTRO ?= "####DISTROS####"
 #
-# This sets the default machine if no other machine has been selected:
+# This sets the default distro if no other distro has been selected:
 DISTRO ??= "####DEFAULTDISTRO####"
 
 #
