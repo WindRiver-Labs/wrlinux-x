@@ -32,6 +32,7 @@
     <project name="external/yocto/github.com.opencv.opencv_contrib" remote="base" path="layers/meta-oe-dl-2.5/git/github.com.opencv.opencv_contrib.git" bare="True"/>
     <project name="external/yocto/github.com.opencv.opencv_3rdparty" remote="base" path="layers/meta-oe-dl-2.5/git/github.com.opencv.opencv_3rdparty.git" bare="True"/>
     <project name="external/yocto/github.com.google.protobuf" remote="base" path="layers/meta-oe-dl-2.5/git/github.com.google.protobuf.git" bare="True"/>
+    <project name="external/yocto/github.com.pravins.lohit" remote="base" path="layers/meta-oe-dl-2.5/git/github.com.pravins.lohit.git" bare="True"/>
     <project name="external/yocto/github.com.protobuf-c.protobuf-c" remote="base" path="layers/meta-oe-dl-2.5/git/github.com.protobuf-c.protobuf-c.git" bare="True"/>
     <project name="external/yocto/github.com.Linutronix.minicoredumper-debian" remote="base" path="layers/meta-oe-dl-2.5/git/github.com.Linutronix.minicoredumper-debian" bare="True"/>
     <project name="external/yocto/git.code.sf.net.p.tipc.tipcutils" remote="base" path="layers/meta-oe-dl-2.5/git/git.code.sf.net.p.tipc.tipcutils" bare="True"/>
