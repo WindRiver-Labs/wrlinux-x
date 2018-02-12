@@ -109,3 +109,4 @@
     <project name="external/yocto/gitlab.com.psmisc.psmisc" remote="base" path="layers/oe-core-dl-2.5/git/gitlab.com.psmisc.psmisc.git" bare="True"/>
     <project name="external/yocto/github.com.intel.bmap-tools" remote="base" path="layers/oe-core-dl-2.5/git/github.com.intel.bmap-tools.git" bare="True"/>
     <project name="external/yocto/anongit.freedesktop.org.gstreamer.gst-examples" remote="base" path="layers/oe-core-dl-2.5/git/anongit.freedesktop.org.gstreamer.gst-examples" bare="True"/>
+    <project name="external/yocto/github.com.Masterminds.glide" remote="base" path="layers/oe-core-dl-2.5/git/github.com.Masterminds.glide" bare="True"/>
