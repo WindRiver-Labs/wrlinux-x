@@ -1,1 +1,1 @@
-    <project name="external/yocto/github.com.altera-opensource.u-boot-socfpga" remote="base" path="layers/intel-socfpag-dl/git/github.com.altera-opensource.u-boot-socfpga.git" bare="True"/>
+    <project name="external/yocto/github.com.altera-opensource.u-boot-socfpga" remote="base" path="layers/intel-socfpga-dl/git/github.com.altera-opensource.u-boot-socfpga.git" bare="True"/>
