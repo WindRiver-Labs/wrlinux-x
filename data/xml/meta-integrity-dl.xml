@@ -1,2 +1,3 @@
     <project name="external/yocto/git.kernel.org.pub.scm.linux.kernel.git.dhowells.keyutils" remote="base" path="layers/meta-integrity-dl/git/git.kernel.org.pub.scm.linux.kernel.git.dhowells.keyutils.git" bare="True"/>
     <project name="external/yocto/git.code.sf.net.p.linux-ima.ima-evm-utils" remote="base" path="layers/meta-integrity-dl/git/git.code.sf.net.p.linux-ima.ima-evm-utils" bare="True"/>
+    <project name="external/yocto/github.com.mgerstner.ima-inspect" remote="base" path="layers/meta-integrity-dl/git/github.com.mgerstner.ima-inspect.git" bare="True"/>
