@@ -113,3 +113,4 @@
     <project name="external/yocto/github.com.iputils.iputils" remote="base" path="layers/oe-core-dl-2.5/git/github.com.iputils.iputils" bare="True"/>
     <project name="external/yocto/github.com.ninja-build.ninja" remote="base" path="layers/oe-core-dl-2.5/git/github.com.ninja-build.ninja.git" bare="True"/>
     <project name="external/yocto/github.com.p11-glue.p11-kit" remote="base" path="layers/oe-core-dl-2.5/git/github.com.p11-glue.p11-kit" bare="True"/>
+    <project name="external/yocto/github.com.cryptodev-linux.cryptodev-linux" remote="base" path="layers/oe-core-dl-2.5/git/github.com.cryptodev-linux.cryptodev-linux" bare="True"/>
