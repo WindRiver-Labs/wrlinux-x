@@ -1,0 +1,2 @@
+    <project name="external/yocto/github.com.websocket-client.websocket-client" remote="base" path="layers/meta-device-cloud-dl/git/github.com.websocket-client.websocket-client.git" bare="True"/>
+    <project name="external/yocto/github.com.Wind-River.device-cloud-python" remote="base" path="layers/meta-device-cloud-dl/git/github.com.Wind-River.device-cloud-python.git" bare="True"/>
