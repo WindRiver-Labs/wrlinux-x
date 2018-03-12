@@ -115,3 +115,4 @@
     <project name="external/yocto/github.com.p11-glue.p11-kit" remote="base" path="layers/oe-core-dl-2.5/git/github.com.p11-glue.p11-kit" bare="True"/>
     <project name="external/yocto/github.com.cryptodev-linux.cryptodev-linux" remote="base" path="layers/oe-core-dl-2.5/git/github.com.cryptodev-linux.cryptodev-linux" bare="True"/>
     <project name="external/yocto/git.yoctoproject.org.pseudo" remote="base" path="layers/oe-core-dl-2.5/git/git.yoctoproject.org.pseudo" bare="True"/>
+    <project name="external/yocto/github.com.fedora-sysv.initscripts" remote="base" path="layers/oe-core-dl-2.5/git/github.com.fedora-sysv.initscripts" bare="True"/>
