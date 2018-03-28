@@ -1045,12 +1045,13 @@ class Setup():
     def set_ssl_cert(self):
         fn = self.project_dir + self.BINTOOLS_SSL_CERT
         dn = self.project_dir + self.BINTOOLS_SSL_DIR
-        self.env["GIT_SSL_CAINFO"] = fn
-        self.env["CURL_CA_BUNDLE"] = fn
-        self.env["SSL_CERT_FILE"] = fn
-        self.env["SSL_CERT_DIR"] = dn
-        os.environ["SSL_CERT_FILE"] = fn
-        os.environ["SSL_CERT_DIR"] = dn
+        if os.path.exists(fn) and os.path.exists(dn):
+            self.env["GIT_SSL_CAINFO"] = fn
+            self.env["CURL_CA_BUNDLE"] = fn
+            self.env["SSL_CERT_FILE"] = fn
+            self.env["SSL_CERT_DIR"] = dn
+            os.environ["SSL_CERT_FILE"] = fn
+            os.environ["SSL_CERT_DIR"] = dn
 
     def call_repo_init(self, args):
         logger.debug('Starting')
