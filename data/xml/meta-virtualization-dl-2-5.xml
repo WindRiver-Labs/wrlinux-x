@@ -9,7 +9,6 @@
     <project name="external/yocto/github.com.gorilla.mux" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.gorilla.mux.git" bare="True"/>
     <project name="external/yocto/github.com.docker.distribution" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.docker.distribution.git" bare="True"/>
     <project name="external/yocto/github.com.tchap.go-patricia" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.tchap.go-patricia.git" bare="True"/>
-    <project name="external/yocto/github.com.go-fsnotify.fsnotify" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.go-fsnotify.fsnotify.git" bare="True"/>
     <project name="external/yocto/github.com.godbus.dbus" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.godbus.dbus.git" bare="True"/>
     <project name="external/yocto/github.com.gorilla.context" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.gorilla.context.git" bare="True"/>
     <project name="external/yocto/github.com.codegangsta.cli" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.codegangsta.cli.git" bare="True"/>
