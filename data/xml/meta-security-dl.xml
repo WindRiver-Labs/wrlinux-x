@@ -1,1 +1,0 @@
-    <project name="external/yocto/github.com.seccomp.libseccomp" remote="base" path="layers/meta-security-dl/git/github.com.seccomp.libseccomp.git" bare="True"/>
