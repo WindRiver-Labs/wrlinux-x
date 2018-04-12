@@ -90,3 +90,4 @@
     <project name="external/yocto/github.com.akuster.distcc" remote="base" path="layers/oe-core-dl-2.5/git/github.com.akuster.distcc.git" bare="True"/>
     <project name="external/yocto/salsa.debian.org.debian.ncurses" remote="base" path="layers/oe-core-dl-2.5/git/salsa.debian.org.debian.ncurses.git" bare="True"/>
     <project name="external/yocto/salsa.debian.org.debian.ca-certificates" remote="base" path="layers/oe-core-dl-2.5/git/salsa.debian.org.debian.ca-certificates.git" bare="True"/>
+    <project name="external/yocto/github.com.besser82.libxcrypt" remote="base" path="layers/oe-core-dl-2.5/git/github.com.besser82.libxcrypt.git" bare="True"/>
