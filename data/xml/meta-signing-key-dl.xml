@@ -1,1 +1,2 @@
     <project name="external/yocto/kernel.ubuntu.com.jk.sbsigntool" remote="base" path="layers/meta-signing-key-dl/git/kernel.ubuntu.com.jk.sbsigntool" bare="True"/>
+    <project name="external/yocto/github.com.jiazhang0.libsign" remote="base" path="layers/meta-signing-key-dl/git/github.com.jiazhang0.libsign.git" bare="True"/>
