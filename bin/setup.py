@@ -22,6 +22,7 @@ import shutil
 import subprocess
 import sys
 import time
+import re
 
 import utils_setup
 
@@ -115,6 +116,8 @@ class Setup():
 
         self.conf_dir = os.path.join(self.project_dir, self.class_config_dir)
 
+        # Save current base_branch to compare with next one
+        self.saved_base_branch = os.path.join(self.conf_dir, 'saved_base_branch')
 
         # Environment setup
         self.env = os.environ.copy()
@@ -185,6 +188,9 @@ class Setup():
 
         # Log debug which may have been missed due to log level.
         logger.debug("PATH=%s" % self.env["PATH"])
+
+        # Check saved_base_branch vs current base_branch
+        self.check_base_branch()
 
         logger.debug("Tools are:")
         for key in self.tools:
@@ -259,6 +265,36 @@ class Setup():
 
         return mirror_index
 
+    def check_base_branch(self):
+        logger.debug('Checking saved_base_branch vs current base_branch')
+
+        sync_file = os.path.join(self.project_dir, self.check_repo_sync_file)
+        if not os.path.exists(sync_file):
+            logger.debug("Skip the check since %s doesn't exist" % sync_file)
+            return
+
+        if not os.path.exists(self.saved_base_branch):
+            logger.debug("Skip the check since %s doesn't exist" % self.saved_base_branch)
+            return
+
+        with open(self.saved_base_branch, 'r') as f:
+            saved_base_branch = f.read().rstrip('\n')
+        if saved_base_branch == self.base_branch:
+            logger.debug('saved_base_branch and current base_branch are the same')
+            return
+
+        repo = self.tools['repo']
+        cmd = [repo, 'status']
+        with subprocess.Popen(cmd, stdout=subprocess.PIPE, env=self.env, cwd=self.project_dir) as proc:
+            output = proc.stdout.read().decode('utf-8')
+            if re.search('^project\s+layers/.*\s+branch', output, flags=re.M):
+                logger.error("Found checked out branches, here is the output from 'repo status':\n%s" % output)
+                logger.error('Switching base branch with checked out projects is not allowed,')
+                logger.error('but you are switching from "%s" to "%s".'% (saved_base_branch, self.base_branch))
+                logger.error('Consider using either of the following ways to fix the problem:')
+                logger.error('- Run "git checkout m/master" in the projects')
+                logger.error('- Use "repo abandon [--all | <branchname>] [<project>...]" to abandon the branch\n')
+                self.exit(1)
 
     def load_layer_index(self):
         # Load Layer_Index
@@ -610,6 +646,8 @@ class Setup():
         self.copySample(self.install_dir + '/data/samples/local.conf.sample', self.project_dir + '/config/local.conf.sample')
         if os.path.exists(self.install_dir + '/data/samples/site.conf.sample'):
             self.copySample(self.install_dir + '/data/samples/site.conf.sample', self.project_dir + '/config/site.conf.sample')
+        with open(self.saved_base_branch, 'w') as f:
+            f.write('%s\n' % self.base_branch)
 
     def update_mirror(self):
         self.copySample(self.install_dir + '/data/samples/README-MIRROR.sample', self.project_dir + '/README')
@@ -948,6 +986,7 @@ class Setup():
             filelist.append('config/bblayers.conf.sample')
             filelist.append('config/conf-notes.txt')
             filelist.append('config/local.conf.sample')
+            filelist.append('config/saved_base_branch')
 
             if os.path.exists('config/site.conf.sample'):
                 filelist.append('config/site.conf.sample')
