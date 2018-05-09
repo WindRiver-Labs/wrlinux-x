@@ -59,7 +59,10 @@ class Layer_Index():
                                 continue
                             if entry not in lindex:
                                 lindex[entry] = []
-                            lindex[entry] = self.__add_cmp_lists(pindex[entry], lindex[entry])
+                            try:
+                                lindex[entry] = self.__add_cmp_lists(pindex[entry], lindex[entry])
+                            except TypeError as error:
+                                raise TypeError('Merge failed of pindex[%s] and lindex[%s]: %s' % (entry, entry, error))
                     else: # Not already know
                         m_index[pindex['CFG']['DESCRIPTION']] = pindex
 
@@ -111,7 +114,7 @@ class Layer_Index():
                 elif not lindex:
                     # Unknown index type...
                     logger.error('Unknown index type %s' % indextype)
-                    raise SyntaxError
+                    raise SyntaxError('Unknown index type %s' % indextype)
 
             # If we couldn't pull from the regular location, pull from the cache!
             if lindex is None and indexcache and os.path.exists(indexcache + '.json'):
@@ -278,8 +281,12 @@ class Layer_Index():
     def __add_cmp_lists(self, listone, listtwo):
         # Copy the items from listone, into listtwo -- if it isn't already
         # there..  if it is there, verify it's the same or raise an error...
-        if not listone:
+
+        if not listone: # List one is empty, just return listtwo
             return listtwo
+
+        if not listtwo: # List two is empty, just return listone
+            return listone
 
         for one in reversed(listone):
             found = False
@@ -290,11 +297,16 @@ class Layer_Index():
                         # Contents need to be the same!
                         if one != two:
                             # Something is out of sync here...
-                            raise
+                            raise TypeError('Cannot merge two objects with the same id %s, but different contents:\n%s\n%s' % (one['id'], one, two))
                         break
                 else:
                     # This is not a valid object
-                    raise
+                    if not 'id' in one and 'id' in two:
+                        raise TypeError('No id in object from the first parameter list:\n%s' % (one))
+                    if 'id' in one and not 'id' in two:
+                        raise TypeError('No id in object from the second parameter list:\n%s' % (two))
+                    if not 'id' in one and not 'id' in two:
+                        raise TypeError('No id in object in either parameter list:\n%s\n%s' % (one, two))
             if not found:
                 listtwo.append(one)
         return listtwo
@@ -325,7 +337,10 @@ class Layer_Index():
                     continue
                 if entry not in lindex:
                     lindex[entry] = []
-                lindex[entry] = self.__add_cmp_lists(pindex[entry], lindex[entry])
+                try:
+                    lindex[entry] = self.__add_cmp_lists(pindex[entry], lindex[entry])
+                except TypeError as error:
+                    raise TypeError('Merge failed of pindex[%s] and lindex[%s]: %s' % (entry, entry, error))
 
             logger.debug('...loading json file %s, done.' % path)
 
@@ -404,7 +419,10 @@ class Layer_Index():
             for entry in pindex:
                 if entry not in lindex:
                     lindex[entry] = []
-                lindex[entry] = self.__add_cmp_lists(pindex[entry], lindex[entry])
+                try:
+                    lindex[entry] = self.__add_cmp_lists(pindex[entry], lindex[entry])
+                except TypeError as error:
+                    raise TypeError('Merge failed of pindex[%s] and lindex[%s]: %s' % (entry, entry, error))
 
             logger.debug('...loading json file %s, done.' % path)
 
