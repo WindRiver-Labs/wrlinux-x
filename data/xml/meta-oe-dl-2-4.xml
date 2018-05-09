@@ -54,3 +54,5 @@
     <project name="external/yocto/github.com.abrt.satyr" remote="base" path="layers/meta-oe-dl-2.4/git/github.com.abrt.satyr.git" bare="True"/>
     <project name="external/yocto/github.com.rhinstaller.libbytesize" remote="base" path="layers/meta-oe-dl-2.4/git/github.com.rhinstaller.libbytesize" bare="True"/>
     <project name="external/yocto/github.com.linux-can.can-utils" remote="base" path="layers/meta-oe-dl-2.4/git/github.com.linux-can.can-utils.git" bare="True"/>
+    <project name="external/yocto/github.com.intel-iot-devkit.mraa" remote="base" path="layers/meta-oe-dl-2.4/git/github.com.intel-iot-devkit.mraa.git" bare="True"/>
+    <project name="external/yocto/github.com.intel-iot-devkit.upm" remote="base" path="layers/meta-oe-dl-2.4/git/github.com.intel-iot-devkit.upm.git" bare="True"/>
