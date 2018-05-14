@@ -88,3 +88,4 @@
     <project name="external/yocto/github.com.besser82.libxcrypt" remote="base" path="layers/oe-core-dl-2.5/git/github.com.besser82.libxcrypt.git" bare="True"/>
     <project name="external/yocto/github.com.xrmx.bootchart" remote="base" path="layers/oe-core-dl-2.5/git/github.com.xrmx.bootchart.git" bare="True"/>
     <project name="external/yocto/pagure.io.libaio" remote="base" path="layers/oe-core-dl-2.5/git/pagure.io.libaio.git" bare="True"/>
+    <project name="external/yocto/git.linuxfoundation.org.diamon.babeltrace" remote="base" path="layers/oe-core-dl-2.5/git/git.linuxfoundation.org.diamon.babeltrace.git" bare="True"/>
