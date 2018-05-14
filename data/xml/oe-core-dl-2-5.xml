@@ -1,6 +1,5 @@
     <project name="external/yocto/anongit.freedesktop.org.piglit" remote="base" path="layers/oe-core-dl-2.5/git/anongit.freedesktop.org.piglit" bare="True"/>
     <project name="external/yocto/anongit.freedesktop.org.pkg-config" remote="base" path="layers/oe-core-dl-2.5/git/anongit.freedesktop.org.pkg-config" bare="True"/>
-    <project name="external/yocto/anonscm.debian.org.git.collab-maint.ifupdown" remote="base" path="layers/oe-core-dl-2.5/git/anonscm.debian.org.git.collab-maint.ifupdown.git" bare="True"/>
     <project name="external/yocto/git.debian.org.git.debian-eeepc.eeepc-acpi-scripts" remote="base" path="layers/oe-core-dl-2.5/git/git.debian.org.git.debian-eeepc.eeepc-acpi-scripts.git" bare="True"/>
     <project name="external/yocto/git.denx.de.u-boot" remote="base" path="layers/oe-core-dl-2.5/git/git.denx.de.u-boot.git" bare="True"/>
     <project name="external/yocto/git.eclipse.org.gitroot.tcf.org.eclipse.tcf.agent" remote="base" path="layers/oe-core-dl-2.5/git/git.eclipse.org.gitroot.tcf.org.eclipse.tcf.agent" bare="True"/>
