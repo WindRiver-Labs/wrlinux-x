@@ -1,2 +1,3 @@
-    <project name="linux-yocto-4.12" remote="base" path="layers/wrlinux/git/linux-yocto-4.12.git" bare="True"/>
     <project name="yocto-kernel-cache" remote="base" path="layers/wrlinux/git/yocto-kernel-cache.git" bare="True"/>
+    <project name="external/yocto/git.yoctoproject.org.linux-yocto-dev" remote="base" path="layers/wrlinux/git/linux-yocto-dev.git" bare="True"/>
+    <project name="external/yocto/git.yoctoproject.org.linux-yocto" remote="base" path="layers/wrlinux/git/linux-yocto.git" bare="True"/>
