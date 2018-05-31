@@ -13,7 +13,7 @@
 # internal git mirrors, change format so it can be replaced
 # with the proper value(s)
 REPLACE = [
-    ( 'git://git.wrs.com', '#BASE_URL#' )
+    ( 'git://lxgit.wrs.com', '#BASE_URL#' )
 ]
 
 INDEXES = [
