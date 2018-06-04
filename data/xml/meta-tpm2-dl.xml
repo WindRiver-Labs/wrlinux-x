@@ -1,1 +1,2 @@
     <project name="external/yocto/github.com.tpm2-software.tpm2-abrmd" remote="base" path="layers/meta-tpm2-dl/git/github.com.tpm2-software.tpm2-abrmd" bare="True"/>
+    <project name="external/yocto/github.com.tpm2-software.tpm2-tools" remote="base" path="layers/meta-tpm2-dl/git/github.com.tpm2-software.tpm2-tools.git" bare="True"/>
