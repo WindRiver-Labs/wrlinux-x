@@ -13,11 +13,6 @@
     <project name="external/yocto/github.com.codegangsta.cli" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.codegangsta.cli.git" bare="True"/>
     <project name="external/yocto/github.com.docker.go-connections" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.docker.go-connections.git" bare="True"/>
     <project name="external/yocto/github.com.docker.notary" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.docker.notary.git" bare="True"/>
-    <project name="external/yocto/github.com.docker.libnetwork" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.docker.libnetwork.git" bare="True"/>
-    <project name="external/yocto/github.com.moby.moby" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.moby.moby.git" bare="True"/>
     <project name="external/yocto/github.com.aanand.compose-file" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.aanand.compose-file.git" bare="True"/>
     <project name="external/yocto/github.com.fsnotify.fsnotify" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.fsnotify.fsnotify.git" bare="True"/>
-    <project name="external/yocto/github.com.containerd.containerd" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.containerd.containerd" bare="True"/>
-    <project name="external/yocto/github.com.opencontainers.runc" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.opencontainers.runc" bare="True"/>
-    <project name="external/yocto/github.com.docker.cli" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.docker.cli" bare="True"/>
     <project name="external/yocto/github.com.xemul.criu" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.xemul.criu.git" bare="True"/>
