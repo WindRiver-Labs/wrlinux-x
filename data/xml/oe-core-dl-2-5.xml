@@ -91,3 +91,4 @@
     <project name="external/yocto/github.com.thkukuk.libnss_nis" remote="base" path="layers/oe-core-dl-2.5/git/github.com.thkukuk.libnss_nis" bare="True"/>
     <project name="external/yocto/github.com.thkukuk.rpcsvc-proto" remote="base" path="layers/oe-core-dl-2.5/git/github.com.thkukuk.rpcsvc-proto" bare="True"/>
     <project name="external/yocto/salsa.debian.org.debian.ifupdown" remote="base" path="layers/oe-core-dl-2.5/git/salsa.debian.org.debian.ifupdown.git" bare="True"/>
+    <project name="external/yocto/github.com.distcc.distcc" remote="base" path="layers/oe-core-dl-2.5/git/github.com.distcc.distcc.git" bare="True"/>
