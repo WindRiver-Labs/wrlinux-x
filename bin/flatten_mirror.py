@@ -233,7 +233,7 @@ def update_mirror(_dst_mirror):
     logger.debug('Updating mirror-index')
     cmd = ['git', 'commit', '-m', 'Updated index - Flatten Mirror']
     try:
-        utils_setup.run_cmd(cmd, cwd=_dst_mirror)
+        utils_setup.run_cmd(cmd, cwd=_dst_mirror, log=2)
     except:
         # Nothing changed...
         pass
@@ -296,11 +296,6 @@ def main():
     src = os.path.join(setup_dir, '.git')
     dst = os.path.join(dest, os.path.basename(setup_dir))
     push_or_copy(os.path.basename(setup_dir), src, dst, branch)
-
-    # Duplicate the git-repo.git
-    src = 'git-repo'
-    dst = os.path.join(dest, os.path.basename(src))
-    push_or_copy('git-repo', src, dst)
 
 
     #### Now load the index and create a list of things we need to parse
@@ -387,8 +382,15 @@ def main():
                         push_or_copy(layer['name'], name, dst)
                         processed_list.append(name)
 
-            # Bitbake is always processed with openembedded-core
             if layer['name'] == 'openembedded-core':
+                # git-repo.git is always processed with openembedded-core
+                src = os.path.join(os.path.dirname(full_url), 'git-repo')
+                dst = os.path.join(dest, os.path.basename(src))
+                if src not in processed_list:
+                    push_or_copy(layer['name'], src, dst)
+                    processed_list.append(src)
+
+                # Bitbake is always processed with openembedded-core
                 src = os.path.join(os.path.dirname(full_url), 'bitbake')
                 dst = os.path.join(dest, os.path.basename(src))
 
