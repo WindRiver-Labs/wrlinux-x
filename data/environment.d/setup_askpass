@@ -19,7 +19,7 @@ import os
 import sys
 import socket
 import subprocess
-import getpass
+import termios
 
 if len(sys.argv) <= 1:
     sys.exit(0)
@@ -75,7 +75,7 @@ if sys.argv[1] == '--server':
                 for q in q_cache:
                     if q == 'tty':
                         continue
-                    #print("D: "%s" = "%s"' % (q, q_cache[q]))
+                    #print('D: "%s" = "%s"' % (q, q_cache[q]))
                     conn.send(q + '\n' + q_cache[q][1:] + '\n')
                 break
             if data[0] == 'x':
@@ -139,8 +139,26 @@ with open(tty_file, 'rw+') as tty_fd:
         sys.exit(1)
 
     question = sys.argv[1]
-    if question.startswith('Password'):
-        result = getpass.getpass(question, tty_fd)
+
+    if question.startswith('Password') or question.endswith('password: '):
+        fd = tty_fd.fileno()
+        old = termios.tcgetattr(fd)
+        new = termios.tcgetattr(fd)
+
+        try:
+            # Disable echoing and signals
+            # If we don't disable signals, readline can get confused and
+            # 'break' the terminal, this way the user MUST enter 'something'
+            new[3] &= ~termios.ECHO
+            new[3] &= ~termios.ISIG
+            termios.tcsetattr(fd, termios.TCSADRAIN, new)
+            if termios.tcgetattr(fd)[3] != new[3]:
+                tty_fd.write("WARNING: Password may echo to the screen!\n")
+            tty_fd.write(question)
+            result = tty_fd.readline()
+            tty_fd.write('\n')
+        finally:
+            termios.tcsetattr(fd, termios.TCSADRAIN, old)
     else:
         tty_fd.write(question)
         result = tty_fd.readline()

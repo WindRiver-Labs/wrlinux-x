@@ -1,0 +1,19 @@
+#! /bin/sh
+#
+# Intercept the SSH calls during the installer to ensure that we have control
+# over the display and terminal.
+#
+# ssh will always prompt the user for their passphrase (password) if the tty
+# is setup.  This avoids using SSH_ASKPASS, which is needed for the setup
+# functionality.
+#
+# We use setsid to break the tty connection, and also ensure that DISPLAY is
+# cleared.  This combination forces SSH to use 'SSH_ASKPASS'.
+#
+# Note: storying SSH credentials can be a bit sketchy, so it is recommended
+# to use an authorized_key file instead.  But askpass/anspass do their best
+# to obfuscate the data.
+#
+# Use this file by setting GIT_SSH=setup_ssh
+
+DISPLAY= setsid ssh $@
