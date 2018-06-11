@@ -290,15 +290,7 @@ def main():
     # Create the destination
     os.makedirs(dest, exist_ok=False)
 
-    #### First process items NOT included in the index or default.xml
-
-    # Duplicate the setup dir to a bare repo
-    src = os.path.join(setup_dir, '.git')
-    dst = os.path.join(dest, os.path.basename(setup_dir))
-    push_or_copy(os.path.basename(setup_dir), src, dst, branch)
-
-
-    #### Now load the index and create a list of things we need to parse
+    #### Load the index and create a list of things we need to parse
 
     # this is the list of things that MAY be in the default.xml file, we need
     # to have a list to later process that file and exclude things we've already
@@ -382,18 +374,31 @@ def main():
                         push_or_copy(layer['name'], name, dst)
                         processed_list.append(name)
 
+            # OpenEmbedded-Core is a bit unique.  There are a few items
+            # that need to be grouped by this subset entry, these are
+            # items NOT included in the index or default.xml
+            #
+            #   wrlinux-x
+            #   git-repo
+            #   bitbake
             if layer['name'] == 'openembedded-core':
-                # git-repo.git is always processed with openembedded-core
+                # wrlinux-x (or whatever it's called) convert to bare using .git
+                src = os.path.join(setup_dir, '.git')
+                dst = os.path.join(dest, os.path.basename(setup_dir))
+                if src not in processed_list:
+                    push_or_copy(layer['name'], src, dst, branch)
+                    processed_list.append(src)
+
+                # git-repo
                 src = os.path.join(os.path.dirname(full_url), 'git-repo')
                 dst = os.path.join(dest, os.path.basename(src))
                 if src not in processed_list:
                     push_or_copy(layer['name'], src, dst)
                     processed_list.append(src)
 
-                # Bitbake is always processed with openembedded-core
+                # bitbake
                 src = os.path.join(os.path.dirname(full_url), 'bitbake')
                 dst = os.path.join(dest, os.path.basename(src))
-
                 if src not in processed_list:
                     push_or_copy(layer['name'], src, dst, bitbake_branch)
                     processed_list.append(src)
