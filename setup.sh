@@ -142,7 +142,57 @@ parse_arguments() {
 	done
 }
 
+# Setup the minimal defaults first..
+# BASEDIR, BASEURL and BASEBRANCH
 BASEDIR=$(readlink -f "$(dirname "$0")")
+
+# Argument parsing, define a limited set of args
+setup_add_arg --base-url BASEURL keep
+setup_add_arg --base-branch BASEBRANCH keep
+
+help=0
+parse_arguments "$@"
+unset PASSARGS
+
+# setup git url
+REMOTEURL=$(cd "$BASEDIR" ; git config remote.origin.url 2>/dev/null)
+
+# BASEURL is one directory above the git checkout
+BASEREPO=""
+if [ -z "${BASEURL}" ]; then
+	BASEURL=$(echo "$REMOTEURL" | sed -e 's,/$,,' -e 's,/[^/]*$,,')
+	BASEREPO=${REMOTEURL##$BASEURL\/}
+fi
+
+# First check if this is an absolute path (starts w/ '/')
+# If it's not, we then check if it's a valid URL (contains ://)
+if [ "${BASEURL:0:1}" != '/' ]; then
+	if [ "${BASEURL#*://}" == "${BASEURL}" ]; then
+		echo >&2
+		echo "ERROR: The BASEURL ($BASEURL) is not in a supported format." >&2
+		if [ -n "${BASEREPO}" ]; then
+			echo "The BASEURL was derived from the URL of $BASEREPO ($REMOTEURL)." >&2
+			echo "Either update the repository URL or use the --base-url argument to override." >&2
+		fi
+		echo >&2
+		echo "BASEURL must use an absolute file path, or a properly formatted remote URL" >&2
+		echo "such as:" >&2
+		echo "  /home/user/path or file:///home/user/path" >&2
+		echo "  http://hostname/path" >&2
+		echo "  https://hostname/path" >&2
+		echo "  git://hostname/path" >&2
+		echo "  ssh://user@hostname/path" >&2
+		echo >&2
+		exit 1
+	fi
+fi
+
+if [ -z "${BASEBRANCH}" ]; then
+	BASEBRANCH=$(git --git-dir="$BASEDIR/.git" rev-parse --abbrev-ref HEAD)
+	if [ "$BASEBRANCH" = "HEAD" ]; then
+		BASEBRANCH=""
+	fi
+fi
 
 # Load custom setup additions
 if [ -d "${BASEDIR}/data/environment.d" ]; then
@@ -151,26 +201,10 @@ if [ -d "${BASEDIR}/data/environment.d" ]; then
 	done
 fi
 
-# Argument parsing, define a limited set of args
-setup_add_arg --base-url BASEURL keep
-setup_add_arg --base-branch BASEBRANCH keep
-
+# We need to reparse the arguments as we've now loaded the environment.d
+# extensions
 help=0
 parse_arguments "$@"
-
-# setup git url
-REMOTEURL=$(cd "$BASEDIR" ; git config remote.origin.url 2>/dev/null)
-
-# BASEURL is one directory above the git checkout
-if [ -z "${BASEURL}" ]; then
-	BASEURL=$(echo "$REMOTEURL" | sed -e 's,/$,,' -e 's,/[^/]*$,,')
-fi
-if [ -z "${BASEBRANCH}" ]; then
-	BASEBRANCH=$(git --git-dir="$BASEDIR/.git" rev-parse --abbrev-ref HEAD)
-	if [ "$BASEBRANCH" = "HEAD" ]; then
-		BASEBRANCH=""
-	fi
-fi
 
 if [ $help -ne 1 ]; then
 	# Before doing anything else, error out if the project directory
