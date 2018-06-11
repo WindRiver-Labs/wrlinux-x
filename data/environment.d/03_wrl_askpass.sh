@@ -29,11 +29,6 @@ askpass_setup() {
 		WINDSHARE_HOST=$(echo ${BASEURL} | sed 's,\([^:/]*\)://\([^/]*\).*,\2,')
 	fi
 
-	# If the scheme is SSH, we don't support askpass
-	if [ "${WINDSHARE_SCHEME}" = "ssh" ]; then
-		return 0
-	fi
-
 	# If anspass is already enabled, use it instead!
 	if [ -n "${ANSPASS_TOKEN}" ]; then
 		return 0
@@ -63,11 +58,18 @@ askpass_setup() {
 	echo $(tty) | ${BASEDIR}/data/environment.d/setup_askpass --set "tty" > /dev/null 2> /dev/null
 
 	# If user/pass passed in (can't do this for a file path)
-	if [ -n "${WINDSHARE_USER}" -a -n "${WINDSHARE_HOST}" ]; then
-		echo "${WINDSHARE_USER}" | ${BASEDIR}/data/environment.d/setup_askpass --set "Username for '${WINDSHARE_SCHEME}://${WINDSHARE_HOST}': " > /dev/null
-		echo "${WINDSHARE_PASS}" | ${BASEDIR}/data/environment.d/setup_askpass --set "Password for '${WINDSHARE_SCHEME}://${WINDSHARE_USER}@${WINDSHARE_HOST}': " "${WINDSHARE_PASS}" > /dev/null
+	if [ -n "${WINDSHARE_HOST}" ]; then
+		if [ -n "${WINDSHARE_USER}" ]; then
+			echo "${WINDSHARE_USER}" | ${BASEDIR}/data/environment.d/setup_askpass --set "Username for '${WINDSHARE_SCHEME}://${WINDSHARE_HOST}': " > /dev/null
+			echo "${WINDSHARE_PASS}" | ${BASEDIR}/data/environment.d/setup_askpass --set "Password for '${WINDSHARE_SCHEME}://${WINDSHARE_USER}@${WINDSHARE_HOST}': " "${WINDSHARE_PASS}" > /dev/null
+		fi
+
+		if [ ${WINDSHARE_SCHEME} = "ssh" -a -n "${WINDSHARE_PASS}" ]; then
+			echo "${WINDSHARE_PASS}" | ${BASEDIR}/data/environment.d/setup_askpass --set "${WINDSHARE_HOST}'s password: " > /dev/null
+		fi
 	fi
 
+	export GIT_SSH=${BASEDIR}/data/environment.d/setup_ssh
 	export GIT_ASKPASS=${BASEDIR}/data/environment.d/setup_askpass
 	export SSH_ASKPASS=${BASEDIR}/data/environment.d/setup_askpass
 	return 0
