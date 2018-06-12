@@ -29,6 +29,11 @@ askpass_setup() {
 		WINDSHARE_HOST=$(echo ${BASEURL} | sed 's,\([^:/]*\)://\([^/]*\).*,\2,')
 	fi
 
+	# If the scheme is SSH, we don't support askpass
+	if [ "${WINDSHARE_SCHEME}" = "ssh" ]; then
+		return 0
+	fi
+
 	# If anspass is already enabled, use it instead!
 	if [ -n "${ANSPASS_TOKEN}" ]; then
 		return 0

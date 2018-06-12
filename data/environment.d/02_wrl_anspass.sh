@@ -20,7 +20,11 @@
 #  needs to be started/stopped
 
 args="$@"
-if [ "${args/--no-anspass//}" != "${args}" ] ; then
+
+# Skip anspass if --no-anspass OR the BASEURL starts with ssh://
+# for ssh:// we don't want to store these values in anspass, as it can not
+# understand the format of the question
+if [ "${args/--no-anspass//}" != "${args}" -o "${BASEURL##ssh://}" != "${BASEURL}" ] ; then
 	export NO_ANSPASS=1
 fi
 
