@@ -78,6 +78,70 @@ shutdown() {
 	done
 }
 
+# Input: argument list
+# Output: 'help=1' or unset
+#          PASSARGS set to the arguments to pass on
+parse_arguments() {
+	local found keep comp next val
+	while [ $# -ge 1 ] ; do
+		found=0
+		if [ "$1" = "--help" -o "$1" = "-h" ]; then
+			# Default into a --help module which is part of setup.py
+			help=1
+			PASSARGS[${#PASSARGS[@]}]="$1"
+			shift
+			continue
+		fi
+		for parse in ${ARGPARSE[@]}; do
+			comp=${parse%%:*}
+			next=${parse#${comp}:}
+			val=${next%%:*}
+			next=${next#${val}:}
+			if [ "${next}" != "${val}" ]; then
+				keep=${next}
+			else
+				keep=""
+			fi
+			case "$1" in
+				${comp}=*)
+					eval ${val}=\${1#*=}
+					if [ -n "${keep}" ]; then
+						PASSARGS[${#PASSARGS[@]}]="$1"
+					fi
+					shift
+					found=1
+					break
+					;;
+				${comp})
+					eval ${val}=\${2}
+					if [ -n "${keep}" ]; then
+						PASSARGS[${#PASSARGS[@]}]="$1"
+						# Only check whether $2 is set or not, set to "" or '--foo'
+						# should work because:
+						# - set to "": keep align with argparse since it works in this way.
+						# - set to "--foo": argparse knows it's not the arg of $1,
+						#                   but another option, and can handle it correctly.
+						if [ -n "${2+x}" ]; then
+							PASSARGS[${#PASSARGS[@]}]="$2"
+						fi
+					fi
+					if [ -z "${2+x}" ]; then
+						shift 1
+					else
+						shift 2
+					fi
+					found=1
+					break
+					;;
+			esac
+		done
+		if [ $found -ne 1 ]; then
+			PASSARGS[${#PASSARGS[@]}]="$1"
+			shift
+		fi
+	done
+}
+
 BASEDIR=$(readlink -f "$(dirname "$0")")
 
 # Load custom setup additions
@@ -92,63 +156,7 @@ setup_add_arg --base-url BASEURL keep
 setup_add_arg --base-branch BASEBRANCH keep
 
 help=0
-while [ $# -ge 1 ] ; do
-	found=0
-	if [ "$1" = "--help" -o "$1" = "-h" ]; then
-		# Default into a --help module which is part of setup.py
-		help=1
-		PASSARGS[${#PASSARGS[@]}]="$1"
-		shift
-		continue
-	fi
-	for parse in ${ARGPARSE[@]}; do
-		comp=${parse%%:*}
-		next=${parse#${comp}:}
-		val=${next%%:*}
-		next=${next#${val}:}
-		if [ "${next}" != "${val}" ]; then
-			keep=${next}
-		else
-			keep=""
-		fi
-		case "$1" in
-			${comp}=*)
-				eval ${val}=\${1#*=}
-				if [ -n "${keep}" ]; then
-					PASSARGS[${#PASSARGS[@]}]="$1"
-				fi
-				shift
-				found=1
-				break
-				;;
-			${comp})
-				eval ${val}=\${2}
-				if [ -n "${keep}" ]; then
-					PASSARGS[${#PASSARGS[@]}]="$1"
-					# Only check whether $2 is set or not, set to "" or '--foo'
-					# should work because:
-					# - set to "": keep align with argparse since it works in this way.
-					# - set to "--foo": argparse knows it's not the arg of $1,
-					#                   but another option, and can handle it correctly.
-					if [ -n "${2+x}" ]; then
-						PASSARGS[${#PASSARGS[@]}]="$2"
-					fi
-				fi
-				if [ -z "${2+x}" ]; then
-					shift 1
-				else
-					shift 2
-				fi
-				found=1
-				break
-				;;
-		esac
-	done
-	if [ $found -ne 1 ]; then
-		PASSARGS[${#PASSARGS[@]}]="$1"
-		shift
-	fi
-done
+parse_arguments "$@"
 
 # setup git url
 REMOTEURL=$(cd "$BASEDIR" ; git config remote.origin.url 2>/dev/null)
