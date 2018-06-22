@@ -4,8 +4,8 @@
     <project name="external/yocto/anongit.freedesktop.org.gummiboot" remote="base" path="layers/oe-core-dl-2.4/git/anongit.freedesktop.org.gummiboot" bare="True"/>
     <project name="external/yocto/anongit.freedesktop.org.piglit" remote="base" path="layers/oe-core-dl-2.4/git/anongit.freedesktop.org.piglit" bare="True"/>
     <project name="external/yocto/anongit.freedesktop.org.pkg-config" remote="base" path="layers/oe-core-dl-2.4/git/anongit.freedesktop.org.pkg-config" bare="True"/>
-    <project name="external/yocto/anonscm.debian.org.collab-maint.ca-certificates" remote="base" path="layers/oe-core-dl-2.4/git/anonscm.debian.org.collab-maint.ca-certificates.git" bare="True"/>
-    <project name="external/yocto/anonscm.debian.org.collab-maint.ncurses" remote="base" path="layers/oe-core-dl-2.4/git/anonscm.debian.org.collab-maint.ncurses.git" bare="True"/>
+    <project name="external/yocto/salsa.debian.org.debian.ca-certificates" remote="base" path="layers/oe-core-dl-2.4/git/salsa.debian.org.debian.ca-certificates.git" bare="True"/>
+    <project name="external/yocto/salsa.debian.org.debian.ncurses" remote="base" path="layers/oe-core-dl-2.4/git/salsa.debian.org.debian.ncurses.git" bare="True"/>
     <project name="external/yocto/anonscm.debian.org.git.collab-maint.ifupdown" remote="base" path="layers/oe-core-dl-2.4/git/anonscm.debian.org.git.collab-maint.ifupdown.git" bare="True"/>
     <project name="external/yocto/git.debian.org.git.debian-eeepc.eeepc-acpi-scripts" remote="base" path="layers/oe-core-dl-2.4/git/git.debian.org.git.debian-eeepc.eeepc-acpi-scripts.git" bare="True"/>
     <project name="external/yocto/git.denx.de.u-boot" remote="base" path="layers/oe-core-dl-2.4/git/git.denx.de.u-boot.git" bare="True"/>
