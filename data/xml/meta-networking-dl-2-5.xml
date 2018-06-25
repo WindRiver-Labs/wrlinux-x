@@ -8,3 +8,4 @@
     <project name="external/yocto/git.kernel.org.pub.scm.linux.kernel.git.shemminger.bridge-utils" remote="base" path="layers/meta-networking-dl-2.5/git/git.kernel.org.pub.scm.linux.kernel.git.shemminger.bridge-utils.git" bare="True"/>
     <project name="external/yocto/github.com.sctp.lksctp-tools" remote="base" path="layers/meta-networking-dl-2.5/git/github.com.sctp.lksctp-tools.git" bare="True"/>
     <project name="external/yocto/github.com.maxmind.geoip-api-perl" remote="base" path="layers/meta-networking-dl-2.5/git/github.com.maxmind.geoip-api-perl.git" bare="True"/>
+    <project name="external/ovp/anongit.freedesktop.org.spice.spice-protocol" remote="base" path="layers/meta-networking-dl-2.5/git/anongit.freedesktop.org.spice.spice-protocol" bare="True"/>
