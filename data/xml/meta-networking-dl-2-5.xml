@@ -10,3 +10,4 @@
     <project name="external/yocto/github.com.maxmind.geoip-api-perl" remote="base" path="layers/meta-networking-dl-2.5/git/github.com.maxmind.geoip-api-perl.git" bare="True"/>
     <project name="external/ovp/anongit.freedesktop.org.spice.spice-protocol" remote="base" path="layers/meta-networking-dl-2.5/git/anongit.freedesktop.org.spice.spice-protocol" bare="True"/>
     <project name="external/yocto/github.com.LINBIT.drbd-utils" remote="base" path="layers/meta-networking-dl-2.5/git/github.com.LINBIT.drbd-utils" bare="True"/>
+    <project name="external/yocto/anongit.freedesktop.org.spice.spice" remote="base" path="layers/meta-networking-dl-2.5/git/anongit.freedesktop.org.spice.spice" bare="True"/>
