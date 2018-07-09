@@ -1,5 +1,4 @@
     <project name="external/yocto/pagure.io.netcf" remote="base" path="layers/meta-networking-dl-2.5/git/pagure.io.netcf.git" bare="True"/>
-    <project name="external/yocto/anonscm.debian.org.collab-maint.ifenslave" remote="base" path="layers/meta-networking-dl-2.5/git/anonscm.debian.org.collab-maint.ifenslave.git" bare="True"/>
     <project name="external/yocto/github.com.maxmind.geoip-api-c" remote="base" path="layers/meta-networking-dl-2.5/git/github.com.maxmind.geoip-api-c.git" bare="True"/>
     <project name="external/yocto/github.com.open-iscsi.open-iscsi" remote="base" path="layers/meta-networking-dl-2.5/git/github.com.open-iscsi.open-iscsi" bare="True"/>
     <project name="external/yocto/github.com.open-iscsi.open-isns" remote="base" path="layers/meta-networking-dl-2.5/git/github.com.open-iscsi.open-isns" bare="True"/>
