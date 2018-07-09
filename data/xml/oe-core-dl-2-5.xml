@@ -16,7 +16,6 @@
     <project name="external/yocto/git.kernel.org.pub.scm.utils.rt-tests.rt-tests" remote="base" path="layers/oe-core-dl-2.5/git/git.kernel.org.pub.scm.utils.rt-tests.rt-tests.git" bare="True"/>
     <project name="external/yocto/git.tartarus.org.simon.puzzles" remote="base" path="layers/oe-core-dl-2.5/git/git.tartarus.org.simon.puzzles.git" bare="True"/>
     <project name="external/yocto/git.yoctoproject.org.dbus-wait" remote="base" path="layers/oe-core-dl-2.5/git/git.yoctoproject.org.dbus-wait" bare="True"/>
-    <project name="external/yocto/git.yoctoproject.org.fstests" remote="base" path="layers/oe-core-dl-2.5/git/git.yoctoproject.org.fstests" bare="True"/>
     <project name="external/yocto/git.yoctoproject.org.libfakekey" remote="base" path="layers/oe-core-dl-2.5/git/git.yoctoproject.org.libfakekey" bare="True"/>
     <project name="external/yocto/git.yoctoproject.org.libmatchbox" remote="base" path="layers/oe-core-dl-2.5/git/git.yoctoproject.org.libmatchbox" bare="True"/>
     <project name="external/yocto/git.yoctoproject.org.matchbox-config-gtk" remote="base" path="layers/oe-core-dl-2.5/git/git.yoctoproject.org.matchbox-config-gtk" bare="True"/>
