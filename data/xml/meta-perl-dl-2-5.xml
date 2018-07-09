@@ -1,0 +1,1 @@
+    <project name="external/yocto/salsa.debian.org.debian.logcheck" remote="base" path="layers/meta-perl-dl-2.5/git/salsa.debian.org.debian.logcheck.git" bare="True"/>
