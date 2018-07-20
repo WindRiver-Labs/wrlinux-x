@@ -1,4 +1,3 @@
     <project name="external/yocto/git.kernel.org.pub.scm.linux.kernel.git.gong.chen.aer-inject" remote="base" path="layers/wrlinux-dl/git/git.kernel.org.pub.scm.linux.kernel.git.gong.chen.aer-inject.git" bare="True"/>
     <project name="external/yocto/git.kernel.org.pub.scm.linux.kernel.git.gong.chen.mce-test" remote="base" path="layers/wrlinux-dl/git/git.kernel.org.pub.scm.linux.kernel.git.gong.chen.mce-test.git" bare="True"/>
-    <project name="external/yocto/pagure.io.microcode_ctl" remote="base" path="layers/wrlinux-dl/git/pagure.io.microcode_ctl.git" bare="True"/>
     <project name="external/yocto/github.com.WindRiver-OpenSourceLabs.anspass" remote="base" path="layers/wrlinux-dl/git/github.com.WindRiver-OpenSourceLabs.anspass" bare="True"/>
