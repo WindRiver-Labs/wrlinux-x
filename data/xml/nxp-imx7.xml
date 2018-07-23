@@ -1,1 +1,0 @@
-    <project name="external/yocto/git.freescale.com.imx.uboot-imx" remote="base" path="layers/nxp-imx7/git/git.freescale.com.imx.uboot-imx.git" bare="True"/>
