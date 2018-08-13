@@ -17,3 +17,4 @@
     <project name="external/yocto/github.com.fsnotify.fsnotify" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.fsnotify.fsnotify.git" bare="True"/>
     <project name="external/yocto/github.com.krallin.tini" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.krallin.tini.git" bare="True"/>
     <project name="external/yocto/github.com.containerd.containerd" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.containerd.containerd" bare="True"/>
+    <project name="external/yocto/github.com.docker.libnetwork" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.docker.libnetwork.git" bare="True"/>
