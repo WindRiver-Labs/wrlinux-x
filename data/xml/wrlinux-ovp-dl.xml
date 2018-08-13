@@ -1,0 +1,1 @@
+    <project name="external/yocto/github.com.bdpayne.libvmi" remote="base" path="layers/wrlinux-ovp-dl/git/github.com.bdpayne.libvmi.git" bare="True"/>
