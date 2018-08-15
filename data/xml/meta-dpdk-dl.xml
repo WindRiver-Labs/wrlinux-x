@@ -1,1 +1,2 @@
     <project name="external/yocto/dpdk.org.dpdk" remote="base" path="layers/meta-dpdk-dl/git/dpdk.org.dpdk" bare="True"/>
+    <project name="external/yocto/dpdk.org.dpdk-stable" remote="base" path="layers/meta-dpdk-dl/git/dpdk.org.dpdk-stable" bare="True"/>
