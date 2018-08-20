@@ -1,1 +1,2 @@
     <project name="external/yocto/github.com.rhinstaller.anaconda" remote="base" path="layers/meta-anaconda-dl/git/github.com.rhinstaller.anaconda" bare="True"/>
+    <project name="external/yocto/github.com.rhinstaller.python-simpleline" remote="base" path="layers/meta-anaconda-dl/git/github.com.rhinstaller.python-simpleline" bare="True"/>
