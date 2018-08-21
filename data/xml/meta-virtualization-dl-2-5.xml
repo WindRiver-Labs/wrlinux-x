@@ -1,5 +1,4 @@
     <project name="external/yocto/github.com.openvswitch.ovs" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.openvswitch.ovs.git" bare="True"/>
-    <project name="external/yocto/github.com.chaos.diod" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.chaos.diod.git" bare="True"/>
     <project name="external/yocto/github.com.coreos.go-systemd" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.coreos.go-systemd.git" bare="True"/>
     <project name="external/yocto/github.com.syndtr.gocapability" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.syndtr.gocapability.git" bare="True"/>
     <project name="external/yocto/github.com.grpc.grpc-go" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.grpc.grpc-go.git" bare="True"/>
@@ -21,4 +20,3 @@
     <project name="external/yocto/github.com.moby.moby" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.moby.moby.git" bare="True"/>
     <project name="external/yocto/github.com.docker.cli" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.docker.cli" bare="True"/>
     <project name="external/yocto/github.com.opencontainers.runc" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.opencontainers.runc" bare="True"/>
-    <project name="external/yocto/github.com.xemul.criu" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.xemul.criu.git" bare="True"/>
