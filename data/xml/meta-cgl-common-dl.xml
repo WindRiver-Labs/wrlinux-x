@@ -1,0 +1,1 @@
+    <project name="external/yocto/github.com.markfasheh.ocfs2-tools" remote="base" path="layers/meta-cgl-common-dl/git/github.com.markfasheh.ocfs2-tools" bare="True"/>
