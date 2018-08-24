@@ -20,3 +20,4 @@
     <project name="external/yocto/github.com.moby.moby" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.moby.moby.git" bare="True"/>
     <project name="external/yocto/github.com.docker.cli" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.docker.cli" bare="True"/>
     <project name="external/yocto/github.com.opencontainers.runc" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.opencontainers.runc" bare="True"/>
+    <project name="external/yocto/github.com.xemul.criu" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.xemul.criu.git" bare="True"/>
