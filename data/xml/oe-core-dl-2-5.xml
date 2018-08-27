@@ -92,3 +92,4 @@
     <project name="external/yocto/git.yoctoproject.org.update-rc.d" remote="base" path="layers/oe-core-dl-2.5/git/git.yoctoproject.org.update-rc.d" bare="True"/>
     <project name="external/yocto/github.com.g-truc.gli" remote="base" path="layers/oe-core-dl-2.5/git/github.com.g-truc.gli" bare="True"/>
     <project name="external/yocto/github.com.g-truc.glm" remote="base" path="layers/oe-core-dl-2.5/git/github.com.g-truc.glm" bare="True"/>
+    <project name="external/yocto/git.code.sf.net.p.dos2unix.dos2unix" remote="base" path="layers/oe-core-dl-2.5/git/git.code.sf.net.p.dos2unix.dos2unix" bare="True"/>
