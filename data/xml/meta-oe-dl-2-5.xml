@@ -38,3 +38,4 @@
     <project name="external/yocto/github.com.storaged-project.udisks" remote="base" path="layers/meta-oe-dl-2.5/git/github.com.storaged-project.udisks.git" bare="True"/>
     <project name="external/yocto/github.com.jpirko.libteam" remote="base" path="layers/meta-oe-dl-2.5/git/github.com.jpirko.libteam" bare="True"/>
     <project name="external/yocto/github.com.balabit.eventlog" remote="base" path="layers/meta-oe-dl-2.5/git/github.com.balabit.eventlog" bare="True"/>
+    <project name="external/yocto/git.umip.org.umip.umip" remote="base" path="layers/meta-oe-dl-2.5/git/git.umip.org.umip.umip.git" bare="True"/>
