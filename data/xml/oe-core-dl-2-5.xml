@@ -3,8 +3,6 @@
     <project name="external/yocto/git.debian.org.git.debian-eeepc.eeepc-acpi-scripts" remote="base" path="layers/oe-core-dl-2.5/git/git.debian.org.git.debian-eeepc.eeepc-acpi-scripts.git" bare="True"/>
     <project name="external/yocto/git.denx.de.u-boot" remote="base" path="layers/oe-core-dl-2.5/git/git.denx.de.u-boot.git" bare="True"/>
     <project name="external/yocto/git.eclipse.org.gitroot.tcf.org.eclipse.tcf.agent" remote="base" path="layers/oe-core-dl-2.5/git/git.eclipse.org.gitroot.tcf.org.eclipse.tcf.agent" bare="True"/>
-    <project name="external/yocto/git.gnome.org.cantarell-fonts" remote="base" path="layers/oe-core-dl-2.5/git/git.gnome.org.cantarell-fonts" bare="True"/>
-    <project name="external/yocto/git.gnome.org.mobile-broadband-provider-info" remote="base" path="layers/oe-core-dl-2.5/git/git.gnome.org.mobile-broadband-provider-info" bare="True"/>
     <project name="external/yocto/git.infradead.org.mtd-utils" remote="base" path="layers/oe-core-dl-2.5/git/git.infradead.org.mtd-utils.git" bare="True"/>
     <project name="external/yocto/git.kernel.dk.blktrace" remote="base" path="layers/oe-core-dl-2.5/git/git.kernel.dk.blktrace.git" bare="True"/>
     <project name="external/yocto/git.kernel.org.pub.scm.fs.ext2.e2fsprogs" remote="base" path="layers/oe-core-dl-2.5/git/git.kernel.org.pub.scm.fs.ext2.e2fsprogs.git" bare="True"/>
