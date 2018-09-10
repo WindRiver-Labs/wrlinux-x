@@ -13,3 +13,4 @@
     <project name="external/yocto/anongit.freedesktop.org.spice.spice-common" remote="base" path="layers/meta-networking-dl-2.5/git/anongit.freedesktop.org.spice.spice-common" bare="True"/>
     <project name="external/yocto/github.com.LINBIT.drbd-headers" remote="base" path="layers/meta-networking-dl-2.5/git/github.com.LINBIT.drbd-headers" bare="True"/>
     <project name="external/yocto/salsa.debian.org.debian.ifenslave" remote="base" path="layers/meta-networking-dl-2.5/git/salsa.debian.org.debian.ifenslave.git" bare="True"/>
+    <project name="external/yocto/github.com.cyrusimap.cyrus-sasl" remote="base" path="layers/meta-networking-dl-2.5/git/github.com.cyrusimap.cyrus-sasl" bare="True"/>
