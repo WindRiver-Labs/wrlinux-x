@@ -1,6 +1,5 @@
     <project name="external/yocto/anongit.freedesktop.org.piglit" remote="base" path="layers/oe-core-dl-2.5/git/anongit.freedesktop.org.piglit" bare="True"/>
     <project name="external/yocto/anongit.freedesktop.org.pkg-config" remote="base" path="layers/oe-core-dl-2.5/git/anongit.freedesktop.org.pkg-config" bare="True"/>
-    <project name="external/yocto/git.debian.org.git.debian-eeepc.eeepc-acpi-scripts" remote="base" path="layers/oe-core-dl-2.5/git/git.debian.org.git.debian-eeepc.eeepc-acpi-scripts.git" bare="True"/>
     <project name="external/yocto/git.denx.de.u-boot" remote="base" path="layers/oe-core-dl-2.5/git/git.denx.de.u-boot.git" bare="True"/>
     <project name="external/yocto/git.eclipse.org.gitroot.tcf.org.eclipse.tcf.agent" remote="base" path="layers/oe-core-dl-2.5/git/git.eclipse.org.gitroot.tcf.org.eclipse.tcf.agent" bare="True"/>
     <project name="external/yocto/git.infradead.org.mtd-utils" remote="base" path="layers/oe-core-dl-2.5/git/git.infradead.org.mtd-utils.git" bare="True"/>
@@ -92,4 +91,3 @@
     <project name="external/yocto/github.com.g-truc.glm" remote="base" path="layers/oe-core-dl-2.5/git/github.com.g-truc.glm" bare="True"/>
     <project name="external/yocto/git.code.sf.net.p.dos2unix.dos2unix" remote="base" path="layers/oe-core-dl-2.5/git/git.code.sf.net.p.dos2unix.dos2unix" bare="True"/>
     <project name="external/yocto/gitlab.gnome.org.GNOME.mobile-broadband-provider-info" remote="base" path="layers/oe-core-dl-2.5/git/gitlab.gnome.org.GNOME.mobile-broadband-provider-info" bare="True"/>
-    <project name="external/yocto/gitlab.gnome.org.GNOME.cantarell-fonts" remote="base" path="layers/oe-core-dl-2.5/git/gitlab.gnome.org.GNOME.cantarell-fonts" bare="True"/>
