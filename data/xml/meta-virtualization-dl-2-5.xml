@@ -23,3 +23,8 @@
     <project name="external/yocto/github.com.xemul.criu" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.xemul.criu.git" bare="True"/>
     <project name="external/yocto/github.com.chaos.diod" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.chaos.diod.git" bare="True"/>
     <project name="external/yocto/github.com.projectatomic.oci-systemd-hook" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.projectatomic.oci-systemd-hook.git" bare="True"/>
+    <project name="external/yocto/github.com.opencontainers.image-tools" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.opencontainers.image-tools.git" bare="True"/>
+    <project name="external/yocto/github.com.opencontainers.image-spec" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.opencontainers.image-spec.git" bare="True"/>
+    <project name="external/yocto/github.com.opencontainers.runtime-tools" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.opencontainers.runtime-tools.git" bare="True"/>
+    <project name="external/yocto/github.com.spf13.pflag" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.spf13.pflag.git" bare="True"/>
+    <project name="external/yocto/github.com.spf13.cobra" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.spf13.cobra.git" bare="True"/>
