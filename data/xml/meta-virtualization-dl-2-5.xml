@@ -22,3 +22,4 @@
     <project name="external/yocto/github.com.opencontainers.runc" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.opencontainers.runc" bare="True"/>
     <project name="external/yocto/github.com.xemul.criu" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.xemul.criu.git" bare="True"/>
     <project name="external/yocto/github.com.chaos.diod" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.chaos.diod.git" bare="True"/>
+    <project name="external/yocto/github.com.projectatomic.oci-systemd-hook" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.projectatomic.oci-systemd-hook.git" bare="True"/>
