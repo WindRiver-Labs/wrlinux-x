@@ -31,3 +31,4 @@
     <project name="external/yocto/github.com.jfrazelle.riddler" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.jfrazelle.riddler" bare="True"/>
     <project name="external/yocto/github.com.pkg.errors" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.pkg.errors.git" bare="True"/>
     <project name="external/yocto/github.com.opencontainers.go-digest" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.opencontainers.go-digest.git" bare="True"/>
+    <project name="external/yocto/github.com.opencontainers.runtime-spec" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.opencontainers.runtime-spec.git" bare="True"/>
