@@ -29,3 +29,4 @@
     <project name="external/yocto/github.com.spf13.pflag" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.spf13.pflag.git" bare="True"/>
     <project name="external/yocto/github.com.spf13.cobra" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.spf13.cobra.git" bare="True"/>
     <project name="external/yocto/github.com.jfrazelle.riddler" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.jfrazelle.riddler" bare="True"/>
+    <project name="external/yocto/github.com.pkg.errors" remote="base" path="layers/meta-virtualization-dl-2.5/git/github.com.pkg.errors.git" bare="True"/>
