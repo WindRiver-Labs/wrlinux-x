@@ -2,3 +2,4 @@
     <project name="external/yocto/git.code.sf.net.p.trousers.trousers" remote="base" path="layers/meta-tpm-dl/git/git.code.sf.net.p.trousers.trousers" bare="True"/>
     <project name="external/yocto/git.code.sf.net.p.trousers.openssl_tpm_engine" remote="base" path="layers/meta-tpm-dl/git/git.code.sf.net.p.trousers.openssl_tpm_engine" bare="True"/>
     <project name="external/yocto/git.code.sf.net.p.tpmquotetools.tpm-quote-tools" remote="base" path="layers/meta-tpm-dl/git/git.code.sf.net.p.tpmquotetools.tpm-quote-tools" bare="True"/>
+    <project name="external/yocto/github.com.mgerstner.openssl_tpm_engine" remote="base" path="layers/meta-tpm-dl/git/github.com.mgerstner.openssl_tpm_engine.git" bare="True"/>
