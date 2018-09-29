@@ -22,7 +22,6 @@
     <project name="external/overc/github.com.golang.net" remote="base" path="layers/meta-overc-dl/git/github.com.golang.net" bare="True"/>
     <project name="external/ovp/github.com.golang.sys" remote="base" path="layers/meta-overc-dl/git/github.com.golang.sys" bare="True"/>
     <project name="external/overc/github.com.go-yaml.yaml" remote="base" path="layers/meta-overc-dl/git/github.com.go-yaml.yaml.git" bare="True"/>
-    <project name="external/ovp/github.com.hashicorp.consul" remote="base" path="layers/meta-overc-dl/git/github.com.hashicorp.consul.git" bare="True"/>
     <project name="external/ovp/github.com.hashicorp.consul-migrate" remote="base" path="layers/meta-overc-dl/git/github.com.hashicorp.consul-migrate.git" bare="True"/>
     <project name="external/ovp/github.com.hashicorp.errwrap" remote="base" path="layers/meta-overc-dl/git/github.com.hashicorp.errwrap.git" bare="True"/>
     <project name="external/ovp/github.com.hashicorp.go-checkpoint" remote="base" path="layers/meta-overc-dl/git/github.com.hashicorp.go-checkpoint.git" bare="True"/>
