@@ -1,0 +1,2 @@
+    <project name="external/ovp/git.xiph.org.celt" remote="base" path="layers/meta-cloud-services-dl-2.6/git/git.xiph.org.celt.git" bare="True"/>
+    <project name="external/ovp/github.com.hashicorp.consul" remote="base" path="layers/meta-cloud-services-dl-2.6/git/github.com.hashicorp.consul.git" bare="True"/>

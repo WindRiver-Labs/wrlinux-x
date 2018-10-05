@@ -1,0 +1,1 @@
+    <project name="external/yocto/github.com.jlelli.schedtool-dl" remote="base" path="layers/meta-realtime-dl-2.6/git/github.com.jlelli.schedtool-dl.git" bare="True"/>
