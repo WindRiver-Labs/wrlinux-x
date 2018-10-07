@@ -14,3 +14,4 @@
     <project name="external/yocto/github.com.LINBIT.drbd-headers" remote="base" path="layers/meta-networking-dl-2.6/git/github.com.LINBIT.drbd-headers" bare="True"/>
     <project name="external/yocto/salsa.debian.org.debian.ifenslave" remote="base" path="layers/meta-networking-dl-2.6/git/salsa.debian.org.debian.ifenslave.git" bare="True"/>
     <project name="external/yocto/github.com.cyrusimap.cyrus-sasl" remote="base" path="layers/meta-networking-dl-2.6/git/github.com.cyrusimap.cyrus-sasl" bare="True"/>
+    <project name="external/yocto/git.umip.org.umip.umip" remote="base" path="layers/meta-networking-dl-2.6/git/git.umip.org.umip.umip.git" bare="True"/>
