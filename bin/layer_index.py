@@ -270,6 +270,11 @@ class Layer_Index():
         else:
             lindex['wrtemplates'] = []
 
+        if 'YPCompatibleVersions' in lindex['apilinks']:
+            lindex['YPCompatibleVersions'] = _get_json_response(lindex['apilinks']['YPCompatibleVersions'])
+        else:
+            lindex['YPCompatibleVersions'] = []
+
         logger.debug('...loading %s from url %s, done.' % (name, url))
 
         return lindex
@@ -309,6 +314,7 @@ class Layer_Index():
         lindex['machines'] = []
         lindex['distros'] = []
         lindex['wrtemplates'] = []
+        lindex['YPCompatibleVersions'] = []
 
         assert path is not None
 
@@ -358,6 +364,7 @@ class Layer_Index():
         lindex['machines'] = []
         lindex['distros'] = []
         lindex['wrtemplates'] = []
+        lindex['YPCompatibleVersions'] = []
 
         assert path is not None
 
@@ -394,6 +401,8 @@ class Layer_Index():
                             name = 'distros'
                         elif 'wrtemplate' == model[11:]:
                             name = 'wrtemplates'
+                        elif 'ypcompatibleversion' == model[11:]:
+                            name = 'YPCompatibleVersions'
                         else:
                             name = model[11:]
 
@@ -738,7 +747,15 @@ class Layer_Index():
                             logger.plain('%s %s' % ('{:25}'.format(name), summary[:52]))
             logger.plain ('')
 
-    def list_obj(self, base_branch, object, display):
+    def getYPCompatibleVersion(self, lindex, id):
+        if not id:
+            return []
+        for vers in lindex['YPCompatibleVersions']:
+            if vers['id'] == id:
+                return vers['name'].split()
+        return []
+
+    def list_obj(self, base_branch, object, display, compat='all'):
         for lindex in self.index:
             logger.plain ('Index: %s' % (lindex['CFG']['DESCRIPTION'] or lindex['CFG']['URL']))
             logger.plain ('%s %s %s' % (('{:24}'.format(display), '{:34}'.format('description'), '{:19}'.format('layer'))))
@@ -747,6 +764,9 @@ class Layer_Index():
             if branchid:
                 # there are more layerBranches then objects (usually)...
                 for lb in lindex['layerBranches']:
+                    if compat != 'all':
+                        if compat not in self.getYPCompatibleVersion(lindex, lb['yp_compatible_version']):
+                            continue
                     for layer in self.find_layer(lindex, layerBranch=lb):
                         for obj in lindex[object]:
                             if obj['layerbranch'] == lb['id'] and lb['branch'] == branchid:
