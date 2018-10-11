@@ -776,8 +776,8 @@ class Layer_Index():
                                 logger.plain('%s %s %s' % ('{:24}'.format(name), '{:34}'.format(description[:34]), lname))
             logger.plain ('')
 
-    def list_distros(self, base_branch):
-        self.list_obj(base_branch, 'distros', 'distro')
+    def list_distros(self, base_branch, compat):
+        self.list_obj(base_branch, 'distros', 'distro', compat)
 
     def list_machines(self, base_branch, compat):
         self.list_obj(base_branch, 'machines', 'machine', compat)
