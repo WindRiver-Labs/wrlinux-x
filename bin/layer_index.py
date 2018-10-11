@@ -782,8 +782,8 @@ class Layer_Index():
     def list_machines(self, base_branch, compat):
         self.list_obj(base_branch, 'machines', 'machine', compat)
 
-    def list_wrtemplates(self, base_branch):
-        self.list_obj(base_branch, 'wrtemplates', 'templates')
+    def list_wrtemplates(self, base_branch, compat):
+        self.list_obj(base_branch, 'wrtemplates', 'templates', compat)
 
     def list_recipes(self, base_branch):
         for lindex in self.index:
