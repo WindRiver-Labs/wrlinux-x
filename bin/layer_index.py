@@ -797,8 +797,8 @@ class Layer_Index():
     def list_distros(self, base_branch):
         self.list_obj(base_branch, 'distros', 'distro')
 
-    def list_machines(self, base_branch):
-        self.list_obj(base_branch, 'machines', 'machine')
+    def list_machines(self, base_branch, compat):
+        self.list_obj(base_branch, 'machines', 'machine', compat)
 
     def list_wrtemplates(self, base_branch):
         self.list_obj(base_branch, 'wrtemplates', 'templates')
