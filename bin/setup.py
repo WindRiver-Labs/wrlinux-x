@@ -184,7 +184,10 @@ class Setup():
             self.index.list_recipes(self.base_branch)
 
         if self.list_wrtemplates:
-            self.index.list_wrtemplates(self.base_branch)
+            compat = self.list_wrtemplates
+            if compat == 'default':
+                compat = 'wrl'
+            self.index.list_wrtemplates(self.base_branch, compat)
 
         if self.list_distros or self.list_machines or self.list_layers or self.list_recipes or self.list_wrtemplates:
             sys.exit(0)
