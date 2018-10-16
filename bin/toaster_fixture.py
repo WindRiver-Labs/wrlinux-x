@@ -325,10 +325,10 @@ def main(argv):
     setting_pk=CUSTOM_SETTINGS_BASE
     setting_pk=append_setting('DEFCONF_LINUX_KERNEL_TYPE','standard',setting_pk)
     setting_pk=append_setting('DEFAULT_KTYPE_LIST','standard preempt-rt tiny',setting_pk)
-    setting_pk=append_setting('CUSTOM_LAYERINDEX_SERVER',json_cache,setting_pk)
+    setting_pk=append_setting('CUSTOM_LAYERINDEX_SERVER','file://'+json_cache,setting_pk)
     setting_pk=append_setting('SETUP_XMLDIR',xml_dir,setting_pk)
     setting_pk=append_setting('SETUP_GITURL',remote_base_fetch,setting_pk)
-    setting_pk=append_setting('SETUP_PATH_FILTER','s|layers/[a-zA-Z0-9_-]*||',setting_pk)
+    setting_pk=append_setting('SETUP_PATH_FILTER','s|layers/[a-zA-Z0-9_\\-.]*||',setting_pk)
 
     # Write bitbake version
     root.append(ET.Comment(' Bitbake versions which correspond to the metadata release '))
