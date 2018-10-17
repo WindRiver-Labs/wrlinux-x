@@ -19,7 +19,7 @@
 BUILDTOOLS_REMOTE="${BUILDTOOLS_REMOTE:-buildtools-standalone-20181005}"
 
 # Special windshare folders to search
-BUILDTOOLS_FOLDERS="WRLinux-lts-17-Core WRLinux-lts-17-Base"
+BUILDTOOLS_FOLDERS="WRLinux-lts-18-Core WRLinux-lts-18-Base"
 
 # Where to cache the git fetch
 BUILDTOOLS_GIT="${BUILDTOOLS_GIT:-bin/buildtools.git}"
