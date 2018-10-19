@@ -128,7 +128,7 @@ class Setup():
 
         # Config flags
         self.list_distros = False
-        self.list_machines = False
+        self.list_machines = None
         self.list_layers = False
         self.list_recipes = False
         self.list_wrtemplates = False
@@ -166,10 +166,16 @@ class Setup():
         self.load_layer_index()
 
         if self.list_distros:
-            self.index.list_distros(self.base_branch)
+            compat = self.list_distros
+            if compat == 'default':
+                compat = settings.DEFAULT_LAYER_COMPAT_TAG
+            self.index.list_distros(self.base_branch, compat)
 
         if self.list_machines:
-            self.index.list_machines(self.base_branch)
+            compat = self.list_machines
+            if compat == 'default':
+                compat = settings.DEFAULT_LAYER_COMPAT_TAG
+            self.index.list_machines(self.base_branch, compat)
 
         if self.list_layers:
             self.index.list_layers(self.base_branch)
@@ -178,7 +184,10 @@ class Setup():
             self.index.list_recipes(self.base_branch)
 
         if self.list_wrtemplates:
-            self.index.list_wrtemplates(self.base_branch)
+            compat = self.list_wrtemplates
+            if compat == 'default':
+                compat = settings.DEFAULT_LAYER_COMPAT_TAG
+            self.index.list_wrtemplates(self.base_branch, compat)
 
         if self.list_distros or self.list_machines or self.list_layers or self.list_recipes or self.list_wrtemplates:
             sys.exit(0)

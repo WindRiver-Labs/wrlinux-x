@@ -50,7 +50,7 @@ class Argparse_Wrl(Argparse_Setup):
 
         if parsed_args.list_templates:
             if self.setup:
-                self.setup.list_wrtemplates = True
+                self.setup.list_wrtemplates = parsed_args.list_templates
 
         if (parsed_args.list_templates):
             return
@@ -84,7 +84,7 @@ class Argparse_Wrl(Argparse_Setup):
 
     def add_list_options(self):
         Argparse_Setup.add_list_options(self)
-        self.list_args.add_argument('--list-templates', action='store_true', help='List all available templates')
+        self.list_args.add_argument('--list-templates', metavar='all', nargs='?', const='default', help='List available templates')
 
     def add_layer_options(self):
         Argparse_Setup.add_layer_options(self)

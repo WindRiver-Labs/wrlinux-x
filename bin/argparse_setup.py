@@ -74,11 +74,11 @@ class Argparse_Setup:
         # Look for list options
         if parsed_args.list_distros:
             if self.setup:
-                self.setup.list_distros = True
+                self.setup.list_distros = parsed_args.list_distros
 
         if parsed_args.list_machines:
             if self.setup:
-                self.setup.list_machines = True
+                self.setup.list_machines = parsed_args.list_machines
 
         if parsed_args.list_layers:
             if self.setup:
@@ -178,8 +178,8 @@ class Argparse_Setup:
     def add_list_options(self):
         self.list_args = self.parser.add_argument_group('Layer Listings')
         # List options
-        self.list_args.add_argument('--list-distros',   action='store_true', help='List all available distro values')
-        self.list_args.add_argument('--list-machines',  action='store_true', help='List all available machine values')
+        self.list_args.add_argument('--list-distros',   metavar='all', nargs='?', const='default', help='List available distro values')
+        self.list_args.add_argument('--list-machines',  metavar='all', nargs='?', const='default', help='List available machine values')
         self.list_args.add_argument('--list-layers',    action='store_true', help='List all available layers')
         self.list_args.add_argument('--list-recipes',   action='store_true', help='List all available recipes')
 
