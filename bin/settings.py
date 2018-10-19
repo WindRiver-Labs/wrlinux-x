@@ -56,7 +56,7 @@ REMOTES = [
 
 # The default tag used to filter the output of --list actions. 'all' means no
 # filter
-DEFAULT_LAYER_COMPAT_TAG = "all"
+DEFAULT_LAYER_COMPAT_TAG = "wrl"
 
 # required host tools to build out project
 # Do not edit this manually, it is updated automatically.
