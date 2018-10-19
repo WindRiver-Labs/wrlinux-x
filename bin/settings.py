@@ -56,4 +56,4 @@ REMOTES = [
 
 # The default tag used to filter the output of --list actions. 'all' means no
 # filter
-DEFAULT_LAYER_COMPAT_TAG = "all"
+DEFAULT_LAYER_COMPAT_TAG = "wrl"
