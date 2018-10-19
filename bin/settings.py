@@ -71,3 +71,4 @@ REQUIRED_HOSTTOOLS = """
     sh sha256sum sleep sort split stat strings strip tail tar tee
     test touch tr true uname uniq wc wget which xargs
 """
+DEFAULT_LAYER_COMPAT_TAG = "wrl"
