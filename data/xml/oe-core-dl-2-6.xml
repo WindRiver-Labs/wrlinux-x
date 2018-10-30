@@ -93,3 +93,4 @@
     <project name="external/yocto/gitlab.gnome.org.GNOME.cantarell-fonts" remote="base" path="layers/oe-core-dl-2.6/git/gitlab.gnome.org.GNOME.cantarell-fonts.git" bare="True"/>
     <project name="external/yocto/github.com.openssh.openssh-portable" remote="base" path="layers/oe-core-dl-2.6/git/github.com.openssh.openssh-portable" bare="True"/>
     <project name="external/yocto/gitlab.gnome.org.GNOME.mobile-broadband-provider-info" remote="base" path="layers/oe-core-dl-2.6/git/gitlab.gnome.org.GNOME.mobile-broadband-provider-info.git" bare="True"/>
+    <project name="" remote="base" path="layers/oe-core-dl-2.6/git/github.com.sigma-star.mtd-utils.git" bare="True"/>
