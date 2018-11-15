@@ -121,6 +121,14 @@ class Setup():
 
         # Environment setup
         self.env = os.environ.copy()
+
+        # We do NOT want to inherit python home from the environment
+        # See Issue: LIN1018-2934
+        #   python3 wrapper from the buildtools sets this, which causes host
+        #   python tools to fail
+        if 'PYTHONHOME' in self.env:
+            del self.env['PYTHONHOME']
+
         self.setup_env()
 
         # Check for all the tools and create a dictionary of the path
