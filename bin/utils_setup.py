@@ -93,7 +93,16 @@ def query_input(question, interactive):
         import getpass
         retval = getpass.getpass(cmd[1])
     else:
-        ret = subprocess.Popen(cmd, env=os.environ, close_fds=True, stdout=subprocess.PIPE)
+        environ = os.environ.copy()
+
+        # We do NOT want to inherit python home from the environment
+        # See Issue: LIN1018-2934
+        #   python3 wrapper from the buildtools sets this, which causes host
+        #   python tools to fail
+        if 'PYTHONHOME' in environ:
+            del environ['PYTHONHOME']
+
+        ret = subprocess.Popen(cmd, env=environ, close_fds=True, stdout=subprocess.PIPE)
         retval = ""
         while True:
             lin = ret.stdout.readline()
