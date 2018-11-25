@@ -5,5 +5,9 @@
     <project name="external/yocto/github.com.qoriq-open-source.odp" remote="base" path="layers/meta-freescale-dl/git/github.com.qoriq-open-source.odp.git" bare="True"/>
     <project name="external/yocto/github.com.qoriq-open-source.ofp" remote="base" path="layers/meta-freescale-dl/git/github.com.qoriq-open-source.ofp.git" bare="True"/>
     <project name="external/yocto/github.com.qoriq-open-source.qbman_userspace" remote="base" path="layers/meta-freescale-dl/git/github.com.qoriq-open-source.qbman_userspace.git" bare="True"/>
+    <project name="external/yocto/github.com.qoriq-open-source.fmc" remote="base" path="layers/meta-freescale-dl/git/github.com.qoriq-open-source.fmc.git" bare="True"/>
+    <project name="external/yocto/github.com.qoriq-open-source.fmlib" remote="base" path="layers/meta-freescale-dl/git/github.com.qoriq-open-source.fmlib.git" bare="True"/>
+    <project name="external/yocto/github.com.qoriq-open-source.ppa-generic" remote="base" path="layers/meta-freescale-dl/git/github.com.qoriq-open-source.ppa-generic.git" bare="True"/>
+    <project name="external/yocto/github.com.qoriq-open-source.rcw" remote="base" path="layers/meta-freescale-dl/git/github.com.qoriq-open-source.rcw.git" bare="True"/>
     <project name="external/yocto/github.com.qoriq-open-source.restool" remote="base" path="layers/meta-freescale-dl/git/github.com.qoriq-open-source.restool.git" bare="True"/>
     <project name="external/yocto/source.codeaurora.org.external.qoriq.qoriq-components.restool" remote="base" path="layers/meta-freescale-dl/git/source.codeaurora.org.external.qoriq.qoriq-components.restool" bare="True"/>
