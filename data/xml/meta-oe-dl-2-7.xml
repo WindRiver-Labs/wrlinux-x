@@ -39,3 +39,4 @@
     <project name="external/yocto/github.com.jpirko.libteam" remote="base" path="layers/meta-oe-dl-2.7/git/github.com.jpirko.libteam" bare="True"/>
     <project name="external/yocto/github.com.ivmai.bdwgc" remote="base" path="layers/meta-oe-dl-2.7/git/github.com.ivmai.bdwgc.git" bare="True"/>
     <project name="external/yocto/github.com.facebook.rocksdb" remote="base" path="layers/meta-oe-dl-2.7/git/github.com.facebook.rocksdb.git" bare="True"/>
+    <project name="external/yocto/github.com.lvmteam.lvm2" remote="base" path="layers/meta-oe-dl-2.7/git/github.com.lvmteam.lvm2.git" bare="True"/>
