@@ -96,3 +96,4 @@
     <project name="external/yocto/github.com.fedora-modularity.libmodulemd" remote="base" path="layers/oe-core-dl-2.7/git/github.com.fedora-modularity.libmodulemd" bare="True"/>
     <project name="external/yocto/github.com.nhorman.rng-tools" remote="base" path="layers/oe-core-dl-2.7/git/github.com.nhorman.rng-tools.git" bare="True"/>
     <project name="external/yocto/github.com.smuellerDD.jitterentropy-library" remote="base" path="layers/oe-core-dl-2.7/git/github.com.smuellerDD.jitterentropy-library.git" bare="True"/>
+    <project name="external/yocto/github.com.intel.libva-utils" remote="base" path="layers/oe-core-dl-2.7/git/github.com.intel.libva-utils.git" bare="True"/>
