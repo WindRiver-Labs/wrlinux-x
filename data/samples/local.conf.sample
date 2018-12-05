@@ -175,6 +175,9 @@ PACKAGE_CLASSES ?= "package_rpm"
 # There are other application targets that can be used here too, see
 # meta/classes/image.bbclass and meta/classes/core-image.bbclass for more details.
 # We default to enabling the debugging tweaks.
+#
+# If the debug-tweaks is disable, the root user will be locked to login, so the
+# new user must be added and configured.
 EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
 
 #
