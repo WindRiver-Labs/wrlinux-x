@@ -49,7 +49,6 @@
     <project name="external/yocto/sourceware.org.git.systemtap" remote="base" path="layers/oe-core-dl-2.7/git/sourceware.org.git.systemtap.git" bare="True"/>
     <project name="external/yocto/anongit.freedesktop.org.xorg.driver.xf86-video-intel" remote="base" path="layers/oe-core-dl-2.7/git/anongit.freedesktop.org.xorg.driver.xf86-video-intel" bare="True"/>
     <project name="external/yocto/github.com.rpm-software-management.libdnf" remote="base" path="layers/oe-core-dl-2.7/git/github.com.rpm-software-management.libdnf" bare="True"/>
-    <project name="external/yocto/github.com.KhronosGroup.Vulkan-LoaderAndValidationLayers" remote="base" path="layers/oe-core-dl-2.7/git/github.com.KhronosGroup.Vulkan-LoaderAndValidationLayers.git" bare="True"/>
     <project name="external/yocto/github.com.rpm-software-management.dnf" remote="base" path="layers/oe-core-dl-2.7/git/github.com.rpm-software-management.dnf.git" bare="True"/>
     <project name="external/yocto/github.com.rpm-software-management.rpm" remote="base" path="layers/oe-core-dl-2.7/git/github.com.rpm-software-management.rpm" bare="True"/>
     <project name="external/yocto/github.com.tianocore.edk2" remote="base" path="layers/oe-core-dl-2.7/git/github.com.tianocore.edk2.git" bare="True"/>
