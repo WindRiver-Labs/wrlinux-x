@@ -12,7 +12,6 @@
     <project name="external/yocto/github.com.rhinstaller.efivar" remote="base" path="layers/meta-oe-dl-2.7/git/github.com.rhinstaller.efivar.git" bare="True"/>
     <project name="external/yocto/github.com.vim.vim" remote="base" path="layers/meta-oe-dl-2.7/git/github.com.vim.vim.git" bare="True"/>
     <project name="external/yocto/git.kernel.org.pub.scm.utils.cpu.mce.mcelog" remote="base" path="layers/meta-oe-dl-2.7/git/git.kernel.org.pub.scm.utils.cpu.mce.mcelog.git" bare="True"/>
-    <project name="external/yocto/git.sv.gnu.org.gnulib" remote="base" path="layers/meta-oe-dl-2.7/git/git.sv.gnu.org.gnulib" bare="True"/>
     <project name="external/yocto/github.com.rsyslog.libfastjson" remote="base" path="layers/meta-oe-dl-2.7/git/github.com.rsyslog.libfastjson.git" bare="True"/>
     <project name="external/yocto/github.com.rsyslog.librelp" remote="base" path="layers/meta-oe-dl-2.7/git/github.com.rsyslog.librelp.git" bare="True"/>
     <project name="external/yocto/git.0pointer.de.libatasmart" remote="base" path="layers/meta-oe-dl-2.7/git/git.0pointer.de.libatasmart.git" bare="True"/>
