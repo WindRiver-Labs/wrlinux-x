@@ -1,1 +1,2 @@
     <project name="external/yocto/source.codeaurora.org.external.qoriq.qoriq-components.ceetm" remote="base" path="layers/meta-freescale-dl/git/source.codeaurora.org.external.qoriq.qoriq-components.ceetm" bare="True"/>
+    <project name="external/yocto/source.codeaurora.org.external.qoriq.qoriq-components.dpdk" remote="base" path="layers/meta-freescale-dl/git/source.codeaurora.org.external.qoriq.qoriq-components.dpdk" bare="True"/>
