@@ -6,3 +6,4 @@
     <project name="external/yocto/source.codeaurora.org.external.qoriq.qoriq-components.flib" remote="base" path="layers/meta-freescale-dl/git/source.codeaurora.org.external.qoriq.qoriq-components.flib" bare="True"/>
     <project name="external/yocto/source.codeaurora.org.external.qoriq.qoriq-components.ofp" remote="base" path="layers/meta-freescale-dl/git/source.codeaurora.org.external.qoriq.qoriq-components.ofp" bare="True"/>
     <project name="external/yocto/source.codeaurora.org.external.qoriq.qoriq-components.restool" remote="base" path="layers/meta-freescale-dl/git/source.codeaurora.org.external.qoriq.qoriq-components.restool" bare="True"/>
+    <project name="external/yocto/source.codeaurora.org.external.qoriq.qoriq-components.u-boot" remote="base" path="layers/meta-freescale-dl/git/source.codeaurora.org.external.qoriq.qoriq-components.u-boot" bare="True"/>
