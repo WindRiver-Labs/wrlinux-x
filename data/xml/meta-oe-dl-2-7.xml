@@ -41,3 +41,4 @@
     <project name="external/yocto/github.com.pmem.ndctl" remote="base" path="layers/meta-oe-dl-2.7/git/github.com.pmem.ndctl.git" bare="True"/>
     <project name="external/yocto/git.sv.gnu.org.gnulib" remote="base" path="layers/meta-oe-dl-2.7/git/git.sv.gnu.org.gnulib.git" bare="True"/>
     <project name="external/yocto/github.com.jirka-h.haveged" remote="base" path="layers/meta-oe-dl-2.7/git/github.com.jirka-h.haveged.git" bare="True"/>
+    <project name="external/yocto/github.com.mirror.xmlrpc-c" remote="base" path="layers/meta-oe-dl-2.7/git/github.com.mirror.xmlrpc-c.git" bare="True"/>
