@@ -94,3 +94,4 @@
     <project name="external/yocto/github.com.smuellerDD.jitterentropy-library" remote="base" path="layers/oe-core-dl-2.7/git/github.com.smuellerDD.jitterentropy-library.git" bare="True"/>
     <project name="external/yocto/gitlab.gnome.org.GNOME.gnome-desktop-testing" remote="base" path="layers/oe-core-dl-2.7/git/gitlab.gnome.org.GNOME.gnome-desktop-testing.git" bare="True"/>
     <project name="external/yocto/github.com.KhronosGroup.Vulkan-Loader" remote="base" path="layers/oe-core-dl-2.7/git/github.com.KhronosGroup.Vulkan-Loader.git" bare="True"/>
+    <project name="external/yocto/github.com.intel.bmap-tools" remote="base" path="layers/oe-core-dl-2.7/git/github.com.intel.bmap-tools" bare="True"/>
