@@ -110,3 +110,4 @@
     <project name="external/yocto/github.com.p11-glue.p11-kit" remote="base" path="layers/oe-core-dl-2.4/git/github.com.p11-glue.p11-kit" bare="True"/>
     <project name="external/yocto/salsa.debian.org.debian.ifupdown" remote="base" path="layers/oe-core-dl-2.4/git/salsa.debian.org.debian.ifupdown.git" bare="True"/>
     <project name="external/yocto/github.com.cryptodev-linux.cryptodev-linux" remote="base" path="layers/oe-core-dl-2.4/git/github.com.cryptodev-linux.cryptodev-linux" bare="True"/>
+    <project name="external/yocto/gitlab.gnome.org.GNOME.cantarell-fonts" remote="base" path="layers/oe-core-dl-2.4/git/gitlab.gnome.org.GNOME.cantarell-fonts" bare="True"/>
