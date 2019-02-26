@@ -56,3 +56,4 @@
     <project name="external/yocto/github.com.linux-can.can-utils" remote="base" path="layers/meta-oe-dl-2.4/git/github.com.linux-can.can-utils.git" bare="True"/>
     <project name="external/yocto/github.com.intel-iot-devkit.mraa" remote="base" path="layers/meta-oe-dl-2.4/git/github.com.intel-iot-devkit.mraa.git" bare="True"/>
     <project name="external/yocto/github.com.intel-iot-devkit.upm" remote="base" path="layers/meta-oe-dl-2.4/git/github.com.intel-iot-devkit.upm.git" bare="True"/>
+    <project name="external/yocto/git.code.sf.net.p.tclap.code" remote="base" path="layers/meta-oe-dl-2.4/git/git.code.sf.net.p.tclap.code" bare="True"/>
