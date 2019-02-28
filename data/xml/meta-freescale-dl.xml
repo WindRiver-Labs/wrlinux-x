@@ -10,3 +10,4 @@
     <project name="external/yocto/source.codeaurora.org.external.qoriq.qoriq-components.fmlib" remote="base" path="layers/meta-freescale-dl/git/source.codeaurora.org.external.qoriq.qoriq-components.fmlib" bare="True"/>
     <project name="external/yocto/source.codeaurora.org.external.qoriq.qoriq-components.fmc" remote="base" path="layers/meta-freescale-dl/git/source.codeaurora.org.external.qoriq.qoriq-components.fmc" bare="True"/>
     <project name="external/yocto/source.codeaurora.org.external.qoriq.qoriq-components.rcw" remote="base" path="layers/meta-freescale-dl/git/source.codeaurora.org.external.qoriq.qoriq-components.rcw" bare="True"/>
+    <project name="external/yocto/source.codeaurora.org.external.qoriq.qoriq-components.ppa-generic" remote="base" path="layers/meta-freescale-dl/git/source.codeaurora.org.external.qoriq.qoriq-components.ppa-generic" bare="True"/>
