@@ -60,7 +60,6 @@
     <project name="external/yocto/github.com.assimp.assimp" remote="base" path="layers/oe-core-dl-2.7/git/github.com.assimp.assimp.git" bare="True"/>
     <project name="external/yocto/github.com.SaschaWillems.Vulkan" remote="base" path="layers/oe-core-dl-2.7/git/github.com.SaschaWillems.Vulkan.git" bare="True"/>
     <project name="external/yocto/git.savannah.gnu.org.config" remote="base" path="layers/oe-core-dl-2.7/git/git.savannah.gnu.org.config.git" bare="True"/>
-    <project name="external/yocto/github.com.llvm-mirror.llvm" remote="base" path="layers/oe-core-dl-2.7/git/github.com.llvm-mirror.llvm.git" bare="True"/>
     <project name="external/yocto/github.com.golang.example" remote="base" path="layers/oe-core-dl-2.7/git/github.com.golang.example" bare="True"/>
     <project name="external/yocto/github.com.golang.dep" remote="base" path="layers/oe-core-dl-2.7/git/github.com.golang.dep" bare="True"/>
     <project name="external/yocto/gitlab.com.psmisc.psmisc" remote="base" path="layers/oe-core-dl-2.7/git/gitlab.com.psmisc.psmisc.git" bare="True"/>
