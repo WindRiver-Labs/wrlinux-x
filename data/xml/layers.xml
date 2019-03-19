@@ -1,1 +1,0 @@
-    <project name="external/yocto/gitlab.freedesktop.org.gstreamer.gst-examples" remote="base" path="layers/layers/git/gitlab.freedesktop.org.gstreamer.gst-examples.git" bare="True"/>
