@@ -1,0 +1,1 @@
+    <project name="external/yocto/github.com.asciidoc.asciidoc-py3" remote="base" path="layers/layers/git/github.com.asciidoc.asciidoc-py3" bare="True"/>
