@@ -1,2 +1,0 @@
-    <project name="external/yocto/github.com.TresysTechnology.refpolicy-contrib" remote="base" path="layers/meta-selinux-dl/git/github.com.TresysTechnology.refpolicy-contrib.git" bare="True"/>
-    <project name="external/yocto/github.com.TresysTechnology.refpolicy" remote="base" path="layers/meta-selinux-dl/git/github.com.TresysTechnology.refpolicy.git" bare="True"/>
