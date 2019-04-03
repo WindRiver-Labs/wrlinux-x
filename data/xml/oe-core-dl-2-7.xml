@@ -96,3 +96,6 @@
     <project name="external/yocto/anongit.freedesktop.org.virglrenderer" remote="base" path="layers/oe-core-dl-2.7/git/anongit.freedesktop.org.virglrenderer" bare="True"/>
     <project name="external/yocto/github.com.vim.vim" remote="base" path="layers/oe-core-dl-2.7/git/github.com.vim.vim.git" bare="True"/>
     <project name="external/yocto/gitlab.freedesktop.org.gstreamer.gst-examples" remote="base" path="layers/oe-core-dl-2.7/git/gitlab.freedesktop.org.gstreamer.gst-examples.git" bare="True"/>
+    <project name="external/yocto/github.com.asciidoc.asciidoc-py3" remote="base" path="layers/oe-core-dl-2.7/git/github.com.asciidoc.asciidoc-py3" bare="True"/>
+    <project name="external/yocto/github.com.systemd.systemd-stable" remote="base" path="layers/oe-core-dl-2.7/git/github.com.systemd.systemd-stable.git" bare="True"/>
+    <project name="external/yocto/github.com.troglobit.sysklogd" remote="base" path="layers/oe-core-dl-2.7/git/github.com.troglobit.sysklogd.git" bare="True"/>
