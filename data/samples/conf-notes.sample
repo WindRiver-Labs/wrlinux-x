@@ -5,7 +5,7 @@ Common Wind River images are:
     wrlinux-image-glibc-small     (requires distro: wrlinux-small)
     wrlinux-image-glibc-core      (suggests distro: wrlinux)
     wrlinux-image-glibc-std       (suggests distro: wrlinux)
-    wrlinux-image-glibc-std-sato  (requires distro: wrlinux-std-sato)
+    wrlinux-image-glibc-std-sato  (requires distro: wrlinux-graphics)
 
 Common Yocto Project images, typically built with distro poky, are:
     core-image-minimal
