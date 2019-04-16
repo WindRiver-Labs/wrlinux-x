@@ -1,0 +1,1 @@
+    <project name="external/yocto/github.com.SELinuxProject.refpolicy" remote="base" path="layers/meta-selinux-dl/git/github.com.SELinuxProject.refpolicy.git" bare="True"/>
