@@ -46,6 +46,9 @@ class Layer_Index():
                 if dirpath.endswith('/.git') or '/.git/' in dirpath or dirpath.endswith('/xml') or '/xml/' in dirpath:
                     continue
                 for filename in filenames:
+                    # Serialize function, ALWAYS writes out w/ .json extension
+                    if not filename.endswith('.json'):
+                        continue
                     pindex = self.load_serialized_index(os.path.join(dirpath, filename), name='Mirrored Index')
                     # A mirror can be made up of multiple indexes, so we need to identify which one they belong to
                     if pindex and pindex['CFG']['DESCRIPTION'] in m_index:
@@ -351,7 +354,7 @@ class Layer_Index():
             logger.debug('...loading json file %s, done.' % path)
 
         if os.path.exists(path) and os.path.isdir(path):
-            logger.debug('Loading %s from path %s...' % (name, path))
+            logger.debug('Loading %s from directory %s...' % (name, path))
             for (dirpath, dirnames, filenames) in os.walk(path):
                 for filename in filenames:
                     if not filename.endswith('.json'):
