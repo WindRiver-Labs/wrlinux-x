@@ -42,3 +42,4 @@
     <project name="external/yocto/github.com.linux-can.can-utils" remote="base" path="layers/meta-oe-dl-2.6/git/github.com.linux-can.can-utils.git" bare="True"/>
     <project name="external/yocto/git.pengutronix.de.git.tools.libsocketcan" remote="base" path="layers/meta-oe-dl-2.6/git/git.pengutronix.de.git.tools.libsocketcan.git" bare="True"/>
     <project name="external/yocto/github.com.pmem.ndctl" remote="base" path="layers/meta-oe-dl-2.6/git/github.com.pmem.ndctl.git" bare="True"/>
+    <project name="external/yocto/github.com.intel.ledmon" remote="base" path="layers/meta-oe-dl-2.6/git/github.com.intel.ledmon.git" bare="True"/>
