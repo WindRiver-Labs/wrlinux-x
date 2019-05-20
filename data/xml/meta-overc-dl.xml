@@ -1,31 +1,10 @@
-    <project name="external/overc/github.com.cheggaaa.pb" remote="base" path="layers/meta-overc-dl/git/github.com.cheggaaa.pb.git" bare="True"/>
-    <project name="external/overc/github.com.containers.image" remote="base" path="layers/meta-overc-dl/git/github.com.containers.image.git" bare="True"/>
-    <project name="external/overc/github.com.containers.storage" remote="base" path="layers/meta-overc-dl/git/github.com.containers.storage.git" bare="True"/>
     <project name="external/ovp/github.com.coreos.etcd" remote="base" path="layers/meta-overc-dl/git/github.com.coreos.etcd.git" bare="True"/>
     <project name="external/ovp/github.com.crigler.dtach" remote="base" path="layers/meta-overc-dl/git/github.com.crigler.dtach.git" bare="True"/>
-    <project name="external/overc/github.com.davecgh.go-spew" remote="base" path="layers/meta-overc-dl/git/github.com.davecgh.go-spew.git" bare="True"/>
-    <project name="external/overc/github.com.docker.go-units" remote="base" path="layers/meta-overc-dl/git/github.com.docker.go-units.git" bare="True"/>
-    <project name="external/ovp/github.com.docker.libtrust" remote="base" path="layers/meta-overc-dl/git/github.com.docker.libtrust.git" bare="True"/>
     <project name="external/overc/github.com.ghedo.pflask" remote="base" path="layers/meta-overc-dl/git/github.com.ghedo.pflask.git" bare="True"/>
-    <project name="external/overc/github.com.ghodss.yaml" remote="base" path="layers/meta-overc-dl/git/github.com.ghodss.yaml.git" bare="True"/>
-    <project name="external/overc/github.com.go-check.check" remote="base" path="layers/meta-overc-dl/git/github.com.go-check.check.git" bare="True"/>
-    <project name="external/ovp/github.com.golang.crypto" remote="base" path="layers/meta-overc-dl/git/github.com.golang.crypto.git" bare="True"/>
-    <project name="external/overc/github.com.golang.glog" remote="base" path="layers/meta-overc-dl/git/github.com.golang.glog.git" bare="True"/>
-    <project name="external/overc/github.com.golang.net" remote="base" path="layers/meta-overc-dl/git/github.com.golang.net" bare="True"/>
-    <project name="external/overc/github.com.go-yaml.yaml" remote="base" path="layers/meta-overc-dl/git/github.com.go-yaml.yaml.git" bare="True"/>
-    <project name="external/overc/github.com.imdario.mergo" remote="base" path="layers/meta-overc-dl/git/github.com.imdario.mergo.git" bare="True"/>
     <project name="external/overc/github.com.indigo-dc.udocker" remote="base" path="layers/meta-overc-dl/git/github.com.indigo-dc.udocker.git" bare="True"/>
-    <project name="external/overc/github.com.kubernetes.client-go" remote="base" path="layers/meta-overc-dl/git/github.com.kubernetes.client-go.git" bare="True"/>
-    <project name="external/overc/github.com.mistifyio.go-zfs" remote="base" path="layers/meta-overc-dl/git/github.com.mistifyio.go-zfs.git" bare="True"/>
-    <project name="external/overc/github.com.mtrmac.gpgme" remote="base" path="layers/meta-overc-dl/git/github.com.mtrmac.gpgme.git" bare="True"/>
     <project name="external/overc/github.com.nanomsg.nanomsg" remote="base" path="layers/meta-overc-dl/git/github.com.nanomsg.nanomsg.git" bare="True"/>
     <project name="external/overc/github.com.openSUSE.umoci" remote="base" path="layers/meta-overc-dl/git/github.com.openSUSE.umoci" bare="True"/>
-    <project name="external/overc/github.com.pborman.uuid" remote="base" path="layers/meta-overc-dl/git/github.com.pborman.uuid.git" bare="True"/>
-    <project name="external/overc/github.com.pmezard.go-difflib" remote="base" path="layers/meta-overc-dl/git/github.com.pmezard.go-difflib.git" bare="True"/>
     <project name="external/overc/github.com.projectatomic.skopeo" remote="base" path="layers/meta-overc-dl/git/github.com.projectatomic.skopeo" bare="True"/>
-    <project name="external/overc/github.com.stretchr.testify" remote="base" path="layers/meta-overc-dl/git/github.com.stretchr.testify.git" bare="True"/>
-    <project name="external/overc/github.com.urfave.cli" remote="base" path="layers/meta-overc-dl/git/github.com.urfave.cli.git" bare="True"/>
-    <project name="external/overc/github.com.vbatts.tar-split" remote="base" path="layers/meta-overc-dl/git/github.com.vbatts.tar-split.git" bare="True"/>
     <project name="external/overc/github.com.WindRiver-OpenSourceLabs.nanoio" remote="base" path="layers/meta-overc-dl/git/github.com.WindRiver-OpenSourceLabs.nanoio.git" bare="True"/>
     <project name="external/overc/github.com.ostreedev.ostree" remote="base" path="layers/meta-overc-dl/git/github.com.ostreedev.ostree.git" bare="True"/>
     <project name="external/overc/gitlab.gnome.org.GNOME.libglnx" remote="base" path="layers/meta-overc-dl/git/gitlab.gnome.org.GNOME.libglnx.git" bare="True"/>
