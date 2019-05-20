@@ -58,13 +58,12 @@ def setup_logging(level=PLAIN_LOG_LEVEL, output=sys.stdout):
 
     logger = logging.getLogger('setup.py')
 
-    formatter = ScreenFormatter(plain_log_level=PLAIN_LOG_LEVEL)
+    formatter = ScreenFormatter("%(levelname)s: %(message)s")
     stream_h = logging.StreamHandler(output)
     stream_h.setFormatter(formatter)
 
     # Logging timezone is UTC
     stream_h.converter = time.gmtime
-
 
     logger.setLevel(level)
     logger.addHandler(stream_h)
@@ -72,24 +71,27 @@ def setup_logging(level=PLAIN_LOG_LEVEL, output=sys.stdout):
     logging.addLevelName(PLAIN_LOG_LEVEL, "PLAIN")
     logging.Logger.plain = plain
 
-    logging.addLevelName(TO_FILE_LOG_LEVEL, 'TO_FILE')
-    logging.Logger.to_file = to_file
-
     return logger
 
+class FileFormatter(logging.Formatter):
+    def format(self, record):
+        # FileHandler doesn't need color
+        record.levelname = record.levelname_orig
+        return logging.Formatter.format(self, record)
 
-def setup_logging_file(log_file, log_format=FILE_LOG_FORMAT):
+def setup_logging_file(log_file):
     """Add a logging.FileHandler to the logger"""
     global logger
     logger.debug("Logging to %s" % log_file)
-    formatter = logging.Formatter(fmt=log_format)
+    formatter = FileFormatter(FILE_LOG_FORMAT)
     file_h = logging.FileHandler(log_file)
     # Logging timezone is UTC
     file_h.converter = time.gmtime
     file_h.setFormatter(formatter)
     file_h.setLevel(TO_FILE_LOG_LEVEL)
     logger.addHandler(file_h)
-
+    logging.addLevelName(TO_FILE_LOG_LEVEL, 'TO_FILE')
+    logging.Logger.to_file = to_file
 
 
 
@@ -98,27 +100,33 @@ class ScreenFormatter(logging.Formatter):
     format than other log levels.
     """
 
-    plain_format = "%(msg)s"
+    RED, GREEN, YELLOW, BLUE = [1, 2, 3, 4]
 
-    def __init__(self, fmt="%(levelname)s: %(msg)s", plain_log_level=15):
-        self.plain_log_level = plain_log_level
-        logging.Formatter.__init__(self, fmt)
+    RESET_SEQ = "\033[0m"
+    COLOR_SEQ = "\033[1;%dm"
 
+    COLORS = {
+        'INFO': GREEN,
+        'DEBUG': BLUE,
+        'WARNING': YELLOW,
+        'ERROR': RED,
+        'CRITICAL': RED
+    }
 
     def format(self, record):
-
-        format_orig = self._fmt
-
-        if record.levelno == self.plain_log_level:
-            self._fmt = self.plain_format
-            self._style._fmt = self._fmt
-
-        result = logging.Formatter.format(self, record)
-
-        self._fmt = format_orig
-        self._style._fmt = self._fmt
-        return result
-
+        levelname = record.levelname
+        # Save it for FileHandler
+        record.levelname_orig = levelname
+        if levelname == "PLAIN":
+            msg = record.getMessage()
+        else:
+            if sys.stdout.isatty():
+                fore_color = 30 + self.COLORS[levelname]
+                levelname_color = self.COLOR_SEQ % fore_color + levelname + self.RESET_SEQ
+                record.levelname = levelname_color
+                msg = logging.Formatter.format(self, record)
+            msg = logging.Formatter.format(self, record)
+        return msg
 
 # Add a class to emulate stdout/stderr
 class LoggerOut:
