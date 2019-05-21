@@ -17,6 +17,7 @@ import json
 
 import sys
 import os
+import difflib
 
 
 from collections import OrderedDict
@@ -695,6 +696,12 @@ class Layer_Index():
 
             json.dump(convertToDjango(self.sortRestApi(pindex)), open(fpath + '.json', 'wt'), indent=4)
 
+    def print_close_matches(self, key, value, full_list):
+        msg = '%s "%s" not found' % (key, value)
+        close_matches = difflib.get_close_matches(value, full_list)
+        if close_matches:
+            msg += ". Close matches:\n  %s" % '\n  '.join(list(set(close_matches)))
+        logger.critical(msg + '\n')
 
     def find_layer(self, lindex, id=None, name=None, layerBranch=None, layerBranchId=None, distro=None, machine=None, recipe=None, wrtemplate=None):
         result = []
@@ -711,10 +718,17 @@ class Layer_Index():
             return result
 
         if name:
+            full_list = []
+            found = False
             for layer in lindex['layerItems']:
-                if layer['name'] == name:
+                value_from_index = layer['name']
+                full_list.append(value_from_index)
+                if value_from_index == name:
                     result.append(layer)
+                    found = True
                     break
+            if not found:
+                self.print_close_matches('layer', name, full_list)
             return result
 
         layerBranchIds = []
@@ -730,13 +744,19 @@ class Layer_Index():
 
         for k, v in args.items():
             if v:
+                full_list = []
+                found = False
                 for index_dict in lindex[k]:
                     if k == 'recipes':
                         value_from_index = index_dict['pn']
                     else:
                         value_from_index = index_dict['name']
+                    full_list.append(value_from_index)
                     if value_from_index == v:
+                        found = True
                         layerBranchIds.append(index_dict['layerbranch'])
+                if not found:
+                    self.print_close_matches(k.rstrip('s'), v, full_list)
 
         if layerBranchIds:
             for layerBranch in lindex['layerBranches']:

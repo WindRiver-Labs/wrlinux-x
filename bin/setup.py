@@ -425,7 +425,6 @@ class Setup():
                     break
 
             if not found:
-                logger.critical('%s "%s" not found' % (type, item))
                 return False
 
             return True
