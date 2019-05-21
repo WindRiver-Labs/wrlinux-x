@@ -721,25 +721,22 @@ class Layer_Index():
         if layerBranchId:
             layerBranchIds.append(layerBranchId)
 
-        if distro:
-            for dist in lindex['distros']:
-                if dist['name'] == distro:
-                    layerBranchIds.append(dist['layerbranch'])
+        args = {
+            'distros': distro,
+            'machines': machine,
+            'recipes': recipe,
+            'wrtemplates': wrtemplate
+        }
 
-        if machine:
-            for mach in lindex['machines']:
-                if mach['name'] == machine:
-                    layerBranchIds.append(mach['layerbranch'])
-
-        if recipe:
-            for rec in lindex['recipes']:
-                if rec['pn'] == recipe:
-                    layerBranchIds.append(rec['layerbranch'])
-
-        if wrtemplate:
-            for tmpl in lindex['wrtemplates']:
-                if tmpl['name'] == wrtemplate:
-                    layerBranchIds.append(tmpl['layerbranch'])
+        for k, v in args.items():
+            if v:
+                for index_dict in lindex[k]:
+                    if k == 'recipes':
+                        value_from_index = index_dict['pn']
+                    else:
+                        value_from_index = index_dict['name']
+                    if value_from_index == v:
+                        layerBranchIds.append(index_dict['layerbranch'])
 
         if layerBranchIds:
             for layerBranch in lindex['layerBranches']:
