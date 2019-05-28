@@ -99,3 +99,4 @@
     <project name="external/yocto/github.com.asciidoc.asciidoc-py3" remote="base" path="layers/oe-core-dl-2.7/git/github.com.asciidoc.asciidoc-py3" bare="True"/>
     <project name="external/yocto/github.com.systemd.systemd-stable" remote="base" path="layers/oe-core-dl-2.7/git/github.com.systemd.systemd-stable.git" bare="True"/>
     <project name="external/yocto/github.com.troglobit.sysklogd" remote="base" path="layers/oe-core-dl-2.7/git/github.com.troglobit.sysklogd.git" bare="True"/>
+    <project name="external/yocto/github.com.fedora-sysv.chkconfig" remote="base" path="layers/oe-core-dl-2.7/git/github.com.fedora-sysv.chkconfig.git" bare="True"/>
