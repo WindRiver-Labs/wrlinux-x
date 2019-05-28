@@ -42,3 +42,4 @@
     <project name="external/yocto/github.com.mirror.xmlrpc-c" remote="base" path="layers/meta-oe-dl-2.7/git/github.com.mirror.xmlrpc-c.git" bare="True"/>
     <project name="external/yocto/github.com.alanxz.rabbitmq-c" remote="base" path="layers/meta-oe-dl-2.7/git/github.com.alanxz.rabbitmq-c.git" bare="True"/>
     <project name="external/yocto/github.com.perl5-dbi.DBD-mysql" remote="base" path="layers/meta-oe-dl-2.7/git/github.com.perl5-dbi.DBD-mysql.git" bare="True"/>
+    <project name="external/yocto/github.com.crash-utility.crash" remote="base" path="layers/meta-oe-dl-2.7/git/github.com.crash-utility.crash.git" bare="True"/>
