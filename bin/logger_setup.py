@@ -130,8 +130,9 @@ class ScreenFormatter(logging.Formatter):
 
 # Add a class to emulate stdout/stderr
 class LoggerOut:
-    def __init__(self, logger):
+    def __init__(self, logger, isatty):
         self.logger = logger
+        self.tty = isatty
 
     def write(self, message):
         # We skip any lines that are simply a '\n'.
@@ -144,3 +145,6 @@ class LoggerOut:
     def flush(self):
         # We print all messages immediately, so flush is a no-op.
         pass
+
+    def isatty(self):
+        return self.tty
