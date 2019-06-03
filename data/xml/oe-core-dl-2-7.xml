@@ -1,4 +1,3 @@
-    <project name="external/yocto/anongit.freedesktop.org.piglit" remote="base" path="layers/oe-core-dl-2.7/git/anongit.freedesktop.org.piglit" bare="True"/>
     <project name="external/yocto/anongit.freedesktop.org.pkg-config" remote="base" path="layers/oe-core-dl-2.7/git/anongit.freedesktop.org.pkg-config" bare="True"/>
     <project name="external/yocto/git.denx.de.u-boot" remote="base" path="layers/oe-core-dl-2.7/git/git.denx.de.u-boot.git" bare="True"/>
     <project name="external/yocto/git.eclipse.org.gitroot.tcf.org.eclipse.tcf.agent" remote="base" path="layers/oe-core-dl-2.7/git/git.eclipse.org.gitroot.tcf.org.eclipse.tcf.agent" bare="True"/>
