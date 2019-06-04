@@ -22,7 +22,7 @@ BB_NO_NETWORK ?= '1'
 # layers. This also has a side effect of telling the system to ensure the
 # fetched repositories from the local download layer (pre)mirrors are
 # up-to-date.
-BB_FETCH_PREMIRRORONLY ?= '${BB_NO_NETWORK}'
+BB_FETCH_PREMIRRORONLY ?= '${@d.getVar('BB_NO_NETWORK') or 0}'
 
 #
 # Wind River Linux Templates
