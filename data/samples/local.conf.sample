@@ -293,6 +293,9 @@ BB_DISKMON_DIRS ??= "\
 #SSTATE_MIRRORS ?= "\
 #file://.* http://someserver.tld/share/sstate/PATH;downloadfilename=PATH \n \
 #file://.* file:///some/local/dir/sstate/PATH"
+#
+# Make sstate can be downloaded from network when BB_NO_NETWORK is set to 1
+#SSTATE_MIRROR_ALLOW_NETWORK ?= "1"
 
 # Select the default init manager
 # use systemd as the default init manager
