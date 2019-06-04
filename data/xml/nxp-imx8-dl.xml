@@ -1,0 +1,1 @@
+    <project name="external/yocto/github.com.murata-wireless.qca-linux-calibration" remote="base" path="layers/nxp-imx8-dl/git/github.com.murata-wireless.qca-linux-calibration.git" bare="True"/>
