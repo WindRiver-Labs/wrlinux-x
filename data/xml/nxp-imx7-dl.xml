@@ -1,1 +1,1 @@
-    <project name="external/yocto/source.codeaurora.org.external.imx.uboot-imx" remote="base" path="layers/nxp-imx6-dl/git/source.codeaurora.org.external.imx.uboot-imx.git" bare="True"/>
+    <project name="external/yocto/source.codeaurora.org.external.imx.uboot-imx" remote="base" path="layers/nxp-imx7-dl/git/source.codeaurora.org.external.imx.uboot-imx.git" bare="True"/>
