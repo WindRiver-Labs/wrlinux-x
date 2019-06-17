@@ -152,6 +152,8 @@ class Windshare():
             if dirpath.endswith('/.git') or '/.git/' in dirpath:
                 continue
             for filename in filenames:
+                if filename == 'README':
+                    continue
                 if filename.endswith('.json'):
                     try:
                         (_, _, jlayer) = filename[:-5].split('__')
