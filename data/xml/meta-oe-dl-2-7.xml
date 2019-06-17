@@ -44,3 +44,4 @@
     <project name="external/yocto/github.com.perl5-dbi.DBD-mysql" remote="base" path="layers/meta-oe-dl-2.7/git/github.com.perl5-dbi.DBD-mysql.git" bare="True"/>
     <project name="external/yocto/github.com.crash-utility.crash" remote="base" path="layers/meta-oe-dl-2.7/git/github.com.crash-utility.crash.git" bare="True"/>
     <project name="external/yocto/github.com.gflags.gflags" remote="base" path="layers/meta-oe-dl-2.7/git/github.com.gflags.gflags.git" bare="True"/>
+    <project name="external/yocto/github.com.troydhanson.uthash" remote="base" path="layers/meta-oe-dl-2.7/git/github.com.troydhanson.uthash.git" bare="True"/>
