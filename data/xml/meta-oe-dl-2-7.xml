@@ -46,3 +46,4 @@
     <project name="external/yocto/github.com.gflags.gflags" remote="base" path="layers/meta-oe-dl-2.7/git/github.com.gflags.gflags.git" bare="True"/>
     <project name="external/yocto/github.com.troydhanson.uthash" remote="base" path="layers/meta-oe-dl-2.7/git/github.com.troydhanson.uthash.git" bare="True"/>
     <project name="external/yocto/github.com.trentm.which" remote="base" path="layers/meta-oe-dl-2.7/git/github.com.trentm.which" bare="True"/>
+    <project name="external/yocto/github.com.lm-sensors.lm-sensors" remote="base" path="layers/meta-oe-dl-2.7/git/github.com.lm-sensors.lm-sensors.git" bare="True"/>
