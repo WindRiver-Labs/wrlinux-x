@@ -269,7 +269,11 @@ class Setup():
             utils_setup.run_cmd(cmd, log=2, environment=self.env, cwd=mirror_index)
 
         try:
-            cmd = [self.tools['git'], 'fetch', '-f', '-n', '-u', remote_mirror, self.base_branch + ':' + folder + self.base_branch]
+            # We don't know if we're fetching a branch or tag, if it's a tag we have to do this
+            # in two steps anyway, so always go to 'FETCH_HEAD' and then branch it.
+            cmd = [self.tools['git'], 'fetch', '-n', '-u', remote_mirror, self.base_branch]
+            utils_setup.run_cmd(cmd, log=2, environment=self.env, cwd=mirror_index)
+            cmd = [self.tools['git'], 'checkout', '-B', folder + self.base_branch, 'FETCH_HEAD']
             utils_setup.run_cmd(cmd, log=2, environment=self.env, cwd=mirror_index)
         except:
             # Could not fetch, return
@@ -363,6 +367,25 @@ class Setup():
                   ]
 
         self.index = Layer_Index(indexcfg=settings.INDEXES, base_branch=self.base_branch, replace=replace, mirror=mirror_index_path)
+
+        # Is this a Wind River tag? if so... we need to modify the 'branches' entries to be the same as the tag
+        if self.base_branch.startswith('refs/tags/vWRLINUX'):
+            if '_RCPL' in self.base_branch or '_UPDATE' in self.base_branch:
+                # vWRLINUX_<something>_UPDATExxxx
+                # vWRLINUX_<something>_RCPLxxxx
+                new_base_branch = self.base_branch[11:]
+            else:
+                # vWRLINUX_<something>_10.19.25.0
+                new_base_branch_pos = self.base_branch.find('10.')
+                new_base_branch = self.base_branch[:(new_base_branch_pos-1)][11:]
+
+            logger.debug('Detected a WR tag, replacing %s with %s...' % (self.base_branch[11:], new_base_branch))
+            for lindex in self.index.index:
+                for branch in lindex['branches']:
+                    if branch and branch['bitbake_branch'] == new_base_branch:
+                        branch['bitbake_branch'] = self.base_branch
+                    if branch and branch['name'] == new_base_branch:
+                        branch['name'] = self.base_branch
 
     def process_layers(self):
         from collections import deque
