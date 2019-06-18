@@ -84,7 +84,11 @@ work_list = []
 def git_branch(_dst, _orig_branch, _branch):
     logger.info('Branching %s: %s -> %s' % (_dst, _orig_branch, _branch))
 
-    _cmd = [ 'git', 'fetch', '.', '%s:%s' % (_orig_branch, _branch) ]
+    # Break this into two commands, so it will work with tags as well...
+    _cmd = [ 'git', 'fetch', '.', '%s' % (_orig_branch) ]
+    utils_setup.run_cmd(_cmd, cwd=_dst)
+
+    _cmd = [ 'git', 'branch', '%s', 'FETCH_HEAD' % (_branch) ]
     if force:
         _cmd.append('-f')
     utils_setup.run_cmd(_cmd, cwd=_dst)

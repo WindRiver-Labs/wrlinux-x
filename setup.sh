@@ -190,7 +190,14 @@ fi
 if [ -z "${BASEBRANCH}" ]; then
 	BASEBRANCH=$(git --git-dir="$BASEDIR/.git" rev-parse --abbrev-ref HEAD)
 	if [ "$BASEBRANCH" = "HEAD" ]; then
-		BASEBRANCH=""
+		# Maybe this is a tag instead?
+		BASEBRANCH=$(git --git-dir="$BASEDIR/.git" describe HEAD 2>/dev/null)
+		if [ $? -ne 0 ]; then
+			# No reasonable branch/tag name found...
+			BASEBRANCH=""
+		else
+			BASEBRANCH="refs/tags/$BASEBRANCH"
+                fi
 	fi
 fi
 
@@ -225,9 +232,21 @@ if [ $help -ne 1 ]; then
 	esac
 
 	if [ -z "$BASEBRANCH" ]; then
-		echo "May be on a detached HEAD, HEAD must be on a branch. ($BASEDIR)" >&2
+		echo "May be on a detached HEAD, HEAD must be on a branch or tag. ($BASEDIR)" >&2
 		echo "You can avoid this by passing the branch using --base-branch=" >&2
 		exit 1
+	fi
+
+        # Is this a tag?  If so, don't allow tags w/ '-'
+	if [ "$BASEBRANCH" != "${BASEBRANCH##refs/tags/}" ]; then
+		if [ "$BASEBRANCH" != "${BASEBRANCH//-*}" ]; then
+			echo "Checkout may be on a detached HEAD, this HEAD does not appear to" >&2
+			echo "correspond to a specific, tag.  (It appears you may be working with" >&2
+			echo "tag ${BASEBRANCH//-*}.  If this is correct, use" >&2
+			echo "--base-branch=${BASEBRANCH//-*} in the arguments to" >&2
+			echo "$0."
+			exit 1
+		fi
 	fi
 
 	for func in "${ADDFUNCS[@]}"; do
