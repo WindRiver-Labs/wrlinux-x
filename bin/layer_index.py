@@ -26,6 +26,8 @@ import logger_setup
 
 import utils_setup
 
+import texttable as tt
+
 # type, url/path, description, cache
 # type:  restapi-web   - REST API from a LayerIndex-web
 #        restapi-files - REST API, but only from files
@@ -796,8 +798,13 @@ class Layer_Index():
     def list_obj(self, base_branch, object, display, compat='all'):
         for lindex in self.index:
             logger.plain ('Index: %s' % (lindex['CFG']['DESCRIPTION'] or lindex['CFG']['URL']))
-            logger.plain ('%s %s %s' % (('{:24}'.format(display), '{:34}'.format('description'), '{:19}'.format('layer'))))
-            logger.plain ('{:-^80}'.format(""))
+
+            table = tt.Texttable()
+            table.set_deco(tt.Texttable.HEADER)
+            table.set_header_align(['l', 'l', 'l'])
+            table.set_cols_align(['l', 'l', 'l'])
+            table.header(['display', 'description', 'layer'])
+            table.set_cols_dtype(['t', 't', 't'])
             branchid = self.getBranchId(lindex, self.getIndexBranch(default=base_branch, lindex=lindex))
             if branchid:
                 # there are more layerBranches then objects (usually)...
@@ -811,7 +818,9 @@ class Layer_Index():
                                 lname = layer['name']
                                 name = obj['name']
                                 description = (obj['description'] or name).strip()
-                                logger.plain('%s %s %s' % ('{:24}'.format(name), '{:34}'.format(description[:34]), lname))
+                                table.add_row([name, description, lname])
+                s = table.draw()
+                logger.plain(s)
             logger.plain ('')
 
     def list_distros(self, base_branch, compat):
