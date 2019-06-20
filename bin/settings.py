@@ -39,7 +39,7 @@ BITBAKE = "bitbake"
 # Base Layers (these layers and their dependencies are -always- included)
 BASE_LAYERS = "wrlinux"
 
-DEFAULT_DISTRO = "wrlinux-small"
+DEFAULT_DISTRO = "wrlinux"
 DEFAULT_MACHINE = "qemux86-64"
 
 # Default number of repo jobs

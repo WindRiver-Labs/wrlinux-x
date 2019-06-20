@@ -2,7 +2,7 @@ This project was configured with the following options:
     ####SETUP_ARGS####
 
 Common Wind River images are:
-    wrlinux-image-small     (requires distro: wrlinux-small)
+    wrlinux-image-small     (suggests distro: wrlinux and feature/busybox)
     wrlinux-image-core      (suggests distro: wrlinux)
     wrlinux-image-std       (suggests distro: wrlinux)
     wrlinux-image-std-sato  (requires distro: wrlinux-graphics)
