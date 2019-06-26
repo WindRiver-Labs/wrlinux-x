@@ -101,3 +101,4 @@
     <project name="external/yocto/github.com.fedora-sysv.chkconfig" remote="base" path="layers/oe-core-dl-2.7/git/github.com.fedora-sysv.chkconfig.git" bare="True"/>
     <project name="external/yocto/gitlab.freedesktop.org.mesa.piglit" remote="base" path="layers/oe-core-dl-2.7/git/gitlab.freedesktop.org.mesa.piglit" bare="True"/>
     <project name="external/yocto/github.com.riscv.opensbi" remote="base" path="layers/oe-core-dl-2.7/git/github.com.riscv.opensbi.git" bare="True"/>
+    <project name="external/yocto/git.lttng.org.lttng-modules" remote="base" path="layers/oe-core-dl-2.7/git/git.lttng.org.lttng-modules" bare="True"/>
