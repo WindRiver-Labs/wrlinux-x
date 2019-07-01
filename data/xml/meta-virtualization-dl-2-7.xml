@@ -32,3 +32,4 @@
     <project name="external/yocto/github.com.pkg.errors" remote="base" path="layers/meta-virtualization-dl-2.7/git/github.com.pkg.errors.git" bare="True"/>
     <project name="external/yocto/github.com.opencontainers.go-digest" remote="base" path="layers/meta-virtualization-dl-2.7/git/github.com.opencontainers.go-digest.git" bare="True"/>
     <project name="external/yocto/github.com.opencontainers.runtime-spec" remote="base" path="layers/meta-virtualization-dl-2.7/git/github.com.opencontainers.runtime-spec.git" bare="True"/>
+    <project name="external/yocto/github.com.Irqbalance.irqbalance" remote="base" path="layers/meta-virtualization-dl-2.7/git/github.com.Irqbalance.irqbalance" bare="True"/>
