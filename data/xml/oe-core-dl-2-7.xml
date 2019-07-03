@@ -102,3 +102,4 @@
     <project name="external/yocto/gitlab.freedesktop.org.mesa.piglit" remote="base" path="layers/oe-core-dl-2.7/git/gitlab.freedesktop.org.mesa.piglit" bare="True"/>
     <project name="external/yocto/github.com.riscv.opensbi" remote="base" path="layers/oe-core-dl-2.7/git/github.com.riscv.opensbi.git" bare="True"/>
     <project name="external/yocto/git.lttng.org.lttng-modules" remote="base" path="layers/oe-core-dl-2.7/git/git.lttng.org.lttng-modules" bare="True"/>
+    <project name="external/yocto/github.com.unfs3.unfs3" remote="base" path="layers/oe-core-dl-2.7/git/github.com.unfs3.unfs3.git" bare="True"/>
