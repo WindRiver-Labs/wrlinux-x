@@ -57,3 +57,17 @@ REMOTES = [
 # The default tag used to filter the output of --list actions. 'all' means no
 # filter
 DEFAULT_LAYER_COMPAT_TAG = "all"
+
+# required host tools to build out project
+# Do not edit this manually, it is updated automatically.
+REQUIRED_HOST_TOOLS = """
+ [ ar as awk basename bash bzip2 cat chgrp chmod chown chrpath
+ cmp comm cp cpio cpp cut date dd diff diffstat dirname du echo
+ egrep env expand expr false fgrep file find flock g++ gawk gcc
+ getconf getopt git grep gunzip gzip head hostname iconv id install
+ ld ldd ln ls make makeinfo md5sum mkdir mknod mktemp mv nm objcopy
+ objdump od patch perl pod2man pr printf pwd python2 python2.7
+ python3 ranlib readelf readlink realpath rm rmdir rpcgen sed
+ seq sh sha256sum sleep sort split stat strings strip tail tar tee
+ test touch tr true uname uniq wc wget which xargs
+"""

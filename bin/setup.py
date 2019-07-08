@@ -33,6 +33,7 @@ from argparse_wrl import Argparse_Wrl
 from layer_index import Layer_Index
 
 import settings
+import sanity
 
 logger = logger_setup.setup_logging()
 
@@ -139,6 +140,8 @@ class Setup():
             del self.env['PYTHONHOME']
 
         self.setup_env()
+
+        sanity.check_hosttools()
 
         # Config flags
         self.list_distros = False
