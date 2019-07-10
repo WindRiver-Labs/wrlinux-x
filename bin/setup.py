@@ -352,6 +352,12 @@ class Setup():
         if not mirror_index_path:
             mirror_index_path = self.load_mirror_index(self.base_url + '/mirror-index')
 
+            # Is this a tag? if so... we only pull from mirror-indexes
+            if not mirror_index_path and self.base_branch.startswith('refs/tags/'):
+                logger.error("An install from a repository tag (%s) can only be installed with a corresponding layerindex snapshot." % self.base_branch)
+                logger.error("Unable to find %s" % self.base_url + '/mirror-index')
+                sys.exit(1)
+
         # Mirror also has a copy of the associated XML bits
         if mirror_index_path:
             self.xml_dir = os.path.join(mirror_index_path, 'xml')
