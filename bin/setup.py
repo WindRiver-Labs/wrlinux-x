@@ -103,6 +103,14 @@ class Setup():
         # Default to NOT force-sync
         self.force_sync = None
 
+        self.repo_url = None
+        if 'REPO_URL' in os.environ:
+            repo_url = '--repo-url %s' % os.environ['REPO_URL']
+
+        self.repo_rev = None
+        if 'REPO_REV' in os.environ:
+            repo_rev = '--repo-rev %s' % os.environ['REPO_REV']
+
         self.debug_lvl = 0
 
         # Set the install_dir
@@ -131,9 +139,6 @@ class Setup():
             del self.env['PYTHONHOME']
 
         self.setup_env()
-
-        # Check for all the tools and create a dictionary of the path
-        self.tools = {i : self.get_path(i) for i in self.tool_list}
 
         # Config flags
         self.list_distros = False
@@ -171,6 +176,9 @@ class Setup():
 
         if not self.base_url or not self.base_branch:
             self.exit(1)
+
+        # Check for all the tools and create a dictionary of the path
+        self.tools = {i : self.get_path(i) for i in self.tool_list}
 
         self.load_layer_index()
 
@@ -306,7 +314,12 @@ class Setup():
             return
 
         repo = self.tools['repo']
-        cmd = [repo, 'status']
+        cmd = [repo]
+        if self.repo_url:
+            cmd.append(self.repo_url)
+        if self.repo_rev:
+            cmd.append(self.repo_rev)
+        cmd.append('status')
         with subprocess.Popen(cmd, stdout=subprocess.PIPE, env=self.env, cwd=self.project_dir) as proc:
             output = proc.stdout.read().decode('utf-8')
             if re.search('^project\s+layers/.*\s+branch', output, flags=re.M):
@@ -1150,6 +1163,10 @@ class Setup():
         cmd.insert(1, 'init')
         if self.depth:
             cmd.append(self.depth)
+        if self.repo_url:
+            cmd.append(self.repo_url)
+        if self.repo_rev:
+            cmd.append(self.repo_rev)
         log_it = 1
         if self.repo_verbose is not True and self.quiet == self.default_repo_quiet:
             cmd.append(self.quiet)
@@ -1195,6 +1212,10 @@ class Setup():
         cmd.insert(2, '--prune')
         # disable use of /clone.bundle on HTTP/HTTPS
         cmd.insert(3, '--no-clone-bundle')
+        if self.repo_url:
+            cmd.append(self.repo_url)
+        if self.repo_rev:
+            cmd.append(self.repo_rev)
         if self.force_sync:
             cmd.append(self.force_sync)
         log_it = 1
@@ -1236,6 +1257,14 @@ class Setup():
         logger.debug('Setting force-sync to %s' % sync)
         if sync is True:
             self.force_sync = '--force-sync'
+
+    def set_repo_url(self, url):
+        logger.debug('Setting repo-url to %s' % url)
+        self.repo_url = '--repo-url %s' % url
+
+    def set_repo_rev(self, rev):
+        logger.debug('Setting repo-rev to %s' % rev)
+        self.repo_rev = '--repo-rev %s' % rev
 
     def set_debug(self):
         self.debug_lvl += 1

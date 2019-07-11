@@ -19,6 +19,7 @@ import argparse
 import logging
 import string
 import sys
+import os
 
 class Argparse_Setup:
     def __init__(self, setup, parser=None):
@@ -70,6 +71,16 @@ class Argparse_Setup:
             if self.setup:
                 self.setup.set_force_sync(parsed_args.repo_force_sync)
             del parsed_args.repo_force_sync
+
+        if (parsed_args.repo_url):
+            if self.setup:
+                self.setup.set_repo_url(parsed_args.repo_url)
+            del parsed_args.repo_url
+
+        if (parsed_args.repo_branch):
+            if self.setup:
+                self.setup.set_repo_rev(parsed_args.repo_branch)
+            del parsed_args.repo_branch
 
         # Look for list options
         if parsed_args.list_distros:
@@ -174,6 +185,18 @@ class Argparse_Setup:
         self.repo_args.add_argument('-rj', '--repo-jobs', metavar='JOBS', help='Sets repo project to fetch simultaneously %s' % (setup_jobs))
         self.repo_args.add_argument('--repo-depth', metavar='DEPTH', help='Sets repo --depth; see repo init --help (note: if set, a value of >= 2 is required)')
         self.repo_args.add_argument('--repo-force-sync', action='store_true', help='Sets repo --force-sync; see repo sync --help')
+
+        repo_url = ""
+        if 'REPO_URL' in os.environ:
+            repo_url = '(default %s)' % os.environ['REPO_URL']
+
+        repo_rev = ""
+        if 'REPO_REV' in os.environ:
+            repo_rev = '(default %s)' % os.environ['REPO_REV']
+
+        self.repo_args.add_argument('--repo-url', metavar="URL", help='Url for git-repo %s' % (repo_url))
+        self.repo_args.add_argument('--repo-branch', metavar="REV", help='Url for git-repo %s' % (repo_rev))
+
 
     def add_list_options(self):
         self.list_args = self.parser.add_argument_group('Layer Listings')
