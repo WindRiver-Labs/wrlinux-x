@@ -103,6 +103,14 @@ class Setup():
         # Default to NOT force-sync
         self.force_sync = None
 
+        self.repo_url = None
+        if 'REPO_URL' in os.environ:
+            self.repo_url = os.environ['REPO_URL']
+
+        self.repo_rev = None
+        if 'REPO_REV' in os.environ:
+            self.repo_rev = os.environ['REPO_REV']
+
         self.debug_lvl = 0
 
         # Set the install_dir
@@ -132,9 +140,6 @@ class Setup():
 
         self.setup_env()
 
-        # Check for all the tools and create a dictionary of the path
-        self.tools = {i : self.get_path(i) for i in self.tool_list}
-
         # Config flags
         self.list_distros = False
         self.list_machines = None
@@ -163,6 +168,10 @@ class Setup():
         self.setup_args = " ".join(orig_args[1:])
 
         self.start_file_logging()
+
+        logger.debug('REPO_URL = %s' % self.repo_url)
+        logger.debug('REPO_BRANCH = %s' % self.repo_rev)
+
         if not self.base_url:
             logger.error('Unable to determine base url, you may need to specify --base-url=')
 
@@ -171,6 +180,9 @@ class Setup():
 
         if not self.base_url or not self.base_branch:
             self.exit(1)
+
+        # Check for all the tools and create a dictionary of the path
+        self.tools = {i : self.get_path(i) for i in self.tool_list}
 
         self.load_layer_index()
 
@@ -1148,6 +1160,10 @@ class Setup():
         cmd = [repo, 'init']
         if self.depth:
             cmd.append(self.depth)
+        if self.repo_url:
+            cmd.extend(['--repo-url', self.repo_url])
+        if self.repo_rev:
+            cmd.extend(['--repo-branch', self.repo_rev])
         log_it = 1
         if self.repo_verbose is not True and self.quiet == self.default_repo_quiet:
             cmd.append(self.quiet)
@@ -1233,6 +1249,14 @@ class Setup():
         logger.debug('Setting force-sync to %s' % sync)
         if sync is True:
             self.force_sync = '--force-sync'
+
+    def set_repo_url(self, url):
+        logger.debug('Setting repo-url to %s' % url)
+        self.repo_url = url
+
+    def set_repo_rev(self, rev):
+        logger.debug('Setting repo-rev to %s' % rev)
+        self.repo_rev = rev
 
     def set_debug(self):
         self.debug_lvl += 1
