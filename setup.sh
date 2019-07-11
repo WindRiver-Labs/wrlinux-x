@@ -260,18 +260,9 @@ if [ $help -ne 1 ]; then
 	done
 
 	# The following checks are from oe-buildenv-internal
-	# Make sure we're not using python v3.x as 'python', we don't support it.
-	py_v2_check=$(/usr/bin/env python --version 2>&1 | grep "Python 3" 2>/dev/null)
-	if [ -n "$py_v2_check" ]; then
-		echo >&2 "OpenEmbedded requires 'python' to be python v2 (>= 2.7.3), not python v3."
-		echo >&2 "Please set up python v2 as your default 'python' interpreter."
-		exit 1
-	fi
-	unset py_v2_check
-
-	py_v27_check=$(python -c 'import sys; print sys.version_info >= (2,7,3)' 2>/dev/null)
+	py_v27_check=$(python2 -c 'import sys; print sys.version_info >= (2,7,3)')
 	if [ "$py_v27_check" != "True" ]; then
-		echo >&2 "OpenEmbedded requires 'python' to be python v2 (>= 2.7.3), not python v3."
+		echo >&2 "OpenEmbedded requires 'python2' to be python v2 (>= 2.7.3), not python v3."
 		echo >&2 "Please upgrade your python v2."
 		exit 1
 	fi
