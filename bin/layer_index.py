@@ -775,8 +775,13 @@ class Layer_Index():
         import unicodedata
         for lindex in self.index:
             logger.plain ('Index: %s' % (lindex['CFG']['DESCRIPTION'] or lindex['CFG']['URL']))
-            logger.plain ('%s %s' % (('{:25}'.format('layer'), 'summary')))
-            logger.plain ('{:-^80}'.format(""))
+
+            table = tt.Texttable()
+            table.set_deco(tt.Texttable.HEADER)
+            table.set_header_align(['l', 'l'])
+            table.set_cols_align(['l', 'l'])
+            table.header(['layer', 'summary'])
+            table.set_cols_dtype(['t', 't'])
             branchid = self.getBranchId(lindex, self.getIndexBranch(default=base_branch, lindex=lindex))
             if branchid:
                 for lb in lindex['layerBranches']:
@@ -784,7 +789,9 @@ class Layer_Index():
                         for layer in self.find_layer(lindex, layerBranch=lb):
                             name = layer['name']
                             summary = layer['summary'] or name
-                            logger.plain('%s %s' % ('{:25}'.format(name), summary[:52]))
+                            table.add_row([name, summary])
+            s = table.draw()
+            logger.plain (s)
             logger.plain ('')
 
     def getYPCompatibleVersion(self, lindex, id):
