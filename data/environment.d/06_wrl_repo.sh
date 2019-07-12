@@ -16,23 +16,22 @@
 # Identify the right path for the Wind River version of git-repo
 # setup the REPO_URL to point there...
 
-setup_add_arg --repo-url REPO_URL
-setup_add_arg --repo-branch REPO_REV
-
 setup_add_func wr_repo_setup
-setup_add_func wr_repo_clone
 
 # Special windshare folders to search
 REPO_FOLDERS=""
 
 . ${BASEDIR}/data/environment.d/setup_utils
 
-wr_repo_find() {
+wr_repo_setup() {
+	if [ -e bin/.git-repo ]; then
+		export REPO_URL=$(cat bin/.git-repo)
+		return 0
+	fi
+
 	echo "Searching for git-repo..."
 	REPO_URL=${BASEURL}/git-repo
 	if ! setup_check_url "${REPO_URL}" ; then
-		# Clear in case there are no REPO_FOLDERS
-		REPO_URL=""
 		for folder in ${REPO_FOLDERS} ; do
 			REPO_URL=${BASEURL}/${folder}/git-repo
 			if ! setup_check_url "${REPO_URL}" ; then
@@ -42,115 +41,18 @@ wr_repo_find() {
 			break
 		done
 	fi
-	if [ -z "$REPO_URL" ]; then
+
+	if [ -z "${REPO_URL}" ]; then
+		echo "Unable to find git-repo repository.  Search path:" >&2
+		echo "	${BASEURL}/git-repo" >&2
+		for folder in ${REPO_FOLDERS} ; do
+			echo "${BASEURL}/${folder}/git-repo" >&2
+		done
 		return 1
-	fi
-}
-
-repo_branch_fallback="master-wr"
-
-wr_repo_setup() {
-	local update_url
-	local update_rev
-
-	update_url=true
-	update_rev=true
-
-	# If the user passed it in, we use it after we verify it!
-	if [ -n "$REPO_URL" ]; then
-		if ! setup_check_url "${REPO_URL}" ; then
-			echo "Unable to find git-repo repository. ${REPO_URL}" >&2
-			return 1
-		fi
-	fi
-
-	# If we still don't know it, check the file...
-	if [ -z "$REPO_URL" ]; then
-		if [ -e bin/.git-repo ]; then
-			REPO_URL=$(cat bin/.git-repo)
-			update_url=false
-		# If we still don't know it, go find it...
-		elif ! wr_repo_find ; then
-			echo "Unable to find git-repo repository.  Search path:" >&2
-			echo "	${BASEURL}/git-repo" >&2
-			for folder in ${REPO_FOLDERS} ; do
-				echo "${BASEURL}/${folder}/git-repo" >&2
-			done
-			return 1
-		fi
-	fi
-
-	# Repo rev time...
-	# User passed it in, verify it
-	if [ -n "$REPO_REV" ]; then
-		output=$(setup_check_url_branch "${REPO_URL}" "${REPO_REV}")
-		if [ "$output" != "$REPO_REV" -o $? -ne 0 ] ; then
-			echo "Unable to find branch ${REPO_REV} in git-repo repository (${REPO_URL})" >&2
-			return 1
-		fi
-	fi
-
-	if [ -z "$REPO_REV" ]; then
-		if [ -e bin/.git-repo-rev ]; then
-			REPO_REV=$(cat bin/.git-repo-rev)
-			update_rev=false
-		else # If we still don't know it, go find it...
-			BASEBRANCHES[0]=${BASEBRANCH}
-			if [ "${BASEBRANCH}" != "$repo_branch_fallback" ]; then
-				BASEBRANCHES[1]="$repo_branch_fallback"
-			fi
-			REPO_REV=$(setup_check_url_branch "${REPO_URL}" "${BASEBRANCHES[@]}")
-			if [ -z "${REPO_REV}" ]; then
-				echo "Unable to find a usable branch (${BASEBRANCHES[@]}) in git-repo repository (${REPO_URL})" >&2
-				return 1
-			fi
-		fi
 	fi
 
 	# Ensure subsequent 'repo' calls use the correct URL
-	if $update_url ; then
-		echo ${REPO_URL} > bin/.git-repo
-	fi
+	echo ${REPO_URL} > bin/.git-repo
 	export REPO_URL
-
-	if $update_rev ; then
-		echo ${REPO_REV} > bin/.git-repo-rev
-	fi
-	export REPO_REV
-
 	return 0
-}
-
-wr_repo_clone() {
-	if [ ! -d bin/git-repo ]; then
-		git clone --branch "${REPO_REV}" "${REPO_URL}" bin/git-repo
-		if [ $? -ne 0 ]; then
-			echo "Unable to clone git-repo from ${REPO_URL}, branch ${REPO_REV}." >&2
-			return 1
-		fi
-
-		export PATH=$(cd bin/git-repo && pwd):$PATH
-
-		return 0
-	fi
-
-	echo "Updating git-repo"
-	if [ "${REPO_URL}" != "$(git config -f bin/git-repo/.git/config remote.origin.url)" ]; then
-		git config -f bin/git-repo/.git/config remote.origin.url "${REPO_URL}"
-	fi
-
-	(cd bin/git-repo && git pull)
-	if [ $? -ne 0 ]; then
-		echo "WARNING: Unable to update the git-repo respository." >&2
-	fi
-
-	if [ "* ${REPO_REV}" != "$(cd bin/git-repo && git branch | grep '\*')" ]; then
-		(cd bin/git-repo && git checkout ${REPO_REV})
-		if [ $? -ne 0 ]; then
-			echo "ERROR: Unable to checkout branch ${REPO_REV}" >&2
-			return 1
-		fi
-	fi
-
-	export PATH=$(cd bin/git-repo && pwd):$PATH
 }

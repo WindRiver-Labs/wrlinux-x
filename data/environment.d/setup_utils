@@ -59,36 +59,3 @@ setup_check_url() {
 	echo "$err" >&2
 	return 3
 }
-
-# $1 is the url (or file path) to check if it's a git repository
-# $2...$n is the branches to check if they exist
-# Function returns:
-#   0 if git repository is available
-#   1 if it's a bad path
-#   2 if authentication failed (and prints a message)
-#   3 an unknown error occurs (and prints a message)
-#
-# stdout will be the first branch that exists (rc 0)
-setup_check_url_branch() {
-	local repo
-	repo=$1
-
-	shift
-
-	setup_check_url "$repo"
-	ret=$?
-
-	if [ $? -ne 0 ]; then
-		return $ret
-	fi
-
-	local branch
-	for branch in "$@"; do
-		output=$(LANG=C git ls-remote "$repo" "$branch")
-
-		if [ -n "$output" ]; then
-			echo $branch
-			return 0
-		fi
-	done
-}
