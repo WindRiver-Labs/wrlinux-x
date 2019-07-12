@@ -1145,15 +1145,14 @@ class Setup():
         if os.path.exists(directory):
             logger.info('Done: detected repo init already run since %s exists' % directory)
             return
-        cmd = args
-        cmd.insert(0, repo)
-        cmd.insert(1, 'init')
+        cmd = [repo, 'init']
         if self.depth:
             cmd.append(self.depth)
         log_it = 1
         if self.repo_verbose is not True and self.quiet == self.default_repo_quiet:
             cmd.append(self.quiet)
             log_it = 0
+        cmd.extend(args)
         try:
             utils_setup.run_cmd(cmd, environment=self.env, log=log_it)
         except Exception as e:
@@ -1189,18 +1188,16 @@ class Setup():
     def call_repo_sync(self, args):
         logger.debug('Starting')
         repo = self.tools['repo']
-        cmd = args
-        cmd.insert(0, repo)
-        cmd.insert(1, 'sync')
-        cmd.insert(2, '--prune')
+        cmd = [repo, 'sync', '--prune']
         # disable use of /clone.bundle on HTTP/HTTPS
-        cmd.insert(3, '--no-clone-bundle')
+        cmd.append('--no-clone-bundle')
         if self.force_sync:
             cmd.append(self.force_sync)
         log_it = 1
         if self.repo_verbose is not True and self.quiet == self.default_repo_quiet:
             cmd.append(self.quiet)
             log_it = 0
+        cmd.extend(args)
         utils_setup.run_cmd(cmd, environment=self.env, log=log_it)
         logger.debug('Done')
 
