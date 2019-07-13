@@ -54,7 +54,7 @@ wr_repo_find() {
 	return 0
 }
 
-repo_branch_fallback="master-wr"
+repo_branch_fallback="stable-wr"
 
 wr_repo_setup() {
 	local update_url
@@ -98,6 +98,10 @@ wr_repo_setup() {
 			update_rev=false
 		else # If we still don't know it, go find it...
 			BASEBRANCHES[0]=${BASEBRANCH}
+			# Skip master-wr, we don't use this branch any longer in git-repo...
+			if [ "${BASEBRANCHES[0]}" == "master-wr" ]; then
+				BASEBRANCHES[0]="$repo_branch_fallback"
+			fi
 			if [ "${BASEBRANCHES[0]}" != "$repo_branch_fallback" ]; then
 				BASEBRANCHES[1]="$repo_branch_fallback"
 			fi
