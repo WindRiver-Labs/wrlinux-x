@@ -141,8 +141,6 @@ class Setup():
 
         self.setup_env()
 
-        sanity.check_hosttools()
-
         # Config flags
         self.list_distros = False
         self.list_machines = None
@@ -181,11 +179,17 @@ class Setup():
         if not self.base_branch:
             logger.error('Unable to determine base branch, you may need to specify --base-branch=')
 
+        # Check for require host tools
+        sanity.check_hosttools(self.tool_list)
+
         if not self.base_url or not self.base_branch:
             self.exit(1)
 
         # Check for all the tools and create a dictionary of the path
+        # This shouldn't fail, because sanity.check_hosttools already checked for these...
         self.tools = {i : self.get_path(i) for i in self.tool_list}
+        if None in self.tools.values():
+            sys.exit(1)
 
         self.load_layer_index()
 
@@ -1230,7 +1234,6 @@ class Setup():
         if (not cmd):
             logger.critical('Cannot find %s in path!' % tool)
             logger.critical('Path was: %s' % os.environ['PATH'])
-            self.exit(1)
         return cmd
 
     # Helpers: Set_*, which..

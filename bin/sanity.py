@@ -64,7 +64,7 @@ def which(path, item, direction = 0, executable=False):
 
     return ""
 
-def check_hosttools():
+def check_hosttools(additions = None):
     """
     Check tools on host. Error out if some tool is missing. 
     """
@@ -74,6 +74,10 @@ def check_hosttools():
     try:
         import settings
         host_tools = settings.REQUIRED_HOST_TOOLS.split()
+        if additions:
+            for tool in additions:
+                if tool not in host_tools:
+                    host_tools.append(tool)
     except Exception as e:
         logger.warn("Failed to get host tools from setting.py: %s" % e)
         logger.warn("Use a fixed list of host tools for checking.")
@@ -102,4 +106,4 @@ def check_hosttools():
 
 # allow running sanity checks individually
 if __name__ == '__main__':
-    check_hosttools()
+    sys.exit(check_hosttools(sys.argv[1:]))
