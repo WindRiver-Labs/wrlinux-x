@@ -147,7 +147,7 @@ wr_repo_clone() {
 	fi
 
 	# We always clear local changes to make sure we're synced up!
-	(cd bin/git-repo && git remote update && git reset --hard @{upstream})
+	(cd bin/git-repo && git remote update origin && git reset --hard @{upstream})
 	if [ $? -ne 0 ]; then
 		echo "WARNING: Unable to update the git-repo respository." >&2
 	fi
@@ -177,7 +177,7 @@ wr_repo_clone() {
 			git_repo_branch=$(git config -f .repo/repo/.git/config branch.default.merge)
 		fi
 		if $repo_resync ; then
-			(cd .repo/repo && git remote update) || exit 1
+			(cd .repo/repo && git remote update origin) || exit 1
 			(cd .repo/repo && git reset --hard @{upstream}) || exit 1
 		fi
 	fi
