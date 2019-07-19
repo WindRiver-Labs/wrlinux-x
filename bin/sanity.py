@@ -91,7 +91,7 @@ def check_hosttools():
         # would return /usr/local/bin/ccache/gcc, but what we need is
         # /usr/bin/gcc, this code can check and fix that.
         if "ccache" in srctool:
-            srctool = bb.utils.which(path, tool, executable=True, direction=1)
+            srctool = which(path, tool, executable=True, direction=1)
         if not srctool:
             notfound.append(tool)
     if notfound:
