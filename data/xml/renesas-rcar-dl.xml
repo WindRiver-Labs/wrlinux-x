@@ -2,3 +2,4 @@
     <project name="external/yocto/github.com.renesas-rcar.optee_os" remote="base" path="layers/renesas-rcar-dl/git/github.com.renesas-rcar.optee_os.git" bare="True"/>
     <project name="external/yocto/github.com.renesas-rcar.u-boot" remote="base" path="layers/renesas-rcar-dl/git/github.com.renesas-rcar.u-boot.git" bare="True"/>
     <project name="external/yocto/git.ti.com.ti-bt.uim" remote="base" path="layers/renesas-rcar-dl/git/git.ti.com.ti-bt.uim.git" bare="True"/>
+    <project name="external/yocto/github.com.TI-ECS.bt-firmware" remote="base" path="layers/renesas-rcar-dl/git/github.com.TI-ECS.bt-firmware.git" bare="True"/>
