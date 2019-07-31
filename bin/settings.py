@@ -60,7 +60,7 @@ DEFAULT_LAYER_COMPAT_TAG = "all"
 
 # required host tools to build out project
 # Do not edit this manually, it is updated automatically.
-REQUIRED_HOST_TOOLS = """
+REQUIRED_HOSTTOOLS = """
  [ ar as awk basename bash bzip2 cat chgrp chmod chown chrpath
  cmp comm cp cpio cpp cut date dd diff diffstat dirname du echo
  egrep env expand expr false fgrep file find flock g++ gawk gcc

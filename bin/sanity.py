@@ -73,7 +73,7 @@ def check_hosttools(additions = None):
 
     try:
         import settings
-        host_tools = settings.REQUIRED_HOST_TOOLS.split()
+        host_tools = settings.REQUIRED_HOSTTOOLS.split()
         if additions:
             for tool in additions:
                 if tool not in host_tools:
