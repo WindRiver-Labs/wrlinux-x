@@ -1021,7 +1021,9 @@ class Setup():
         tree = ET.parse(os.path.join(self.project_dir, 'default.xml'))
         root = tree.getroot()
         for linkfile in root.iter('linkfile'):
-            ign_list.append(linkfile.attrib['dest'])
+            dest = linkfile.attrib['dest']
+            if not '/' in dest:
+                ign_list.append(dest)
 
         with open(os.path.join(self.project_dir, '.gitignore'), 'a+') as f:
             f.seek(0)
