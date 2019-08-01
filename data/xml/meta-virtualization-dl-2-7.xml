@@ -35,3 +35,4 @@
     <project name="external/yocto/github.com.Irqbalance.irqbalance" remote="base" path="layers/meta-virtualization-dl-2.7/git/github.com.Irqbalance.irqbalance" bare="True"/>
     <project name="external/yocto/github.com.kubernetes.kubernetes" remote="base" path="layers/meta-virtualization-dl-2.7/git/github.com.kubernetes.kubernetes.git" bare="True"/>
     <project name="external/yocto/github.com.containernetworking.cni" remote="base" path="layers/meta-virtualization-dl-2.7/git/github.com.containernetworking.cni.git" bare="True"/>
+    <project name="external/yocto/github.com.containernetworking.plugins" remote="base" path="layers/meta-virtualization-dl-2.7/git/github.com.containernetworking.plugins.git" bare="True"/>
