@@ -1089,7 +1089,7 @@ class Setup():
         except:
             logger.plain('Updated project configuration')
             # Command failed -- so self.default_xml changed...
-            cmd = [self.tools['git'], 'commit', '-m', 'Configuration change - %s' % (self.setup_args), '--'] + filelist
+            cmd = [self.tools['git'], 'commit', '-q', '-m', 'Configuration change - %s' % (self.setup_args), '--'] + filelist
             utils_setup.run_cmd(cmd, environment=self.env, cwd=self.project_dir)
 
         logger.debug('Done')
