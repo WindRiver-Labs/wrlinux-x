@@ -44,3 +44,4 @@
     <project name="external/yocto/github.com.pmem.ndctl" remote="base" path="layers/meta-oe-dl-2.6/git/github.com.pmem.ndctl.git" bare="True"/>
     <project name="external/yocto/github.com.intel.ledmon" remote="base" path="layers/meta-oe-dl-2.6/git/github.com.intel.ledmon.git" bare="True"/>
     <project name="external/yocto/anongit.freedesktop.org.xorg.driver.xf86-video-armsoc" remote="base" path="layers/meta-oe-dl-2.6/git/anongit.freedesktop.org.xorg.driver.xf86-video-armsoc" bare="True"/>
+    <project name="external/yocto/github.com.yasm.yasm" remote="base" path="layers/meta-oe-dl-2.6/git/github.com.yasm.yasm.git" bare="True"/>
