@@ -193,6 +193,10 @@ class Setup():
 
         self.load_layer_index()
 
+        if len(self.index.index) == 0:
+            logger.critical('No indexes could be loaded.  This could be due to an invalid branch or tag.  Exiting...')
+            sys.exit(1)
+
         if self.list_distros:
             compat = self.list_distros
             if compat == 'default':
