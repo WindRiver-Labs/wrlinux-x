@@ -1,2 +1,3 @@
     <project name="external/yocto/github.com.SELinuxProject.refpolicy" remote="base" path="layers/meta-selinux-dl/git/github.com.SELinuxProject.refpolicy.git" bare="True"/>
     <project name="external/yocto/github.com.SELinuxProject.setools" remote="base" path="layers/meta-selinux-dl/git/github.com.SELinuxProject.setools.git" bare="True"/>
+    <project name="external/yocto/github.com.linux-audit.audit-userspace" remote="base" path="layers/meta-selinux-dl/git/github.com.linux-audit.audit-userspace.git" bare="True"/>
