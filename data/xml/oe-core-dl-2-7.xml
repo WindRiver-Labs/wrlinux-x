@@ -30,7 +30,6 @@
     <project name="external/yocto/git.yoctoproject.org.yocto-kernel-tools" remote="base" path="layers/oe-core-dl-2.7/git/git.yoctoproject.org.yocto-kernel-tools.git" bare="True"/>
     <project name="external/yocto/github.com.clutter-project.mx" remote="base" path="layers/oe-core-dl-2.7/git/github.com.clutter-project.mx.git" bare="True"/>
     <project name="external/yocto/github.com.connectivity.connman-gnome" remote="base" path="layers/oe-core-dl-2.7/git/github.com.connectivity.connman-gnome.git" bare="True"/>
-    <project name="external/yocto/github.com.dv1.eglinfo" remote="base" path="layers/oe-core-dl-2.7/git/github.com.dv1.eglinfo.git" bare="True"/>
     <project name="external/yocto/github.com.file.file" remote="base" path="layers/oe-core-dl-2.7/git/github.com.file.file.git" bare="True"/>
     <project name="external/yocto/github.com.kraj.localedef" remote="base" path="layers/oe-core-dl-2.7/git/github.com.kraj.localedef" bare="True"/>
     <project name="external/github.com.linux-test-project.ltp" remote="base" path="layers/oe-core-dl-2.7/git/github.com.linux-test-project.ltp.git" bare="True"/>
