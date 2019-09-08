@@ -14,3 +14,4 @@
     <project name="external/yocto/salsa.debian.org.debian.ifenslave" remote="base" path="layers/meta-networking-dl-2.7/git/salsa.debian.org.debian.ifenslave.git" bare="True"/>
     <project name="external/yocto/github.com.cyrusimap.cyrus-sasl" remote="base" path="layers/meta-networking-dl-2.7/git/github.com.cyrusimap.cyrus-sasl" bare="True"/>
     <project name="external/yocto/github.com.maxmind.geoip-api-c" remote="base" path="layers/meta-networking-dl-2.7/git/github.com.maxmind.geoip-api-c.git" bare="True"/>
+    <project name="external/yocto/github.com.FreeRADIUS.freeradius-server" remote="base" path="layers/meta-networking-dl-2.7/git/github.com.FreeRADIUS.freeradius-server.git" bare="True"/>
