@@ -129,27 +129,52 @@ wr_repo_setup() {
 }
 
 wr_repo_clone() {
+	# git-repo is limited to working on it's own branches only.
+	# In otherwords, we can't checkout a tag in git-repo and work with it,
+	# otherwise we get numerous errors that things fail due to them not being
+	# based on branches.
+	#
+	# Due to the design of git-repo, it is safe to use the latest version
+	# on a branch associated with the tag.  For instance, if the tag
+	# vWRLINUX_CI_10.19.29.0 is a tag based on WRLINUX_CI branch, we can just
+	# use the branch for cloning.
+	#
+
+	# Since we can't check what branch the tag is from w/o a clone, we clone...
 	if [ ! -d bin/git-repo ]; then
-		git clone --branch "${REPO_REV}" "${REPO_URL}" bin/git-repo
+		git clone "${REPO_URL}" bin/git-repo
 		if [ $? -ne 0 ]; then
-			echo "Unable to clone git-repo from ${REPO_URL}, branch ${REPO_REV}." >&2
+			echo "Unable to clone git-repo from ${REPO_URL}." >&2
 			return 1
 		fi
+	else
+		if [ "${REPO_URL}" != "$(git config -f bin/git-repo/.git/config remote.origin.url)" ]; then
+			echo "Updating git-repo remote url"
+			git config -f bin/git-repo/.git/config remote.origin.url "${REPO_URL}"
+		fi
 
-		export PATH=$(cd bin/git-repo && pwd):$PATH
-
-		return 0
+		# We always clear local changes to make sure we're synced up!
+		(cd bin/git-repo && git remote update && git reset --hard @{upstream})
+		if [ $? -ne 0 ]; then
+			echo "WARNING: Unable to reset the git-repo respository." >&2
+		fi
 	fi
 
-	echo "Updating git-repo"
-	if [ "${REPO_URL}" != "$(git config -f bin/git-repo/.git/config remote.origin.url)" ]; then
-		git config -f bin/git-repo/.git/config remote.origin.url "${REPO_URL}"
-	fi
+	# Translate REPO_REV, if a tag to a branch
+	if [ "$REPO_REV" != "${REPO_REV##refs/tags/}" ]; then
+		# Find the first branch containing that commit..
+		REPO_BRANCH=$(cd bin/git-repo && git branch -r --contains ${REPO_REV}^{commit} 2>/dev/null | head -n 1)
+		if [ -z ${REPO_BRANCH} ]; then
+			echo "ERROR: Unable to find branch containing $REPO_REV in git-repo repository."
+			exit 1
+		fi
+		# Strip spaces
+		REPO_BRANCH=$(echo ${REPO_BRANCH})
+		# Turn into a local branch
+		REPO_BRANCH=${REPO_BRANCH##origin/}
+		echo "Translated tag ${REPO_REV} to branch ${REPO_BRANCH}"
 
-	# We always clear local changes to make sure we're synced up!
-	(cd bin/git-repo && git remote update origin && git reset --hard @{upstream})
-	if [ $? -ne 0 ]; then
-		echo "WARNING: Unable to update the git-repo respository." >&2
+		REPO_REV=$REPO_BRANCH
 	fi
 
 	if [ "* ${REPO_REV}" != "$(cd bin/git-repo && git branch | grep '\*')" ]; then
@@ -177,7 +202,7 @@ wr_repo_clone() {
 			git_repo_branch=$(git config -f .repo/repo/.git/config branch.default.merge)
 		fi
 		if $repo_resync ; then
-			(cd .repo/repo && git remote update origin) || exit 1
+			(cd .repo/repo && git remote update) || exit 1
 			(cd .repo/repo && git reset --hard @{upstream}) || exit 1
 		fi
 	fi
