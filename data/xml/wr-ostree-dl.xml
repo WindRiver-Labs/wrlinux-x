@@ -1,4 +1,1 @@
 <project name="external/yocto/github.com.advancedtelematic.sota-tools" remote="base" path="layers/wr-ostree-dl/git/github.com.advancedtelematic.sota-tools.git" bare="True"/>
-<project name="external/overc/github.com.ostreedev.ostree" remote="base" path="layers/wr-ostree-dl/git/github.com.ostreedev.ostree.git" bare="True"/>
-<project name="external/overc/gitlab.gnome.org.GNOME.libglnx" remote="base" path="layers/wr-ostree-dl/git/gitlab.gnome.org.GNOME.libglnx.git" bare="True"/>
-<project name="external/overc/github.com.mendsley.bsdiff" remote="base" path="layers/wr-ostree-dl/git/github.com.mendsley.bsdiff.git" bare="True"/>
