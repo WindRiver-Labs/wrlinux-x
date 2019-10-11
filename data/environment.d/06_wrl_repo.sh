@@ -1,4 +1,4 @@
-# Copyright (C) 2016 Wind River Systems, Inc.
+# Copyright (C) 2016-2019 Wind River Systems, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as
@@ -23,7 +23,7 @@ setup_add_func wr_repo_setup
 setup_add_func wr_repo_clone
 
 # Special windshare folders to search
-REPO_FOLDERS=""
+REPO_FOLDERS="WRLinux-lts-19-Core WRLinux-lts-19-Base"
 
 . ${BASEDIR}/data/environment.d/setup_utils
 
