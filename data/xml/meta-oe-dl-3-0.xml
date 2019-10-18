@@ -51,5 +51,3 @@
     <project name="external/yocto/github.com.pmem.pmdk" remote="base" path="layers/meta-oe-dl-3.0/git/github.com.pmem.pmdk.git" bare="True"/>
     <project name="external/yocto/github.com.uclouvain.openjpeg" remote="base" path="layers/meta-oe-dl-3.0/git/github.com.uclouvain.openjpeg.git" bare="True"/>
     <project name="external/yocto/sourceware.org.git.lvm2" remote="base" path="layers/meta-oe-dl-3.0/git/sourceware.org.git.lvm2.git" bare="True"/>
-    <project name="external/yocto/git.pengutronix.de.git.tools.libsocketcan" remote="base" path="layers/meta-oe-dl-3.0/git/git.pengutronix.de.git.tools.libsocketcan.git" bare="True"/>
-    <project name="external/yocto/github.com.linux-can.can-utils" remote="base" path="layers/meta-oe-dl-3.0/git/github.com.linux-can.can-utils.git" bare="True"/>
