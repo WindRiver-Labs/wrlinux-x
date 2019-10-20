@@ -88,7 +88,7 @@ def git_branch(_dst, _orig_branch, _branch):
     _cmd = [ 'git', 'fetch', '.', '%s' % (_orig_branch) ]
     utils_setup.run_cmd(_cmd, cwd=_dst)
 
-    _cmd = [ 'git', 'branch', '%s', 'FETCH_HEAD' % (_branch) ]
+    _cmd = [ 'git', 'branch', _branch, 'FETCH_HEAD' ]
     if force:
         _cmd.append('-f')
     utils_setup.run_cmd(_cmd, cwd=_dst)
