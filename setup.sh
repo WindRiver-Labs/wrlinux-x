@@ -20,6 +20,14 @@ if [ -z "${BASH_VERSION}" ]; then
 	exit 1
 fi
 
+# python2 is needed as 03_wrl_askpass.sh uses setup_askpass which is written in python2
+which python2 > /dev/null
+if [ $? -ne 0 ]; then
+	echo >&2 "WRLinux setup requires 'python2'."
+	echo >&2 "Please install python2."
+	exit 1
+fi
+
 GIT_USERNAME="customer"
 GIT_USEREMAIL="customer@company.com"
 
