@@ -331,3 +331,6 @@ CONF_VERSION = "1"
 
 # The overrides osv-wrlinux will enable wrlinux specific bbappend
 OVERRIDES_append = ":osv-wrlinux"
+
+# Add WRLinux uninative support
+require wrlinux-distro/conf/distro/include/wrlinux-uninative.inc
