@@ -31,6 +31,7 @@
     <project name="external/yocto/github.com.opencontainers.go-digest" remote="base" path="layers/meta-virtualization-dl-3.1/git/github.com.opencontainers.go-digest.git" bare="True"/>
     <project name="external/yocto/github.com.opencontainers.runtime-spec" remote="base" path="layers/meta-virtualization-dl-3.1/git/github.com.opencontainers.runtime-spec.git" bare="True"/>
     <project name="external/yocto/github.com.Irqbalance.irqbalance" remote="base" path="layers/meta-virtualization-dl-3.1/git/github.com.Irqbalance.irqbalance" bare="True"/>
+    <project name="external/yocto/github.com.kubernetes.kubernetes" remote="base" path="layers/meta-virtualization-dl-3.1/git/github.com.kubernetes.kubernetes.git" bare="True"/>
     <project name="external/yocto/github.com.containernetworking.cni" remote="base" path="layers/meta-virtualization-dl-3.1/git/github.com.containernetworking.cni.git" bare="True"/>
     <project name="external/yocto/github.com.containernetworking.plugins" remote="base" path="layers/meta-virtualization-dl-3.1/git/github.com.containernetworking.plugins.git" bare="True"/>
     <project name="external/yocto/github.com.libvmi.libvmi" remote="base" path="layers/meta-virtualization-dl-3.1/git/github.com.libvmi.libvmi.git" bare="True"/>
