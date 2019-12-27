@@ -28,6 +28,17 @@ if [ $? -ne 0 ]; then
 	exit 1
 fi
 
+# The working python should link to python2
+python_path=`which python 2>/dev/null`
+[ -n "${python_path}" ] && {
+	python_bn=$(basename $(readlink -f ${python_path}))
+	python_bn=${python_bn%%.*}
+	[ ${python_bn} = "python2" ] || {
+		echo >&2 "The ${python_path} should link to python2 for WRLinux setup."
+		exit 1
+	}
+}
+
 GIT_USERNAME="customer"
 GIT_USEREMAIL="customer@company.com"
 
