@@ -113,3 +113,4 @@
     <project name="external/yocto/github.com.lathiat.nss-mdns" remote="base" path="layers/oe-core-dl-3.1/git/github.com.lathiat.nss-mdns" bare="True"/>
     <project name="external/yocto/github.com.rhinstaller.efivar" remote="base" path="layers/oe-core-dl-3.1/git/github.com.rhinstaller.efivar.git" bare="True"/>
     <project name="external/yocto/github.com.rhinstaller.efibootmgr" remote="base" path="layers/oe-core-dl-3.1/git/github.com.rhinstaller.efibootmgr.git" bare="True"/>
+    <project name="external/yocto/github.com.intel.libva-utils" remote="base" path="layers/oe-core-dl-3.1/git/github.com.intel.libva-utils.git" bare="True"/>
