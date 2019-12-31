@@ -8,7 +8,6 @@
     <project name="external/yocto/github.com.libhugetlbfs.libhugetlbfs" remote="base" path="layers/meta-oe-dl-3.1/git/github.com.libhugetlbfs.libhugetlbfs.git" bare="True"/>
     <project name="external/yocto/github.com.lloyd.yajl" remote="base" path="layers/meta-oe-dl-3.1/git/github.com.lloyd.yajl" bare="True"/>
     <project name="external/yocto/github.com.oetiker.rrdtool-1.x" remote="base" path="layers/meta-oe-dl-3.1/git/github.com.oetiker.rrdtool-1.x.git" bare="True"/>
-    <project name="external/yocto/github.com.rhinstaller.efibootmgr" remote="base" path="layers/meta-oe-dl-3.1/git/github.com.rhinstaller.efibootmgr.git" bare="True"/>
     <project name="external/yocto/git.kernel.org.pub.scm.utils.cpu.mce.mcelog" remote="base" path="layers/meta-oe-dl-3.1/git/git.kernel.org.pub.scm.utils.cpu.mce.mcelog.git" bare="True"/>
     <project name="external/yocto/github.com.rsyslog.libfastjson" remote="base" path="layers/meta-oe-dl-3.1/git/github.com.rsyslog.libfastjson.git" bare="True"/>
     <project name="external/yocto/github.com.rsyslog.librelp" remote="base" path="layers/meta-oe-dl-3.1/git/github.com.rsyslog.librelp.git" bare="True"/>
