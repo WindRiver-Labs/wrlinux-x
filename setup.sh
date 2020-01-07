@@ -28,15 +28,15 @@ if [ $? -ne 0 ]; then
 	exit 1
 fi
 
-# The working python should link to python2
+# The working python file should be python2
 python_path=`which python 2>/dev/null`
 [ -n "${python_path}" ] && {
-	python_bn=$(basename $(readlink -f ${python_path}))
-	python_bn=${python_bn%%.*}
-	[ ${python_bn} = "python2" ] || {
-		echo >&2 "The ${python_path} should link to python2 for WRLinux setup."
-		exit 1
-	}
+        python_ver=$(${python_path} --version 2>&1 | awk '{print $2}')
+        python_num=${python_ver%%.*}
+        [ "${python_num}" = "2" ] || {
+                        echo >&2 "The working python file ${python_path} should be python2 for WRLinux setup."
+                        exit 1
+        }
 }
 
 GIT_USERNAME="customer"
