@@ -91,7 +91,13 @@ buildtools_setup() {
 		fi
 
 		echo "Fetching buildtools.."
-		(cd ${BUILDTOOLS_GIT} && git fetch -f -n -u "${BASEURL}/${BUILDTOOLS_REMOTE}" ${BUILDTOOLSBRANCH}:${BUILDTOOLS_REF})
+		# Check if it's a tag
+		if [ "$BASEBRANCH" != "${BASEBRANCH##refs/tags/}" ]; then
+			local_name="${BUILDTOOLSBRANCH}:tags/${BUILDTOOLS_REF}"
+		else
+			local_name="${BUILDTOOLSBRANCH}:${BUILDTOOLS_REF}"
+		fi
+		(cd ${BUILDTOOLS_GIT} && git fetch -f -n -u "${BASEURL}/${BUILDTOOLS_REMOTE}" $local_name)
 		if [ $? -ne 0 ]; then
 			echo "Error fetching buildtools repository ${BASEURL}/${BUILDTOOLS_REMOTE}" >&2
 			return 1
