@@ -23,7 +23,7 @@ setup_add_func wr_repo_setup
 setup_add_func wr_repo_clone
 
 # Special windshare folders to search
-REPO_FOLDERS=""
+REPO_FOLDERS="WRLinux-CD-Core"
 
 . ${BASEDIR}/data/environment.d/setup_utils
 
