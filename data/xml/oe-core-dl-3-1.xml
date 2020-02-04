@@ -114,6 +114,5 @@
     <project name="external/yocto/github.com.rhinstaller.efivar" remote="base" path="layers/oe-core-dl-3.1/git/github.com.rhinstaller.efivar.git" bare="True"/>
     <project name="external/yocto/github.com.rhinstaller.efibootmgr" remote="base" path="layers/oe-core-dl-3.1/git/github.com.rhinstaller.efibootmgr.git" bare="True"/>
     <project name="external/yocto/github.com.intel.libva-utils" remote="base" path="layers/oe-core-dl-3.1/git/github.com.intel.libva-utils.git" bare="True"/>
-    <project name="external/yocto/github.com.intel.libva" remote="base" path="layers/oe-core-dl-3.1/git/github.com.intel.libva.git" bare="True"/>
     <project name="external/yocto/github.com.sbabic.libubootenv" remote="base" path="layers/oe-core-dl-3.1/git/github.com.sbabic.libubootenv" bare="True"/>
     <project name="external/yocto/salsa.debian.org.debian.resolvconf" remote="base" path="layers/oe-core-dl-3.1/git/salsa.debian.org.debian.resolvconf.git" bare="True"/>
