@@ -36,3 +36,4 @@
     <project name="external/yocto/github.com.libvmi.libvmi" remote="base" path="layers/meta-virtualization-dl-3.1/git/github.com.libvmi.libvmi.git" bare="True"/>
     <project name="external/yocto/github.com.docker.docker-ce" remote="base" path="layers/meta-virtualization-dl-3.1/git/github.com.docker.docker-ce.git" bare="True"/>
     <project name="external/yocto/github.com.kubernetes-sigs.cri-o" remote="base" path="layers/meta-virtualization-dl-3.1/git/github.com.kubernetes-sigs.cri-o.git" bare="True"/>
+    <project name="external/yocto/github.com.checkpoint-restore.criu" remote="base" path="layers/meta-virtualization-dl-3.1/git/github.com.checkpoint-restore.criu.git" bare="True"/>
