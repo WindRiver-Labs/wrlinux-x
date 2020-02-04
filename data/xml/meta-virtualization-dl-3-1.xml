@@ -18,7 +18,6 @@
     <project name="external/yocto/github.com.containerd.containerd" remote="base" path="layers/meta-virtualization-dl-3.1/git/github.com.containerd.containerd" bare="True"/>
     <project name="external/yocto/github.com.docker.libnetwork" remote="base" path="layers/meta-virtualization-dl-3.1/git/github.com.docker.libnetwork.git" bare="True"/>
     <project name="external/yocto/github.com.opencontainers.runc" remote="base" path="layers/meta-virtualization-dl-3.1/git/github.com.opencontainers.runc" bare="True"/>
-    <project name="external/yocto/github.com.xemul.criu" remote="base" path="layers/meta-virtualization-dl-3.1/git/github.com.xemul.criu.git" bare="True"/>
     <project name="external/yocto/github.com.chaos.diod" remote="base" path="layers/meta-virtualization-dl-3.1/git/github.com.chaos.diod.git" bare="True"/>
     <project name="external/yocto/github.com.projectatomic.oci-systemd-hook" remote="base" path="layers/meta-virtualization-dl-3.1/git/github.com.projectatomic.oci-systemd-hook.git" bare="True"/>
     <project name="external/yocto/github.com.opencontainers.image-tools" remote="base" path="layers/meta-virtualization-dl-3.1/git/github.com.opencontainers.image-tools.git" bare="True"/>
