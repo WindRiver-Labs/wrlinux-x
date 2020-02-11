@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 
 # Copyright (C) 2016 Wind River Systems, Inc.
 #
@@ -52,7 +52,7 @@ if sys.argv[1] == '--server':
     while not quit:
         conn, addr = s.accept()
         while 1:
-            data = conn.recv(1024)
+            data = conn.recv(1024).decode()
             if not data:
                 break
             if data[0] == 'q':
@@ -62,7 +62,7 @@ if sys.argv[1] == '--server':
                     response = q_cache[q]
                 #print('Q: "%s"' % q)
                 #print('R: "%s"' % response)
-                conn.send(response)
+                conn.send(response.encode())
                 break
             if data[0] == 's':
                 res = data.split('\n')
@@ -76,7 +76,7 @@ if sys.argv[1] == '--server':
                     if q == 'tty':
                         continue
                     #print('D: "%s" = "%s"' % (q, q_cache[q]))
-                    conn.send(q + '\n' + q_cache[q][1:] + '\n')
+                    conn.send((q + '\n' + q_cache[q][1:] + '\n').encode())
                 break
             if data[0] == 'x':
                 #print('quit')
@@ -90,7 +90,7 @@ if sys.argv[1] == '--server':
 if sys.argv[1] == '--quit':
     s = socket.socket(socket.AF_UNIX)
     s.connect(sock_name)
-    s.send('x')
+    s.send('x'.encode())
     s.close()
     sys.exit(0)
 
@@ -99,16 +99,16 @@ if sys.argv[1] == '--set':
 
     s = socket.socket(socket.AF_UNIX)
     s.connect(sock_name)
-    s.send('s' + sys.argv[2] + '\n' + 'A' + result)
+    s.send(('s' + sys.argv[2] + '\n' + 'A' + result).encode())
     s.close()
     sys.exit(0)
 
 if sys.argv[1] == '--dump':
     s = socket.socket(socket.AF_UNIX)
     s.connect(sock_name)
-    s.send('d')
+    s.send('d'.encode())
     while 1:
-        result = s.recv(1024)
+        result = s.recv(1024).decode()
         if not result:
             break
         print(result)
@@ -117,8 +117,8 @@ if sys.argv[1] == '--dump':
 
 s = socket.socket(socket.AF_UNIX)
 s.connect(sock_name)
-s.send('q' + sys.argv[1])
-result = s.recv(1024)
+s.send(('q' + sys.argv[1]).encode())
+result = s.recv(1024).decode()
 s.close()
 if result:
     print(result[1:])
@@ -126,14 +126,14 @@ if result:
 
 s = socket.socket(socket.AF_UNIX)
 s.connect(sock_name)
-s.send('qtty')
-tty_file = s.recv(1024)[1:]
+s.send('qtty'.encode())
+tty_file = s.recv(1024)[1:].decode()
 s.close()
 
 if not tty_file:
     tty_file = "/dev/tty"
 
-with open(tty_file, 'rw+') as tty_fd:
+with open(tty_file, 'wb+', buffering=0) as tty_fd:
     if not tty_fd.isatty():
         # Only operate on a tty
         sys.exit(1)
@@ -153,25 +153,25 @@ with open(tty_file, 'rw+') as tty_fd:
             new[3] &= ~termios.ISIG
             termios.tcsetattr(fd, termios.TCSADRAIN, new)
             if termios.tcgetattr(fd)[3] != new[3]:
-                tty_fd.write("WARNING: Password may echo to the screen!\n")
-            tty_fd.write(question)
-            result = tty_fd.readline()
-            tty_fd.write('\n')
+                tty_fd.write("WARNING: Password may echo to the screen!\n".encode())
+            tty_fd.write(question.encode())
+            result = tty_fd.readline().decode()
+            tty_fd.write('\n'.encode())
         finally:
             termios.tcsetattr(fd, termios.TCSADRAIN, old)
     else:
-        tty_fd.write(question)
-        result = tty_fd.readline()
+        tty_fd.write(question.encode())
+        result = tty_fd.readline().decode()
 
 s = socket.socket(socket.AF_UNIX)
 s.connect(sock_name)
-s.send('s' + question + '\n' + 'A' + result)
+s.send(('s' + question + '\n' + 'A'+ result).encode())
 s.close()
 
 s = socket.socket(socket.AF_UNIX)
 s.connect(sock_name)
-s.send('q' + sys.argv[1])
-result = s.recv(1024)
+s.send(('q' + sys.argv[1]).encode())
+result = s.recv(1024).decode()
 s.close()
 if result:
     print(result[1:])

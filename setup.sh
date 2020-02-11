@@ -20,14 +20,6 @@ if [ -z "${BASH_VERSION}" ]; then
 	exit 1
 fi
 
-# python2 is needed as 03_wrl_askpass.sh uses setup_askpass which is written in python2
-which python2 > /dev/null
-if [ $? -ne 0 ]; then
-	echo >&2 "WRLinux setup requires 'python2'."
-	echo >&2 "Please install python2."
-	exit 1
-fi
-
 GIT_USERNAME="customer"
 GIT_USEREMAIL="customer@company.com"
 
@@ -271,15 +263,6 @@ if [ $help -ne 1 ]; then
 	add_gitconfig "color.diff" "false"
 	add_gitconfig "color.status" "false"
 fi # if help -ne 1
-
-# The following checks are from oe-buildenv-internal
-py_v27_check=$(python2 -c 'import sys; print sys.version_info >= (2,7,3)')
-if [ "$py_v27_check" != "True" ]; then
-	echo >&2 "OpenEmbedded requires 'python2' to be python v2 (>= 2.7.3), not python v3."
-	echo >&2 "Please upgrade your python v2."
-	exit 1
-fi
-unset py_v27_check
 
 # We potentially have code that doesn't parse correctly with older versions 
 # of Python, and rather than fixing that and being eternally vigilant for 
