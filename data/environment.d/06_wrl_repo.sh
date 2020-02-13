@@ -54,7 +54,7 @@ wr_repo_find() {
 	return 0
 }
 
-repo_branch_fallback="stable-wr"
+repo_branch_fallback="wr-10.20-20200212"
 
 wr_repo_setup() {
 	local update_url
