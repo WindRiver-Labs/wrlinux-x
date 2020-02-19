@@ -20,6 +20,13 @@ if [ -z "${BASH_VERSION}" ]; then
 	exit 1
 fi
 
+which python3 > /dev/null
+if [ $? -ne 0 ]; then
+       echo >&2 "WRLinux setup requires 'python3'."
+       echo >&2 "Please install python3."
+       exit 1
+fi
+
 GIT_USERNAME="customer"
 GIT_USEREMAIL="customer@company.com"
 
