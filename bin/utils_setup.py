@@ -26,31 +26,34 @@ logger = logger_setup.setup_logging()
 
 def run_cmd(cmd, environment=None, cwd=None, log=1, expected_ret=0, err=b'GitError', err2=b'error', err3=b'fatal', stderr=None, stdout=None):
     err_msg = []
-    force_sync_disable = False
 
     logger.debug('Running cmd: "%s"' % repr(cmd))
     if cwd:
         logger.debug('From %s' % cwd)
 
-    # log 0/1 - send output to plain
+    # log 0 - output goes to stdout/stderr, not logged
+    # log 1 - send output to plain
     # log 2 - send output to debug
-    if stderr is None:
-        stderr = subprocess.STDOUT
-    ret = subprocess.Popen(cmd, env=environment, cwd=cwd, stderr=stderr, stdout=subprocess.PIPE)
-    while True:
-        output = ret.stdout.readline()
-        if not output and ret.poll() is not None:
-            break
-        if output:
-            output = output.strip()
-            if b'GitError: --force-sync not enabled' in output:
-                force_sync_disable = True
-            if len(err_msg) > 0 or output.startswith(err) or output.startswith(err2) or output.startswith(err3):
-                err_msg.append("%s" % output.decode('utf-8'))
-            if log == 1 or log == 0:
-                logger.plain("%s" % output.decode('utf-8'))
-            elif log == 2:
-                logger.debug("%s" % output.decode('utf-8'))
+    if log == 1 or log == 2:
+        if stderr is None:
+            stderr = subprocess.STDOUT
+
+        ret = subprocess.Popen(cmd, env=environment, cwd=cwd, stderr=stderr, stdout=subprocess.PIPE)
+        while True:
+            output = ret.stdout.readline()
+            if not output and ret.poll() is not None:
+                break
+            if output:
+                output = output.strip()
+                if len(err_msg) > 0 or output.startswith(err) or output.startswith(err2) or output.startswith(err3):
+                    err_msg.append("%s" % output.decode('utf-8'))
+                if log == 1:
+                    logger.plain("%s" % output.decode('utf-8'))
+                elif log == 2:
+                    logger.debug("%s" % output.decode('utf-8'))
+    else:
+        logger.debug('output not logged for this command (%s) without verbose flag (-v).' % (cmd))
+        ret = subprocess.Popen(cmd, env=environment, cwd=cwd, close_fds=True, stderr=stderr, stdout=stdout)
 
     ret.wait()
     if ret.returncode != expected_ret:
@@ -62,9 +65,6 @@ def run_cmd(cmd, environment=None, cwd=None, log=1, expected_ret=0, err=b'GitErr
                 logger.critical('cmd "%s" returned %d' % (cmd, ret.returncode))
             else:
                 logger.debug('cmd "%s" returned %d' % (cmd, ret.returncode))
-
-        if force_sync_disable:
-            logger.critical("Retry with --repo-force-sync ?")
 
         msg = ''
         if log:
