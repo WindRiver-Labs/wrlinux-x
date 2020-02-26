@@ -5,7 +5,6 @@
     <project name="external/yocto/git.kernel.dk.blktrace" remote="base" path="layers/oe-core-dl-3.1/git/git.kernel.dk.blktrace.git" bare="True"/>
     <project name="external/yocto/git.kernel.org.pub.scm.fs.ext2.e2fsprogs" remote="base" path="layers/oe-core-dl-3.1/git/git.kernel.org.pub.scm.fs.ext2.e2fsprogs.git" bare="True"/>
     <project name="external/yocto/git.kernel.org.pub.scm.linux.kernel.git.cjb.mmc-utils" remote="base" path="layers/oe-core-dl-3.1/git/git.kernel.org.pub.scm.linux.kernel.git.cjb.mmc-utils.git" bare="True"/>
-    <project name="external/yocto/git.kernel.org.pub.scm.linux.kernel.git.firmware.linux-firmware" remote="base" path="layers/oe-core-dl-3.1/git/git.kernel.org.pub.scm.linux.kernel.git.firmware.linux-firmware.git" bare="True"/>
     <project name="external/yocto/git.kernel.org.pub.scm.linux.kernel.git.kdave.btrfs-progs" remote="base" path="layers/oe-core-dl-3.1/git/git.kernel.org.pub.scm.linux.kernel.git.kdave.btrfs-progs.git" bare="True"/>
     <project name="external/yocto/git.kernel.org.pub.scm.utils.dtc.dtc" remote="base" path="layers/oe-core-dl-3.1/git/git.kernel.org.pub.scm.utils.dtc.dtc.git" bare="True"/>
     <project name="external/yocto/git.kernel.org.pub.scm.utils.kernel.kmod.kmod" remote="base" path="layers/oe-core-dl-3.1/git/git.kernel.org.pub.scm.utils.kernel.kmod.kmod.git" bare="True"/>
