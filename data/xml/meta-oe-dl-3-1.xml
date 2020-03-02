@@ -50,3 +50,4 @@
     <project name="external/yocto/sourceware.org.git.lvm2" remote="base" path="layers/meta-oe-dl-3.1/git/sourceware.org.git.lvm2.git" bare="True"/>
     <project name="external/yocto/github.com.vmware.open-vm-tools" remote="base" path="layers/meta-oe-dl-3.1/git/github.com.vmware.open-vm-tools.git" bare="True"/>
     <project name="external/yocto/repo.or.cz.iotop" remote="base" path="layers/meta-oe-dl-3.1/git/repo.or.cz.iotop.git" bare="True"/>
+    <project name="external/yocto/github.com.c-ares.c-ares" remote="base" path="layers/meta-oe-dl-3.1/git/github.com.c-ares.c-ares.git" bare="True"/>
