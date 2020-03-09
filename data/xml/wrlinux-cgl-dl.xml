@@ -1,1 +1,0 @@
-    <project name="external/yocto/git.umip.org.umip.umip" remote="base" path="layers/wrlinux-cgl-dl/git/git.umip.org.umip.umip.git" bare="True"/>
