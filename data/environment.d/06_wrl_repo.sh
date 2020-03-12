@@ -58,10 +58,8 @@ repo_branch_fallback="wr-10.20-20200212"
 
 wr_repo_setup() {
 	local update_url
-	local update_rev
 
 	update_url=true
-	update_rev=true
 
 	# If the user passed it in, we use it after we verify it!
 	if [ -n "$REPO_URL" ]; then
@@ -93,23 +91,18 @@ wr_repo_setup() {
 	fi
 
 	if [ -z "$REPO_REV" ]; then
-		if [ -e bin/.git-repo-rev ]; then
-			REPO_REV=$(cat bin/.git-repo-rev)
-			update_rev=false
-		else # If we still don't know it, go find it...
-			BASEBRANCHES[0]=${BASEBRANCH}
-			# Skip master-wr, we don't use this branch any longer in git-repo...
-			if [ "${BASEBRANCHES[0]}" == "master-wr" ]; then
-				BASEBRANCHES[0]="$repo_branch_fallback"
-			fi
-			if [ "${BASEBRANCHES[0]}" != "$repo_branch_fallback" ]; then
-				BASEBRANCHES[1]="$repo_branch_fallback"
-			fi
-			REPO_REV=$(setup_check_url_branch "${REPO_URL}" "${BASEBRANCHES[@]}")
-			if [ -z "${REPO_REV}" ]; then
-				echo "Unable to find a usable branch (${BASEBRANCHES[@]}) in git-repo repository (${REPO_URL})" >&2
-				return 1
-			fi
+		BASEBRANCHES[0]=${BASEBRANCH}
+		# Skip master-wr, we don't use this branch any longer in git-repo...
+		if [ "${BASEBRANCHES[0]}" == "master-wr" ]; then
+			BASEBRANCHES[0]="$repo_branch_fallback"
+		fi
+		if [ "${BASEBRANCHES[0]}" != "$repo_branch_fallback" ]; then
+			BASEBRANCHES[1]="$repo_branch_fallback"
+		fi
+		REPO_REV=$(setup_check_url_branch "${REPO_URL}" "${BASEBRANCHES[@]}")
+		if [ -z "${REPO_REV}" ]; then
+			echo "Unable to find a usable branch (${BASEBRANCHES[@]}) in git-repo repository (${REPO_URL})" >&2
+			return 1
 		fi
 	fi
 
@@ -119,10 +112,6 @@ wr_repo_setup() {
 	fi
 	export REPO_URL
 
-	# Ensure subsequent 'repo' calls use the correct REV
-	if $update_rev ; then
-		echo ${REPO_REV} > bin/.git-repo-rev
-	fi
 	export REPO_REV
 
 	return 0
