@@ -1102,7 +1102,15 @@ class Setup():
     def repo_sync(self):
         logger.debug('Starting')
 
-        if os.path.exists(os.path.join(self.project_dir, self.check_repo_install_dir)):
+        def checkout_to_repo_branch():
+            # Checkout to specific branch
+            if self.repo_rev:
+                cmd = [self.tools['git'], 'checkout', '-B', self.repo_rev, 'origin/%s' % self.repo_rev]
+                utils_setup.run_cmd(cmd, environment=self.env, cwd=os.path.dirname(self.repo_dir))
+
+        self.repo_dir = os.path.join(self.project_dir, self.check_repo_install_dir)
+        if os.path.exists(self.repo_dir):
+            checkout_to_repo_branch()
             cmd = ['-j', self.jobs]
             self.call_repo_sync(cmd)
         else:
@@ -1113,6 +1121,8 @@ class Setup():
 
             cmd.append('--no-repo-verify')
             self.call_repo_init(cmd)
+
+            checkout_to_repo_branch()
 
             # repo sync
             cmd = ['-j', self.jobs]
