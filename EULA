@@ -643,6 +643,14 @@ devices, applications or API code, as further specified in Section
 2.1(License Grants); (b) using Tools to compile any code; or other 
 similar engineering activity or result.
 
+5.8. "Externally downloadable 3rd party components" mean third party software
+that we don't include with our code when we ship, however we do include
+recipes/hooks etc that enable the download from the third party website. By
+selecting this component, you understand that it will be downloaded and
+installed from a third party website.  Such software may involve additional
+licensing terms. Please contact your legal department should you have any
+questions regarding licensing terms and obligations.
+
 
                  APPENDIX B - WIND RIVER LINUX PLATFORM
                       PRODUCT EVALUATION TERMS
