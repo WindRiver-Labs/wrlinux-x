@@ -691,13 +691,11 @@ class Setup():
             for (dirpath, dirnames, filenames) in os.walk(os.path.join(self.project_dir, 'bin/buildtools')):
                 for filename in filenames:
                     if filename.startswith('environment-setup-'):
-                        if os.path.exists(os.path.join(self.project_dir, filename)):
-                            if os.path.islink(os.path.join(self.project_dir, filename)):
-                                dest = os.readlink(os.path.join(self.project_dir, filename))
-                                if dest == os.path.join(dirpath, filename):
-                                    continue
-                            os.unlink(os.path.join(self.project_dir, filename))
-                        os.symlink(os.path.join(dirpath, filename), os.path.join(self.project_dir, filename))
+                        src = os.path.relpath(os.path.join(dirpath, filename), self.project_dir)
+                        dst = os.path.join(self.project_dir, filename)
+                        if os.path.islink(dst):
+                            os.unlink(dst)
+                        os.symlink(src, dst)
 
         logger.debug('Done')
 
