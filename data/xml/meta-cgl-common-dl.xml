@@ -1,4 +1,5 @@
     <project name="external/yocto/github.com.ClusterLabs.cluster-glue" remote="base" path="layers/meta-cgl-common-dl/git/github.com.ClusterLabs.cluster-glue.git" bare="True"/>
     <project name="external/yocto/github.com.markfasheh.ocfs2-tools" remote="base" path="layers/meta-cgl-common-dl/git/github.com.markfasheh.ocfs2-tools" bare="True"/>
     <project name="external/yocto/github.com.ClusterLabs.crmsh" remote="base" path="layers/meta-cgl-common-dl/git/github.com.ClusterLabs.crmsh.git" bare="True"/>
+    <project name="external/yocto/github.com.ClusterLabs.resource-agents" remote="base" path="layers/meta-cgl-common-dl/git/github.com.ClusterLabs.resource-agents" bare="True"/>
     <project name="external/yocto/github.com.ClusterLabs.pacemaker" remote="base" path="layers/meta-cgl-common-dl/git/github.com.ClusterLabs.pacemaker.git" bare="True"/>
