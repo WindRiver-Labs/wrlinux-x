@@ -12,3 +12,4 @@
     <project name="external/yocto/github.com.keras-team.keras-applications" remote="base" path="layers/meta-python-dl-3.1/git/github.com.keras-team.keras-applications.git" bare="True"/>
     <project name="external/yocto/github.com.keras-team.keras-preprocessing" remote="base" path="layers/meta-python-dl-3.1/git/github.com.keras-team.keras-preprocessing.git" bare="True"/>
     <project name="external/yocto/github.com.python-pillow.Pillow" remote="base" path="layers/meta-python-dl-3.1/git/github.com.python-pillow.Pillow.git" bare="True"/>
+    <project name="external/yocto/github.com.matze.pkgconfig" remote="base" path="layers/meta-python-dl-3.1/git/github.com.matze.pkgconfig.git" bare="True"/>
