@@ -11,3 +11,4 @@
     <project name="external/yocto/github.com.h5py.h5py" remote="base" path="layers/meta-python-dl-3.1/git/github.com.h5py.h5py.git" bare="True"/>
     <project name="external/yocto/github.com.keras-team.keras-applications" remote="base" path="layers/meta-python-dl-3.1/git/github.com.keras-team.keras-applications.git" bare="True"/>
     <project name="external/yocto/github.com.keras-team.keras-preprocessing" remote="base" path="layers/meta-python-dl-3.1/git/github.com.keras-team.keras-preprocessing.git" bare="True"/>
+    <project name="external/yocto/github.com.python-pillow.Pillow" remote="base" path="layers/meta-python-dl-3.1/git/github.com.python-pillow.Pillow.git" bare="True"/>
