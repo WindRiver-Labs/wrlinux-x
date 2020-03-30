@@ -5,3 +5,4 @@
     <project name="external/yocto/github.com.rhinstaller.blivet" remote="base" path="layers/meta-python-dl-3.1/git/github.com.rhinstaller.blivet" bare="True"/>
     <project name="external/yocto/github.com.rhinstaller.blivet-gui" remote="base" path="layers/meta-python-dl-3.1/git/github.com.rhinstaller.blivet-gui" bare="True"/>
     <project name="external/yocto/github.com.seveas.python-prctl" remote="base" path="layers/meta-python-dl-3.1/git/github.com.seveas.python-prctl" bare="True"/>
+    <project name="external/yocto/github.com.abseil.abseil-py" remote="base" path="layers/meta-python-dl-3.1/git/github.com.abseil.abseil-py.git" bare="True"/>
