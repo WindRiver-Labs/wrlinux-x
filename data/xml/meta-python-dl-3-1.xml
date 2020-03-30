@@ -8,3 +8,4 @@
     <project name="external/yocto/github.com.abseil.abseil-py" remote="base" path="layers/meta-python-dl-3.1/git/github.com.abseil.abseil-py.git" bare="True"/>
     <project name="external/yocto/github.com.berkerpeksag.astor" remote="base" path="layers/meta-python-dl-3.1/git/github.com.berkerpeksag.astor.git" bare="True"/>
     <project name="external/yocto/github.com.serge-sans-paille.gast" remote="base" path="layers/meta-python-dl-3.1/git/github.com.serge-sans-paille.gast.git" bare="True"/>
+    <project name="external/yocto/github.com.h5py.h5py" remote="base" path="layers/meta-python-dl-3.1/git/github.com.h5py.h5py.git" bare="True"/>
