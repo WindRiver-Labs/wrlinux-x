@@ -1,0 +1,1 @@
+    <project name="external/yocto/source.codeaurora.org.external.qoriq.qoriq-components.tsntool" remote="base" path="layers/nxp-ls1028-dl/git/source.codeaurora.org.external.qoriq.qoriq-components.tsntool.git" bare="True"/>
