@@ -1,0 +1,1 @@
+    <project name="external/yocto/github.com.DaveGamble.cJSON" remote="base" path="layers/meta-iot-cloud-dl/git/github.com.DaveGamble.cJSON.git" bare="True"/>
