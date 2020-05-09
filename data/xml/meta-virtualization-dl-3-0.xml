@@ -3,7 +3,7 @@
     <project name="external/yocto/github.com.syndtr.gocapability" remote="base" path="layers/meta-virtualization-dl-3.0/git/github.com.syndtr.gocapability.git" bare="True"/>
     <project name="external/yocto/github.com.grpc.grpc-go" remote="base" path="layers/meta-virtualization-dl-3.0/git/github.com.grpc.grpc-go.git" bare="True"/>
     <project name="external/yocto/github.com.Sirupsen.logrus" remote="base" path="layers/meta-virtualization-dl-3.0/git/github.com.Sirupsen.logrus.git" bare="True"/>
-    <project name="external/yocto/github.com.kr.pty" remote="base" path="layers/meta-virtualization-dl-3.0/git/github.com.kr.pty.git" bare="True"/>
+    <project name="external/yocto/github.com.creack.pty" remote="base" path="layers/meta-virtualization-dl-3.0/git/github.com.creack.pty.git" bare="True"/>
     <project name="external/yocto/github.com.gorilla.mux" remote="base" path="layers/meta-virtualization-dl-3.0/git/github.com.gorilla.mux.git" bare="True"/>
     <project name="external/yocto/github.com.docker.distribution" remote="base" path="layers/meta-virtualization-dl-3.0/git/github.com.docker.distribution.git" bare="True"/>
     <project name="external/yocto/github.com.tchap.go-patricia" remote="base" path="layers/meta-virtualization-dl-3.0/git/github.com.tchap.go-patricia.git" bare="True"/>
