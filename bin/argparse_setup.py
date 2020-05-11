@@ -99,6 +99,12 @@ class Argparse_Setup:
             if self.setup:
                 self.setup.list_recipes = True
 
+        if parsed_args.repo_no_fetch:
+            if self.setup:
+                self.setup.repo_no_fetch = True
+            del parsed_args.repo_no_fetch
+
+
         if (parsed_args.list_distros or parsed_args.list_machines or parsed_args.list_layers or parsed_args.list_recipes):
             return
 
@@ -185,6 +191,7 @@ class Argparse_Setup:
         self.repo_args.add_argument('-rj', '--repo-jobs', metavar='JOBS', help='Sets repo project to fetch simultaneously %s' % (setup_jobs))
         self.repo_args.add_argument('--repo-depth', metavar='DEPTH', help='Sets repo --depth; see repo init --help (note: if set, a value of >= 2 is required)')
         self.repo_args.add_argument('--repo-force-sync', action='store_true', help='Sets repo --force-sync; see repo sync --help')
+        self.repo_args.add_argument('--repo-no-fetch', help='Do all the setup but do not call repo sync', action="store_true")
 
         repo_url = ""
         if 'REPO_URL' in os.environ:

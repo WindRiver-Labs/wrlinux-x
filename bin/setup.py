@@ -1098,6 +1098,10 @@ class Setup():
         logger.debug('Done')
 
     def repo_sync(self):
+        if self.repo_no_fetch:
+            logger.info('Skipping repo sync')
+            return
+
         logger.debug('Starting')
 
         def checkout_to_repo_branch():
