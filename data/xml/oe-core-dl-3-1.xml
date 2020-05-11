@@ -115,3 +115,4 @@
     <project name="external/yocto/gitlab.freedesktop.org.xdg.shared-mime-info" remote="base" path="layers/oe-core-dl-3.1/git/gitlab.freedesktop.org.xdg.shared-mime-info.git" bare="True"/>
     <project name="external/yocto/gitlab.com.procps-ng.procps" remote="base" path="layers/oe-core-dl-3.1/git/gitlab.com.procps-ng.procps.git" bare="True"/>
     <project name="external/yocto/github.com.NixOS.patchelf" remote="base" path="layers/oe-core-dl-3.1/git/github.com.NixOS.patchelf" bare="True"/>
+    <project name="external/yocto/github.com.KhronosGroup.KTX-Software" remote="base" path="layers/oe-core-dl-3.1/git/github.com.KhronosGroup.KTX-Software" bare="True"/>
