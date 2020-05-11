@@ -24,6 +24,8 @@ import sys
 import time
 import re
 
+from urllib.parse import urlparse
+
 import utils_setup
 
 # Setup-specific modules
@@ -84,6 +86,8 @@ class Setup():
 
         self.all_layers = False
         self.dl_layers = False
+        self.local_layers = []
+        self.remote_layers = []
 
         self.no_recommend = False
 
@@ -113,6 +117,8 @@ class Setup():
             self.repo_rev = os.environ['REPO_REV']
 
         self.debug_lvl = 0
+
+        self.repo_no_fetch = False
 
         # Set the install_dir
         # Use the path from this file.  Note bin has to be dropped.
@@ -490,9 +496,13 @@ class Setup():
             if not procConfig(distro=l):
                 allfound = False
 
-        for l in self.machines:
-            if not procConfig(machine=l):
-                allfound = False
+        # do MACHINE validation if the local layers list is empty
+        if self.local_layers or self.remote_layers:
+            logger.info("Local or remote layers specified. Skipping MACHINE validation")
+        else:
+            for l in self.machines:
+                if not procConfig(machine=l):
+                    allfound = False
 
         for l in self.recipes:
             if not procConfig(recipe=l):
@@ -612,34 +622,36 @@ class Setup():
                     recommendedQueue.append( (lindex, dep) )
 
         # Also compute the various remotes
-        from urllib.parse import urlparse
-
         self.remotes['base'] = self.base_url
 
         def process_remote(lindex, layerBranch):
             for layer in self.index.find_layer(lindex, id=layerBranch['layer']):
-                vcs_url = layer['vcs_url']
+                add_remote_entry(layer['vcs_url'])
 
-                found = False
-                for remote in self.remotes:
-                    if vcs_url.startswith(self.remotes[remote]):
-                        found = True
-                        break
+            for remote_layer in self.remote_layers:
+                add_remote_entry(remote_layer.get('url'))
+
+        def add_remote_entry(vcs_url):
+            found = False
+            for remote in self.remotes:
+                if vcs_url.startswith(self.remotes[remote]):
+                    found = True
+                    break
+            if not found:
+                url = urlparse(vcs_url)
+                if not url.scheme:
+                    self.remotes['local'] = '/'
+                    found = True
+
                 if not found:
-                    url = urlparse(vcs_url)
-                    if not url.scheme:
-                        self.remotes['local'] = '/'
-                        found = True
+                    for (remoteurl, remotename) in settings.REMOTES:
+                        if vcs_url.startswith(remoteurl):
+                            self.remotes[remotename] = remoteurl
+                            found = True
+                            break
 
-                    if not found:
-                        for (remoteurl, remotename) in settings.REMOTES:
-                            if vcs_url.startswith(remoteurl):
-                                self.remotes[remotename] = remoteurl
-                                found = True
-                                break
-
-                    if not found:
-                        self.remotes[url.scheme + '_' + url.netloc.translate(str.maketrans('/:', '__'))] = url.scheme + '://' + url.netloc
+                if not found:
+                    self.remotes[url.scheme + '_' + url.netloc.translate(str.maketrans('/:', '__'))] = url.scheme + '://' + url.netloc
 
         for (lindex, layerBranch) in self.requiredlayers + self.recommendedlayers:
             process_remote(lindex, layerBranch)
@@ -679,6 +691,32 @@ class Setup():
                 self.recommendedlayers = newRecommendedlayers
             else:
                 self.recommendedlayers = []
+
+        # if any of the remote layers have the same path as one of the
+        # layerindex layers override the vcs_url and
+        # actual_branch. Keep a list of remote layers that were not
+        # overrides so the final list of remote layers will have them
+        # removed. Cannot modify a list while iterating over it
+        additional_remote_layers = []
+        for remote_layer in self.remote_layers:
+            found = False
+            for (lindex, layerBranch) in self.requiredlayers + self.recommendedlayers:
+                for layer in self.index.find_layer(lindex, id=layerBranch['layer']):
+                    vcs_url = layer['vcs_url']
+                    path = 'layers/' + "".join(vcs_url.split('/')[-1:])
+                    if remote_layer.get('path') == path:
+                        layer['vcs_url'] = remote_layer.get('url')
+                        layerBranch['actual_branch'] = remote_layer.get('branch')
+                        found = True
+                        break
+                if found:
+                    break
+
+            if not found and remote_layer not in additional_remote_layers:
+                additional_remote_layers.append(remote_layer)
+
+        # remote layers with the overrides removed
+        self.remote_layers = additional_remote_layers
 
         logger.debug('Done')
 
@@ -767,6 +805,10 @@ class Setup():
             if '####LAYERS####' in line:
                 for l in self.replacement['layers']:
                     dst.write(line.replace('####LAYERS####', '##OEROOT##/%s' % (l)))
+                for rl in self.remote_layers:
+                    dst.write(line.replace('####LAYERS####', '##OEROOT##/%s' % (rl.get('path'))))
+                for ll in self.local_layers:
+                    dst.write(line.replace('####LAYERS####', '%s' % (ll)))
                 continue
             if '####SETUP_ARGS####' in line:
                 dst.write(line.replace('####SETUP_ARGS####', self.setup_args))
@@ -995,6 +1037,22 @@ class Setup():
                     add_xml(entry['name'], url, remote, path, revision)
 
         process_xml_layers(self.requiredlayers + self.recommendedlayers)
+
+        # process the remote layers
+        for remote_layer in self.remote_layers:
+            vcs_url = remote_layer.get('url')
+            for remote in self.remotes:
+                if vcs_url.startswith(self.remotes[remote]):
+                    break
+
+            url = vcs_url[len(self.remotes[remote]):]
+            url = url.strip('/')
+            name = "".join(url.split('/')[-1:])
+            path = remote_layer.get('path')
+            revision = remote_layer.get('branch')
+
+            open_xml_tag(name, url, remote, path, revision)
+            close_xml_tag(name, url, remote, path, revision)
 
         fxml.write('</manifest>\n')
         fxml.close()

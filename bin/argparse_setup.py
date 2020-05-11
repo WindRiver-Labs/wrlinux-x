@@ -16,10 +16,13 @@
 # Note this class MUST run in both python2 and python3
 
 import argparse
-import logging
-import string
 import sys
 import os
+
+from urllib.parse import urlparse
+
+import logger_setup
+logger = logger_setup.setup_logging()
 
 class Argparse_Setup:
     def __init__(self, setup, parser=None):
@@ -131,7 +134,30 @@ class Argparse_Setup:
                 self.setup.layers = []
                 for l in parsed_args.layers:
                     for layer in l.split(','):
-                        self.setup.layers.append(layer)
+                        if '://' in layer:
+                            # check if layer has a valid url scheme
+                            url = urlparse(layer)
+                            if url.scheme and url.scheme != 'file':
+                                remote_layer = {}
+                                remote_layer['branch'] = 'master'
+                                remote = layer.split('+')
+                                remote_layer['url'] = remote[0]
+                                remote_layer['path'] = 'layers/' + remote[0].split('/')[-1]
+                                for arg in remote[1:]:
+                                    if arg.startswith('branch='):
+                                        remote_layer['branch'] = arg[7:]
+
+                                self.setup.remote_layers.append(remote_layer)
+                            else:
+                                logger.warning("Skipping invalid remote url: %s" % (layer))
+                        elif '/' in layer or os.path.exists(layer):
+                            layer = os.path.realpath(layer)
+                            if not os.path.isdir(layer):
+                                logger.warning("Skipping invalid local layer %s" % (layer))
+                            else:
+                                self.setup.local_layers.append(layer)
+                        else:
+                            self.setup.layers.append(layer)
 
         if parsed_args.recipes:
             self.layer_select = True
@@ -231,7 +257,7 @@ class Argparse_Setup:
             setup_machine_str = '(default %s)' % setup_machine
         self.layer_args.add_argument('--machines', metavar='MACHINE', help='Select layer(s) based on required machine(s) and set the default MACHINE= value %s' % setup_machine_str, nargs='+')
 
-        self.layer_args.add_argument('--layers', metavar='LAYER', help='Select layer(s) to include in the project and add to the default bblayers.conf', nargs='+')
+        self.layer_args.add_argument('--layers', metavar='LAYER', help='Select layer(s) to include in the project and add to the default bblayers.conf. Can accept the name of a layer in the layerindex, a path to a layer on local storage or a remote url that will be cloned by git-repo. (<name>|<path>|<scheme>://<url>/<repo>(+branch=<branch>)) ', nargs='+')
         self.layer_args.add_argument('--recipes', metavar='RECIPE', help='Select layers(s) based on recipe(s)', nargs='+')
         self.layer_args.add_argument('--all-layers', help='Select all available layers', action='store_true')
         self.layer_args.add_argument('--no-recommend', help='Disable recommended layers during layer resolution', action='store_true')
