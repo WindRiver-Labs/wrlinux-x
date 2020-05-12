@@ -16,7 +16,7 @@
 # Download, install and load the buildtools tarball (as needed)
 
 BUILDTOOLS_VERSION=${BUILDTOOLS_VERSION:-10.20.04.0}
-BUILDTOOLS_EXT_VERSION=${BUILDTOOLS_EXT_VERSION:-10.20.16.0}
+BUILDTOOLS_EXT_VERSION=${BUILDTOOLS_EXT_VERSION:-10.20.20.0}
 
 # Special windshare folders to search
 BUILDTOOLS_FOLDERS="WRLinux-CD-Core"
