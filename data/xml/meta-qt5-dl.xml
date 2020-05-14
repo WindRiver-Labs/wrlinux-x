@@ -25,3 +25,4 @@
     <project name="external/qt5/code.qt.io.qt.qtwebsockets" remote="base" path="layers/meta-qt5-dl/git/code.qt.io.qt.qtwebsockets.git" bare="True"/>
     <project name="external/qt5/code.qt.io.qt.qtx11extras" remote="base" path="layers/meta-qt5-dl/git/code.qt.io.qt.qtx11extras.git" bare="True"/>
     <project name="external/qt5/code.qt.io.qt.qtxmlpatterns" remote="base" path="layers/meta-qt5-dl/git/code.qt.io.qt.qtxmlpatterns.git" bare="True"/>
+    <project name="external/qt5/code.qt.io.qt.qtwayland" remote="base" path="layers/meta-qt5-dl/git/code.qt.io.qt.qtwayland.git" bare="True"/>
