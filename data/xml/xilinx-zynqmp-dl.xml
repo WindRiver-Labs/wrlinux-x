@@ -1,2 +1,1 @@
-    <project name="external/yocto/anongit.freedesktop.org.xorg.driver.xf86-video-armsoc" remote="base" path="layers/xilinx-zynqmp-dl/git/anongit.freedesktop.org.xorg.driver.xf86-video-armsoc" bare="True"/>
     <project name="external/yocto/github.com.Xilinx.u-boot-xlnx" remote="base" path="layers/xilinx-zynqmp-dl/git/github.com.Xilinx.u-boot-xlnx.git" bare="True"/>
