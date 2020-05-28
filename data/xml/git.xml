@@ -1,1 +1,0 @@
-    <project name="external/yocto/github.com.libbpf.libbpf" remote="base" path="layers/git/git/github.com.libbpf.libbpf.git" bare="True"/>
