@@ -1,1 +1,2 @@
     <project name="external/yocto/github.com.intel.Intel-Linux-Processor-Microcode-Data-Files" remote="base" path="layers/meta-intel-dl/git/github.com.intel.Intel-Linux-Processor-Microcode-Data-Files.git" bare="True"/>
+    <project name="external/yocto/github.com.opencv.dldt" remote="base" path="layers/meta-intel-dl/git/github.com.opencv.dldt.git" bare="True"/>
