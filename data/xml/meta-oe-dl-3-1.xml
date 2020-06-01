@@ -59,3 +59,4 @@
     <project name="external/yocto/luajit.org.git.luajit-2.0" remote="base" path="layers/meta-oe-dl-3.1/git/luajit.org.git.luajit-2.0.git" bare="True"/>
     <project name="external/yocto/github.com.libusb.libusb-compat-0.1" remote="base" path="layers/meta-oe-dl-3.1/git/github.com.libusb.libusb-compat-0.1.git" bare="True"/>
     <project name="external/yocto/github.com.opencv.opencv" remote="base" path="layers/meta-oe-dl-3.1/git/github.com.opencv.opencv.git" bare="True"/>
+    <project name="external/yocto/github.com.opencv.opencv_contrib" remote="base" path="layers/meta-oe-dl-3.1/git/github.com.opencv.opencv_contrib.git" bare="True"/>
