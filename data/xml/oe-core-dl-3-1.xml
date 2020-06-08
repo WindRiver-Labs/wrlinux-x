@@ -38,7 +38,6 @@
     <project name="external/yocto/github.com.stevenhoneyman.l3afpad" remote="base" path="layers/oe-core-dl-3.1/git/github.com.stevenhoneyman.l3afpad.git" bare="True"/>
     <project name="external/yocto/github.com.systemd.systemd-bootchart" remote="base" path="layers/oe-core-dl-3.1/git/github.com.systemd.systemd-bootchart.git" bare="True"/>
     <project name="external/yocto/github.com.tias.xinput_calibrator" remote="base" path="layers/oe-core-dl-3.1/git/github.com.tias.xinput_calibrator.git" bare="True"/>
-    <project name="external/yocto/github.com.xinetd-org.xinetd" remote="base" path="layers/oe-core-dl-3.1/git/github.com.xinetd-org.xinetd.git" bare="True"/>
     <project name="external/yocto/sourceware.org.git.binutils-gdb" remote="base" path="layers/oe-core-dl-3.1/git/sourceware.org.git.binutils-gdb.git" bare="True"/>
     <project name="external/yocto/sourceware.org.git.glibc" remote="base" path="layers/oe-core-dl-3.1/git/sourceware.org.git.glibc.git" bare="True"/>
     <project name="external/yocto/sourceware.org.git.systemtap" remote="base" path="layers/oe-core-dl-3.1/git/sourceware.org.git.systemtap.git" bare="True"/>
@@ -69,7 +68,6 @@
     <project name="external/yocto/github.com.besser82.libxcrypt" remote="base" path="layers/oe-core-dl-3.1/git/github.com.besser82.libxcrypt.git" bare="True"/>
     <project name="external/yocto/github.com.xrmx.bootchart" remote="base" path="layers/oe-core-dl-3.1/git/github.com.xrmx.bootchart.git" bare="True"/>
     <project name="external/yocto/pagure.io.libaio" remote="base" path="layers/oe-core-dl-3.1/git/pagure.io.libaio.git" bare="True"/>
-    <project name="external/yocto/git.linuxfoundation.org.diamon.babeltrace" remote="base" path="layers/oe-core-dl-3.1/git/git.linuxfoundation.org.diamon.babeltrace.git" bare="True"/>
     <project name="external/yocto/github.com.thkukuk.libnss_nis" remote="base" path="layers/oe-core-dl-3.1/git/github.com.thkukuk.libnss_nis" bare="True"/>
     <project name="external/yocto/github.com.thkukuk.rpcsvc-proto" remote="base" path="layers/oe-core-dl-3.1/git/github.com.thkukuk.rpcsvc-proto" bare="True"/>
     <project name="external/yocto/salsa.debian.org.debian.ifupdown" remote="base" path="layers/oe-core-dl-3.1/git/salsa.debian.org.debian.ifupdown.git" bare="True"/>
