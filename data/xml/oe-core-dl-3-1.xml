@@ -118,3 +118,4 @@
     <project name="external/yocto/source.puri.sm.Librem5.libhandy" remote="base" path="layers/oe-core-dl-3.1/git/source.puri.sm.Librem5.libhandy.git" bare="True"/>
     <project name="external/yocto/github.com.fenrus75.powertop" remote="base" path="layers/oe-core-dl-3.1/git/github.com.fenrus75.powertop" bare="True"/>
     <project name="external/yocto/github.com.openSUSE.xinetd" remote="base" path="layers/oe-core-dl-3.1/git/github.com.openSUSE.xinetd.git" bare="True"/>
+    <project name="external/yocto/git.efficios.com.babeltrace" remote="base" path="layers/oe-core-dl-3.1/git/git.efficios.com.babeltrace.git" bare="True"/>
