@@ -1,4 +1,3 @@
-    <project name="external/yocto/github.com.mike-fabian.langtable" remote="base" path="layers/meta-python-dl-3.1/git/github.com.mike-fabian.langtable.git" bare="True"/>
     <project name="external/yocto/github.com.rhinstaller.pykickstart" remote="base" path="layers/meta-python-dl-3.1/git/github.com.rhinstaller.pykickstart.git" bare="True"/>
     <project name="external/yocto/github.com.rhinstaller.pyparted" remote="base" path="layers/meta-python-dl-3.1/git/github.com.rhinstaller.pyparted.git" bare="True"/>
     <project name="external/yocto/github.com.rhinstaller.python-meh" remote="base" path="layers/meta-python-dl-3.1/git/github.com.rhinstaller.python-meh.git" bare="True"/>
@@ -7,7 +6,6 @@
     <project name="external/yocto/github.com.seveas.python-prctl" remote="base" path="layers/meta-python-dl-3.1/git/github.com.seveas.python-prctl" bare="True"/>
     <project name="external/yocto/github.com.abseil.abseil-py" remote="base" path="layers/meta-python-dl-3.1/git/github.com.abseil.abseil-py.git" bare="True"/>
     <project name="external/yocto/github.com.berkerpeksag.astor" remote="base" path="layers/meta-python-dl-3.1/git/github.com.berkerpeksag.astor.git" bare="True"/>
-    <project name="external/yocto/github.com.serge-sans-paille.gast" remote="base" path="layers/meta-python-dl-3.1/git/github.com.serge-sans-paille.gast.git" bare="True"/>
     <project name="external/yocto/github.com.h5py.h5py" remote="base" path="layers/meta-python-dl-3.1/git/github.com.h5py.h5py.git" bare="True"/>
     <project name="external/yocto/github.com.keras-team.keras-applications" remote="base" path="layers/meta-python-dl-3.1/git/github.com.keras-team.keras-applications.git" bare="True"/>
     <project name="external/yocto/github.com.keras-team.keras-preprocessing" remote="base" path="layers/meta-python-dl-3.1/git/github.com.keras-team.keras-preprocessing.git" bare="True"/>
