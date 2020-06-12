@@ -104,6 +104,7 @@
     <project name="external/yocto/boringssl.googlesource.com.boringssl" remote="base" path="layers/oe-core-dl-3.1/git/boringssl.googlesource.com.boringssl" bare="True"/>
     <project name="external/yocto/git.cryptomilk.org.projects.cmocka" remote="base" path="layers/oe-core-dl-3.1/git/git.cryptomilk.org.projects.cmocka.git" bare="True"/>
     <project name="external/yocto/github.com.kkos.oniguruma" remote="base" path="layers/oe-core-dl-3.1/git/github.com.kkos.oniguruma.git" bare="True"/>
+    <project name="external/yocto/github.com.google.brotli" remote="base" path="layers/oe-core-dl-3.1/git/github.com.google.brotli.git" bare="True"/>
     <project name="external/yocto/github.com.linux-can.can-utils" remote="base" path="layers/meta-oe-dl-3.1/git/github.com.linux-can.can-utils.git" bare="True"/>
     <project name="external/yocto/git.pengutronix.de.git.tools.libsocketcan" remote="base" path="layers/meta-oe-dl-3.1/git/git.pengutronix.de.git.tools.libsocketcan.git" bare="True"/>
     <project name="external/yocto/github.com.lathiat.nss-mdns" remote="base" path="layers/oe-core-dl-3.1/git/github.com.lathiat.nss-mdns" bare="True"/>
