@@ -60,3 +60,4 @@
     <project name="external/yocto/github.com.opencv.opencv_contrib" remote="base" path="layers/meta-oe-dl-3.1/git/github.com.opencv.opencv_contrib.git" bare="True"/>
     <project name="external/yocto/github.com.opencv.opencv_3rdparty" remote="base" path="layers/meta-oe-dl-3.1/git/github.com.opencv.opencv_3rdparty.git" bare="True"/>
     <project name="external/yocto/github.com.storaged-project.libblockdev" remote="base" path="layers/meta-oe-dl-3.1/git/github.com.storaged-project.libblockdev" bare="True"/>
+    <project name="external/yocto/github.com.protocolbuffers.protobuf" remote="base" path="layers/meta-oe-dl-3.1/git/github.com.protocolbuffers.protobuf.git" bare="True"/>
