@@ -1190,16 +1190,51 @@ class Setup():
 
         logger.debug('Done')
 
+    def __check_and_update_layerseries_compat(self, project_local_layer_path, data_local_layer_path):
+        project_layer_conf = os.path.join(project_local_layer_path, 'conf/layer.conf')
+        data_layer_conf = os.path.join(data_local_layer_path, 'conf/layer.conf')
+        project_layerseries_compat_line = ""
+        data_layerseries_compat_line = ""
+        update_local_conf = False
+        with open(data_layer_conf, 'r') as f:
+            for line in f.readlines():
+                if 'LAYERSERIES_COMPAT_local' in line:
+                    data_layerseries_compat_line = line
+                    break
+
+        with open(project_layer_conf, 'r') as f:
+            lines = f.readlines()
+            newlines = []
+            for line in lines:
+                if 'LAYERSERIES_COMPAT_local' in line:
+                    project_layerseries_compat_line = line
+                    if project_layerseries_compat_line != data_layerseries_compat_line:
+                        newlines.append(data_layerseries_compat_line)
+                        update_local_conf = True
+                    else:
+                        newlines.append(project_layerseries_compat_line)
+                else:
+                    newlines.append(line)
+
+        if update_local_conf:
+            logger.info("Update LAYERSERIES_COMPAT_local for local layer")
+            with open(project_layer_conf, 'w') as f:
+                for line in newlines:
+                    f.write(line)
+
     def __setup_local_layer(self):
         """Setup the local layer in /layers/local - if required."""
         logger.debug('Checking local layer')
 
-        if os.path.exists(os.path.join(self.project_dir,'layers/local')):
-            return
-
         if self.mirror is True:
             return
 
+        project_local_layer_path = os.path.join(self.project_dir,'layers/local')
+        data_local_layer_path = os.path.join(self.install_dir, 'data/local_layer')
+        if os.path.exists(project_local_layer_path):
+            # update LAYERSERIES_COMPAT_local if necessary
+            self.__check_and_update_layerseries_compat(project_local_layer_path, data_local_layer_path)
+            return
 
         logger.debug('Starting local layer')
 
