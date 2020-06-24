@@ -228,5 +228,12 @@ buildtools_export() {
 
 	export OE_BUILDTOOLS_BRANCH=${BUILDTOOLSBRANCH}
 	export OE_BUILDTOOLS_REMOTE=${BUILDTOOLS_REMOTE}
+	if [ basic = "${BUILDTOOLS_TYPE}" ]; then
+		export OE_ANOTHER_BUILDTOOLS_REMOTE=`echo ${BUILDTOOLS_REMOTE} | sed -e "s,buildtools-standalone-,buildtools-extended-standalone-," \
+			| sed -e "s,${BUILDTOOLS_VERSION},${BUILDTOOLS_EXT_VERSION},"`
+	else
+		export OE_ANOTHER_BUILDTOOLS_REMOTE=`echo ${BUILDTOOLS_REMOTE} | sed -e "s,buildtools-extended-standalone-,buildtools-standalone-," \
+			| sed -e "s,${BUILDTOOLS_EXT_VERSION},${BUILDTOOLS_VERSION},"`
+	fi
 	return 0
 }
