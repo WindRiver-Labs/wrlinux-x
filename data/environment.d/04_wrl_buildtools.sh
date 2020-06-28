@@ -173,16 +173,27 @@ buildtools_setup() {
 	if [ ${EXTRACT_BUILDTOOLS} -eq 1 ]; then
 		# Needs python.
 		buildtoolssdk=$(find "${BUILDTOOLS_GIT}" -name "${SDKARCH}-${buildtools}-nativesdk-standalone-*.sh" 2>/dev/null | sort | head -n1)
-		if [ -z "${buildtoolssdk}" ]; then
-			echo "Unable to find buildtools-nativesdk-standalone archive for ${SDKARCH}." >&2
-			echo >&2
-			echo "SDKARCH values found:" >&2
-			echo $(find "${BUILDTOOLS_GIT}" -name "*-${buildtools}-nativesdk-standalone-*.sh" | xargs -n 1 basename | cut -d '-' -f 1) >&2
-			echo >&2
-			echo "If one of these is compatible, set SDKARCH in your environment." >&2
-			echo >&2
-			return 1
+		buildtoolssdk_list=$(find "${BUILDTOOLS_GIT}" -name "${SDKARCH}-${buildtools}-nativesdk-standalone-*.list" 2>/dev/null | sort | head -n1)
+		if [ -z "${buildtoolssdk_list}" ]; then
+			if [ -z "${buildtoolssdk}" ]; then
+				echo "Unable to find buildtools-nativesdk-standalone archive for ${SDKARCH}." >&2
+				echo >&2
+				echo "SDKARCH values found:" >&2
+				echo $(find "${BUILDTOOLS_GIT}" -name "*-${buildtools}-nativesdk-standalone-*.sh" | xargs -n 1 basename | cut -d '-' -f 1) >&2
+				echo >&2
+				echo "If one of these is compatible, set SDKARCH in your environment." >&2
+				echo >&2
+				return 1
+			fi
+		else
+			buildtoolssdk=${buildtoolssdk_list/%.list/.sh}
+			rm -f ${buildtoolssdk}
+			for part in $(cat ${buildtoolssdk_list}); do
+				cat ${BUILDTOOLS_GIT}/${part} >>${buildtoolssdk}
+			done
+			chmod +x ${buildtoolssdk}
 		fi
+
 		echo "Installing buildtools.."
 		if [ -d "${BUILDTOOLS}.${BUILDTOOLS_REF}" ]; then
 			rm -rf "${BUILDTOOLS}.${BUILDTOOLS_REF}"
