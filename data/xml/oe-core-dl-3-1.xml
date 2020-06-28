@@ -125,3 +125,4 @@
     <project name="external/yocto/git.efficios.com.babeltrace" remote="base" path="layers/oe-core-dl-3.1/git/git.efficios.com.babeltrace.git" bare="True"/>
     <project name="external/yocto/salsa.debian.org.debian.init-system-helpers" remote="base" path="layers/oe-core-dl-3.1/git/salsa.debian.org.debian.init-system-helpers.git" bare="True"/>
     <project name="external/yocto/github.com.libuv.libuv" remote="base" path="layers/oe-core-dl-3.1/git/github.com.libuv.libuv" bare="True"/>
+    <project name="external/yocto/gitlab.freedesktop.org.drm.igt-gpu-tools" remote="base" path="layers/oe-core-dl-3.1/git/gitlab.freedesktop.org.drm.igt-gpu-tools.git" bare="True"/>
