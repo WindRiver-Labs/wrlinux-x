@@ -32,7 +32,6 @@
     <project name="external/yocto/github.com.file.file" remote="base" path="layers/oe-core-dl-3.1/git/github.com.file.file.git" bare="True"/>
     <project name="external/yocto/github.com.kraj.localedef" remote="base" path="layers/oe-core-dl-3.1/git/github.com.kraj.localedef" bare="True"/>
     <project name="external/github.com.linux-test-project.ltp" remote="base" path="layers/oe-core-dl-3.1/git/github.com.linux-test-project.ltp.git" bare="True"/>
-    <project name="external/yocto/github.com.openSUSE.build-compare" remote="base" path="layers/oe-core-dl-3.1/git/github.com.openSUSE.build-compare.git" bare="True"/>
     <project name="external/yocto/github.com.openSUSE.libsolv" remote="base" path="layers/oe-core-dl-3.1/git/github.com.openSUSE.libsolv.git" bare="True"/>
     <project name="external/yocto/github.com.plougher.squashfs-tools" remote="base" path="layers/oe-core-dl-3.1/git/github.com.plougher.squashfs-tools.git" bare="True"/>
     <project name="external/yocto/github.com.stevenhoneyman.l3afpad" remote="base" path="layers/oe-core-dl-3.1/git/github.com.stevenhoneyman.l3afpad.git" bare="True"/>
