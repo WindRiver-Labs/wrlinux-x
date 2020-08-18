@@ -92,6 +92,7 @@
     <project name="external/yocto/github.com.troglobit.sysklogd" remote="base" path="layers/oe-core-dl-3.1/git/github.com.troglobit.sysklogd.git" bare="True"/>
     <project name="external/yocto/gitlab.freedesktop.org.mesa.piglit" remote="base" path="layers/oe-core-dl-3.1/git/gitlab.freedesktop.org.mesa.piglit.git" bare="True"/>
     <project name="external/yocto/github.com.riscv.opensbi" remote="base" path="layers/oe-core-dl-3.1/git/github.com.riscv.opensbi.git" bare="True"/>
+    <project name="external/yocto/git.lttng.org.lttng-modules" remote="base" path="layers/oe-core-dl-3.1/git/git.lttng.org.lttng-modules" bare="True"/>
     <project name="external/yocto/github.com.unfs3.unfs3" remote="base" path="layers/oe-core-dl-3.1/git/github.com.unfs3.unfs3.git" bare="True"/>
     <project name="external/yocto/github.com.KhronosGroup.Vulkan-Headers" remote="base" path="layers/oe-core-dl-3.1/git/github.com.KhronosGroup.Vulkan-Headers.git" bare="True"/>
     <project name="external/yocto/github.com.KhronosGroup.Vulkan-Tools" remote="base" path="layers/oe-core-dl-3.1/git/github.com.KhronosGroup.Vulkan-Tools.git" bare="True"/>
