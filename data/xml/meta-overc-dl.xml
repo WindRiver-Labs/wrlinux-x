@@ -1,9 +1,0 @@
-    <project name="external/ovp/github.com.coreos.etcd" remote="base" path="layers/meta-overc-dl/git/github.com.coreos.etcd.git" bare="True"/>
-    <project name="external/ovp/github.com.crigler.dtach" remote="base" path="layers/meta-overc-dl/git/github.com.crigler.dtach.git" bare="True"/>
-    <project name="external/overc/github.com.ghedo.pflask" remote="base" path="layers/meta-overc-dl/git/github.com.ghedo.pflask.git" bare="True"/>
-    <project name="external/overc/github.com.indigo-dc.udocker" remote="base" path="layers/meta-overc-dl/git/github.com.indigo-dc.udocker.git" bare="True"/>
-    <project name="external/overc/github.com.nanomsg.nanomsg" remote="base" path="layers/meta-overc-dl/git/github.com.nanomsg.nanomsg.git" bare="True"/>
-    <project name="external/overc/github.com.openSUSE.umoci" remote="base" path="layers/meta-overc-dl/git/github.com.openSUSE.umoci" bare="True"/>
-    <project name="external/overc/github.com.projectatomic.skopeo" remote="base" path="layers/meta-overc-dl/git/github.com.projectatomic.skopeo" bare="True"/>
-    <project name="external/overc/github.com.WindRiver-OpenSourceLabs.nanoio" remote="base" path="layers/meta-overc-dl/git/github.com.WindRiver-OpenSourceLabs.nanoio.git" bare="True"/>
-    <project name="external/overc/github.com.neilbrown.wiggle" remote="base" path="layers/meta-overc-dl/git/github.com.neilbrown.wiggle.git" bare="True"/>

@@ -1079,7 +1079,6 @@ class Setup():
                     '*.rej',
                     '*~',
                     '/bin',
-                    '/overc-installer',
                     '/environment-setup-*',
                     '/layers/*',
                     '!layers/local',
