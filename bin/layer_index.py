@@ -206,7 +206,7 @@ class Layer_Index():
         try:
             lindex['apilinks'] = _get_json_response(url)
         except URLError as e:
-            logger.warning("Index %s: could not connect to %s: %s" % (name, url, msg, e.reason))
+            logger.warning("Index %s: could not connect to %s: %s" % (name, url, e.reason))
             return None
 
         filter = ""
