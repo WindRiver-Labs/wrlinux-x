@@ -783,10 +783,23 @@ class Layer_Index():
 
         return None
 
-    def list_layers(self, base_branch):
-        import unicodedata
+    def get_index_layers(self, base_branch):
+        index_layers = {}
         for lindex in self.index:
-            logger.plain ('Index: %s' % (lindex['CFG']['DESCRIPTION'] or lindex['CFG']['URL']))
+            index = lindex['CFG']['DESCRIPTION'] or lindex['CFG']['URL']
+            index_layers[index] = []
+            branchid = self.getBranchId(lindex, self.getIndexBranch(default=base_branch, lindex=lindex))
+            if branchid:
+                for lb in lindex['layerBranches']:
+                    if lb['branch'] == branchid:
+                        index_layers[index].extend(self.find_layer(lindex, layerBranch=lb))
+
+        return index_layers
+
+    def list_layers(self, base_branch):
+        index_layers = self.get_index_layers(base_branch)
+        for index, layers in index_layers.items():
+            logger.plain ('Index: %s' % index)
 
             table = tt.Texttable()
             table.set_deco(tt.Texttable.HEADER)
@@ -794,14 +807,10 @@ class Layer_Index():
             table.set_cols_align(['l', 'l'])
             table.header(['layer', 'summary'])
             table.set_cols_dtype(['t', 't'])
-            branchid = self.getBranchId(lindex, self.getIndexBranch(default=base_branch, lindex=lindex))
-            if branchid:
-                for lb in lindex['layerBranches']:
-                    if lb['branch'] == branchid:
-                        for layer in self.find_layer(lindex, layerBranch=lb):
-                            name = layer['name']
-                            summary = layer['summary'] or name
-                            table.add_row([name, summary])
+            for layer in layers:
+                name = layer['name']
+                summary = layer['summary'] or name
+                table.add_row([name, summary])
             s = table.draw()
             logger.plain (s)
             logger.plain ('')
