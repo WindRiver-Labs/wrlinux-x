@@ -716,6 +716,13 @@ class Layer_Index():
             for layer in lindex['layerItems']:
                 if layer['id'] == id:
                     result.append(layer)
+                    if layerBranch:
+                        result[-1]['collection'] = layerBranch['collection']
+                    else:
+                        for branch in lindex['layerBranches']:
+                            if branch['layer'] == id:
+                                result[-1]['collection'] = branch['collection']
+                                break
                     break
             return result
 
@@ -727,6 +734,10 @@ class Layer_Index():
                 full_list.append(value_from_index)
                 if value_from_index == name:
                     result.append(layer)
+                    for branch in lindex['layerBranches']:
+                        if branch['layer'] == layer['id']:
+                            result[-1]['collection'] = branch['collection']
+                            break
                     found = True
                     break
             if not found:
@@ -767,6 +778,7 @@ class Layer_Index():
                         for layer in lindex['layerItems']:
                             if layer['id'] == layerBranch['layer']:
                                 result.append(layer)
+                                result[-1]['collection'] = layerBranch['collection']
             return result
 
         return None
