@@ -1,4 +1,3 @@
-    <project name="external/qt5/code.qt.io.qt-creator.qt-creator" remote="base" path="layers/meta-qt5-dl/git/code.qt.io.qt-creator.qt-creator.git" bare="True"/>
     <project name="external/qt5/code.qt.io.qt-labs.qt5-everywhere-demo" remote="base" path="layers/meta-qt5-dl/git/code.qt.io.qt-labs.qt5-everywhere-demo.git" bare="True"/>
     <project name="external/qt5/code.qt.io.qt.qt3d" remote="base" path="layers/meta-qt5-dl/git/code.qt.io.qt.qt3d.git" bare="True"/>
     <project name="external/qt5/code.qt.io.qt.qtbase" remote="base" path="layers/meta-qt5-dl/git/code.qt.io.qt.qtbase.git" bare="True"/>
