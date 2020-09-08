@@ -25,6 +25,4 @@
     <project name="external/qt5/code.qt.io.qt.qtx11extras" remote="base" path="layers/meta-qt5-dl/git/code.qt.io.qt.qtx11extras.git" bare="True"/>
     <project name="external/qt5/code.qt.io.qt.qtxmlpatterns" remote="base" path="layers/meta-qt5-dl/git/code.qt.io.qt.qtxmlpatterns.git" bare="True"/>
     <project name="external/qt5/code.qt.io.qt.qtwayland" remote="base" path="layers/meta-qt5-dl/git/code.qt.io.qt.qtwayland.git" bare="True"/>
-    <project name="external/yocto/code.qt.io.qt.qtwebengine" remote="base" path="layers/meta-qt5-dl/git/code.qt.io.qt.qtwebengine.git" bare="True"/>
-    <project name="external/yocto/code.qt.io.qt.qtwebengine-chromium" remote="base" path="layers/meta-qt5-dl/git/code.qt.io.qt.qtwebengine-chromium.git" bare="True"/>
     <project name="external/qt5/code.qt.io.qt-creator.qt-creator" remote="base" path="layers/meta-qt5-dl/git/code.qt.io.qt-creator.qt-creator.git" bare="True"/>
