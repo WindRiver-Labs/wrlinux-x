@@ -31,7 +31,6 @@
     <project name="external/yocto/github.com.gperftools.gperftools" remote="base" path="layers/meta-oe-dl-3.1/git/github.com.gperftools.gperftools.git" bare="True"/>
     <project name="external/yocto/github.com.storaged-project.udisks" remote="base" path="layers/meta-oe-dl-3.1/git/github.com.storaged-project.udisks.git" bare="True"/>
     <project name="external/yocto/github.com.jpirko.libteam" remote="base" path="layers/meta-oe-dl-3.1/git/github.com.jpirko.libteam" bare="True"/>
-    <project name="external/yocto/github.com.ivmai.bdwgc" remote="base" path="layers/meta-oe-dl-3.1/git/github.com.ivmai.bdwgc.git" bare="True"/>
     <project name="external/yocto/github.com.facebook.rocksdb" remote="base" path="layers/meta-oe-dl-3.1/git/github.com.facebook.rocksdb.git" bare="True"/>
     <project name="external/yocto/github.com.pmem.ndctl" remote="base" path="layers/meta-oe-dl-3.1/git/github.com.pmem.ndctl.git" bare="True"/>
     <project name="external/yocto/git.sv.gnu.org.gnulib" remote="base" path="layers/meta-oe-dl-3.1/git/git.sv.gnu.org.gnulib.git" bare="True"/>
