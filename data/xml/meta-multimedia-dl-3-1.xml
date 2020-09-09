@@ -1,1 +1,0 @@
-    <project name="external/yocto/gitlab.xiph.org.xiph.tremor" remote="base" path="layers/meta-multimedia-dl-3.1/git/gitlab.xiph.org.xiph.tremor.git" bare="True"/>
