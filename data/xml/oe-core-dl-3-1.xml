@@ -128,4 +128,5 @@
     <project name="external/yocto/salsa.debian.org.dpkg-team.dpkg" remote="base" path="layers/oe-core-dl-3.1/git/salsa.debian.org.dpkg-team.dpkg.git" bare="True"/>
     <project name="external/yocto/git.code.sf.net.p.net-tools.code" remote="base" path="layers/oe-core-dl-3.1/git/git.code.sf.net.p.net-tools.code" bare="True"/>
     <project name="external/yocto/gitlab.gnome.org.GNOME.libhandy" remote="base" path="layers/oe-core-dl-3.1/git/gitlab.gnome.org.GNOME.libhandy.git" bare="True"/>
+    <project name="external/yocto/github.com.llvm.llvm-project" remote="base" path="layers/meta-clang-dl/git/github.com.llvm.llvm-project.git" bare="True"/>
     <project name="external/yocto/github.com.mirror.x264" remote="base" path="layers/oe-core-dl-3.1/git/github.com.mirror.x264" bare="True"/>
