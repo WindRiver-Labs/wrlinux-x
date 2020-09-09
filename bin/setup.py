@@ -1272,13 +1272,12 @@ class Setup():
         if self.mirror is True:
             return
 
-        self.__set_pnwhitelist_layers()
-
         project_local_layer_path = os.path.join(self.project_dir,'layers/local')
         data_local_layer_path = os.path.join(self.install_dir, 'data/local_layer')
         if os.path.exists(project_local_layer_path):
             # update LAYERSERIES_COMPAT_local if necessary
             self.__check_and_update_layerseries_compat(project_local_layer_path, data_local_layer_path)
+            self.__set_pnwhitelist_layers()
             return
 
         logger.debug('Starting local layer')
@@ -1288,6 +1287,8 @@ class Setup():
 
         if not os.path.exists(os.path.join(self.project_dir, 'layers/local')):
             shutil.copytree(os.path.join(self.install_dir, 'data/local_layer'), os.path.join(self.project_dir, 'layers/local'))
+
+        self.__set_pnwhitelist_layers()
 
         logger.debug('Done')
 
