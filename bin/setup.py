@@ -755,7 +755,7 @@ class Setup():
 
         with open(self.project_dir + '/config/local.conf.sample', 'a') as f:
             inc = '\n# Add known layers to whitelist'
-            inc += '\nrequire conf/wrlinux-whitelist.inc'
+            inc += '\nrequire conf/wrlinux-whitelist.inc\n'
             f.write(inc)
 
         if os.path.exists(self.install_dir + '/data/samples/site.conf.sample'):
