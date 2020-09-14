@@ -1287,6 +1287,12 @@ class Setup():
 
         if not os.path.exists(os.path.join(self.project_dir, 'layers/local')):
             shutil.copytree(os.path.join(self.install_dir, 'data/local_layer'), os.path.join(self.project_dir, 'layers/local'))
+            # make sure the local layer is writeable
+            try:
+                cmd = ['chmod', '-R', '+w', '%s' % (project_local_layer_path)]
+                utils_setup.run_cmd(cmd, environment=self.env)
+            except Exception as e:
+                raise
 
         self.__set_pnwhitelist_layers()
 
