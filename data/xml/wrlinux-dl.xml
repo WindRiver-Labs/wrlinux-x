@@ -2,3 +2,4 @@
     <project name="external/yocto/github.com.WindRiver-OpenSourceLabs.anspass" remote="base" path="layers/wrlinux-dl/git/github.com.WindRiver-OpenSourceLabs.anspass" bare="True"/>
     <project name="external/poky" remote="base" path="layers/wrlinux-dl/git/git.yoctoproject.org.poky" bare="True"/>
     <project name="external/yocto/github.com.openSUSE.build-compare" remote="base" path="layers/wrlinux-dl/git/github.com.openSUSE.build-compare.git" bare="True"/>
+    <project name="external/yocto/github.com.containers.skopeo" remote="base" path="layers/wrlinux-dl/git/github.com.containers.skopeo" bare="True"/>
