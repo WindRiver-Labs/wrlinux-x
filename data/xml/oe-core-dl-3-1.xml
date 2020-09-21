@@ -36,7 +36,6 @@
     <project name="external/yocto/github.com.plougher.squashfs-tools" remote="base" path="layers/oe-core-dl-3.1/git/github.com.plougher.squashfs-tools.git" bare="True"/>
     <project name="external/yocto/github.com.stevenhoneyman.l3afpad" remote="base" path="layers/oe-core-dl-3.1/git/github.com.stevenhoneyman.l3afpad.git" bare="True"/>
     <project name="external/yocto/github.com.systemd.systemd-bootchart" remote="base" path="layers/oe-core-dl-3.1/git/github.com.systemd.systemd-bootchart.git" bare="True"/>
-    <project name="external/yocto/github.com.tias.xinput_calibrator" remote="base" path="layers/oe-core-dl-3.1/git/github.com.tias.xinput_calibrator.git" bare="True"/>
     <project name="external/yocto/sourceware.org.git.binutils-gdb" remote="base" path="layers/oe-core-dl-3.1/git/sourceware.org.git.binutils-gdb.git" bare="True"/>
     <project name="external/yocto/sourceware.org.git.glibc" remote="base" path="layers/oe-core-dl-3.1/git/sourceware.org.git.glibc.git" bare="True"/>
     <project name="external/yocto/sourceware.org.git.systemtap" remote="base" path="layers/oe-core-dl-3.1/git/sourceware.org.git.systemtap.git" bare="True"/>
