@@ -1242,7 +1242,11 @@ class Setup():
         collections = []
         for _, layers in index_layers.items():
             for layer in layers:
-                collections.append(layer['collection'])
+                col = layer['collection']
+                if col:
+                    collections.append(layer['collection'])
+                else:
+                    logger.warning('%s: BBFILE_COLLECTIONS is None' % layer['name'])
 
         existed = False
         lines = []
