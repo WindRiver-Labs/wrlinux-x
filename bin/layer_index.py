@@ -833,6 +833,7 @@ class Layer_Index():
             table.set_cols_align(['l', 'l', 'l'])
             table.header(['display', 'description', 'layer'])
             table.set_cols_dtype(['t', 't', 't'])
+            table.set_max_width(100)
             branchid = self.getBranchId(lindex, self.getIndexBranch(default=base_branch, lindex=lindex))
             if branchid:
                 # there are more layerBranches then objects (usually)...
