@@ -27,3 +27,4 @@
     <project name="external/yocto/github.com.creack.pty" remote="base" path="layers/meta-virtualization-dl-3.1/git/github.com.creack.pty.git" bare="True"/>
     <project name="external/yocto/github.com.kubernetes.release" remote="base" path="layers/meta-virtualization-dl-3.1/git/github.com.kubernetes.release" bare="True"/>
     <project name="external/yocto/github.com.jirutka.sloci-image" remote="base" path="layers/meta-virtualization-dl-3.1/git/github.com.jirutka.sloci-image.git" bare="True"/>
+    <project name="external/yocto/github.com.openvswitch.ovs" remote="base" path="layers/meta-virtualization-dl-3.1/git/github.com.openvswitch.ovs.git" bare="True"/>
