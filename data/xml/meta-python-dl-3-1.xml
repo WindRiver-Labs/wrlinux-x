@@ -4,3 +4,4 @@
     <project name="external/yocto/github.com.keras-team.keras-applications" remote="base" path="layers/meta-python-dl-3.1/git/github.com.keras-team.keras-applications.git" bare="True"/>
     <project name="external/yocto/github.com.python-pillow.Pillow" remote="base" path="layers/meta-python-dl-3.1/git/github.com.python-pillow.Pillow.git" bare="True"/>
     <project name="external/yocto/github.com.cf-natali.ntplib" remote="base" path="layers/meta-python-dl-3.1/git/github.com.cf-natali.ntplib.git" bare="True"/>
+    <project name="external/yocto/github.com.rhinstaller.pykickstart" remote="base" path="layers/meta-python-dl-3.1/git/github.com.rhinstaller.pykickstart.git" bare="True"/>
