@@ -341,4 +341,4 @@ require wrlinux-distro/conf/distro/include/wrlinux-uninative.inc
 # included
 # path mismatch [1 link]: ino 90190311 db '/home/wrlbuild/builds/builds-e4670c81-6bb5-45f1-9edb-435a33342168/bin/buildtools.buildtools-standalone-10.20.24.0/sysroots/x86_64-wrlinuxsdk-linux/usr/lib/python3.8/__pycache__/pathlib.cpython-38.pyc' req '/home/wrlbuild/builds/builds-e4670c81-6bb5-45f1-9edb-435a33342168/bin/buildtools.buildtools-standalone-10.20.24.0/sysroots/x86_64-wrlinuxsdk-linux/usr/lib/python3.8/__pycache__/ntpath.cpython-38.pyc.139843118029104'.
 # refer https://git.openembedded.org/openembedded-core/commit/?id=189630ca6cdf7ceb6cf9b8f9d86c58997f505efc
-PSEUDO_IGNORE_PATHS .= ",${TOPDIR}/../../bin"
+PSEUDO_IGNORE_PATHS .= ",##OEROOT##/bin"
