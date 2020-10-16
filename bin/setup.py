@@ -186,8 +186,9 @@ class Setup():
         if not self.base_branch:
             logger.error('Unable to determine base branch, you may need to specify --base-branch=')
 
-        # Check for require host tools
-        sanity.check_hosttools(self.tool_list)
+        # Check for require host tools for real project
+        if not self.mirror:
+            sanity.check_hosttools(self.tool_list)
 
         if not self.base_url or not self.base_branch:
             self.exit(1)
