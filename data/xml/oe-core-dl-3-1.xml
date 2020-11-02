@@ -131,3 +131,4 @@
     <project name="external/yocto/github.com.mirror.x264" remote="base" path="layers/oe-core-dl-3.1/git/github.com.mirror.x264" bare="True"/>
     <project name="external/yocto/github.com.kreijack.xinput_calibrator" remote="base" path="layers/oe-core-dl-3.1/git/github.com.kreijack.xinput_calibrator.git" bare="True"/>
     <project name="external/yocto/github.com.boostorg.build" remote="base" path="layers/oe-core-dl-3.1/git/github.com.boostorg.build" bare="True"/>
+    <project name="external/yocto/github.com.KhronosGroup.SPIRV-Tools" remote="base" path="layers/oe-core-dl-3.1/git/github.com.KhronosGroup.SPIRV-Tools.git" bare="True"/>
