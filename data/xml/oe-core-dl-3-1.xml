@@ -133,3 +133,4 @@
     <project name="external/yocto/github.com.boostorg.build" remote="base" path="layers/oe-core-dl-3.1/git/github.com.boostorg.build" bare="True"/>
     <project name="external/yocto/github.com.KhronosGroup.SPIRV-Tools" remote="base" path="layers/oe-core-dl-3.1/git/github.com.KhronosGroup.SPIRV-Tools.git" bare="True"/>
     <project name="external/yocto/github.com.KhronosGroup.SPIRV-Headers" remote="base" path="layers/oe-core-dl-3.1/git/github.com.KhronosGroup.SPIRV-Headers.git" bare="True"/>
+    <project name="external/yocto/github.com.google.effcee" remote="base" path="layers/oe-core-dl-3.1/git/github.com.google.effcee.git" bare="True"/>
