@@ -9,3 +9,4 @@
     <project name="external/yocto/github.com.KhronosGroup.Vulkan-Samples-Assets" remote="base" path="layers/git/git/github.com.KhronosGroup.Vulkan-Samples-Assets" bare="True"/>
     <project name="external/yocto/github.com.zeux.volk" remote="base" path="layers/git/git/github.com.zeux.volk" bare="True"/>
     <project name="external/yocto/github.com.glfw.glfw" remote="base" path="layers/git/git/github.com.glfw.glfw" bare="True"/>
+    <project name="external/yocto/github.com.ocornut.imgui" remote="base" path="layers/git/git/github.com.ocornut.imgui" bare="True"/>
