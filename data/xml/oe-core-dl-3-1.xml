@@ -139,3 +139,4 @@
     <project name="external/yocto/github.com.google.shaderc" remote="base" path="layers/oe-core-dl-3.1/git/github.com.google.shaderc.git" bare="True"/>
     <project name="external/yocto/github.com.KhronosGroup.glslang" remote="base" path="layers/oe-core-dl-3.1/git/github.com.KhronosGroup.glslang.git" bare="True"/>
     <project name="external/yocto/github.com.flatpak.libportal" remote="base" path="layers/oe-core-dl-3.1/git/github.com.flatpak.libportal.git" bare="True"/>
+    <project name="external/yocto/github.com.KhronosGroup.Vulkan-Samples" remote="base" path="layers/oe-core-dl-3.1/git/github.com.KhronosGroup.Vulkan-Samples.git" bare="True"/>
