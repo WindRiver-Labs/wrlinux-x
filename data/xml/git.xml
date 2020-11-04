@@ -1,0 +1,1 @@
+    <project name="external/yocto/github.com.GPUOpen-LibrariesAndSDKs.VulkanMemoryAllocator" remote="base" path="layers/git/git/github.com.GPUOpen-LibrariesAndSDKs.VulkanMemoryAllocator" bare="True"/>
