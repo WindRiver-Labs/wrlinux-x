@@ -1,3 +1,4 @@
     <project name="external/yocto/github.com.GPUOpen-LibrariesAndSDKs.VulkanMemoryAllocator" remote="base" path="layers/git/git/github.com.GPUOpen-LibrariesAndSDKs.VulkanMemoryAllocator" bare="True"/>
     <project name="external/yocto/github.com.vit-vit.CTPL" remote="base" path="layers/git/git/github.com.vit-vit.CTPL" bare="True"/>
     <project name="external/yocto/github.com.nothings.stb" remote="base" path="layers/git/git/github.com.nothings.stb" bare="True"/>
+    <project name="external/yocto/github.com.g-truc.glm" remote="base" path="layers/git/git/github.com.g-truc.glm" bare="True"/>
