@@ -12,3 +12,4 @@
     <project name="external/yocto/github.com.ocornut.imgui" remote="base" path="layers/git/git/github.com.ocornut.imgui" bare="True"/>
     <project name="external/yocto/github.com.KhronosGroup.KTX-Software" remote="base" path="layers/git/git/github.com.KhronosGroup.KTX-Software" bare="True"/>
     <project name="external/yocto/github.com.KhronosGroup.Vulkan-Headers" remote="base" path="layers/git/git/github.com.KhronosGroup.Vulkan-Headers" bare="True"/>
+    <project name="external/yocto/github.com.KhronosGroup.glslang" remote="base" path="layers/git/git/github.com.KhronosGroup.glslang" bare="True"/>
