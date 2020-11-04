@@ -7,3 +7,4 @@
     <project name="external/yocto/github.com.KhronosGroup.SPIRV-Cross" remote="base" path="layers/git/git/github.com.KhronosGroup.SPIRV-Cross" bare="True"/>
     <project name="external/yocto/github.com.ARM-software.astc-encoder" remote="base" path="layers/git/git/github.com.ARM-software.astc-encoder" bare="True"/>
     <project name="external/yocto/github.com.KhronosGroup.Vulkan-Samples-Assets" remote="base" path="layers/git/git/github.com.KhronosGroup.Vulkan-Samples-Assets" bare="True"/>
+    <project name="external/yocto/github.com.zeux.volk" remote="base" path="layers/git/git/github.com.zeux.volk" bare="True"/>
