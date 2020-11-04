@@ -14,3 +14,4 @@
     <project name="external/yocto/github.com.KhronosGroup.Vulkan-Headers" remote="base" path="layers/git/git/github.com.KhronosGroup.Vulkan-Headers" bare="True"/>
     <project name="external/yocto/github.com.KhronosGroup.glslang" remote="base" path="layers/git/git/github.com.KhronosGroup.glslang" bare="True"/>
     <project name="external/yocto/github.com.syoyo.tinygltf" remote="base" path="layers/git/git/github.com.syoyo.tinygltf" bare="True"/>
+    <project name="external/yocto/github.com.gabime.spdlog" remote="base" path="layers/git/git/github.com.gabime.spdlog" bare="True"/>
