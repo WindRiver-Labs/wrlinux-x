@@ -4,3 +4,4 @@
     <project name="external/yocto/github.com.g-truc.glm" remote="base" path="layers/git/git/github.com.g-truc.glm" bare="True"/>
     <project name="external/yocto/github.com.docopt.docopt.cpp" remote="base" path="layers/git/git/github.com.docopt.docopt.cpp" bare="True"/>
     <project name="external/yocto/github.com.ARM-software.HWCPipe" remote="base" path="layers/git/git/github.com.ARM-software.HWCPipe" bare="True"/>
+    <project name="external/yocto/github.com.KhronosGroup.SPIRV-Cross" remote="base" path="layers/git/git/github.com.KhronosGroup.SPIRV-Cross" bare="True"/>
