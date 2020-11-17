@@ -18,3 +18,4 @@
     <project name="external/yocto/git.netfilter.org.libnetfilter_queue" remote="base" path="layers/meta-networking-dl-3.1/git/git.netfilter.org.libnetfilter_queue" bare="True"/>
     <project name="external/yocto/github.com.OpenAoE.vblade" remote="base" path="layers/meta-networking-dl-3.1/git/github.com.OpenAoE.vblade" bare="True"/>
     <project name="external/yocto/github.com.ntop.nDPI" remote="base" path="layers/meta-networking-dl-3.1/git/github.com.ntop.nDPI.git" bare="True"/>
+    <project name="external/yocto/github.com.ntop.ntopng" remote="base" path="layers/meta-networking-dl-3.1/git/github.com.ntop.ntopng.git" bare="True"/>
