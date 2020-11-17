@@ -85,6 +85,9 @@ class Setup():
         self.all_layers = False
         self.dl_layers = False
 
+        # The extra layer groups enabled by user
+        self.use_layer_groups = []
+
         self.no_recommend = False
 
         self.no_network = False
@@ -167,6 +170,7 @@ class Setup():
             orig_args.append('--help')
         parser.evaluate_args(orig_args[1:])
         self.setup_args = " ".join(orig_args[1:])
+        self.extra_group_keys = parser.extra_group_keys
 
         self.start_file_logging()
 
@@ -416,6 +420,29 @@ class Setup():
                     if branch and branch['name'] == new_base_branch:
                         branch['name'] = self.base_branch
 
+    def is_group_layer(self, layer_name):
+        """
+        Is it an extra group layer?
+        """
+        for group_key in self.extra_group_keys:
+            if '-%s-' % group_key in layer_name or layer_name.endswith('-%s' % group_key):
+                return True
+
+        return False
+
+    def is_enabled_group(self, layer_name):
+        """
+        Is it an extra group layer which is enabled by user?
+        """
+        if layer_name in self.layers:
+            return True
+
+        for group_key in self.extra_group_keys:
+            if group_key in self.use_layer_groups:
+                return True
+
+        return False
+
     def process_layers(self):
         from collections import deque
 
@@ -509,9 +536,13 @@ class Setup():
                 if not branchid:
                     continue
                 for l in lindex['layerItems']:
+                    l_name = l['name']
+                    if self.is_group_layer(l_name) and not self.is_enabled_group(l_name):
+                        logger.info('Skipping extra group layer %s' % l_name)
+                        continue
                     for layerBranch in self.index.getLayerBranch(lindex, branchid, layerItem=l) or []:
                         # dl layers are always added as recommends in an --all-layers mode
-                        if '-dl-' in l['name'] or l['name'].endswith('-dl'):
+                        if '-dl-' in l_name or l_name.endswith('-dl'):
                             recommendedQueue.append( (lindex, layerBranch) )
                         else:
                             requiredQueue.append( (lindex, layerBranch) )
@@ -610,6 +641,20 @@ class Setup():
                 (required, recommended) = self.index.getDependencies(lindex, layerBranch)
                 for dep in required + recommended:
                     recommendedQueue.append( (lindex, dep) )
+
+        unexpected_groups = []
+        for (lindex, layerBranch) in self.requiredlayers + self.recommendedlayers:
+            for layer in self.index.find_layer(lindex, id=layerBranch['layer']):
+                l_name = layer['name']
+                if self.is_group_layer(l_name) and not self.is_enabled_group(l_name):
+                    if not l_name in unexpected_groups:
+                        unexpected_groups.append(l_name)
+        unexpected_groups.sort()
+
+        if unexpected_groups:
+            logger.error('The following layer(s) need --use-layer-group=<group> or --layers=<layer>:\n%s' % '\n'.join(unexpected_groups))
+            logger.error('Try to rerun with one of the options?')
+            self.exit(1)
 
         # Also compute the various remotes
         from urllib.parse import urlparse

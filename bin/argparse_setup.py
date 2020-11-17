@@ -28,6 +28,17 @@ class Argparse_Setup:
         self.layer_select = False
         self.parser = parser
         self.setup = setup
+        # Each group's layername must have a group keyword, for example:
+        # - meta-examplekey
+        # - meta-examplekey-layer1
+        # - meta-examplekey-layer2
+        # The examplekey is the keyword for these layers. It will be used to
+        # check against the layername from layerindex (not layer's directory
+        # name). Any layername contains the keyword is treated as an extra
+        # group layer, and they should only be enabled when
+        # --use-layer-groups=keyword or --layers=layer is specified.
+        # Add the new keyword here when there is a new extra group.
+        self.extra_group_keys=['ccm']
 
     def evaluate_args(self, args):
         self.add_options()
@@ -153,6 +164,10 @@ class Argparse_Setup:
             if self.setup:
                 self.setup.mirror = parsed_args.mirror
 
+        if parsed_args.use_layer_groups:
+            if self.setup:
+                self.setup.use_layer_groups = parsed_args.use_layer_groups
+
         if self.layer_select is not True:
             print('ERROR: You must include at least one Layer Selection argument, see --help.')
             sys.exit(1)
@@ -228,6 +243,7 @@ class Argparse_Setup:
         self.layer_args.add_argument('--recipes', metavar='RECIPE', help='Select layers(s) based on recipe(s)', nargs='+')
         self.layer_args.add_argument('--all-layers', help='Select all available layers', action='store_true')
         self.layer_args.add_argument('--no-recommend', help='Disable recommended layers during layer resolution', action='store_true')
+        self.layer_args.add_argument('--use-layer-groups', metavar='EXTRA_GROUP', help="Specify extra layer groups to use. Make sure you have permissions to access these groups before you use it.", action='store', nargs='+', choices=self.extra_group_keys)
 
     def add_other_options(self):
         pass
