@@ -18,7 +18,6 @@
     <project name="external/yocto/git.opensvc.com.multipath-tools" remote="base" path="layers/meta-oe-dl-3.1/git/git.opensvc.com.multipath-tools..git" bare="True"/>
     <project name="external/yocto/git.kernel.org.pub.scm.utils.cpu.mce.mce-inject" remote="base" path="layers/meta-oe-dl-3.1/git/git.kernel.org.pub.scm.utils.cpu.mce.mce-inject.git" bare="True"/>
     <project name="external/yocto/git.kernel.org.pub.scm.utils.cpu.mce.mce-test" remote="base" path="layers/meta-oe-dl-3.1/git/git.kernel.org.pub.scm.utils.cpu.mce.mce-test.git" bare="True"/>
-    <project name="external/yocto/github.com.numactl.numactl" remote="base" path="layers/meta-oe-dl-3.1/git/github.com.numactl.numactl" bare="True"/>
     <project name="external/yocto/github.com.vcrhonek.hwdata" remote="base" path="layers/meta-oe-dl-3.1/git/github.com.vcrhonek.hwdata.git" bare="True"/>
     <project name="external/yocto/github.com.ClusterLabs.libqb" remote="base" path="layers/meta-oe-dl-3.1/git/github.com.ClusterLabs.libqb.git" bare="True"/>
     <project name="external/yocto/git.kernel.dk.fio" remote="base" path="layers/meta-oe-dl-3.1/git/git.kernel.dk.fio.git" bare="True"/>
