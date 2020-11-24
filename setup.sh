@@ -82,6 +82,12 @@ shutdown() {
 	done
 }
 
+shutdown_handler() {
+    echo -e "\nAborted by user, will terminate this setup."
+    shutdown
+    exit 1
+}
+
 # Input: argument list
 # Output: 'help=1' or unset
 #          PASSARGS set to the arguments to pass on
@@ -145,6 +151,9 @@ parse_arguments() {
 		fi
 	done
 }
+
+
+trap shutdown_handler INT
 
 # Setup the minimal defaults first..
 # BASEDIR, BASEURL and BASEBRANCH
@@ -305,6 +314,7 @@ for func in "${EXPORTFUNCS[@]}"; do
 	fi
 done
 
+trap - INT
 # Switch to the python script
 ${BASEDIR}/${CMD} "${PASSARGS[@]}"
 rc=$?

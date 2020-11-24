@@ -136,11 +136,13 @@ buildtools_setup() {
 		else
 			local_name="${BUILDTOOLSBRANCH}:${BUILDTOOLS_REF}"
 		fi
+		trap : INT
 		(cd ${BUILDTOOLS_GIT} && git fetch -f -n -u "${BASEURL}/${BUILDTOOLS_REMOTE}" $local_name)
 		if [ $? -ne 0 ]; then
 			echo "Error fetching buildtools repository ${BASEURL}/${BUILDTOOLS_REMOTE}" >&2
 			return 1
 		fi
+		trap - INT
 		# Set a flag so we know where the fetch was from...
 		(
 			cd ${BUILDTOOLS_GIT}

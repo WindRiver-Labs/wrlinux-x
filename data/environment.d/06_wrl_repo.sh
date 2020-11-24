@@ -131,11 +131,13 @@ wr_repo_clone() {
 
 	# Since we can't check what branch the tag is from w/o a clone, we clone...
 	if [ ! -d bin/git-repo ]; then
+		trap : INT
 		git clone "${REPO_URL}" bin/git-repo
 		if [ $? -ne 0 ]; then
 			echo "Unable to clone git-repo from ${REPO_URL}." >&2
 			return 1
 		fi
+		trap - INT
 	else
 		if [ "${REPO_URL}" != "$(git config -f bin/git-repo/.git/config remote.origin.url)" ]; then
 			echo "Updating git-repo remote url"

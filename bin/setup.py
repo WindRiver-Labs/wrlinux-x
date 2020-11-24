@@ -1513,6 +1513,9 @@ class Setup():
         return None
 
 if __name__ == '__main__':
-    x = Setup()
-    x.main(sys.argv)
-
+    try:
+        x = Setup()
+        x.main(sys.argv)
+    except KeyboardInterrupt:
+        logger.warning("Aborted by user, will terminate this setup.")
+        sys.exit(1)
