@@ -1,1 +1,2 @@
     <project name="external/yocto/source.codeaurora.org.external.autobsps32.u-boot" remote="base" path="layers/nxp-s32g2xx-dl/git/source.codeaurora.org.external.autobsps32.u-boot" bare="True"/>
+    <project name="external/yocto/source.codeaurora.org.external.autobsps32.extra.pfeng" remote="base" path="layers/nxp-s32g2xx-dl/git/source.codeaurora.org.external.autobsps32.extra.pfeng" bare="True"/>
