@@ -61,6 +61,33 @@ anspass_transfer_dump() {
 	eval echo \${password_${murl}}
 }
 
+anspass_check_credential() {
+	err=$(LANG=C git ls-remote $REMOTEURL 2>&1 >/dev/null)
+	ret=$?
+	if [ $ret -ne 0 ] && [ "${err}" != "${err/Authentication/}" ]; then
+		echo
+		echo "${err}"
+		while true ; do
+			echo
+			echo "The saved user or password seems invalid, remove it and try again?"
+			read -p "Remove the anspass db bin/.anspass? [Yes/No]" accept
+			case ${accept} in
+				[yY][eE][sS])
+					anspass_stop
+					rm -rf ${PWD}/bin/.anspass
+					break
+					;;
+				[nN][oO])
+					break
+					;;
+				*)
+					echo "Only yes and no are accepted." >&2
+					;;
+			esac
+		done
+	fi
+}
+
 anspass_start() {
 	# Do we have anspassd available yet?
 	if ! which anspassd >/dev/null 2>&1 ; then
@@ -133,6 +160,9 @@ EOF
 	fi
 	export GIT_ASKPASS=$(which anspass)
 	export SSH_ASKPASS=$(which anspass)
+
+	# check the old credentials works or not
+	anspass_check_credential
 }
 
 anspass_stop() {
