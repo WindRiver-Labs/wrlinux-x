@@ -63,3 +63,4 @@
     <project name="external/yocto/github.com.apache.nifi-minifi-cpp" remote="base" path="layers/meta-oe-dl-3.1/git/github.com.apache.nifi-minifi-cpp.git" bare="True"/>
     <project name="external/yocto/gitlab.com.libeigen.eigen" remote="base" path="layers/meta-oe-dl-3.1/git/gitlab.com.libeigen.eigen.git" bare="True"/>
     <project name="external/yocto/github.com.htop-dev.htop" remote="base" path="layers/meta-oe-dl-3.1/git/github.com.htop-dev.htop.git" bare="True"/>
+    <project name="external/yocto/github.com.makedumpfile.makedumpfile" remote="base" path="layers/meta-oe-dl-3.1/git/github.com.makedumpfile.makedumpfile" bare="True"/>
