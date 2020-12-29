@@ -1,0 +1,4 @@
+    <project name="external/yocto/github.com.tensorflow.tensorboard" remote="base" path="layers/meta-tensorflow-dl-3.2/git/github.com.tensorflow.tensorboard.git" bare="True"/>
+    <project name="external/yocto/github.com.tensorflow.tensorflow" remote="base" path="layers/meta-tensorflow-dl-3.2/git/github.com.tensorflow.tensorflow.git" bare="True"/>
+    <project name="external/yocto/github.com.tensorflow.estimator" remote="base" path="layers/meta-tensorflow-dl-3.2/git/github.com.tensorflow.estimator.git" bare="True"/>
+    <project name="external/yocto/github.com.googlecodelabs.tensorflow-for-poets-2" remote="base" path="layers/meta-tensorflow-dl-3.2/git/github.com.googlecodelabs.tensorflow-for-poets-2.git" bare="True"/>

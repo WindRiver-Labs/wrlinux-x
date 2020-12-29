@@ -1,3 +1,0 @@
-    <project name="external/yocto/git.code.sf.net.p.aufs.aufs-util" remote="base" path="layers/meta-filesystems-dl-3.1/git/git.code.sf.net.p.aufs.aufs-util" bare="True"/>
-    <project name="external/yocto/www.aleph1.co.uk.yaffs2" remote="base" path="layers/meta-filesystems-dl-3.1/git/www.aleph1.co.uk.yaffs2" bare="True"/>
-    <project name="external/yocto/git.kernel.org.pub.scm.linux.kernel.git.jaegeuk.f2fs-tools" remote="base" path="layers/meta-filesystems-dl-3.1/git/git.kernel.org.pub.scm.linux.kernel.git.jaegeuk.f2fs-tools.git" bare="True"/>

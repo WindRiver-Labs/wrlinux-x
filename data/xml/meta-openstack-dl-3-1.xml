@@ -1,1 +1,0 @@
-    <project name="external/yocto/github.com.fujita.tgt" remote="base" path="layers/meta-openstack-dl-3.1/git/github.com.fujita.tgt.git" bare="True"/>

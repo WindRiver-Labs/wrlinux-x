@@ -1,9 +1,0 @@
-    <project name="external/yocto/github.com.rhinstaller.python-meh" remote="base" path="layers/meta-python-dl-3.1/git/github.com.rhinstaller.python-meh.git" bare="True"/>
-    <project name="external/yocto/github.com.seveas.python-prctl" remote="base" path="layers/meta-python-dl-3.1/git/github.com.seveas.python-prctl" bare="True"/>
-    <project name="external/yocto/github.com.berkerpeksag.astor" remote="base" path="layers/meta-python-dl-3.1/git/github.com.berkerpeksag.astor.git" bare="True"/>
-    <project name="external/yocto/github.com.keras-team.keras-applications" remote="base" path="layers/meta-python-dl-3.1/git/github.com.keras-team.keras-applications.git" bare="True"/>
-    <project name="external/yocto/github.com.python-pillow.Pillow" remote="base" path="layers/meta-python-dl-3.1/git/github.com.python-pillow.Pillow.git" bare="True"/>
-    <project name="external/yocto/github.com.cf-natali.ntplib" remote="base" path="layers/meta-python-dl-3.1/git/github.com.cf-natali.ntplib.git" bare="True"/>
-    <project name="external/yocto/github.com.rhinstaller.pykickstart" remote="base" path="layers/meta-python-dl-3.1/git/github.com.rhinstaller.pykickstart.git" bare="True"/>
-    <project name="external/yocto/github.com.rhinstaller.blivet" remote="base" path="layers/meta-python-dl-3.1/git/github.com.rhinstaller.blivet" bare="True"/>
-    <project name="external/yocto/github.com.rhinstaller.blivet-gui" remote="base" path="layers/meta-python-dl-3.1/git/github.com.rhinstaller.blivet-gui" bare="True"/>
