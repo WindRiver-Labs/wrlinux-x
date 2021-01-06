@@ -105,3 +105,4 @@
     <project name="external/yocto/github.com.schnitzeltony.xfce4-closebutton-plugin" remote="base" path="layers/meta-openembedded-dl-3.2/git/github.com.schnitzeltony.xfce4-closebutton-plugin.git" bare="True"/>
     <project name="external/yocto/github.com.ncopa.xfce-polkit" remote="base" path="layers/meta-openembedded-dl-3.2/git/github.com.ncopa.xfce-polkit.git" bare="True"/>
     <project name="external/yocto/github.com.schnitzeltony.xfce4-datetime-setter" remote="base" path="layers/meta-openembedded-dl-3.2/git/github.com.schnitzeltony.xfce4-datetime-setter.git" bare="True"/>
+    <project name="external/yocto/github.com.google.brotli" remote="base" path="layers/meta-openembedded-dl-3.2/git/github.com.google.brotli.git" bare="True"/>
