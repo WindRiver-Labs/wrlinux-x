@@ -65,9 +65,9 @@ REQUIRED_HOSTTOOLS = """
     cmp comm cp cpio cpp cut date dd diff diffstat dirname du echo
     egrep env expand expr false fgrep file find flock g++ gawk gcc
     getconf getopt git grep gunzip gzip head hostname iconv id install
-    ld ldd ln ls make md5sum mkdir mknod mktemp mv nm objcopy objdump
-    od patch perl pr printf pwd python3 ranlib readelf readlink realpath
-    rm rmdir rpcgen sed seq sh sha1sum sha224sum sha256sum sha384sum
-    sha512sum sleep sort split stat strings strip tail tar tee test
-    touch tr true uname uniq wc wget which xargs
+    ld ldd ln ls make md5sum mkdir mkfifo mknod mktemp mv nm objcopy
+    objdump od patch perl pr printf pwd python3 ranlib readelf readlink
+    realpath rm rmdir rpcgen sed seq sh sha1sum sha224sum sha256sum
+    sha384sum sha512sum sleep sort split stat strings strip tail tar
+    tee test touch tr true uname uniq wc wget which xargs
 """
