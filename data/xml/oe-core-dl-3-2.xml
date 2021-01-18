@@ -151,3 +151,4 @@
     <project name="external/yocto/github.com.syoyo.tinygltf" remote="base" path="layers/oe-core-dl-3.2/git/github.com.syoyo.tinygltf" bare="True"/>
     <project name="external/yocto/github.com.gabime.spdlog" remote="base" path="layers/oe-core-dl-3.2/git/github.com.gabime.spdlog" bare="True"/>
     <project name="external/yocto/github.com.numactl.numactl" remote="base" path="layers/oe-core-dl-3.2/git/github.com.numactl.numactl" bare="True"/>
+    <project name="external/yocto/github.com.google.brotli" remote="base" path="layers/oe-core-dl-3.2/git/github.com.google.brotli.git" bare="True"/>
