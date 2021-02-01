@@ -1,4 +1,2 @@
     <project name="external/yocto/github.com.intel.Intel-Linux-Processor-Microcode-Data-Files" remote="base" path="layers/meta-intel-dl/git/github.com.intel.Intel-Linux-Processor-Microcode-Data-Files.git" bare="True"/>
     <project name="external/yocto/github.com.oneapi-src.oneDNN" remote="base" path="layers/meta-intel-dl/git/github.com.oneapi-src.oneDNN.git" bare="True"/>
-    <project name="external/yocto/github.com.openvinotoolkit.oneDNN" remote="base" path="layers/meta-intel-dl/git/github.com.openvinotoolkit.oneDNN.git" bare="True"/>
-    <project name="external/yocto/github.com.opencv.open_model_zoo" remote="base" path="layers/meta-intel-dl/git/github.com.opencv.open_model_zoo.git" bare="True"/>
