@@ -199,6 +199,14 @@ class Layer_Index():
                     logger.critical("%s: Connection reset by peer." % url)
                     logger.critical("Is there a firewall blocking your connection?")
                     sys.exit(1)
+            except:
+                if retry:
+                    logger.debug("%s: get response failed. Retrying..." % url)
+                    parsed = _get_json_response(apiurl=apiurl, retry=False)
+                    logger.debug("%s: retry successful.")
+                else:
+                    logger.critical("%s: get response failed" % url)
+                    sys.exit(1)
 
             return parsed
 
