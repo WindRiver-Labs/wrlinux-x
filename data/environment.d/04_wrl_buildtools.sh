@@ -38,6 +38,13 @@ setup_export_func buildtools_export
 
 . ${BASEDIR}/data/environment.d/setup_utils
 
+random(){
+       min=$1
+       max=$(($2-$min+1))
+       num=$(($RANDOM+1000000000))
+       echo $(($num%$max+$min))
+}
+
 buildtools_setup() {
 	if [ -z "${BUILDTOOLSBRANCH}" ]; then
 		BUILDTOOLSBRANCH="${BASEBRANCH}"
@@ -111,22 +118,36 @@ buildtools_setup() {
 	else
 		echo "Searching for ${BUILDTOOLS_REMOTE}..."
 
-		if ! setup_check_url "${BASEURL}/${BUILDTOOLS_REMOTE}" ; then
-			ORIG_BT_REMOTE=${BUILDTOOLS_REMOTE}
-			# Additional places to search...
-			for folder in ${BUILDTOOLS_FOLDERS} layers/buildtools; do
-				NEW_REMOTE=${folder}/${BUILDTOOLS_REMOTE}
-				if setup_check_url "${BASEURL}/${NEW_REMOTE}" ; then
-					BUILDTOOLS_REMOTE=${NEW_REMOTE}
-				fi
-			done
-			if [ "${BUILDTOOLS_REMOTE}" = "${ORIG_BT_REMOTE}" ]; then
-				echo "Unable to find ${BUILDTOOLS_REMOTE}.  Search path:">&2
+		retries=0
+		duration=5
+		for i in {1..5}
+		do
+			if ! setup_check_url "${BASEURL}/${BUILDTOOLS_REMOTE}" ; then
+				ORIG_BT_REMOTE=${BUILDTOOLS_REMOTE}
+				# Additional places to search...
 				for folder in ${BUILDTOOLS_FOLDERS} layers/buildtools; do
-					echo "	${BASEURL}/${folder}/${BUILDTOOLS_REMOTE}" >&2
+					NEW_REMOTE=${folder}/${BUILDTOOLS_REMOTE}
+					if setup_check_url "${BASEURL}/${NEW_REMOTE}" ; then
+						BUILDTOOLS_REMOTE=${NEW_REMOTE}
+					fi
 				done
-				return 1
+				if [ "${BUILDTOOLS_REMOTE}" = "${ORIG_BT_REMOTE}" ]; then
+					retries=$(($retries+1))
+					echo "Retrying $1 after $duration seconds -- $retries times (max: 5)"
+					sleep $duration
+					duration=$(($duration+$(random 5 10)))
+				fi
+			else
+				break
 			fi
+		done
+
+		if [ $retries -eq 5 ];then
+			echo "Unable to find ${BUILDTOOLS_REMOTE}.  Search path:">&2
+			for folder in ${BUILDTOOLS_FOLDERS} layers/buildtools; do
+				echo " ${BASEURL}/${folder}/${BUILDTOOLS_REMOTE}" >&2
+			done
+			return 1
 		fi
 
 		echo "Fetching buildtools.."
@@ -137,8 +158,25 @@ buildtools_setup() {
 			local_name="${BUILDTOOLSBRANCH}:${BUILDTOOLS_REF}"
 		fi
 		trap : INT
-		(cd ${BUILDTOOLS_GIT} && git fetch -f -n -u "${BASEURL}/${BUILDTOOLS_REMOTE}" $local_name)
-		if [ $? -ne 0 ]; then
+		retries=0
+		duration=5
+		ret=0
+		for i in {1..5}
+		do
+			echo "${BASEURL}/${BUILDTOOLS_REMOTE}"
+			(cd ${BUILDTOOLS_GIT} && git fetch -f -n -u "${BASEURL}/${BUILDTOOLS_REMOTE}" $local_name)
+			ret=$?
+			if [ $ret -eq 0 ] || [ $ret -eq 130 ]; then
+				break
+			else
+				retries=$(($retries+1))
+				echo "Retrying $1 after $duration seconds -- $retries times (max: 5)"
+				sleep $duration
+				duration=$(($duration+$(random 5 10)))
+			fi
+		done
+
+		if [ $retries -eq 5 ] || [ $ret -eq 130 ]; then
 			echo "Error fetching buildtools repository ${BASEURL}/${BUILDTOOLS_REMOTE}" >&2
 			return 1
 		fi
