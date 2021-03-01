@@ -1,1 +1,2 @@
     <project name="external/yocto/git.ti.com.rpmsg.ti-rpmsg-char" remote="base" path="layers/ti-j72xx-dl/git/git.ti.com.rpmsg.ti-rpmsg-char.git" bare="True"/>
+    <project name="external/yocto/git.ti.com.graphics.img-pvr-sdk" remote="base" path="layers/ti-j72xx-dl/git/git.ti.com.graphics.img-pvr-sdk.git" bare="True"/>
