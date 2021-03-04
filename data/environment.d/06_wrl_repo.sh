@@ -154,7 +154,7 @@ wr_repo_clone() {
 	# Translate REPO_REV, if a tag to a branch
 	if [ "$REPO_REV" != "${REPO_REV##refs/tags/}" ]; then
 		# Find the first branch containing that commit..
-		REPO_BRANCH=$(cd bin/git-repo && git branch -r --contains ${REPO_REV}^{commit} 2>/dev/null | head -n 1)
+		REPO_BRANCH=$(cd bin/git-repo && git branch -r --contains ${REPO_REV}^{commit} 2>/dev/null | grep -v '\->' | head -n 1)
 		if [ -z ${REPO_BRANCH} ]; then
 			echo "ERROR: Unable to find branch containing $REPO_REV in git-repo repository."
 			exit 1
