@@ -103,3 +103,4 @@
     <project name="external/yocto/github.com.ncopa.xfce-polkit" remote="base" path="layers/meta-openembedded-dl-3.2/git/github.com.ncopa.xfce-polkit.git" bare="True"/>
     <project name="external/yocto/github.com.schnitzeltony.xfce4-datetime-setter" remote="base" path="layers/meta-openembedded-dl-3.2/git/github.com.schnitzeltony.xfce4-datetime-setter.git" bare="True"/>
     <project name="external/yocto/github.com.westerndigitalcorporation.ufs-utils" remote="base" path="layers/meta-openembedded-dl-3.2/git/github.com.westerndigitalcorporation.ufs-utils.git" bare="True"/>
+    <project name="external/yocto/github.com.OSSystems.inih" remote="base" path="layers/meta-openembedded-dl-3.2/git/github.com.OSSystems.inih.git" bare="True"/>
