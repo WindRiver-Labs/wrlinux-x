@@ -1,3 +1,4 @@
     <project name="external/yocto/github.com.jiazhang0.SELoader" remote="base" path="layers/meta-efi-secure-boot-dl/git/github.com.jiazhang0.SELoader.git" bare="True"/>
     <project name="external/yocto/git.kernel.org.pub.scm.linux.kernel.git.jejb.efitools" remote="base" path="layers/meta-efi-secure-boot-dl/git/git.kernel.org.pub.scm.linux.kernel.git.jejb.efitools.git" bare="True"/>
     <project name="external/yocto/github.com.lcp.mokutil" remote="base" path="layers/meta-efi-secure-boot-dl/git/github.com.lcp.mokutil.git" bare="True"/>
+    <project name="external/yocto/github.com.rhboot.shim" remote="base" path="layers/meta-efi-secure-boot-dl/git/github.com.rhboot.shim.git" bare="True"/>
