@@ -105,3 +105,4 @@
     <project name="external/yocto/github.com.westerndigitalcorporation.ufs-utils" remote="base" path="layers/meta-openembedded-dl-3.2/git/github.com.westerndigitalcorporation.ufs-utils.git" bare="True"/>
     <project name="external/yocto/github.com.OSSystems.inih" remote="base" path="layers/meta-openembedded-dl-3.2/git/github.com.OSSystems.inih.git" bare="True"/>
     <project name="external/yocto/github.com.OpenSC.libp11" remote="base" path="layers/meta-openembedded-dl-3.2/git/github.com.OpenSC.libp11.git" bare="True"/>
+    <project name="external/yocto/github.com.libbpf.libbpf" remote="base" path="layers/meta-openembedded-dl-3.2/git/github.com.libbpf.libbpf.git" bare="True"/>
