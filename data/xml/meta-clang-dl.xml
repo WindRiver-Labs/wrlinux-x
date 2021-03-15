@@ -1,2 +1,0 @@
-    <project name="external/yocto/github.com.libbpf.libbpf" remote="base" path="layers/meta-clang-dl/git/github.com.libbpf.libbpf.git" bare="True"/>
-    <project name="external/yocto/github.com.iovisor.bcc" remote="base" path="layers/meta-clang-dl/git/github.com.iovisor.bcc.git" bare="True"/>
