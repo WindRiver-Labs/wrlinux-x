@@ -75,7 +75,6 @@
     <project name="external/yocto/github.com.vmware.open-vm-tools" remote="base" path="layers/meta-openembedded-dl-3.2/git/github.com.vmware.open-vm-tools.git" bare="True"/>
     <project name="external/yocto/repo.or.cz.iotop" remote="base" path="layers/meta-openembedded-dl-3.2/git/repo.or.cz.iotop.git" bare="True"/>
     <project name="external/yocto/github.com.c-ares.c-ares" remote="base" path="layers/meta-openembedded-dl-3.2/git/github.com.c-ares.c-ares.git" bare="True"/>
-    <project name="external/yocto/github.com.facebook.zstd" remote="base" path="layers/meta-openembedded-dl-3.2/git/github.com.facebook.zstd.git" bare="True"/>
     <project name="external/yocto/github.com.opencv.ade" remote="base" path="layers/meta-openembedded-dl-3.2/git/github.com.opencv.ade.git" bare="True"/>
     <project name="external/yocto/github.com.google.glog" remote="base" path="layers/meta-openembedded-dl-3.2/git/github.com.google.glog.git" bare="True"/>
     <project name="external/yocto/github.com.oneapi-src.oneTBB" remote="base" path="layers/meta-openembedded-dl-3.2/git/github.com.oneapi-src.oneTBB.git" bare="True"/>

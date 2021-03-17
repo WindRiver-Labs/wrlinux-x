@@ -151,3 +151,4 @@
     <project name="external/yocto/github.com.google.brotli" remote="base" path="layers/oe-core-dl-3.2/git/github.com.google.brotli.git" bare="True"/>
     <project name="external/yocto/github.com.libgit2.libgit2" remote="base" path="layers/oe-core-dl-3.2/git/github.com.libgit2.libgit2.git" bare="True"/>
     <project name="external/yocto/github.com.akheron.jansson" remote="base" path="layers/oe-core-dl-3.2/git/github.com.akheron.jansson.git" bare="True"/>
+    <project name="external/yocto/github.com.facebook.zstd" remote="base" path="layers/oe-core-dl-3.2/git/github.com.facebook.zstd.git" bare="True"/>
