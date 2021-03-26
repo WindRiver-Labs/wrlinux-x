@@ -4,3 +4,4 @@
     <project name="external/yocto/github.com.openSUSE.build-compare" remote="base" path="layers/wrlinux-dl/git/github.com.openSUSE.build-compare.git" bare="True"/>
     <project name="external/yocto/github.com.containers.skopeo" remote="base" path="layers/wrlinux-dl/git/github.com.containers.skopeo" bare="True"/>
     <project name="external/yocto/github.com.opencontainers.umoci" remote="base" path="layers/wrlinux-dl/git/github.com.opencontainers.umoci" bare="True"/>
+    <project name="external/extra/github.com.xontab.chrome-virtual-keyboard" remote="base" path="layers/wrlinux-dl/git/github.com.xontab.chrome-virtual-keyboard.git" bare="True"/>
