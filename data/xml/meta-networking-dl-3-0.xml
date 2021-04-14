@@ -16,3 +16,4 @@
     <project name="external/yocto/github.com.maxmind.geoip-api-c" remote="base" path="layers/meta-networking-dl-3.0/git/github.com.maxmind.geoip-api-c.git" bare="True"/>
     <project name="external/yocto/github.com.FreeRADIUS.freeradius-server" remote="base" path="layers/meta-networking-dl-3.0/git/github.com.FreeRADIUS.freeradius-server.git" bare="True"/>
     <project name="external/yocto/github.com.grpc.grpc" remote="base" path="layers/meta-networking-dl-3.0/git/github.com.grpc.grpc.git" bare="True"/>
+    <project name="external/yocto/github.com.protocolbuffers.upb" remote="base" path="layers/meta-networking-dl-3.0/git/github.com.protocolbuffers.upb.git" bare="True"/>
