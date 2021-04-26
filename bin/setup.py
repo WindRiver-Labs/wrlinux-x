@@ -1392,6 +1392,7 @@ class Setup():
             cmd.append(self.quiet)
             log_it = 0
         cmd.extend(args)
+        logger.debug("cmd: %s" % cmd)
         try:
             utils_setup.run_cmd(cmd, environment=self.env, log=log_it)
         except Exception as e:

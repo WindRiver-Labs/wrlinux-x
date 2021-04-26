@@ -30,20 +30,34 @@ REPO_FOLDERS="WRLinux-CD-Core"
 wr_repo_find() {
 	echo "Searching for git-repo..."
 	REPO_URL=${BASEURL}/git-repo
-	if ! setup_check_url "${REPO_URL}" ; then
-		# Clear in case there are no REPO_FOLDERS
-		REPO_URL=""
-		for folder in ${REPO_FOLDERS} ; do
-			REPO_URL=${BASEURL}/${folder}/git-repo
-			if ! setup_check_url "${REPO_URL}" ; then
-				REPO_URL=""
-				continue
-			fi
-			break
-		done
-	fi
 
-	if [ -z "${REPO_URL}" ]; then
+	retries=0
+	duration=5
+	for i in {1..5} ; do
+		if ! setup_check_url "${REPO_URL}" ; then
+			# Clear in case there are no REPO_FOLDERS
+			REPO_URL=""
+			for folder in ${REPO_FOLDERS} ; do
+				REPO_URL=${BASEURL}/${folder}/git-repo
+				if ! setup_check_url "${REPO_URL}" ; then
+					REPO_URL=""
+					continue
+				fi
+				break
+			done
+
+			if [ "${REPO_URL}" = "" ]; then
+				retries=$(($retries+1))
+				echo "Retrying $1 after $duration seconds -- $retries time(s) (max: 5)"
+				sleep $duration
+				duration=$(($duration+$(random 1 5)))
+			fi
+		else
+			break
+		fi
+	done
+
+	if [ $retries -eq 5 ]; then
 		echo "Unable to find git-repo repository.  Search path:" >&2
 		echo "  ${BASEURL}/git-repo" >&2
 		for folder in ${REPO_FOLDERS} ; do
@@ -63,7 +77,18 @@ wr_repo_setup() {
 
 	# If the user passed it in, we use it after we verify it!
 	if [ -n "$REPO_URL" ]; then
-		if ! setup_check_url "${REPO_URL}" ; then
+		retries=0
+		duration=5
+		for i in {1..5}; do
+			if ! setup_check_url "${REPO_URL}" ; then
+				retries=$(($retries+1))
+				echo "Retrying $1 after $duration seconds -- $retries time(s) (max: 5)"
+				sleep $duration
+				duration=$(($duration+$(random 1 5)))
+			fi
+		done
+
+		if [ $retries -eq 5 ]; then
 			echo "Unable to find git-repo repository. ${REPO_URL}" >&2
 			return 1
 		fi
@@ -83,8 +108,20 @@ wr_repo_setup() {
 	# Repo rev time...
 	# User passed it in, verify it
 	if [ -n "$REPO_REV" ]; then
-		output=$(setup_check_url_branch "${REPO_URL}" "${REPO_REV}")
-		if [ "$output" != "$REPO_REV" -o $? -ne 0 ] ; then
+		retries=0
+		duration=5
+
+		for i in {1..5} ; do
+			output=$(setup_check_url_branch "${REPO_URL}" "${REPO_REV}")
+			if [ "$output" != "$REPO_REV" -o $? -ne 0 ] ; then
+				retries=$(($retries+1))
+				echo "Retrying $1 after $duration seconds -- $retries time(s) (max: 5)"
+				sleep $duration
+				duration=$(($duration+$(random 1 5)))
+			fi
+		done
+
+		if [ $retries -eq 5 ]; then
 			echo "Unable to find branch ${REPO_REV} in git-repo repository (${REPO_URL})" >&2
 			return 1
 		fi
@@ -99,8 +136,19 @@ wr_repo_setup() {
 		if [ "${BASEBRANCHES[0]}" != "$repo_branch_fallback" ]; then
 			BASEBRANCHES[1]="$repo_branch_fallback"
 		fi
-		REPO_REV=$(setup_check_url_branch "${REPO_URL}" "${BASEBRANCHES[@]}")
-		if [ -z "${REPO_REV}" ]; then
+		retries=0
+		duration=5
+		for i in {1..5} ; do
+			REPO_REV=$(setup_check_url_branch "${REPO_URL}" "${BASEBRANCHES[@]}")
+			if [ -z "${REPO_REV}" ]; then
+				retries=$(($retries+1))
+				echo "Retrying $1 after $duration seconds -- $retries time(s) (max: 5)"
+				sleep $duration
+				duration=$(($duration+$(random 1 5)))
+			fi
+		done
+
+		if [ $retries -eq 5 ];then
 			echo "Unable to find a usable branch (${BASEBRANCHES[@]}) in git-repo repository (${REPO_URL})" >&2
 			return 1
 		fi

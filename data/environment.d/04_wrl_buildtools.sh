@@ -38,13 +38,6 @@ setup_export_func buildtools_export
 
 . ${BASEDIR}/data/environment.d/setup_utils
 
-random(){
-       min=$1
-       max=$(($2-$min+1))
-       num=$(($RANDOM+1000000000))
-       echo $(($num%$max+$min))
-}
-
 buildtools_setup() {
 	if [ -z "${BUILDTOOLSBRANCH}" ]; then
 		BUILDTOOLSBRANCH="${BASEBRANCH}"
@@ -120,8 +113,7 @@ buildtools_setup() {
 
 		retries=0
 		duration=5
-		for i in {1..5}
-		do
+		for i in {1..5} ; do
 			if ! setup_check_url "${BASEURL}/${BUILDTOOLS_REMOTE}" ; then
 				ORIG_BT_REMOTE=${BUILDTOOLS_REMOTE}
 				# Additional places to search...
@@ -133,16 +125,16 @@ buildtools_setup() {
 				done
 				if [ "${BUILDTOOLS_REMOTE}" = "${ORIG_BT_REMOTE}" ]; then
 					retries=$(($retries+1))
-					echo "Retrying $1 after $duration seconds -- $retries times (max: 5)"
+					echo "Retrying $1 after $duration seconds -- $retries time(s) (max: 5)"
 					sleep $duration
-					duration=$(($duration+$(random 5 10)))
+					duration=$(($duration+$(random 1 5)))
 				fi
 			else
 				break
 			fi
 		done
 
-		if [ $retries -eq 5 ];then
+		if [ $retries -eq 5 ]; then
 			echo "Unable to find ${BUILDTOOLS_REMOTE}.  Search path:">&2
 			for folder in ${BUILDTOOLS_FOLDERS} layers/buildtools; do
 				echo " ${BASEURL}/${folder}/${BUILDTOOLS_REMOTE}" >&2
@@ -161,8 +153,7 @@ buildtools_setup() {
 		retries=0
 		duration=5
 		ret=0
-		for i in {1..5}
-		do
+		for i in {1..5} ; do
 			echo "${BASEURL}/${BUILDTOOLS_REMOTE}"
 			(cd ${BUILDTOOLS_GIT} && git fetch -f -n -u "${BASEURL}/${BUILDTOOLS_REMOTE}" $local_name)
 			ret=$?
@@ -170,9 +161,9 @@ buildtools_setup() {
 				break
 			else
 				retries=$(($retries+1))
-				echo "Retrying $1 after $duration seconds -- $retries times (max: 5)"
+				echo "Retrying $1 after $duration seconds -- $retries time(s) (max: 5)"
 				sleep $duration
-				duration=$(($duration+$(random 5 10)))
+				duration=$(($duration+$(random 1 5)))
 			fi
 		done
 
