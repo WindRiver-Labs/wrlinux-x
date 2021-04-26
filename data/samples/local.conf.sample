@@ -48,7 +48,7 @@ WRTEMPLATE ?= "####DEFAULTWRTEMPLATE####"
 
 # Disable or enable processing of the special 'bsp-pkgs.*' template pieces.
 # (the default value is 1)
-#WRTEMPLATE_BSP_PKG = "0"
+#WRTEMPLATE_BSP_PKGS = "0"
 
 #
 # Machine Selection
