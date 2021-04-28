@@ -1,2 +1,0 @@
-    <project name="external/yocto/github.com.RPi-Distro.pi-bluetooth" remote="base" path="layers/meta-raspberrypi-dl/git/github.com.RPi-Distro.pi-bluetooth" bare="True"/>
-    <project name="external/yocto/github.com.Evilpaul.RPi-config" remote="base" path="layers/meta-raspberrypi-dl/git/github.com.Evilpaul.RPi-config.git" bare="True"/>
