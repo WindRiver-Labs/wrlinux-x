@@ -114,3 +114,4 @@
     <project name="external/yocto/github.com.opencv.opencv_contrib" remote="base" path="layers/meta-openembedded-dl-3.2/git/github.com.opencv.opencv_contrib.git" bare="True"/>
     <project name="external/yocto/github.com.opencv.opencv_3rdparty" remote="base" path="layers/meta-openembedded-dl-3.2/git/github.com.opencv.opencv_3rdparty.git" bare="True"/>
     <project name="external/yocto/github.com.rvoicilas.inotify-tools" remote="base" path="layers/meta-openembedded-dl-3.2/git/github.com.rvoicilas.inotify-tools" bare="True"/>
+    <project name="external/yocto/github.com.WeChatCV.opencv_3rdparty" remote="base" path="layers/meta-openembedded-dl-3.2/git/github.com.WeChatCV.opencv_3rdparty.git" bare="True"/>
