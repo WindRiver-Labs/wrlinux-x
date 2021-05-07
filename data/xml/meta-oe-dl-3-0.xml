@@ -15,7 +15,7 @@
     <project name="external/yocto/github.com.rsyslog.librelp" remote="base" path="layers/meta-oe-dl-3.0/git/github.com.rsyslog.librelp.git" bare="True"/>
     <project name="external/yocto/git.0pointer.de.libatasmart" remote="base" path="layers/meta-oe-dl-3.0/git/git.0pointer.de.libatasmart.git" bare="True"/>
     <project name="external/yocto/github.com.google.leveldb" remote="base" path="layers/meta-oe-dl-3.0/git/github.com.google.leveldb.git" bare="True"/>
-    <project name="external/yocto/github.com.google.protobuf" remote="base" path="layers/meta-oe-dl-3.0/git/github.com.google.protobuf.git" bare="True"/>
+    <project name="external/yocto/github.com.protocolbuffers.protobuf" remote="base" path="layers/meta-oe-dl-3.0/git/github.com.protocolbuffers.protobuf.git" bare="True"/>
     <project name="external/yocto/github.com.protobuf-c.protobuf-c" remote="base" path="layers/meta-oe-dl-3.0/git/github.com.protobuf-c.protobuf-c.git" bare="True"/>
     <project name="external/yocto/github.com.jpirko.libndp" remote="base" path="layers/meta-oe-dl-3.0/git/github.com.jpirko.libndp" bare="True"/>
     <project name="external/yocto/git.opensvc.com.multipath-tools" remote="base" path="layers/meta-oe-dl-3.0/git/git.opensvc.com.multipath-tools..git" bare="True"/>
