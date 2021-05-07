@@ -1380,7 +1380,7 @@ class Setup():
         if os.path.exists(directory):
             logger.info('Done: detected repo init already run since %s exists' % directory)
             return
-        cmd = [repo, 'init']
+        cmd = [repo, 'init', '--no-clone-bundle']
         if self.depth:
             cmd.append(self.depth)
         if self.repo_url:
