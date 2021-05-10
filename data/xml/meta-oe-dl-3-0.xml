@@ -53,3 +53,4 @@
     <project name="external/yocto/sourceware.org.git.lvm2" remote="base" path="layers/meta-oe-dl-3.0/git/sourceware.org.git.lvm2.git" bare="True"/>
     <project name="external/yocto/github.com.vmware.open-vm-tools" remote="base" path="layers/meta-oe-dl-3.0/git/github.com.vmware.open-vm-tools.git" bare="True"/>
     <project name="external/yocto/anongit.freedesktop.org.xorg.driver.xf86-video-armsoc" remote="base" path="layers/meta-oe-dl-3.0/git/anongit.freedesktop.org.xorg.driver.xf86-video-armsoc" bare="True"/>
+    <project name="external/yocto/github.com/CanonicalLtd/netplan" remote="base" path="layers/meta-oe-dl-3.0/git/github.com.CanonicalLtd.netplan" bare="True"/>
