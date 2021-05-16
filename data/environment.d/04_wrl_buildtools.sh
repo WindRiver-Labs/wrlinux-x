@@ -1,4 +1,4 @@
-# Copyright (C) 2016-2019 Wind River Systems, Inc.
+# Copyright (C) 2016-2021 Wind River Systems, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as
@@ -15,11 +15,11 @@
 
 # Download, install and load the buildtools tarball (as needed)
 
-BUILDTOOLS_VERSION=${BUILDTOOLS_VERSION:-10.21.01b.0}
-BUILDTOOLS_EXT_VERSION=${BUILDTOOLS_EXT_VERSION:-10.21.01b.0}
+BUILDTOOLS_VERSION=${BUILDTOOLS_VERSION:-10.21.20.0}
+BUILDTOOLS_EXT_VERSION=${BUILDTOOLS_EXT_VERSION:-10.21.20.0}
 
 # Special windshare folders to search
-BUILDTOOLS_FOLDERS="WRLinux-CD-Core"
+BUILDTOOLS_FOLDERS="WRLinux-lts-21-Core WRLinux-lts-21-Base"
 
 
 # Where to install the build tools
