@@ -1,2 +1,0 @@
-    <project name="external/ovp/gitlab.xiph.org.xiph.celt" remote="base" path="layers/meta-cloud-services-dl-3.2/git/gitlab.xiph.org.xiph.celt.git" bare="True"/>
-    <project name="external/yocto/github.com.fujita.tgt" remote="base" path="layers/meta-cloud-services-dl-3.2/git/github.com.fujita.tgt.git" bare="True"/>
