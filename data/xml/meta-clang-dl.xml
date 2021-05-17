@@ -1,2 +1,2 @@
     <project name="external/yocto/github.com.iovisor.bcc" remote="base" path="layers/meta-clang-dl/git/github.com.iovisor.bcc" bare="True"/>
-    <project name="external/yocto/github.com.KhronosGroup.SPIRV-LLVM-Translator." remote="base" path="layers/meta-clang-dl/git/github.com.KhronosGroup.SPIRV-LLVM-Translator." bare="True"/>
+    <project name="external/yocto/github.com.KhronosGroup.SPIRV-LLVM-Translator." remote="base" path="layers/meta-clang-dl/git/github.com.KhronosGroup.SPIRV-LLVM-Translator" bare="True"/>
