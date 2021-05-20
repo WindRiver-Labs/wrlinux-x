@@ -64,7 +64,7 @@ class Windshare():
             return (None, None, None)
 
         # Magic URL to the entitlement file
-        ws_entitlement_url = ws_base_url + '/wrlinux-cd.json'
+        ws_entitlement_url = ws_base_url + '/wrlinux-lts.21.json'
 
         logger.debug('Entitlement url %s' % ws_entitlement_url)
 
