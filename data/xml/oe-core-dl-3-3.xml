@@ -152,3 +152,4 @@
     <project name="external/yocto/github.com.akheron.jansson" remote="base" path="layers/oe-core-dl-3.3/git/github.com.akheron.jansson.git" bare="True"/>
     <project name="external/yocto/github.com.facebook.zstd" remote="base" path="layers/oe-core-dl-3.3/git/github.com.facebook.zstd.git" bare="True"/>
     <project name="external/yocto/github.com.Cyan4973.xxHash" remote="base" path="layers/oe-core-dl-3.3/git/github.com.Cyan4973.xxHash.git" bare="True"/>
+    <project name="external/yocto/gitlab.freedesktop.org.pkg-config.pkg-config" remote="base" path="layers/oe-core-dl-3.3/git/gitlab.freedesktop.org.pkg-config.pkg-config.git" bare="True"/>
