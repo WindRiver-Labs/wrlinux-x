@@ -44,9 +44,9 @@ buildtools_setup() {
 	fi
 
 	# According to https://gcc.gnu.org/projects/cxx-status.html#cxx14
-	# gcc 6.0.0 is the minimal version fully support c++14
+	# gcc 5.0 is the minimal version fully support c++14
 	gcc_cur_ver=$(gcc -dumpfullversion -dumpversion)
-	required_ver=6.0.0
+	required_ver=5.0.0
 
 	# check whether host gcc version less than $required_ver
 	if [ ! "$(printf '%s\n' "$required_ver" "$gcc_cur_ver" | sort -V | head -n1)" = "$required_ver" ]; then
