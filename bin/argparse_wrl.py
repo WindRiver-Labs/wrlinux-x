@@ -32,10 +32,6 @@ class Argparse_Wrl(Argparse_Setup):
             # ignore (handled by setup.sh)
             del parsed_args.buildtools_branch
 
-        if (parsed_args.buildtools_type):
-            # ignore (handled by setup.sh)
-            del parsed_args.buildtools_type
-
         if (parsed_args.user):
             # ignore (handled by setup.sh)
             del parsed_args.user
@@ -81,7 +77,6 @@ class Argparse_Wrl(Argparse_Setup):
         if self.setup and self.setup.buildtools_branch:
             setup_buildtools_branch = '(default %s)' % (self.setup.buildtools_branch)
         self.base_args.add_argument('--buildtools-branch', metavar="BRANCH", help='Buildtools branch %s' % (setup_buildtools_branch))
-        self.base_args.add_argument('--buildtools-type', metavar="TYPE", help="Buildtools type: basic or extended (default basic), install extended buildtools with 'extended'")
         self.base_args.add_argument('--user', help='Specify default user for download')
         self.base_args.add_argument('--password', help='Specify default password for download')
         self.base_args.add_argument('--accept-eula', metavar="ACCEPT", help='Accept End User License Agreement (yes|no)')
