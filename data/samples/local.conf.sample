@@ -39,7 +39,7 @@ WRTEMPLATE ?= "####DEFAULTWRTEMPLATE####"
 #  default (skip all default templates)
 #  feature/foobar (skip all layers feature/foobar)
 #  wr-base/feature/foobar (skip only feature/foobar in wr-base)
-#WRTEMPLATE_SKIP = "feautre/item3 feature/item4 ..."
+#WRTEMPLATE_SKIP = "feature/item3 feature/item4 ..."
 
 # Selectively enable or disable the template 'image.inc' additions to a given
 # image recipe.
