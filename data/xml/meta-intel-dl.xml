@@ -9,3 +9,4 @@
     <project name="external/yocto/github.com.intel.vc-intrinsics" remote="base" path="layers/meta-intel-dl/git/github.com.intel.vc-intrinsics.git" bare="True"/>
     <project name="external/yocto/github.com.intel.compute-runtime" remote="base" path="layers/meta-intel-dl/git/github.com.intel.compute-runtime.git" bare="True"/>
     <project name="external/yocto/github.com.intel.gmmlib" remote="base" path="layers/meta-intel-dl/git/github.com.intel.gmmlib.git" bare="True"/>
+    <project name="external/yocto/github.com.intel.ittapi" remote="base" path="layers/meta-intel-dl/git/github.com.intel.ittapi.git" bare="True"/>
