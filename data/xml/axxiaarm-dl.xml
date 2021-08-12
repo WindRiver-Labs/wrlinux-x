@@ -1,1 +1,2 @@
     <project name="external/yocto/github.com.lsigithub.lsi_axxia_uboot_public" remote="base" path="layers/axxiaarm-dl/git/github.com.lsigithub.lsi_axxia_uboot_public.git" bare="True"/>
+    <project name="external/yocto/github.com.axxia.axxia_atf" remote="base" path="layers/axxiaarm-dl/git/github.com.axxia.axxia_atf.git" bare="True"/>
