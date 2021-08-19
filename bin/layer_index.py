@@ -860,6 +860,22 @@ class Layer_Index():
                 logger.plain(s)
             logger.plain ('')
 
+    def get_machines(self, base_branch, compat='all'):
+        machines = []
+        for lindex in self.index:
+            branchid = self.getBranchId(lindex, self.getIndexBranch(default=base_branch, lindex=lindex))
+            if branchid:
+                for lb in lindex['layerBranches']:
+                    if compat != 'all':
+                        if compat not in self.getYPCompatibleVersion(lindex, lb['yp_compatible_version']):
+                            continue
+                    for layer in self.find_layer(lindex, layerBranch=lb):
+                        for obj in lindex['machines']:
+                            if obj['layerbranch'] == lb['id'] and lb['branch'] == branchid:
+                                machines.append(obj['name'])
+        return machines
+
+
     def list_distros(self, base_branch, compat):
         self.list_obj(base_branch, 'distros', 'distro', compat)
 
