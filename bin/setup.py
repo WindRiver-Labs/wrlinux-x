@@ -73,6 +73,7 @@ class Setup():
         self.base_branch = os.getenv('OE_BASEBRANCH')
         self.buildtools_branch = os.getenv('OE_BUILDTOOLS_BRANCH')
         self.buildtools_remote = os.getenv('OE_BUILDTOOLS_REMOTE')
+        self.another_buildtools_remote = os.getenv('OE_ANOTHER_BUILDTOOLS_REMOTE')
 
         # Real project or a mirror?
         self.mirror = False
@@ -377,6 +378,8 @@ class Setup():
                 # Adjust the location of the buildtools (was based on the original base_url)
                 if self.buildtools_remote:
                     self.buildtools_remote = ws_base_folder + '/' + self.buildtools_remote
+                if self.another_buildtools_remote:
+                    self.another_buildtools_remote = ws_base_folder + '/' + self.another_buildtools_remote
             else:
                 logger.debug('No Windshare configuration detected.')
         else:
@@ -1023,8 +1026,11 @@ class Setup():
             close_xml_tag(name, url, remote, path, revision)
             add_xml(name, url, remote, path, revision)
 
-        if self.mirror == True and self.buildtools_remote and self.buildtools_branch:
-            write_xml('buildtools', self.buildtools_remote, 'base', self.buildtools_remote, self.buildtools_branch)
+        if self.mirror == True and self.buildtools_branch:
+            if self.buildtools_remote:
+                write_xml('buildtools', self.buildtools_remote, 'base', self.buildtools_remote, self.buildtools_branch)
+            if self.another_buildtools_remote:
+                write_xml('buildtools', self.another_buildtools_remote, 'base', self.another_buildtools_remote, self.buildtools_branch)
 
         def process_xml_layers(allLayers):
             def process_xml_layer(lindex, layerBranch):
