@@ -283,12 +283,12 @@ fi # if help -ne 1
 # We potentially have code that doesn't parse correctly with older versions 
 # of Python, and rather than fixing that and being eternally vigilant for 
 # any other new feature use, just check the version here.
-py_v34_check=$(python3 -c 'import sys; print(sys.version_info >= (3,4,0))' 2>/dev/null)
-if [ "$py_v34_check" != "True" ]; then
-	echo >&2 "BitBake requires Python 3.4.0 or later as 'python3'"
-	exit 1
+py_v35_check=$(python3 -c 'import sys; print(sys.version_info >= (3,5,0))')
+if [ "$py_v35_check" != "True" ]; then
+    echo >&2 "BitBake requires Python 3.5.0 or later as 'python3 (scripts/install-buildtools can be used if needed)'"
+    return 1
 fi
-unset py_v34_check
+unset py_v35_check
 
 # This can happen if python3/urllib was not built with SSL support.
 python3 -c 'import urllib.request ; dir(urllib.request.HTTPSHandler)' >/dev/null 2>&1
