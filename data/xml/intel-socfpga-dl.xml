@@ -1,2 +1,3 @@
     <project name="external/yocto/github.com.altera-opensource.intel-rsu" remote="base" path="layers/intel-socfpga-dl/git/github.com.altera-opensource.intel-rsu.git" bare="True"/>
+    <project name="external/yocto/github.com.altera-opensource.u-boot-socfpga" remote="base" path="layers/intel-socfpga-dl/git/github.com.altera-opensource.u-boot-socfpga.git" bare="True"/>
     <project name="external/yocto/github.com.altera-opensource.arm-trusted-firmware" remote="base" path="layers/intel-socfpga-dl/git/github.com.altera-opensource.arm-trusted-firmware.git" bare="True"/>
