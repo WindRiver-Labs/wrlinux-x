@@ -200,17 +200,26 @@ if [ "${BASEURL:0:1}" != '/' ]; then
 	fi
 fi
 
+git_cmd="git --git-dir=$BASEDIR/.git"
 if [ -z "${BASEBRANCH}" ]; then
-	BASEBRANCH=$(git --git-dir="$BASEDIR/.git" rev-parse --abbrev-ref HEAD)
+	BASEBRANCH=$($git_cmd rev-parse --abbrev-ref HEAD)
 	if [ "$BASEBRANCH" = "HEAD" ]; then
 		# Maybe this is a tag instead?
-		BASEBRANCH=$(git --git-dir="$BASEDIR/.git" describe HEAD 2>/dev/null)
+		BASEBRANCH=$($git_cmd describe HEAD 2>/dev/null)
 		if [ $? -ne 0 ]; then
 			# No reasonable branch/tag name found...
 			BASEBRANCH=""
 		else
+			latest_tag=$($git_cmd tag --sort=taggerdate |tail -1)
+			if [ "$latest_tag" != "$BASEBRANCH" ]; then
+					echo "WARNING: Only latest tag is supported" >&2
+					echo "WARNING: Current tag: $BASEBRANCH" >&2
+					echo "WARNING: Latest  tag: $latest_tag" >&2
+					echo "WARNING: Will go on after 5 seconds at you own risk..." >&2
+					sleep 5
+			fi
 			BASEBRANCH="refs/tags/$BASEBRANCH"
-                fi
+		fi
 	fi
 fi
 
