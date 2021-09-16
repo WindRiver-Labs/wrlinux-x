@@ -210,13 +210,19 @@ if [ -z "${BASEBRANCH}" ]; then
 			# No reasonable branch/tag name found...
 			BASEBRANCH=""
 		else
+			echo "$BASEBRANCH" | grep -q "vWRLINUX_CI_"
+			if [ $? -ne 0 ]; then
+				echo "ERROR: Tag $BASEBRANCH is not supported by setup.sh, please use a branch." >&2
+				echo ""
+				exit 1
+			fi
 			latest_tag=$($git_cmd tag --sort=taggerdate |tail -1)
 			if [ "$latest_tag" != "$BASEBRANCH" ]; then
-					echo "WARNING: Only latest tag is supported" >&2
-					echo "WARNING: Current tag: $BASEBRANCH" >&2
-					echo "WARNING: Latest  tag: $latest_tag" >&2
-					echo "WARNING: Will go on after 5 seconds at you own risk..." >&2
-					sleep 5
+					echo "ERROR: Only latest tag is supported" >&2
+					echo "ERROR: Current tag: $BASEBRANCH" >&2
+					echo "ERROR: Latest  tag: $latest_tag" >&2
+					echo ""
+					exit 1
 			fi
 			BASEBRANCH="refs/tags/$BASEBRANCH"
 		fi
