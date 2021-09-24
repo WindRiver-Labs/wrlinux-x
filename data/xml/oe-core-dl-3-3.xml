@@ -151,3 +151,4 @@
     <project name="external/yocto/github.com.Cyan4973.xxHash" remote="base" path="layers/oe-core-dl-3.3/git/github.com.Cyan4973.xxHash.git" bare="True"/>
     <project name="external/yocto/gitlab.freedesktop.org.pkg-config.pkg-config" remote="base" path="layers/oe-core-dl-3.3/git/gitlab.freedesktop.org.pkg-config.pkg-config.git" bare="True"/>
     <project name="external/yocto/salsa.debian.org.md.netbase" remote="base" path="layers/oe-core-dl-3.3/git/salsa.debian.org.md.netbase.git" bare="True"/>
+    <project name="external/yocto/git.eclipse.org.r.tcf.org.eclipse.tcf.agent" remote="base" path="layers/oe-core-dl-3.3/git/git.eclipse.org.r.tcf.org.eclipse.tcf.agent.git" bare="True"/>
