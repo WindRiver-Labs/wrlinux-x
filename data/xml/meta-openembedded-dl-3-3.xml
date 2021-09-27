@@ -118,3 +118,4 @@
     <project name="external/yocto/github.com.WeChatCV.opencv_3rdparty" remote="base" path="layers/meta-openembedded-dl-3.3/git/github.com.WeChatCV.opencv_3rdparty.git" bare="True"/>
     <project name="external/yocto/github.com.DaveGamble.cJSON" remote="base" path="layers/meta-openembedded-dl-3.3/git/github.com.DaveGamble.cJSON.git" bare="True"/>
     <project name="external/yocto/github.com.CESNET.libyang" remote="base" path="layers/meta-openembedded-dl-3.3/git/github.com.CESNET.libyang.git" bare="True"/>
+    <project name="external/yocto/github.com.LMDB.lmdb" remote="base" path="layers/meta-openembedded-dl-3.3/git/github.com.LMDB.lmdb.git" bare="True"/>
