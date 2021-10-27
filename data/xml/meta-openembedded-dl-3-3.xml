@@ -120,3 +120,4 @@
     <project name="external/yocto/github.com.CESNET.libyang" remote="base" path="layers/meta-openembedded-dl-3.3/git/github.com.CESNET.libyang.git" bare="True"/>
     <project name="external/yocto/github.com.LMDB.lmdb" remote="base" path="layers/meta-openembedded-dl-3.3/git/github.com.LMDB.lmdb.git" bare="True"/>
     <project name="external/yocto/github.com.jemalloc.jemalloc" remote="base" path="layers/meta-openembedded-dl-3.3/git/github.com.jemalloc.jemalloc.git" bare="True"/>
+    <project name="external/yocto/github.com.CanonicalLtd.netplan" remote="base" path="layers/meta-openembedded-dl-3.3/git/github.com.CanonicalLtd.netplan.git" bare="True"/>
