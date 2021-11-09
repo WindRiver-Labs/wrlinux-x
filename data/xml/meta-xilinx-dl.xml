@@ -1,3 +1,2 @@
     <project name="external/yocto/github.com.OCL-dev.ocl-icd" remote="base" path="layers/meta-xilinx-dl/git/github.com.OCL-dev.ocl-icd.git" bare="True"/>
     <project name="external/yocto/github.com.KhronosGroup.OpenCL-CLHPP" remote="base" path="layers/meta-xilinx-dl/git/github.com.KhronosGroup.OpenCL-CLHPP.git" bare="True"/>
-    <project name="external/yocto/github.com.Xilinx.XRT" remote="base" path="layers/meta-xilinx-dl/git/github.com.Xilinx.XRT.git" bare="True"/>
