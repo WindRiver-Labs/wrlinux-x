@@ -2,3 +2,4 @@
     <project name="external/yocto/source.codeaurora.org.external.autobsps32.extra.pfeng" remote="base" path="layers/nxp-s32g2xx-dl/git/source.codeaurora.org.external.autobsps32.extra.pfeng" bare="True"/>
     <project name="external/yocto/source.codeaurora.org.external.autobsps32.arm-trusted-firmware" remote="base" path="layers/nxp-s32g2xx-dl/git/source.codeaurora.org.external.autobsps32.arm-trusted-firmware" bare="True"/>
     <project name="external/yocto/source.codeaurora.org.external.autobsps32.ipcf.ipc-shm" remote="base" path="layers/nxp-s32g2xx-dl/git/source.codeaurora.org.external.autobsps32.ipcf.ipc-shm" bare="True"/>
+    <project name="external/yocto/git.trustedfirmware.org.TF-A.trusted-firmware-a" remote="base" path="layers/nxp-s32g2xx-dl/git/git.trustedfirmware.org.TF-A.trusted-firmware-a.git" bare="True"/>
