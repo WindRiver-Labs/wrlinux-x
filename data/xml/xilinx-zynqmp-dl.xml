@@ -1,0 +1,1 @@
+    <project name="external/yocto/github.com.Xilinx.u-boot-xlnx" remote="base" path="layers/xilinx-zynqmp-dl/git/github.com.Xilinx.u-boot-xlnx.git" bare="True"/>
