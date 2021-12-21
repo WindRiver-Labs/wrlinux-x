@@ -277,9 +277,29 @@ class Setup():
 
         self.commit_files()
 
+        self.check_project_path()
+
         self.repo_sync()
 
         self.exit(0)
+
+    def check_project_path(self):
+        self.manifest_dir = os.path.join(self.project_dir, '.repo/manifests.git')
+        project_dir_last = ""
+        if os.path.exists(self.manifest_dir):
+            cmd = [self.tools['git'], 'config', '--get', 'remote.origin.url']
+            try:
+                p = subprocess.run(cmd, check=True, cwd=self.manifest_dir, stdout=subprocess.PIPE)
+                project_dir_last = p.stdout.decode('utf-8').strip()
+            except Exception as e:
+                logger.warning('Failed to run "%s": %s' % (' '.join(cmd), e))
+
+        logger.debug('last project dir: %s' % project_dir_last)
+        if project_dir_last and project_dir_last != self.project_dir:
+            logger.info('project dir has been changed from %s to %s' % (project_dir_last, self.project_dir))
+            logger.info('Updating config files for new project dir...')
+            cmd = [self.tools['git'], 'config', 'remote.origin.url', self.project_dir]
+            subprocess.run(cmd, cwd=self.manifest_dir)
 
     def load_mirror_index(self, remote_mirror, folder=""):
         # See if there is a mirror index available from the BASE_URL
