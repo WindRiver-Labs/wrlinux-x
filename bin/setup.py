@@ -1159,6 +1159,7 @@ class Setup():
                     '/environment-setup-*',
                     '/layers/*',
                     '!layers/local',
+                    os.path.basename(self.install_dir),
                     ]
 
         tree = ET.parse(os.path.join(self.project_dir, 'default.xml'))
@@ -1212,20 +1213,6 @@ class Setup():
             if self.quiet == self.default_repo_quiet:
                 cmd.append(self.quiet)
             utils_setup.run_cmd(cmd, environment=self.env, cwd=self.conf_dir)
-
-            # Add self.install_dir as a submodule if it is in self.project_dir
-            if self.install_dir.startswith(self.project_dir + '/'):
-                logger.debug('Add %s as a submodule' % self.install_dir)
-                cmd = [self.tools['git'], 'config', '--get', 'remote.origin.url']
-                try:
-                    p = subprocess.run(cmd, check=True, cwd=self.install_dir, stdout=subprocess.PIPE)
-                    install_dir_remote_url = p.stdout.decode('utf-8').strip()
-                    cmd = [self.tools['git'], 'submodule', 'add', install_dir_remote_url]
-                    utils_setup.run_cmd(cmd, environment=self.env, cwd=self.project_dir)
-                    filelist.append(self.install_dir)
-                    filelist.append('.gitmodules')
-                except Exception as e:
-                    logger.warnining("Failed to run %s: %s" % (' '.join(cmd), e))
 
         # git add manifest. (Since these files are new, always try to add them)
         cmd = [self.tools['git'], 'add', '--'] + filelist
