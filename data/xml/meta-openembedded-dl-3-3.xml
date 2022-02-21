@@ -98,7 +98,6 @@
     <project name="external/yocto/github.com.rhinstaller.pykickstart" remote="base" path="layers/meta-openembedded-dl-3.3/git/github.com.rhinstaller.pykickstart.git" bare="True"/>
     <project name="external/yocto/github.com.rhinstaller.blivet" remote="base" path="layers/meta-openembedded-dl-3.3/git/github.com.rhinstaller.blivet" bare="True"/>
     <project name="external/yocto/github.com.rhinstaller.blivet-gui" remote="base" path="layers/meta-openembedded-dl-3.3/git/github.com.rhinstaller.blivet-gui" bare="True"/>
-    <project name="external/yocto/github.com.FastCGI-Archives.fcgi2" remote="base" path="layers/meta-openembedded-dl-3.3/git/github.com.FastCGI-Archives.fcgi2.git" bare="True"/>
     <project name="external/yocto/github.com.schnitzeltony.xfce4-closebutton-plugin" remote="base" path="layers/meta-openembedded-dl-3.3/git/github.com.schnitzeltony.xfce4-closebutton-plugin.git" bare="True"/>
     <project name="external/yocto/github.com.ncopa.xfce-polkit" remote="base" path="layers/meta-openembedded-dl-3.3/git/github.com.ncopa.xfce-polkit.git" bare="True"/>
     <project name="external/yocto/github.com.schnitzeltony.xfce4-datetime-setter" remote="base" path="layers/meta-openembedded-dl-3.3/git/github.com.schnitzeltony.xfce4-datetime-setter.git" bare="True"/>
