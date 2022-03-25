@@ -1,2 +1,3 @@
     <project name="external/yocto/github.com.tensorflow.tensorflow" remote="base" path="layers/meta-tensorflow-dl-3.3/git/github.com.tensorflow.tensorflow.git" bare="True"/>
     <project name="external/yocto/github.com.tensorflow.estimator" remote="base" path="layers/meta-tensorflow-dl-3.3/git/github.com.tensorflow.estimator.git" bare="True"/>
+    <project name="external/yocto/github.com.OP-TEE.optee_os" remote="base" path="layers/ti-j72xx-dl/git/github.com.OP-TEE.optee_os.git" bare="True"/>
