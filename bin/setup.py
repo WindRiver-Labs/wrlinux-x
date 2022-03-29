@@ -35,6 +35,8 @@ from layer_index import Layer_Index
 import settings
 import sanity
 
+import xml.etree.ElementTree as ET
+
 logger = logger_setup.setup_logging()
 
 # Redirect stdout and stderr to the custom logger.  This allows us to use
@@ -264,6 +266,8 @@ class Setup():
             self.update_mirror_index()
 
         self.update_manifest()
+
+        self.check_duplicated_basename_in_xml()
 
         self.update_gitignore()
 
@@ -1048,10 +1052,42 @@ class Setup():
 
         logger.debug('Done')
 
+    def check_duplicated_basename_in_xml(self):
+        """
+        Check for duplicated basename in default.xml, e.g.:
+        - path="/foo1/bar"
+        - path="/foo2/bar"
+        This doesn't work for flatten mirrors, so error them out.
+        """
+
+        logger.debug('Starting checking duplicated path in xml')
+        default_xml_dict = {}
+        tree = ET.parse(self.default_xml)
+        root = tree.getroot()
+        for project in root.iter('project'):
+            path = project.attrib['path']
+            if path:
+                basename = os.path.basename(path)
+                if basename in default_xml_dict:
+                    default_xml_dict[basename].append(path)
+                else:
+                    default_xml_dict[basename] = [path]
+
+        error_out = False
+        for basename, paths in default_xml_dict.items():
+            if len(paths) > 1:
+                error_out = True
+                logger.error("Found duplicated basename in %s's attribute 'path':" % self.default_xml)
+                for path in paths:
+                    logger.error(path)
+
+        if error_out:
+            sys.exit(1)
+
+        logger.debug('Done')
+
     def update_gitignore(self):
         logger.debug('Starting')
-
-        import xml.etree.ElementTree as ET
 
         ign_list = [
                     '.repo*',
