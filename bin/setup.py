@@ -1057,7 +1057,7 @@ class Setup():
         Check for duplicated basename in default.xml, e.g.:
         - path="/foo1/bar"
         - path="/foo2/bar"
-        This doesn't work for flatten mirrors, so error them out.
+        This doesn't work for flatten mirrors.
         """
 
         logger.debug('Starting checking duplicated path in xml')
@@ -1073,16 +1073,11 @@ class Setup():
                 else:
                     default_xml_dict[basename] = [path]
 
-        error_out = False
         for basename, paths in default_xml_dict.items():
             if len(paths) > 1:
-                error_out = True
-                logger.error("Found duplicated basename in %s's attribute 'path':" % self.default_xml)
+                logger.warning("Found duplicated basename in %s's attribute 'path':" % self.default_xml)
                 for path in paths:
-                    logger.error(path)
-
-        if error_out:
-            sys.exit(1)
+                    logger.warning(path)
 
         logger.debug('Done')
 
