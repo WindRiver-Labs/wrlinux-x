@@ -34,6 +34,13 @@ askpass_setup() {
 		return 0
 	fi
 
+	if [ "$WINDSHARE_SCHEME" = "http" ] || [ "$WINDSHARE_SCHEME" = "https" ]; then
+		if [ -n "$GIT_ASKPASS" ]; then
+			echo "INFO: Detected GIT_ASKPASS configuration. Disabling built-in askpass functionality."
+			return 0
+		fi
+	fi
+
 	export WRL_ASKPASS_SOCKET=${PWD}/bin/.setup_askpass
 
 	# Cleanup any old instances
