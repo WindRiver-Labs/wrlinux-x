@@ -1,5 +1,5 @@
-This is a Wind River Linux build project.  It was constructed by the setup
-program using the following arguments:
+This is a Wind River Linux build project.  It was constructed by the
+setup.sh tool using the following arguments:
 
 ####SETUP_ARGS####
 
@@ -59,10 +59,8 @@ $ runqemu qemux86-64
 
 To update your project
 ----------------------
-To update your project either re-run the setup program or use the command:
-
-The preferred way of updating your project project is to re-run the setup
-program.
+To update your project, you must update the platform project git repository
+and re-run the setup.sh tool.
 
 First update wrlinux-x, for example:
 
@@ -70,16 +68,12 @@ $ cd wrlinux-x
 $ git pull
 $ cd ..
 
-Then re-run the setup program with the original arguments.
+Then re-run the setup.sh tool with the original arguments.
 
 $ wrlinux-x/setup.sh ####SETUP_ARGS####
 
-The sync command will simply update your project, on the current branch, to
-the latest version.
-
-If you use the setup program you can change the branch, and/or project
-configuration.  Note, the build directory is not updated -- you will have
-to update this to the new configuration manually, or start a new build
+Note: existing local.conf and bblayers.conf files are not modified by
+setup.sh tool -- you will have to update them manually, or start a new build
 directory.
 
 
