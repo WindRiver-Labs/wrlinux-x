@@ -267,7 +267,7 @@ class Setup():
 
         self.update_manifest()
 
-        self.check_duplicated_basename_in_xml()
+        self.check_default_xml()
 
         self.update_gitignore()
 
@@ -1052,12 +1052,14 @@ class Setup():
 
         logger.debug('Done')
 
-    def check_duplicated_basename_in_xml(self):
+    def check_default_xml(self):
         """
-        Check for duplicated basename in default.xml, e.g.:
-        - path="/foo1/bar"
-        - path="/foo2/bar"
-        This doesn't work for flatten mirrors.
+        * Check for duplicated basename in default.xml, e.g.:
+          - path="/foo1/bar"
+          - path="/foo2/bar"
+          This doesn't work for flatten mirrors.
+
+        * Check whether 'name' is endded with '.git'
         """
 
         logger.debug('Starting checking duplicated path in xml')
@@ -1072,6 +1074,12 @@ class Setup():
                     default_xml_dict[basename].append(path)
                 else:
                     default_xml_dict[basename] = [path]
+
+            # The 'name' cannot be ended with '.git'
+            name = project.attrib['name']
+            if name and name.endswith('.git'):
+                name_no_git = name[:-4]
+                logger.warning("%s cannot be ended with '.git', suggest %s" %(name, name_no_git))
 
         for basename, paths in default_xml_dict.items():
             if len(paths) > 1:
