@@ -80,6 +80,8 @@ class Setup():
         # Real project or a mirror?
         self.mirror = False
 
+        self.mirror_index_path = None
+
         # Default configuration
         self.distros = [ settings.DEFAULT_DISTRO ]
         self.machines = [ settings.DEFAULT_MACHINE ]
@@ -380,8 +382,6 @@ class Setup():
     def load_layer_index(self):
         # Load Layer_Index
 
-        mirror_index_path = None
-
         if not (self.base_branch == "master" or self.base_branch == "master-wr"):
             from windshare import Windshare
             ws = Windshare(debug=self.debug_lvl)
@@ -392,9 +392,9 @@ class Setup():
                 logger.plain('Detected Windshare configuration.  Processing entitlements and indexes.')
 
                 for folder in ws.folders:
-                    mirror_index_path = ws.load_mirror_index(self, ws_base_url, folder)
+                    self.mirror_index_path = ws.load_mirror_index(self, ws_base_url, folder)
 
-                ws.write_local_mirror_index(self, mirror_index_path)
+                ws.write_local_mirror_index(self, self.mirror_index_path)
 
                 # We need to adjust the base_url so everything works properly...
                 self.base_url = ws_base_url
@@ -410,18 +410,18 @@ class Setup():
             logger.debug('Windshare configuration disabled, building %s.' % self.base_branch)
 
         # Check if we have a mirror-index, and load it if we do...
-        if not mirror_index_path:
-            mirror_index_path = self.load_mirror_index(self.base_url + '/mirror-index')
+        if not self.mirror_index_path:
+            self.mirror_index_path = self.load_mirror_index(self.base_url + '/mirror-index')
 
             # Is this a tag? if so... we only pull from mirror-indexes
-            if not mirror_index_path and self.base_branch.startswith('refs/tags/'):
+            if not self.mirror_index_path and self.base_branch.startswith('refs/tags/'):
                 logger.error("An install from a repository tag (%s) can only be installed with a corresponding layerindex snapshot." % self.base_branch)
                 logger.error("Unable to find %s" % self.base_url + '/mirror-index')
                 sys.exit(1)
 
         # Mirror also has a copy of the associated XML bits
-        if mirror_index_path:
-            self.xml_dir = os.path.join(mirror_index_path, 'xml')
+        if self.mirror_index_path:
+            self.xml_dir = os.path.join(self.mirror_index_path, 'xml')
 
         # Setup replace strings as late as possible.  The various self.* values
         # may be modified prior to this place.
@@ -433,7 +433,7 @@ class Setup():
                    ( '#BASE_BRANCH#', self.base_branch ),
                   ]
 
-        self.index = Layer_Index(indexcfg=settings.INDEXES, base_branch=self.base_branch, replace=replace, mirror=mirror_index_path)
+        self.index = Layer_Index(indexcfg=settings.INDEXES, base_branch=self.base_branch, replace=replace, mirror=self.mirror_index_path)
 
         # Is this a Wind River tag? if so... we need to modify the 'branches' entries to be the same as the tag
         if self.base_branch.startswith('refs/tags/vWRLINUX'):
