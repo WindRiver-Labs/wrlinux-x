@@ -4,3 +4,7 @@
     <project name="external/yocto/git.ti.com.ti-u-boot.ti-u-boot" remote="base" path="layers/ti-j72xx-dl/git/git.ti.com.ti-u-boot.ti-u-boot.git" bare="True"/>
     <project name="external/yocto/git.ti.com.jacinto7_multimedia.viddec-test-app" remote="base" path="layers/ti-j72xx-dl/git/git.ti.com.jacinto7_multimedia.viddec-test-app.git" bare="True"/>
     <project name="external/yocto/git.ti.com.jacinto7_multimedia.videnc-test-app" remote="base" path="layers/ti-j72xx-dl/git/git.ti.com.jacinto7_multimedia.videnc-test-app.git" bare="True"/>
+    <project name="external/yocto/github.com.OP-TEE.optee_os" remote="base" path="layers/ti-j72xx-dl/git/github.com.OP-TEE.optee_os.git" bare="True"/>
+    <project name="external/yocto/git.ti.com.atf.arm-trusted-firmware" remote="base" path="layers/ti-j72xx-dl/git/git.ti.com.atf.arm-trusted-firmware.git" bare="True"/>
+    <project name="external/yocto/git.ti.com.processor-firmware.ti-linux-firmware" remote="base" path="layers/ti-j72xx-dl/git/git.ti.com.processor-firmware.ti-linux-firmware.git" bare="True"/>
+    <project name="external/yocto/git.ti.com.k3-image-gen.k3-image-gen" remote="base" path="layers/ti-j72xx-dl/git/git.ti.com.k3-image-gen.k3-image-gen.git" bare="True"/>
