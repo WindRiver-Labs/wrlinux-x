@@ -82,6 +82,9 @@ class Setup():
 
         self.mirror_index_path = None
 
+        # Make/Use the project mirror as PREMIRRORS for do_fetch
+        self.mirror_as_premirrors = False
+
         # Default configuration
         self.distros = [ settings.DEFAULT_DISTRO ]
         self.machines = [ settings.DEFAULT_MACHINE ]
@@ -161,6 +164,9 @@ class Setup():
         self.list_layers = False
         self.list_recipes = False
         self.list_wrtemplates = False
+
+        self.premirrors_dl = os.path.join(self.project_dir, 'premirrors-dl')
+        self.premirrors_dl_downloads = os.path.join(self.premirrors_dl, 'downloads')
 
     def exit(self, ret=0):
         logger.debug("setup.py finished (ret=%s)" % (ret))
@@ -286,6 +292,10 @@ class Setup():
         self.check_project_path()
 
         self.repo_sync()
+
+        if self.mirror_as_premirrors:
+            if self.mirror:
+                self.make_mirror_as_premirrors()
 
         self.exit(0)
 
@@ -1182,6 +1192,65 @@ class Setup():
                     logger.warning(path)
 
         logger.debug('Done')
+
+    def make_mirror_as_premirrors(self):
+        """
+        * dl*/downlaods: Use "git clone --local --branch <revision>" to clone dl layers into
+                         premirrors-dl, and copy (link) dl*/downloads/* into premirrors-dl/downloads,
+                         the premirrors-dl/downloads will be used as PREMIRRORS by client.
+
+        * git repo sources: No action is needed since they are already bare repos.
+        """
+
+        logger.info('Making project mirror as PREMIRRORS...')
+        premirrors_dict = {}
+        tree = ET.parse(self.default_xml)
+        root = tree.getroot()
+        for project in root.iter('project'):
+            name = project.attrib['name']
+            # Only need the dl layers
+            if name and name.startswith('layers/') and \
+                    (name.endswith('-dl') or '-dl-' in name):
+                try:
+                    revision = project.attrib['revision']
+                    premirrors_dict[name] = revision
+                except Exception as esc:
+                    logger.warning('%s: Failed to find revision: %s' % (name, esc))
+
+        if premirrors_dict:
+             if not os.path.exists(self.premirrors_dl):
+                os.mkdir(self.premirrors_dl)
+        else:
+            logger.warning("mirror-as-premirrors: No dl layers found!")
+            return
+
+        for name, revision in premirrors_dict.items():
+            src = os.path.join(self.project_dir, name)
+            dst = os.path.join(self.premirrors_dl, os.path.basename(name))
+            # Run the git reset and pull in the existed repo
+            dst_git = os.path.join(dst, '.git')
+            need_clone = True
+            if os.path.exists(dst_git):
+                logger.debug('Making %s as a PREMIRROR' % src)
+                try:
+                    for cmd in ([self.tools['git'], 'reset', '-q', '--hard', revision], \
+                                    [self.tools['git'], 'pull', '-fq']):
+                        utils_setup.run_cmd(cmd, environment=self.env, cwd=dst)
+                    need_clone = False
+                except Exception as esc:
+                    logger.warning('%s: Failed to update it: %s' % (dst, esc))
+                    logger.warning('%s: Removing it...' % dst)
+                    shutil.rmtree(dst)
+            if need_clone:
+                cmd = [self.tools['git'], 'clone', '--local', '-q', '--branch', revision, src, dst]
+                utils_setup.run_cmd(cmd, environment=self.env)
+        # Create a clean premirrors-dl/downloads as PREMIRRORS
+        if os.path.exists(self.premirrors_dl_downloads):
+            shutil.rmtree(self.premirrors_dl_downloads)
+        os.mkdir(self.premirrors_dl_downloads)
+        cmd = 'cp -alf %s/*-dl*/downloads/* %s' % (self.premirrors_dl, self.premirrors_dl_downloads)
+        subprocess.run(cmd, shell=True)
+        logger.info('The PREMIRROR files are prepared in %s' % self.premirrors_dl_downloads)
 
     def update_gitignore(self):
         logger.debug('Starting')
