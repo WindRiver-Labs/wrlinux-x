@@ -296,6 +296,8 @@ class Setup():
         if self.mirror_as_premirrors:
             if self.mirror:
                 self.make_mirror_as_premirrors()
+            else:
+                self.use_mirror_as_premirrors()
 
         self.exit(0)
 
@@ -1193,6 +1195,49 @@ class Setup():
 
         logger.debug('Done')
 
+    def get_git_premirrors_from_mirror_index(self, url, protocol):
+        """
+        Generate PREMIRRORS conf for git from mirror-index.
+        """
+        premirrors_conf_git = []
+        for xml in os.listdir(self.xml_dir):
+            xml_file = os.path.join(self.xml_dir, xml)
+            if not (xml.endswith('.xml') and '-dl' in xml):
+                logger.debug('Skipping %s' % xml_file)
+                continue
+
+            # Parse xml file and save the name, these xml files are just xml
+            # sections, not integrated xml, so can't use ET to parse them.
+            logger.debug('Parsing %s' % xml_file)
+            with open(xml_file) as x:
+                for line in x.readlines():
+                    if not 'name=' in line:
+                        continue
+                    # Part of the parsing errors may not matter since we only
+                    # need their parent dirs.
+                    try:
+                        name = line.split('name=')[1].split()[0].strip('"')
+                    except Exception as esc:
+                        logger.warning('Failed to get name from %s:%s' % (xml_file, line))
+                    if name:
+                        conf = "    git://.*/.* git://%s%s/%s/MIRRORNAME;protocol=%s \\n \\" % \
+                                (url.netloc, url.path, os.path.dirname(name), protocol)
+                    if not conf in premirrors_conf_git:
+                        premirrors_conf_git.append(conf)
+                        premirrors_conf_git.append(conf.replace('git://', 'gitsm://'))
+
+        # Make the subdirs in front to have a higher priority in PREMIRRORS, e.g.:
+        # external/yocto
+        # external/qt5
+        # [snip]
+        # external
+        if not premirrors_conf_git:
+            logger.warning('Failed get figure out dirs from %s' % self.xml_dir)
+        else:
+            premirrors_conf_git.reverse()
+
+        return premirrors_conf_git
+
     def make_mirror_as_premirrors(self):
         """
         * dl*/downlaods: Use "git clone --local --branch <revision>" to clone dl layers into
@@ -1251,6 +1296,59 @@ class Setup():
         cmd = 'cp -alf %s/*-dl*/downloads/* %s' % (self.premirrors_dl, self.premirrors_dl_downloads)
         subprocess.run(cmd, shell=True)
         logger.info('The PREMIRROR files are prepared in %s' % self.premirrors_dl_downloads)
+
+    def use_mirror_as_premirrors(self):
+        """
+        Use mirror as PREMIRRORS if the project is cloned from a mirror
+        """
+
+        logger.info('Using mirror as PREMIRRORS...')
+
+        if not self.mirror_index_path:
+            logger.warning("This project isn't setup from a project mirror, skipping mirror-as-premirrors")
+            return
+
+        premirrors_output = os.path.join(self.conf_dir, 'mirror-as-premirrors.conf')
+
+        enable_network = False
+        url = urlparse(self.base_url)
+        if url.scheme and url.scheme != 'file':
+            protocol = url.scheme
+            enable_network = True
+        else:
+            protocol = 'file'
+
+        premirrors_conf_git = self.get_git_premirrors_from_mirror_index(url, protocol)
+
+        premirrors_conf_downloads = []
+        downloads_via_git = ""
+        if protocol == 'git':
+            downloads_via_git = "The protocl git:// is invalid for premirrors-dl/downloads"
+            logger.warning('mirror-as-mirrorrs: %s' % downloads_via_git)
+
+        premirrors_conf_downloads.append("    .*://.*/.* %s://%s%s/premirrors-dl/downloads/ \\n \\" % \
+            (protocol, url.netloc, url.path))
+
+        with open(premirrors_output, 'w') as f:
+            f.write('# Use project mirror as PREMIRRORS for the build\n')
+            for conf in (premirrors_conf_git, premirrors_conf_downloads):
+                if conf == premirrors_conf_downloads and downloads_via_git:
+                    f.write('%s\n' % downloads_via_git)
+                f.write('PREMIRRORS:append = " \\\n')
+                f.write('%s\n"\n' % '\n'.join(conf))
+            if enable_network:
+                # The network is for PREMIRRORS only
+                f.write('\n# The network is for PREMIRRORS only')
+                f.write('BB_NO_NETWORK = "0"\n')
+                f.write('BB_FETCH_PREMIRRORONLY = "1"\n')
+
+        local_conf_sample = os.path.join(self.project_dir, 'config/local.conf.sample')
+        with open(local_conf_sample, 'a+') as f:
+            f.seek(0)
+            line = 'require ##OEROOT##/config/mirror-as-premirrors.conf\n'
+            if not line in f.readlines():
+                f.write('\n# Use project mirror as PREMIRRORS for the build\n')
+                f.write(line)
 
     def update_gitignore(self):
         logger.debug('Starting')
