@@ -563,17 +563,16 @@ class Setup():
             if not procConfig(distro=l):
                 allfound = False
 
-        # do MACHINE validation if the local layers list is empty
-        if self.local_layers or self.remote_layers:
-            logger.info("Local or remote layers specified. Skipping MACHINE validation")
-        else:
-            for l in self.machines:
-                if not procConfig(machine=l):
-                    allfound = False
+        for l in self.machines:
+            if not procConfig(machine=l):
+                if self.local_layers or self.remote_layers:
+                    logger.info("Machine %s not found but validation disabled due to local or remote layers specified.", l)
                 else:
-                    if l not in self.index.get_machines(self.base_branch, settings.DEFAULT_LAYER_COMPAT_TAG):
-                        logger.critical('Unsupported machine: %s' % l)
-                        self.exit(1)
+                    allfound = False
+            else:
+                if l not in self.index.get_machines(self.base_branch, settings.DEFAULT_LAYER_COMPAT_TAG):
+                    logger.critical('Unsupported machine: %s' % l)
+                    self.exit(1)
 
         for l in self.recipes:
             if not procConfig(recipe=l):
