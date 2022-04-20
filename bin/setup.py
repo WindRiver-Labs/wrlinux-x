@@ -1338,7 +1338,7 @@ class Setup():
                 f.write('%s\n"\n' % '\n'.join(conf))
             if enable_network:
                 # The network is for PREMIRRORS only
-                f.write('\n# The network is for PREMIRRORS only')
+                f.write('\n# The network is for PREMIRRORS only\n')
                 f.write('BB_NO_NETWORK = "0"\n')
                 f.write('BB_FETCH_PREMIRRORONLY = "1"\n')
 
