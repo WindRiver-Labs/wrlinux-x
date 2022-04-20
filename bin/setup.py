@@ -1252,15 +1252,18 @@ class Setup():
         tree = ET.parse(self.default_xml)
         root = tree.getroot()
         for project in root.iter('project'):
-            name = project.attrib['name']
             # Only need the dl layers
-            if name and name.startswith('layers/') and \
-                    (name.endswith('-dl') or '-dl-' in name):
+            if 'bare' in project.attrib and project.attrib['bare'] == "True":
+                continue
+            name = project.attrib['name']
+            if name and (name.endswith('-dl') or '-dl-' in name):
                 try:
-                    revision = project.attrib['revision']
-                    premirrors_dict[name] = revision
+                    path = project.attrib['path']
+                    if path and path.startswith('layers/'):
+                        revision = project.attrib['revision'].replace('refs/tags/', '')
+                        premirrors_dict[name] = revision
                 except Exception as esc:
-                    logger.warning('%s: Failed to find revision: %s' % (name, esc))
+                    logger.warning('%s: Failed to find revision or path: %s' % (name, esc))
 
         if premirrors_dict:
              if not os.path.exists(self.premirrors_dl):
@@ -1278,8 +1281,8 @@ class Setup():
             if os.path.exists(dst_git):
                 logger.debug('Making %s as a PREMIRROR' % src)
                 try:
-                    for cmd in ([self.tools['git'], 'reset', '-q', '--hard', revision], \
-                                    [self.tools['git'], 'pull', '-fq']):
+                    for cmd in ([self.tools['git'], 'fetch', '-q', 'origin', revision], \
+                                    [self.tools['git'], 'merge', '-q', 'FETCH_HEAD']):
                         utils_setup.run_cmd(cmd, environment=self.env, cwd=dst)
                     need_clone = False
                 except Exception as esc:
@@ -1287,8 +1290,13 @@ class Setup():
                     logger.warning('%s: Removing it...' % dst)
                     shutil.rmtree(dst)
             if need_clone:
-                cmd = [self.tools['git'], 'clone', '--local', '-q', '--branch', revision, src, dst]
+                # There are a lot of messages when run "git clone --branch <tag>"
+                # which rush the screen, so use "git clone -nq" to make it
+                # quiet, and "git checkout <branch/tag>" to checkout the files.
+                cmd = [self.tools['git'], 'clone', '--local', '-nq', src, dst]
                 utils_setup.run_cmd(cmd, environment=self.env)
+                cmd = [self.tools['git'], 'checkout', '-q', revision]
+                utils_setup.run_cmd(cmd, environment=self.env, cwd=dst)
         # Create a clean premirrors-dl/downloads as PREMIRRORS
         if os.path.exists(self.premirrors_dl_downloads):
             shutil.rmtree(self.premirrors_dl_downloads)
