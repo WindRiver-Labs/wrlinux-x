@@ -1331,19 +1331,20 @@ class Setup():
         premirrors_conf_downloads = []
         downloads_via_git = ""
         if protocol == 'git':
-            downloads_via_git = "The protocl git:// is invalid for premirrors-dl/downloads"
+            downloads_via_git = "The protocol git:// is invalid for premirrors-dl/downloads"
             logger.warning('mirror-as-mirrorrs: %s' % downloads_via_git)
-
-        premirrors_conf_downloads.append("    .*://.*/.* %s://%s%s/premirrors-dl/downloads/ \\n \\" % \
-            (protocol, url.netloc, url.path))
+        else:
+            premirrors_conf_downloads.append("    .*://.*/.* %s://%s%s/premirrors-dl/downloads/ \\n \\" % \
+                (protocol, url.netloc, url.path))
 
         with open(premirrors_output, 'w') as f:
             f.write('# Use project mirror as PREMIRRORS for the build\n')
-            for conf in (premirrors_conf_git, premirrors_conf_downloads):
-                if conf == premirrors_conf_downloads and downloads_via_git:
-                    f.write('%s\n' % downloads_via_git)
+            if premirrors_conf_git:
                 f.write('PREMIRRORS:append = " \\\n')
-                f.write('%s\n"\n' % '\n'.join(conf))
+                f.write('%s\n"\n' % '\n'.join(premirrors_conf_git))
+            if premirrors_conf_downloads:
+                f.write('PREMIRRORS:append = " \\\n')
+                f.write('%s\n"\n' % '\n'.join(premirrors_conf_downloads))
             if enable_network:
                 # The network is for PREMIRRORS only
                 f.write('\n# The network is for PREMIRRORS only\n')
