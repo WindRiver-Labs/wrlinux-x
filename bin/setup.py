@@ -1282,7 +1282,7 @@ class Setup():
                 logger.debug('Making %s as a PREMIRROR' % src)
                 try:
                     for cmd in ([self.tools['git'], 'fetch', '-q', 'origin', revision], \
-                                    [self.tools['git'], 'merge', '-q', 'FETCH_HEAD']):
+                                    [self.tools['git'], 'checkout', '-q', 'FETCH_HEAD']):
                         utils_setup.run_cmd(cmd, environment=self.env, cwd=dst)
                     need_clone = False
                 except Exception as esc:
