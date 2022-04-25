@@ -238,6 +238,19 @@ def update_mirror(_dst_mirror):
         # Nothing changed...
         pass
 
+def copy_premirrors_dl(dest):
+    premirrors_dl = "premirrors-dl/downloads/"
+    if os.path.exists(premirrors_dl):
+        logger.plain("Copying %s" % premirrors_dl)
+    else:
+        return
+    cmd = "cp --parent -a".split()
+    if os.stat(premirrors_dl).st_dev == os.stat(dest).st_dev:
+        # Hard link when possible
+        cmd.append("-l")
+    cmd += [premirrors_dl, dest]
+    utils_setup.run_cmd(cmd)
+
 # This assumes variables 'dest', 'git_push', 'subset_file' and
 # 'setup_dir' is globally set.
 def main():
@@ -504,6 +517,8 @@ def main():
             update_mirror(dst_mirror)
     else:
         update_mirror(dst_base_mirror)
+
+    copy_premirrors_dl(dest)
 
     logger.plain('Done')
     return 0
