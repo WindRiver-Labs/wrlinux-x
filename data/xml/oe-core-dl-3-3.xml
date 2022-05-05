@@ -152,3 +152,4 @@
     <project name="external/yocto/gitlab.freedesktop.org.mesa.waffle" remote="base" path="layers/oe-core-dl-3.3/git/gitlab.freedesktop.org.mesa.waffle.git" bare="True"/>
     <project name="external/yocto/github.com.asciidoc.asciidoc-py" remote="base" path="layers/oe-core-dl-3.3/git/github.com.asciidoc.asciidoc-py" bare="True"/>
     <project name="external/yocto/git.savannah.gnu.org.git.config" remote="base" path="layers/oe-core-dl-3.3/git/git.savannah.gnu.org.git.config.git" bare="True"/>
+    <project name="external/yocto/anongit.freedesktop.org.git.virglrenderer" remote="base" path="layers/oe-core-dl-3.3/git/anongit.freedesktop.org.git.virglrenderer" bare="True"/>
