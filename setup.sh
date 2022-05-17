@@ -185,7 +185,7 @@ fi
 # First check if this is an absolute path (starts w/ '/')
 # If it's not, we then check if it's a valid URL (contains ://)
 if [ "${BASEURL:0:1}" != '/' ]; then
-	if [ "${BASEURL#*://}" == "${BASEURL}" ]; then
+	if [ "${BASEURL#*://}" == "${BASEURL}" -a "${BASEURL#*:}" == "${BASEURL}" ]; then
 		echo >&2
 		echo "ERROR: The BASEURL ($BASEURL) is not in a supported format." >&2
 		if [ -n "${BASEREPO}" ]; then
@@ -200,6 +200,7 @@ if [ "${BASEURL:0:1}" != '/' ]; then
 		echo "  https://hostname/path" >&2
 		echo "  git://hostname/path" >&2
 		echo "  ssh://user@hostname/path" >&2
+		echo "  [user@]hostname:path" >&2
 		echo >&2
 		exit 1
 	fi
